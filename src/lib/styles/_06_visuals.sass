@@ -1,0 +1,188 @@
+// ============================================================================
+// dress — L5. Skin and compositions. Emission order within this file follows
+// Contract 5: bare dress before compositions. Components own their own hover
+// states; there is no standalone .hover / .transition (registry ruling).
+// All compositions read the --radius-* channels so shape presets reach them.
+// ============================================================================
+
+@use 'sass:string'
+@use 'sass:list'
+@use 'sass:map'
+@use '00_config' as *
+@use '00_tokens' as *
+
+// --- Bare backgrounds (one declaration each) ----------------------------------
+.bg
+	background: var(--bg)
+.surface
+	background: var(--bg-surface)
+.panel
+	background: var(--bg-panel)
+.sunken
+	background: var(--bg-sunken)
+.raised
+	background: var(--bg-raised)
+.extra
+	background: var(--bg-extra)
+
+// --- Ink ----------------------------------------------------------------------
+.text-primary
+	color: var(--text-primary)
+.text-secondary
+	color: var(--text-secondary)
+.text-muted
+	color: var(--text-muted)
+.text-inverse
+	color: var(--text-inverse)
+.text-white
+	color: var(--white-fixed)
+.text-black
+	color: var(--black-fixed)
+.text-theme
+	color: var(--theme-color)
+.text-success
+	color: var(--success)
+.text-warning
+	color: var(--warning)
+.text-danger
+	color: var(--danger)
+.text-info
+	color: var(--info)
+
+// Status fills, mirroring the status inks above. A dot or chip that carries the
+// status as a background had no composable form before these, which made it a
+// reason to open _08_own.sass.
+.bg-success
+	background: var(--success)
+.bg-warning
+	background: var(--warning)
+.bg-danger
+	background: var(--danger)
+.bg-info
+	background: var(--info)
+
+// --- Lines (the partition-law set) ---------------------------------------------
+.border
+	border: 1px solid var(--border)
+.border-subtle
+	border: 1px solid var(--border-subtle)
+.border-strong
+	border: 1px solid var(--border-strong)
+.bt
+	border-top: 1px solid var(--border)
+.br
+	border-right: 1px solid var(--border)
+.bb
+	border-bottom: 1px solid var(--border)
+.bl
+	border-left: 1px solid var(--border)
+.bt-str
+	border-top: 1px solid var(--border-strong)
+.br-str
+	border-right: 1px solid var(--border-strong)
+.bb-str
+	border-bottom: 1px solid var(--border-strong)
+.bl-str
+	border-left: 1px solid var(--border-strong)
+.bt-sub
+	border-top: 1px solid var(--border-subtle)
+.br-sub
+	border-right: 1px solid var(--border-subtle)
+.bb-sub
+	border-bottom: 1px solid var(--border-subtle)
+.bl-sub
+	border-left: 1px solid var(--border-subtle)
+
+// --- Typography -----------------------------------------------------------------
+.text-xs
+	font-size: var(--text-xs)
+	line-height: 1.5
+.text-sm
+	font-size: var(--text-sm)
+	line-height: 1.5
+.text-md
+	font-size: var(--text-md)
+	line-height: 1.6
+.text-bs
+	font-size: var(--text-bs)
+	line-height: 1.6
+.text-lg
+	font-size: var(--text-lg)
+	line-height: 1.4
+.text-xl
+	font-size: var(--text-xl)
+	line-height: 1.3
+.text-2xl
+	font-size: var(--text-2xl)
+	line-height: 1.2
+.text-3xl
+	font-size: var(--text-3xl)
+	line-height: 1.1
+.text-4xl
+	font-size: var(--text-4xl)
+	line-height: 1.1
+.text-5xl
+	font-size: var(--text-5xl)
+	line-height: 1.1
+
+.ls-tight-bs
+	letter-spacing: -0.01rem
+.ls-tight-lg
+	letter-spacing: -0.02rem
+.ls-tight-xl
+	letter-spacing: -0.03rem
+.ls-wide-bs
+	letter-spacing: 0.01rem
+.ls-wide-lg
+	letter-spacing: 0.02rem
+.ls-wide-xl
+	letter-spacing: 0.03rem
+
+.weight-300
+	font-weight: 300
+.weight-400
+	font-weight: 400
+.weight-500
+	font-weight: 500
+.weight-600
+	font-weight: 600
+.weight-700
+	font-weight: 700
+.weight-800
+	font-weight: 800
+
+.mono
+	font-family: var(--font-mono)
+.sans
+	font-family: var(--font-sans)
+.tt-u
+	text-transform: uppercase
+.tt-c
+	text-transform: capitalize
+.ta-c
+	text-align: center
+.ta-l
+	text-align: left
+
+.truncate
+	overflow: hidden
+	white-space: nowrap
+	text-overflow: ellipsis
+
+
+// --- Responsive visibility -----------------------------------------------------
+.hide-mobile
+	@media (max-width: 1024px)
+		display: none
+
+.hide-desktop
+	@media (min-width: 1025px)
+		display: none
+
+// Shadows — token channels; per-mode values live in tokens.
+.shadow-sm
+	box-shadow: var(--shadow-sm)
+.shadow-md
+	box-shadow: var(--shadow-md)
+.shadow-bs
+	box-shadow: var(--shadow-bs)

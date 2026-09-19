@@ -1,0 +1,134 @@
+@use '00_config' as *
+@use '00_tokens' as *
+
+.input
+	display: block
+	width: 100%
+	height: var(--height-lg)
+	padding-inline: var(--space-bs)
+	font-size: var(--text-md)
+	background: var(--bg-input)
+	color: var(--text-primary)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-sm)
+	&:focus-visible
+		outline: none
+		border-color: var(--theme-color)
+		box-shadow: 0 0 0 2px var(--ring)
+	&.small
+		height: var(--height-bs)
+		font-size: var(--text-sm)
+
+.select
+	display: block
+	width: 100%
+	height: var(--height-lg)
+	padding-inline: var(--space-bs)
+	font-size: var(--text-md)
+	background-color: var(--bg-input)
+	color: var(--text-primary)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-sm)
+	appearance: none
+	-webkit-appearance: none
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23697080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")
+	background-repeat: no-repeat
+	background-position: right 8px center
+	cursor: pointer
+	&:focus-visible
+		outline: none
+		border-color: var(--theme-color)
+		box-shadow: 0 0 0 2px var(--ring)
+	&.small
+		height: var(--height-bs)
+		font-size: var(--text-sm)
+
+
+// --- The link family -------------------------------------------------------------
+.link
+	color: var(--theme-color)
+	text-decoration: none
+	transition: color var(--motionin1)
+	&:hover
+		color: var(--theme-color-alt)
+
+.link-plain
+	color: var(--text-primary)
+	text-decoration: none
+	transition: color var(--motionin1)
+	&:hover
+		color: var(--theme-color)
+
+.link-parent
+	color: var(--text-primary)
+	text-decoration: none
+	.link-title
+		transition: color var(--motionin1)
+	&:hover
+		.link-title
+			color: var(--theme-color)
+
+// --- The button quartet (nested — never standalone) -----------------------------
+button
+	display: flex
+	align-items: center
+	height: var(--height-lg)
+	padding-inline: var(--space-md)
+	border: 1px solid transparent
+	border-radius: var(--radius-sm)
+	font-size: var(--text-md)
+	text-decoration: none
+	cursor: pointer
+	user-select: none
+	transition: background var(--motionin2), border-color var(--motionin2), color var(--motionin2)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 1px
+	&:disabled
+		opacity: 0.5
+		cursor: not-allowed
+		pointer-events: none
+	&.primary
+		background: var(--state-surface)
+		color: var(--white-fixed)
+		&:hover
+			background: var(--theme-color)
+		&[data-variant="active"]
+			background: var(--state-selected)
+			&:hover
+				background: var(--state-selected)
+	&.ghost
+		background: none
+		border: 1px solid transparent
+		color: var(--text-primary)
+		&:hover
+			color: var(--theme-color)
+		&[data-variant="active"]
+			border: 1px solid var(--theme-color)
+			&:hover
+				border: 1px solid var(--theme-color)
+	&.is-icon
+		padding: 0
+		background: 0
+		border: 0
+		color: var(--text-primary)
+		&:hover
+			color: var(--theme-color)
+	&.outline
+		border: 1px solid var(--bg-button)
+		background: none
+		color: var(--text-primary)
+		&:hover
+			background: var(--bg-button)
+			color: var(--white-fixed)
+		&[data-variant="active"]
+			background: var(--state-selected)
+			&:hover
+				background: var(--bg-button)
+				color: var(--white-fixed)
+	&.small
+		height: var(--height-md)
+		font-size: var(--text-sm)
+		padding-inline: var(--space-sm)
+
+
