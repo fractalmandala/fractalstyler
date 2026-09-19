@@ -1,0 +1,1538 @@
+[
+  {
+    "class": ".gap-*",
+    "layer": "L1",
+    "property": "gap: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Flex and grid gap spacing (presets: 3xs..3xl, literals: ladder to 64px)",
+    "example": "<div class=\"gap-*\">"
+  },
+  {
+    "class": ".rgap-*",
+    "layer": "L1",
+    "property": "row-gap: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Row gap spacing",
+    "example": "<div class=\"rgap-*\">"
+  },
+  {
+    "class": ".cgap-*",
+    "layer": "L1",
+    "property": "column-gap: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Column gap spacing",
+    "example": "<div class=\"cgap-*\">"
+  },
+  {
+    "class": ".pad-*",
+    "layer": "L1",
+    "property": "padding: calc(var(--space-*) * var(--pad-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Padding on all sides",
+    "example": "<div class=\"pad-*\">"
+  },
+  {
+    "class": ".pad-x-*",
+    "layer": "L1",
+    "property": "padding-inline: calc(var(--space-*) * var(--pad-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Horizontal inline padding",
+    "example": "<div class=\"pad-x-*\">"
+  },
+  {
+    "class": ".pad-y-*",
+    "layer": "L1",
+    "property": "padding-block: calc(var(--space-*) * var(--pad-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Vertical block padding",
+    "example": "<div class=\"pad-y-*\">"
+  },
+  {
+    "class": ".pad-top-*",
+    "layer": "L1",
+    "property": "padding-top: calc(var(--space-*) * var(--pad-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Top padding",
+    "example": "<div class=\"pad-top-*\">"
+  },
+  {
+    "class": ".pad-right-*",
+    "layer": "L1",
+    "property": "padding-right: calc(var(--space-*) * var(--pad-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Right padding",
+    "example": "<div class=\"pad-right-*\">"
+  },
+  {
+    "class": ".pad-bottom-*",
+    "layer": "L1",
+    "property": "padding-bottom: calc(var(--space-*) * var(--pad-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Bottom padding",
+    "example": "<div class=\"pad-bottom-*\">"
+  },
+  {
+    "class": ".pad-left-*",
+    "layer": "L1",
+    "property": "padding-left: calc(var(--space-*) * var(--pad-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Left padding",
+    "example": "<div class=\"pad-left-*\">"
+  },
+  {
+    "class": ".marg-*",
+    "layer": "L1",
+    "property": "margin: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Margin on all sides",
+    "example": "<div class=\"marg-*\">"
+  },
+  {
+    "class": ".marg--*",
+    "layer": "L1",
+    "property": "margin: calc(var(--space-*) * var(--gap-scale) * -1) | -{N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Negative margin on all sides",
+    "example": "<div class=\"marg--*\">"
+  },
+  {
+    "class": ".marg-x-*",
+    "layer": "L1",
+    "property": "margin-inline: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Horizontal inline margin",
+    "example": "<div class=\"marg-x-*\">"
+  },
+  {
+    "class": ".marg-y-*",
+    "layer": "L1",
+    "property": "margin-block: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Vertical block margin",
+    "example": "<div class=\"marg-y-*\">"
+  },
+  {
+    "class": ".marg-top-*",
+    "layer": "L1",
+    "property": "margin-top: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Top margin",
+    "example": "<div class=\"marg-top-*\">"
+  },
+  {
+    "class": ".marg-top--*",
+    "layer": "L1",
+    "property": "margin-top: calc(var(--space-*) * var(--gap-scale) * -1) | -{N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Negative top margin",
+    "example": "<div class=\"marg-top--*\">"
+  },
+  {
+    "class": ".marg-bottom-*",
+    "layer": "L1",
+    "property": "margin-bottom: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Bottom margin",
+    "example": "<div class=\"marg-bottom-*\">"
+  },
+  {
+    "class": ".marg-bottom--*",
+    "layer": "L1",
+    "property": "margin-bottom: calc(var(--space-*) * var(--gap-scale) * -1) | -{N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Negative bottom margin",
+    "example": "<div class=\"marg-bottom--*\">"
+  },
+  {
+    "class": ".marg-left-*",
+    "layer": "L1",
+    "property": "margin-left: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Left margin",
+    "example": "<div class=\"marg-left-*\">"
+  },
+  {
+    "class": ".marg-right-*",
+    "layer": "L1",
+    "property": "margin-right: calc(var(--space-*) * var(--gap-scale)) | {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Right margin",
+    "example": "<div class=\"marg-right-*\">"
+  },
+  {
+    "class": ".radius-*",
+    "layer": "L1",
+    "property": "border-radius: {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Corner border radius (ladder to 64px; .radius-0 is the reset, .radius-full for pills)",
+    "example": "<div class=\"radius-*\">"
+  },
+  {
+    "class": ".radius-full",
+    "layer": "L1",
+    "property": "border-radius: var(--radius-full)",
+    "file": "_02_dimensions.sass",
+    "description": "Circular border radius (9999px)",
+    "example": "<div class=\"radius-full\">"
+  },
+  {
+    "class": ".w-*",
+    "layer": "L1",
+    "property": "width: {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Width in pixels (ladder to 512px)",
+    "example": "<div class=\"w-*\">"
+  },
+  {
+    "class": ".h-*",
+    "layer": "L1",
+    "property": "height: {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Height in pixels (ladder to 512px)",
+    "example": "<div class=\"h-*\">"
+  },
+  {
+    "class": ".square-*",
+    "layer": "L1",
+    "property": "width: {N}px; height: {N}px",
+    "file": "_02_dimensions.sass",
+    "description": "Square dimensions in pixels (ladder to 512px)",
+    "example": "<div class=\"square-*\">"
+  },
+  {
+    "class": ".min0",
+    "layer": "L1",
+    "property": "min-width: 0; min-height: 0",
+    "file": "_02_dimensions.sass",
+    "description": "Zero min bounds to prevent flex blowouts",
+    "example": "<div class=\"min0\">"
+  },
+  {
+    "class": ".wfull",
+    "layer": "L1",
+    "property": "width: 100%",
+    "file": "_02_dimensions.sass",
+    "description": "100% full width",
+    "example": "<div class=\"wfull\">"
+  },
+  {
+    "class": ".hfull",
+    "layer": "L1",
+    "property": "height: 100%",
+    "file": "_02_dimensions.sass",
+    "description": "100% full height",
+    "example": "<div class=\"hfull\">"
+  },
+  {
+    "class": ".full",
+    "layer": "L1",
+    "property": "width: 100%; height: 100%",
+    "file": "_02_dimensions.sass",
+    "description": "100% width and height",
+    "example": "<div class=\"full\">"
+  },
+  {
+    "class": ".hfull-vh",
+    "layer": "L1",
+    "property": "min-height: 100vh",
+    "file": "_02_dimensions.sass",
+    "description": "Full viewport height",
+    "example": "<div class=\"hfull-vh\">"
+  },
+  {
+    "class": ".hfull-vh-fitted",
+    "layer": "L1",
+    "property": "min-height: calc(100vh - var(--header-height) - var(--footer-height))",
+    "file": "_02_dimensions.sass",
+    "description": "Viewport height fitted between header and footer",
+    "example": "<div class=\"hfull-vh-fitted\">"
+  },
+  {
+    "class": ".bdr",
+    "layer": "L0",
+    "property": "border: 1px solid red",
+    "file": "_01_base.sass",
+    "description": "Debug outline — flags an element on screen with a red border",
+    "example": "<div class=\"bdr\">"
+  },
+  {
+    "class": ".frame-16-9",
+    "layer": "L3",
+    "property": "aspect-ratio: 16 / 9",
+    "file": "_04_layouts.sass",
+    "description": "Aspect-ratio media frame (16/9)",
+    "example": "<div class=\"frame-16-9\">"
+  },
+  {
+    "class": ".frame-9-16",
+    "layer": "L3",
+    "property": "aspect-ratio: 9 / 16",
+    "file": "_04_layouts.sass",
+    "description": "Aspect-ratio media frame (9/16)",
+    "example": "<div class=\"frame-9-16\">"
+  },
+  {
+    "class": ".frame-4-3",
+    "layer": "L3",
+    "property": "aspect-ratio: 4 / 3",
+    "file": "_04_layouts.sass",
+    "description": "Aspect-ratio media frame (4/3)",
+    "example": "<div class=\"frame-4-3\">"
+  },
+  {
+    "class": ".frame-3-4",
+    "layer": "L3",
+    "property": "aspect-ratio: 3 / 4",
+    "file": "_04_layouts.sass",
+    "description": "Aspect-ratio media frame (3/4)",
+    "example": "<div class=\"frame-3-4\">"
+  },
+  {
+    "class": ".frame-3-2",
+    "layer": "L3",
+    "property": "aspect-ratio: 3 / 2",
+    "file": "_04_layouts.sass",
+    "description": "Aspect-ratio media frame (3/2)",
+    "example": "<div class=\"frame-3-2\">"
+  },
+  {
+    "class": ".frame-2-3",
+    "layer": "L3",
+    "property": "aspect-ratio: 2 / 3",
+    "file": "_04_layouts.sass",
+    "description": "Aspect-ratio media frame (2/3)",
+    "example": "<div class=\"frame-2-3\">"
+  },
+  {
+    "class": ".frame-1-1",
+    "layer": "L3",
+    "property": "aspect-ratio: 1 / 1",
+    "file": "_04_layouts.sass",
+    "description": "Aspect-ratio media frame (1/1)",
+    "example": "<div class=\"frame-1-1\">"
+  },
+  {
+    "class": ".radius-xs",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".radius-xs component / container",
+    "example": "<div class=\"radius-xs\">"
+  },
+  {
+    "class": ".radius-sm",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".radius-sm component / container",
+    "example": "<div class=\"radius-sm\">"
+  },
+  {
+    "class": ".radius-md",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".radius-md component / container",
+    "example": "<div class=\"radius-md\">"
+  },
+  {
+    "class": ".radius-bs",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".radius-bs component / container",
+    "example": "<div class=\"radius-bs\">"
+  },
+  {
+    "class": ".radius-lg",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".radius-lg component / container",
+    "example": "<div class=\"radius-lg\">"
+  },
+  {
+    "class": ".minw0",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".minw0 component / container",
+    "example": "<div class=\"minw0\">"
+  },
+  {
+    "class": ".minh0",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".minh0 component / container",
+    "example": "<div class=\"minh0\">"
+  },
+  {
+    "class": ".h-sm",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".h-sm component / container",
+    "example": "<div class=\"h-sm\">"
+  },
+  {
+    "class": ".h-md",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".h-md component / container",
+    "example": "<div class=\"h-md\">"
+  },
+  {
+    "class": ".h-bs",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".h-bs component / container",
+    "example": "<div class=\"h-bs\">"
+  },
+  {
+    "class": ".h-lg",
+    "layer": "L1",
+    "property": "",
+    "file": "_02_dimensions.sass",
+    "description": ".h-lg component / container",
+    "example": "<div class=\"h-lg\">"
+  },
+  {
+    "class": ".box",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".box component / container",
+    "example": "<div class=\"box\">"
+  },
+  {
+    "class": ".box.xcenter",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.xcenter\">"
+  },
+  {
+    "class": ".box.xleft",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.xleft\">"
+  },
+  {
+    "class": ".box.xright",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.xright\">"
+  },
+  {
+    "class": ".box.ycenter",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.ycenter\">"
+  },
+  {
+    "class": ".box.ytop",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.ytop\">"
+  },
+  {
+    "class": ".box.ybot",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.ybot\">"
+  },
+  {
+    "class": ".box.ybetween",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.ybetween\">"
+  },
+  {
+    "class": ".box.yevenly",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.yevenly\">"
+  },
+  {
+    "class": ".box.yaround",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .box",
+    "example": "<div class=\"box.yaround\">"
+  },
+  {
+    "class": ".row",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".row component / container",
+    "example": "<div class=\"row\">"
+  },
+  {
+    "class": ".row.xleft",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.xleft\">"
+  },
+  {
+    "class": ".row.xcenter",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.xcenter\">"
+  },
+  {
+    "class": ".row.xright",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.xright\">"
+  },
+  {
+    "class": ".row.xbetween",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.xbetween\">"
+  },
+  {
+    "class": ".row.xevenly",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.xevenly\">"
+  },
+  {
+    "class": ".row.xaround",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.xaround\">"
+  },
+  {
+    "class": ".row.ycenter",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.ycenter\">"
+  },
+  {
+    "class": ".row.ytop",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.ytop\">"
+  },
+  {
+    "class": ".row.ybot",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .row",
+    "example": "<div class=\"row.ybot\">"
+  },
+  {
+    "class": ".grid",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".grid component / container",
+    "example": "<div class=\"grid\">"
+  },
+  {
+    "class": ".grid.center",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.center\">"
+  },
+  {
+    "class": ".grid.xcenter",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.xcenter\">"
+  },
+  {
+    "class": ".grid.xleft",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.xleft\">"
+  },
+  {
+    "class": ".grid.xright",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.xright\">"
+  },
+  {
+    "class": ".grid.xstretch",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.xstretch\">"
+  },
+  {
+    "class": ".grid.ycenter",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.ycenter\">"
+  },
+  {
+    "class": ".grid.ytop",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.ytop\">"
+  },
+  {
+    "class": ".grid.ybot",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.ybot\">"
+  },
+  {
+    "class": ".grid.ystretch",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.ystretch\">"
+  },
+  {
+    "class": ".grid.xbetween",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.xbetween\">"
+  },
+  {
+    "class": ".grid.xevenly",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.xevenly\">"
+  },
+  {
+    "class": ".grid.xaround",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.xaround\">"
+  },
+  {
+    "class": ".grid.ybetween",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.ybetween\">"
+  },
+  {
+    "class": ".grid.yevenly",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.yevenly\">"
+  },
+  {
+    "class": ".grid.yaround",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Modifier for .grid",
+    "example": "<div class=\"grid.yaround\">"
+  },
+  {
+    "class": ".wrap",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".wrap component / container",
+    "example": "<div class=\"wrap\">"
+  },
+  {
+    "class": ".grow",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".grow component / container",
+    "example": "<div class=\"grow\">"
+  },
+  {
+    "class": ".shrink-0",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".shrink-0 component / container",
+    "example": "<div class=\"shrink-0\">"
+  },
+  {
+    "class": ".relative",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".relative component / container",
+    "example": "<div class=\"relative\">"
+  },
+  {
+    "class": ".absolute",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".absolute component / container",
+    "example": "<div class=\"absolute\">"
+  },
+  {
+    "class": ".fixed",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".fixed component / container",
+    "example": "<div class=\"fixed\">"
+  },
+  {
+    "class": ".sticky",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": ".sticky component / container",
+    "example": "<div class=\"sticky\">"
+  },
+  {
+    "class": ".scroll-y",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Vertical scroll inside a bounded height; needs an .h-* or a constraining flex parent",
+    "example": "<div class=\"scroll-y\">"
+  },
+  {
+    "class": ".scroll-x",
+    "layer": "L2",
+    "property": "",
+    "file": "_03_containers.sass",
+    "description": "Horizontal scroll inside a bounded width; .reel adds snap points",
+    "example": "<div class=\"scroll-x\">"
+  },
+  {
+    "class": ".grid-1",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".grid-1 component / container",
+    "example": "<div class=\"grid-1\">"
+  },
+  {
+    "class": ".grid-2",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".grid-2 component / container",
+    "example": "<div class=\"grid-2\">"
+  },
+  {
+    "class": ".grid-3",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".grid-3 component / container",
+    "example": "<div class=\"grid-3\">"
+  },
+  {
+    "class": ".grid-4",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".grid-4 component / container",
+    "example": "<div class=\"grid-4\">"
+  },
+  {
+    "class": ".grid-6",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".grid-6 component / container",
+    "example": "<div class=\"grid-6\">"
+  },
+  {
+    "class": ".card-grid",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".card-grid component / container",
+    "example": "<div class=\"card-grid\">"
+  },
+  {
+    "class": ".prose",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".prose component / container",
+    "example": "<div class=\"prose\">"
+  },
+  {
+    "class": ".reel",
+    "layer": "L3",
+    "property": "",
+    "file": "_04_layouts.sass",
+    "description": ".reel component / container",
+    "example": "<div class=\"reel\">"
+  },
+  {
+    "class": ".app-shell",
+    "layer": "L4",
+    "property": "",
+    "file": "_05_shells.sass",
+    "description": ".app-shell component / container",
+    "example": "<div class=\"app-shell\">"
+  },
+  {
+    "class": ".app-header",
+    "layer": "L4",
+    "property": "",
+    "file": "_05_shells.sass",
+    "description": ".app-header component / container",
+    "example": "<div class=\"app-header\">"
+  },
+  {
+    "class": ".app-main",
+    "layer": "L4",
+    "property": "",
+    "file": "_05_shells.sass",
+    "description": ".app-main component / container",
+    "example": "<div class=\"app-main\">"
+  },
+  {
+    "class": ".main-section",
+    "layer": "L4",
+    "property": "",
+    "file": "_05_shells.sass",
+    "description": ".main-section component / container",
+    "example": "<div class=\"main-section\">"
+  },
+  {
+    "class": ".sidebar-left",
+    "layer": "L4",
+    "property": "",
+    "file": "_05_shells.sass",
+    "description": ",",
+    "example": "<div class=\"sidebar-left\">"
+  },
+  {
+    "class": ".sidebar-right",
+    "layer": "L4",
+    "property": "",
+    "file": "_05_shells.sass",
+    "description": ".sidebar-right component / container",
+    "example": "<div class=\"sidebar-right\">"
+  },
+  {
+    "class": ".app-footer",
+    "layer": "L4",
+    "property": "",
+    "file": "_05_shells.sass",
+    "description": ".app-footer component / container",
+    "example": "<div class=\"app-footer\">"
+  },
+  {
+    "class": ".bg",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bg component / container",
+    "example": "<div class=\"bg\">"
+  },
+  {
+    "class": ".surface",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".surface component / container",
+    "example": "<div class=\"surface\">"
+  },
+  {
+    "class": ".panel",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".panel component / container",
+    "example": "<div class=\"panel\">"
+  },
+  {
+    "class": ".sunken",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".sunken component / container",
+    "example": "<div class=\"sunken\">"
+  },
+  {
+    "class": ".raised",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".raised component / container",
+    "example": "<div class=\"raised\">"
+  },
+  {
+    "class": ".extra",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".extra component / container",
+    "example": "<div class=\"extra\">"
+  },
+  {
+    "class": ".text-primary",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-primary component / container",
+    "example": "<div class=\"text-primary\">"
+  },
+  {
+    "class": ".text-secondary",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-secondary component / container",
+    "example": "<div class=\"text-secondary\">"
+  },
+  {
+    "class": ".text-muted",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-muted component / container",
+    "example": "<div class=\"text-muted\">"
+  },
+  {
+    "class": ".text-inverse",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-inverse component / container",
+    "example": "<div class=\"text-inverse\">"
+  },
+  {
+    "class": ".text-white",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-white component / container",
+    "example": "<div class=\"text-white\">"
+  },
+  {
+    "class": ".text-black",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-black component / container",
+    "example": "<div class=\"text-black\">"
+  },
+  {
+    "class": ".text-theme",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-theme component / container",
+    "example": "<div class=\"text-theme\">"
+  },
+  {
+    "class": ".text-success",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-success component / container",
+    "example": "<div class=\"text-success\">"
+  },
+  {
+    "class": ".text-warning",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-warning component / container",
+    "example": "<div class=\"text-warning\">"
+  },
+  {
+    "class": ".text-danger",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-danger component / container",
+    "example": "<div class=\"text-danger\">"
+  },
+  {
+    "class": ".text-info",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-info component / container",
+    "example": "<div class=\"text-info\">"
+  },
+  {
+    "class": ".bg-success",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bg-success component / container",
+    "example": "<div class=\"bg-success\">"
+  },
+  {
+    "class": ".bg-warning",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bg-warning component / container",
+    "example": "<div class=\"bg-warning\">"
+  },
+  {
+    "class": ".bg-danger",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bg-danger component / container",
+    "example": "<div class=\"bg-danger\">"
+  },
+  {
+    "class": ".bg-info",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bg-info component / container",
+    "example": "<div class=\"bg-info\">"
+  },
+  {
+    "class": ".border",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".border component / container",
+    "example": "<div class=\"border\">"
+  },
+  {
+    "class": ".border-subtle",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".border-subtle component / container",
+    "example": "<div class=\"border-subtle\">"
+  },
+  {
+    "class": ".border-strong",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".border-strong component / container",
+    "example": "<div class=\"border-strong\">"
+  },
+  {
+    "class": ".bt",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bt component / container",
+    "example": "<div class=\"bt\">"
+  },
+  {
+    "class": ".br",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".br component / container",
+    "example": "<div class=\"br\">"
+  },
+  {
+    "class": ".bb",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bb component / container",
+    "example": "<div class=\"bb\">"
+  },
+  {
+    "class": ".bl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bl component / container",
+    "example": "<div class=\"bl\">"
+  },
+  {
+    "class": ".bt-str",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bt-str component / container",
+    "example": "<div class=\"bt-str\">"
+  },
+  {
+    "class": ".br-str",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".br-str component / container",
+    "example": "<div class=\"br-str\">"
+  },
+  {
+    "class": ".bb-str",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bb-str component / container",
+    "example": "<div class=\"bb-str\">"
+  },
+  {
+    "class": ".bl-str",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bl-str component / container",
+    "example": "<div class=\"bl-str\">"
+  },
+  {
+    "class": ".bt-sub",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bt-sub component / container",
+    "example": "<div class=\"bt-sub\">"
+  },
+  {
+    "class": ".br-sub",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".br-sub component / container",
+    "example": "<div class=\"br-sub\">"
+  },
+  {
+    "class": ".bb-sub",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bb-sub component / container",
+    "example": "<div class=\"bb-sub\">"
+  },
+  {
+    "class": ".bl-sub",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".bl-sub component / container",
+    "example": "<div class=\"bl-sub\">"
+  },
+  {
+    "class": ".text-xs",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-xs component / container",
+    "example": "<div class=\"text-xs\">"
+  },
+  {
+    "class": ".text-sm",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-sm component / container",
+    "example": "<div class=\"text-sm\">"
+  },
+  {
+    "class": ".text-md",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-md component / container",
+    "example": "<div class=\"text-md\">"
+  },
+  {
+    "class": ".text-bs",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-bs component / container",
+    "example": "<div class=\"text-bs\">"
+  },
+  {
+    "class": ".text-lg",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-lg component / container",
+    "example": "<div class=\"text-lg\">"
+  },
+  {
+    "class": ".text-xl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-xl component / container",
+    "example": "<div class=\"text-xl\">"
+  },
+  {
+    "class": ".text-2xl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-2xl component / container",
+    "example": "<div class=\"text-2xl\">"
+  },
+  {
+    "class": ".text-3xl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-3xl component / container",
+    "example": "<div class=\"text-3xl\">"
+  },
+  {
+    "class": ".text-4xl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-4xl component / container",
+    "example": "<div class=\"text-4xl\">"
+  },
+  {
+    "class": ".text-5xl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".text-5xl component / container",
+    "example": "<div class=\"text-5xl\">"
+  },
+  {
+    "class": ".ls-tight-bs",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ls-tight-bs component / container",
+    "example": "<div class=\"ls-tight-bs\">"
+  },
+  {
+    "class": ".ls-tight-lg",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ls-tight-lg component / container",
+    "example": "<div class=\"ls-tight-lg\">"
+  },
+  {
+    "class": ".ls-tight-xl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ls-tight-xl component / container",
+    "example": "<div class=\"ls-tight-xl\">"
+  },
+  {
+    "class": ".ls-wide-bs",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ls-wide-bs component / container",
+    "example": "<div class=\"ls-wide-bs\">"
+  },
+  {
+    "class": ".ls-wide-lg",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ls-wide-lg component / container",
+    "example": "<div class=\"ls-wide-lg\">"
+  },
+  {
+    "class": ".ls-wide-xl",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ls-wide-xl component / container",
+    "example": "<div class=\"ls-wide-xl\">"
+  },
+  {
+    "class": ".weight-300",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".weight-300 component / container",
+    "example": "<div class=\"weight-300\">"
+  },
+  {
+    "class": ".weight-400",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".weight-400 component / container",
+    "example": "<div class=\"weight-400\">"
+  },
+  {
+    "class": ".weight-500",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".weight-500 component / container",
+    "example": "<div class=\"weight-500\">"
+  },
+  {
+    "class": ".weight-600",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".weight-600 component / container",
+    "example": "<div class=\"weight-600\">"
+  },
+  {
+    "class": ".weight-700",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".weight-700 component / container",
+    "example": "<div class=\"weight-700\">"
+  },
+  {
+    "class": ".weight-800",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".weight-800 component / container",
+    "example": "<div class=\"weight-800\">"
+  },
+  {
+    "class": ".mono",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".mono component / container",
+    "example": "<div class=\"mono\">"
+  },
+  {
+    "class": ".sans",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".sans component / container",
+    "example": "<div class=\"sans\">"
+  },
+  {
+    "class": ".tt-u",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".tt-u component / container",
+    "example": "<div class=\"tt-u\">"
+  },
+  {
+    "class": ".tt-c",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".tt-c component / container",
+    "example": "<div class=\"tt-c\">"
+  },
+  {
+    "class": ".ta-c",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ta-c component / container",
+    "example": "<div class=\"ta-c\">"
+  },
+  {
+    "class": ".ta-l",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".ta-l component / container",
+    "example": "<div class=\"ta-l\">"
+  },
+  {
+    "class": ".truncate",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".truncate component / container",
+    "example": "<div class=\"truncate\">"
+  },
+  {
+    "class": ".hide-mobile",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".hide-mobile component / container",
+    "example": "<div class=\"hide-mobile\">"
+  },
+  {
+    "class": ".hide-desktop",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".hide-desktop component / container",
+    "example": "<div class=\"hide-desktop\">"
+  },
+  {
+    "class": ".shadow-sm",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".shadow-sm component / container",
+    "example": "<div class=\"shadow-sm\">"
+  },
+  {
+    "class": ".shadow-md",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".shadow-md component / container",
+    "example": "<div class=\"shadow-md\">"
+  },
+  {
+    "class": ".shadow-bs",
+    "layer": "L5",
+    "property": "",
+    "file": "_06_visuals.sass",
+    "description": ".shadow-bs component / container",
+    "example": "<div class=\"shadow-bs\">"
+  },
+  {
+    "class": ".input",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": ".input component / container",
+    "example": "<div class=\"input\">"
+  },
+  {
+    "class": ".input.small",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": "Modifier for .input",
+    "example": "<div class=\"input.small\">"
+  },
+  {
+    "class": ".select",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": ".select component / container",
+    "example": "<div class=\"select\">"
+  },
+  {
+    "class": ".select.small",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": "Modifier for .select",
+    "example": "<div class=\"select.small\">"
+  },
+  {
+    "class": ".link",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": ".link component / container",
+    "example": "<div class=\"link\">"
+  },
+  {
+    "class": ".link-plain",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": ".link-plain component / container",
+    "example": "<div class=\"link-plain\">"
+  },
+  {
+    "class": ".link-parent",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": ".link-parent component / container",
+    "example": "<div class=\"link-parent\">"
+  },
+  {
+    "class": ".link-parent.primary",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": "Modifier for .link-parent",
+    "example": "<div class=\"link-parent.primary\">"
+  },
+  {
+    "class": ".link-parent.ghost",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": "Modifier for .link-parent",
+    "example": "<div class=\"link-parent.ghost\">"
+  },
+  {
+    "class": ".link-parent.is-icon",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": "Modifier for .link-parent",
+    "example": "<div class=\"link-parent.is-icon\">"
+  },
+  {
+    "class": ".link-parent.outline",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": "Modifier for .link-parent",
+    "example": "<div class=\"link-parent.outline\">"
+  },
+  {
+    "class": ".link-parent.small",
+    "layer": "L5",
+    "property": "",
+    "file": "_07_interactions.sass",
+    "description": "Modifier for .link-parent",
+    "example": "<div class=\"link-parent.small\">"
+  }
+]
