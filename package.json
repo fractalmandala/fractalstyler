@@ -1,19 +1,22 @@
 {
-	"name": "fractalstyler",
+	"name": "@fractaldesign/fractalstyler",
 	"version": "0.9.0",
 	"description": "A composition styling system, shipped as plain CSS and as editable SASS. The class registry is the public API: compose in markup, write no stylesheet.",
 	"bin": {
-		"fractalstyler": "./dist/cli.js",
-		"fractalstyler-mcp": "./dist/mcp/server.js"
+		"fractalstyler": "./cli/main.mjs",
+		"fractalstyler-lint": "./lint/cli.mjs"
 	},
 	"scripts": {
-		"registry": "node scripts/update-registry.js",
+		"registry": "node scripts/update-registry.js && node scripts/class-vocab.js",
+		"vocab": "node scripts/class-vocab.js",
+		"lint": "node lint/cli.mjs",
+		"browser": "node lint/browser.mjs",
 		"dev": "vite dev",
 		"preview": "vite preview",
 		"build": "npm run registry && npm run prepack",
 		"prepare": "svelte-kit sync || echo ''",
-		"prepack": "npm run registry && svelte-kit sync && svelte-package && npm run css && chmod +x dist/cli.js && chmod +x dist/mcp/server.js && publint",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && node scripts/validate-deck.js",
+		"prepack": "npm run registry && svelte-kit sync && svelte-package && npm run css && ([ -f lint/cli.mjs ] && chmod +x lint/cli.mjs || true) && publint",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && node scripts/validate-deck.js && node lint/cli.mjs",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"validate:deck": "node scripts/validate-deck.js",
 		"css": "node scripts/build-css.js",
@@ -26,8 +29,14 @@
 		"!dist/**/*.spec.*",
 		"registry.json",
 		"skills",
-		"plugin.json",
-		"mcp.json"
+		"lint",
+		"data",
+		"cli",
+		"docs/REGISTRY.md",
+		"docs/REGISTRY.api.md",
+		"docs/references",
+		"scripts/update-registry.js",
+		"scripts/class-vocab.js"
 	],
 	"sideEffects": [
 		"**/*.css"
@@ -38,7 +47,8 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
 		},
 		"./styles": {
 			"types": "./dist/asset.d.ts",
@@ -49,16 +59,6 @@
 			"types": "./dist/asset.d.ts",
 			"default": "./dist/styles/_00_tokens.sass"
 		},
-		"./mcp": "./dist/mcp/server.js",
-		"./package.json": "./package.json",
-		"./themes": {
-			"types": "./dist/asset.d.ts",
-			"default": "./dist/styles/_00_themes.sass"
-		},
-		"./presets": {
-			"types": "./dist/presets.core.d.ts",
-			"default": "./dist/presets.core.js"
-		},
 		"./css": {
 			"types": "./dist/asset.d.ts",
 			"default": "./dist/css/fractalstyler.css"
@@ -67,13 +67,12 @@
 			"types": "./dist/asset.d.ts",
 			"default": "./dist/css/fractalstyler.min.css"
 		},
-		"./styles/presets": {
-			"types": "./dist/asset.d.ts",
-			"default": "./dist/styles/_00_presets.sass"
-		}
+		"./recipes": "./data/recipes.json",
+		"./package.json": "./package.json"
 	},
 	"peerDependencies": {
-		"svelte": "^5.0.0"
+		"svelte": "^5.0.0",
+		"sass": "^1.102.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.1",
@@ -101,5 +100,13 @@
 	],
 	"dependencies": {
 		"@modelcontextprotocol/sdk": "^1.30.0"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"peerDependenciesMeta": {
+		"sass": {
+			"optional": true
+		}
 	}
 }

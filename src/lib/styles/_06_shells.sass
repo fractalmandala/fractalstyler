@@ -31,13 +31,21 @@ $lg: map.get($breakpoints, lg)
 	z-index: var(--z-sticky)
 	height: var(--header-height)
 	padding-inline: var(--app-inline)
+	background: var(--bg-surface)
+	&.clamped
+		width: var(--content-clamp)
+		margin-inline: auto
 
 .app-main
 	flex: 1 1 0%
 	min-width: 0
-	min-height: var(--fit-height)
+	min-height: calc(100dvh - var(--fit-height))
 	display: flex
 	flex-direction: row
+	padding-inline: var(--app-inline)
+	&.clamped
+		width: var(--content-clamp)
+		margin-inline: auto
 
 .main-section
 	flex: 1 1 0%
@@ -53,8 +61,12 @@ $lg: map.get($breakpoints, lg)
 	flex-shrink: 0
 	position: sticky
 	top: var(--header-height)
-	height: var(--fit-height)
+	height: calc(100dvh - var(--fit-height))
 	overflow-y: auto
+	padding-block: var(--space-2xl)
+	ul, ol
+		margin-left: 0
+		padding-left: 0
 
 .sidebar-left
 	width: var(--sidebar-width-left)
@@ -84,3 +96,40 @@ $lg: map.get($breakpoints, lg)
 	align-items: center
 	padding-inline: var(--app-inline)
 	min-height: var(--footer-height)
+
+.content-section
+	width: 100%
+	padding: var(--space-2xl) 0
+	&.null
+		padding: 0 var(--space-bs)
+	@media (min-width: 769px)
+		padding: var(--space-2xl) var(--space-bs)
+		&.narrow-half
+			padding: var(--space-2xl) 0
+			width: 640px
+			margin-inline: auto
+		&.narrow-wide
+			padding: var(--space-2xl) 0
+			width: 720px
+			margin-inline: auto
+	@media (min-width: 1025px)
+		padding: var(--space-2xl) var(--space-bs)
+		&.narrow-full
+			width: 640px
+			margin-inline: auto
+		&.narrow-half
+			width: 750px
+			padding-right: 25px
+		&.narrow-wide
+			width: 750px
+	@media (min-width: 1281px)
+		&.narrow-full
+			width: 680px
+		&.narrow-half
+			width: 800px
+			padding-right: 120px
+		&.narrow-wide
+			width: 1024px
+	@media (min-width: 1441px)
+		&.narrow-wide
+			width: 1280px

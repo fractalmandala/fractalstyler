@@ -1,0 +1,23 @@
+{
+	"schemaVersion": "1.0.0",
+	"mode": "closed-world",
+	"canonicalLanguages": ["html", "svelte", "css", "sass", "javascript", "typescript"],
+	"authority": {
+		"classes": "registry.json",
+		"recipes": "data/recipes.json",
+		"rules": "config/policy.json"
+	},
+	"requiredWorkflow": ["discover", "compose", "validate"],
+	"forbidden": [
+		"unknown-class",
+		"style-block",
+		"style-attribute",
+		"new-css-selector",
+		"new-sass-variable",
+		"new-css-custom-property",
+		"arbitrary-value-class",
+		"unverified-dynamic-class"
+	],
+	"onCoverageGap": "stop-and-report",
+	"allowAutomaticFallback": false
+}

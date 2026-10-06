@@ -1,0 +1,61 @@
+{
+	"schemaVersion": "1.0.0",
+	"recipes": [
+		{
+			"id": "workspace-segmented-control",
+			"name": "Segmented control",
+			"intents": ["segmented control", "mode switcher", "view switcher", "tab selector"],
+			"markup": "<div class=\"row ycenter shrink-0 pad-2 raised border radius-sm\">\n\t<button class=\"button ghost text-xs active\">View</button>\n\t<button class=\"button ghost text-xs\">Split</button>\n</div>",
+			"notes": "Use active on the currently selected button and expose selection state with native ARIA."
+		},
+		{
+			"id": "search-input-bar",
+			"name": "Search input bar",
+			"intents": ["search", "command search", "filter input", "omnibar"],
+			"markup": "<div class=\"row ycenter gap-xs pad-x-xs pad-y-2xs surface border radius-sm grow min0\">\n\t<span class=\"text-muted text-xs\">⌕</span>\n\t<input class=\"input grow min0 text-sm\" type=\"search\" placeholder=\"Search entries…\" />\n\t<kbd class=\"kbd text-xs\">⌘K</kbd>\n</div>",
+			"notes": "Provide an accessible label when no visible label is present."
+		},
+		{
+			"id": "responsive-metrics-grid",
+			"name": "Responsive metrics grid",
+			"intents": ["metrics", "kpi", "analytics", "dashboard cards", "stat grid"],
+			"markup": "<div class=\"grid-4 gap-sm\">\n\t<div class=\"card box ycenter xcenter gap-2xs pad-sm surface border\">\n\t\t<span class=\"text-xl weight-600 text-primary\">99.98%</span>\n\t\t<span class=\"text-xs text-muted\">Availability</span>\n\t</div>\n</div>",
+			"notes": "Repeat the card child for each metric; grid-4 owns responsive column stepping."
+		},
+		{
+			"id": "profile-action-row",
+			"name": "Profile action row",
+			"intents": ["profile row", "user list", "avatar actions", "user card"],
+			"markup": "<div class=\"row ycenter xbetween gap-sm pad-sm surface border radius-md\">\n\t<div class=\"row ycenter gap-sm min0\">\n\t\t<div class=\"avatar shrink-0\"><img src=\"/user.jpg\" alt=\"\" /></div>\n\t\t<div class=\"box min0 gap-2xs\"><span class=\"text-sm weight-600 truncate\">Alex Vance</span><span class=\"text-xs text-muted truncate\">alex@example.com</span></div>\n\t</div>\n\t<button class=\"button is-icon text-muted\" aria-label=\"More actions\">⋯</button>\n</div>",
+			"notes": "Give the image meaningful alt text when it conveys information not already present in adjacent text."
+		},
+		{
+			"id": "settings-switch-row",
+			"name": "Settings switch row",
+			"intents": ["settings", "toggle", "switch", "preference row"],
+			"markup": "<div class=\"row ycenter xbetween gap-md pad-y-sm border-bottom\">\n\t<div class=\"box gap-2xs\"><span class=\"text-sm weight-500\">Enable telemetry</span><span class=\"text-xs text-muted\">Collect anonymized traces.</span></div>\n\t<button type=\"button\" role=\"switch\" aria-checked=\"true\" class=\"switch-track checked shrink-0\"><span class=\"switch-thumb\"></span></button>\n</div>",
+			"notes": "Keep aria-checked synchronized with the visual checked modifier."
+		},
+		{
+			"id": "action-dialog",
+			"name": "Action dialog",
+			"intents": ["dialog", "modal", "confirmation", "alert modal"],
+			"markup": "<dialog class=\"dialog pad-0 surface border radius-md\">\n\t<header class=\"row ycenter xbetween pad-x-md pad-y-sm border-bottom\"><h3 class=\"text-sm weight-600 marg-0\">Confirm action</h3><button class=\"button is-icon text-muted\" aria-label=\"Close\">×</button></header>\n\t<div class=\"box gap-sm pad-md\"><p class=\"text-sm text-secondary marg-0\">Review this action before continuing.</p></div>\n\t<footer class=\"row ycenter xright gap-xs pad-x-md pad-y-sm border-top raised\"><button class=\"button ghost text-xs\">Cancel</button><button class=\"button primary text-xs\">Continue</button></footer>\n</dialog>",
+			"notes": "Use the native dialog API and return focus to the invoking control."
+		},
+		{
+			"id": "dropdown-action-menu",
+			"name": "Dropdown action menu",
+			"intents": ["dropdown", "action menu", "popover menu", "context menu"],
+			"markup": "<div class=\"relative\">\n\t<button class=\"button ghost\" aria-expanded=\"true\">Actions</button>\n\t<div class=\"popover open box gap-2xs pad-2xs surface border shadow-md radius-sm\">\n\t\t<button class=\"button ghost text-xs wfull xleft\">Duplicate</button>\n\t\t<button class=\"button ghost text-xs wfull xleft text-danger\">Delete</button>\n\t</div>\n</div>",
+			"notes": "Synchronize open and aria-expanded; implement keyboard navigation for menu semantics."
+		},
+		{
+			"id": "status-bar",
+			"name": "Application status bar",
+			"intents": ["status bar", "footer status", "connection state", "app footer"],
+			"markup": "<footer class=\"app-footer row ycenter xbetween pad-x-sm text-xs text-muted border-top surface\">\n\t<div class=\"row ycenter gap-xs\"><span class=\"square-6 radius-full bg-success\"></span><span>Connected</span></div>\n\t<div class=\"row ycenter gap-sm\"><span>Ln 42, Col 18</span><span>UTF-8</span></div>\n</footer>",
+			"notes": "Do not rely on color alone for connection state."
+		}
+	]
+}

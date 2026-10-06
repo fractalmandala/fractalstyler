@@ -67,20 +67,26 @@
 	&:hover
 		.link-title
 			color: var(--theme-color)
+		
+a.nav-link
+	padding: var(--space-sm)
+	border-radius: var(--radius-sm)
+	&:hover
+		background: var(--state-hover)
 
 // --- The button quartet (nested — never standalone) -----------------------------
 button
 	display: flex
 	align-items: center
-	height: var(--height-lg)
-	padding-inline: var(--space-md)
-	border: 1px solid transparent
-	border-radius: var(--radius-sm)
+	justify-content: center
+	height: var(--height-bs)
 	font-size: var(--text-md)
+	color: var(--text-primary)
 	text-decoration: none
 	cursor: pointer
 	user-select: none
-	transition: background var(--motionin2), border-color var(--motionin2), color var(--motionin2)
+	transition: background var(--motionin1), border-color var(--motionin1), color var(--motionin1)
+	padding-inline: var(--space-md)
 	&:focus-visible
 		outline: 2px solid var(--ring)
 		outline-offset: 1px
@@ -88,47 +94,119 @@ button
 		opacity: 0.5
 		cursor: not-allowed
 		pointer-events: none
-	&.primary
-		background: var(--state-surface)
-		color: var(--white-fixed)
-		&:hover
-			background: var(--theme-color)
-		&[data-variant="active"]
-			background: var(--state-selected)
-			&:hover
-				background: var(--state-selected)
-	&.ghost
-		background: none
+	&.icon
+		height: 24px
+		width: 24px
 		border: 1px solid transparent
-		color: var(--text-primary)
-		&:hover
-			color: var(--theme-color)
-		&[data-variant="active"]
-			border: 1px solid var(--theme-color)
-			&:hover
-				border: 1px solid var(--theme-color)
-	&.is-icon
+		background: transparent
 		padding: 0
-		background: 0
-		border: 0
-		color: var(--text-primary)
 		&:hover
-			color: var(--theme-color)
-	&.outline
-		border: 1px solid var(--bg-button)
-		background: none
-		color: var(--text-primary)
+			background: var(--state-hover)
+	&.modern
+		border-radius: var(--space-xs)
+	&.primary
+		background: var(--theme-color)
+	&[data-variant="primary"]
+		background: var(--theme-color)
+		color: var(--white-fixed)
+		border: 1px solid var(--theme-color)
 		&:hover
-			background: var(--bg-button)
-			color: var(--white-fixed)
-		&[data-variant="active"]
-			background: var(--state-selected)
-			&:hover
-				background: var(--bg-button)
-				color: var(--white-fixed)
-	&.small
-		height: var(--height-md)
+			background: var(--theme-color-alt)
+			border: 1px solid var(--theme-color-alt)
+	&[data-variant="secondary"]
+		background: var(--state-surface)
+		color: var(--text-primary)
+		border: 1px solid var(--border-strong)
+		&:hover
+			background: var(--state-hover)
+	&[data-variant="soft"]
+		background: var(--theme-color-sub)
+		color: var(--white-fixed)
+		border: 1px solid var(--theme-color-sub)
+		&:hover
+			border: 1px solid var(--text-primary)
+			color: var(--text-primary)
+	&[data-variant="outline"]
+		background: var(--bg)
+		color: var(--text-primary)
+		border: 1px solid var(--text-primary)
+		&:hover
+			background: var(--state-hover)
+	&[data-variant="ghost"]
+		background: transparent
+		color: var(--text-primary)
+		border: none
+		&:hover
+			background: var(--state-hover)
+	&[data-variant="link"]
+		background: transparent
+		color: var(--theme-color)
+		border: none
+		&:hover
+			text-decoration: underline
+	&[data-variant="destructive"]
+		background: var(--danger)
+		color: var(--white-fixed)
+		border: 1px solid var(--danger)
+		&:hover
+			animation: vibrating 60ms infinite forwards
+	&[data-shape="modern"]
+		border-radius: var(--radius-sm)
+	&[data-shape="curved"]
+		border-radius: var(--radius-md)
+	&[data-shape="round"]
+		border-radius: var(--radius-full)
+	&[data-size="sm"]
+		height: var(--height-sm)
 		font-size: var(--text-sm)
-		padding-inline: var(--space-sm)
+	&[data-size="md"]
+		height: var(--height-md)
+		font-size: var(--text-md)
+	&[data-size="bs"]
+		height: var(--height-bs)
+		font-size: var(--text-bs)
+	&[data-size="lg"]
+		height: var(--height-lg)
+		font-size: var(--text-bs)
+
+@keyframes vibrating
+	0%
+		transform: scale(0)
+	50%
+		transform: scale(1.03)
+	100%
+		transform: scale(0)
 
 
+a.primary
+	background: var(--theme-color)
+	font-size: var(--text-lg)
+	color: var(--white-fixed)
+	height: 40px
+	align-items: center
+	justify-content: center
+	display: flex
+	min-width: 6rem
+	box-shadow: var(--shadow-sm)
+	transition: box-shadow var(--motionin1)
+	&.modern
+		border-radius: var(--space-xs)
+	&:hover
+		box-shadow: var(--shadow-bs)
+
+a.outline
+	background: transparent
+	font-size: var(--text-lg)
+	color: var(--text-primary)
+	align-items: center
+	justify-content: center
+	display: flex
+	min-width: 6rem
+	height: 40px
+	box-shadow: var(--shadow-sm)
+	border: 1px solid var(--text-primary)
+	transition: box-shadow var(--motionin1)
+	&.modern
+		border-radius: var(--space-xs)
+	&:hover
+		box-shadow: var(--shadow-bs)

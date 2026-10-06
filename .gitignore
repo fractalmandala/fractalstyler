@@ -24,6 +24,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # Editor tooling
+.arsumbris
 .qoder
 .claude
 .vscode

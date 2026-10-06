@@ -32,10 +32,31 @@ const registry = JSON.parse(readFileSync(join(root, 'registry.json'), 'utf8'))
 // cannot tell you whether a value is on the ladder; only the output can.
 const compiled = sass.compile(join(root, 'src/lib/styles/index.sass'), { style: 'expanded' }).css
 const exact = new Set([...compiled.matchAll(/\.([a-zA-Z][\w-]*)/g)].map((m) => m[1]))
-const stems = []
 
-/** State modifiers the registry documents on their parent rather than alone. */
-const MODIFIERS = new Set(['open', 'active', 'checked', 'primary', 'ghost', 'is-icon'])
+/**
+ * State and variant modifiers the registry documents on their parent rather
+ * than alone (e.g. `.app-shell.open`, `.input.small`, `.content-section
+ * .narrow-half`). These are legal as bare words in a class attribute.
+ */
+const MODIFIERS = new Set([
+	'open', // drawer state on .app-shell; expanded state on .accordion-item
+	'active',
+	'checked',
+	'clamped', // .app-header.clamped / .app-main.clamped
+	'null', // .content-section.null
+	'narrow-half', // .content-section.narrow-*
+	'narrow-wide',
+	'narrow-full',
+	'small', // .input.small / .select.small
+	'modern', // legacy corner modifier on .card / buttons / a.primary / a.outline
+	'icon', // button.icon
+	'primary', // button.primary
+	'outline', // a.outline
+	'center', // .grid.center
+	'mleft', // .ta-c.mleft mobile de-centering
+	'ghost',
+	'is-icon'
+])
 
 // The components ARE the current system's shell vocabulary. Their class usage
 // names the classes the live app depends on, so a class used by a component is
@@ -44,12 +65,7 @@ const MODIFIERS = new Set(['open', 'active', 'checked', 'primary', 'ghost', 'is-
 // components — that is what flagged 35 legitimate component classes.
 const componentClasses = new Set()
 
-const inRegistry = (c) =>
-	exact.has(c) ||
-	MODIFIERS.has(c) ||
-	componentClasses.has(c) ||
-	stems.some((s) => c.startsWith(s)) ||
-	/-(mob|desk)$/.test(c)
+const inRegistry = (c) => exact.has(c) || MODIFIERS.has(c) || componentClasses.has(c)
 
 const files = []
 const walk = (d, exts) => {
@@ -122,8 +138,8 @@ files.forEach((file) => {
 	// The class check applies to the surfaces that author markup people copy:
 	// the cookbook, the canonical shell structures, the skill, the docs. A wrong
 	// class there is pasted into a real project. Schemas and server code get the
-	// phantom-API check above and nothing more.
-	const AUTHORS_MARKUP = /^(docs\/|skills\/|src\/lib\/components\/)/
+	// phantom-API check above and nothing more. References are raw inventories.
+	const AUTHORS_MARKUP = /^(docs\/(?!references\/)|skills\/(?!.*\/references\/)|src\/lib\/components\/)/
 	if (!AUTHORS_MARKUP.test(rel)) return
 
 	const body = src.split('<style')[0]
@@ -199,7 +215,7 @@ for (const file of files.filter((f) => f.endsWith('.md'))) {
 // Exactly one exception, matched literally: the scroll-snap rail, where snap
 // targets must be the rail's own children or the rail catches in the wrong
 // places. A second exception should be a deliberate edit here, not a drift.
-const COMBINATOR_ALLOWED = new Set(['_04_layouts.sass:\t> *'])
+const COMBINATOR_ALLOWED = new Set(['_05_layouts.sass:\t> *'])
 
 for (const file of readdirSync(join(root, 'src/lib/styles')).filter((f) => f.endsWith('.sass'))) {
 	const lines = readFileSync(join(root, 'src/lib/styles', file), 'utf8').split('\n')
