@@ -1,16 +1,19 @@
 {
 	"name": "@fractaldesign/fractalstyler",
-	"version": "0.9.0",
+	"version": "1.0.0",
+	"license": "MIT",
 	"description": "A composition styling system, shipped as plain CSS and as editable SASS. The class registry is the public API: compose in markup, write no stylesheet.",
 	"bin": {
-		"fractalstyler": "./cli/main.mjs",
-		"fractalstyler-lint": "./lint/cli.mjs"
+		"fractalstyler": "cli/main.mjs",
+		"fractalstyler-lint": "lint/cli.mjs",
+		"fractalstyler-mcp": "mcp/server.mjs"
 	},
 	"scripts": {
 		"registry": "node scripts/update-registry.js && node scripts/class-vocab.js",
 		"vocab": "node scripts/class-vocab.js",
 		"lint": "node lint/cli.mjs",
 		"browser": "node lint/browser.mjs",
+		"mcp": "node mcp/server.mjs",
 		"dev": "vite dev",
 		"preview": "vite preview",
 		"build": "npm run registry && npm run prepack",
@@ -30,9 +33,9 @@
 		"registry.json",
 		"skills",
 		"lint",
+		"mcp",
 		"data",
 		"cli",
-		"docs/REGISTRY.md",
 		"docs/REGISTRY.api.md",
 		"docs/references",
 		"scripts/update-registry.js",

@@ -18,9 +18,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 // --- shared constants --------------------------------------------------------
 
 const DOCS_FILES = [
-	'REGISTRY.md',
 	'REGISTRY.api.md',
-	path.join('references', 'configurations.md'),
 	path.join('references', 'configurations-api.md')
 ];
 
@@ -40,7 +38,7 @@ const SEED_OWN = `// ===========================================================
 `;
 
 const BUILD_REGISTRY = `#!/usr/bin/env node
-// Regenerates registry.json, REGISTRY.md, docs/REGISTRY.api.md and the agent
+// Regenerates registry.json, docs/REGISTRY.api.md and the agent
 // skill references from src/lib/styles. Run it after any edit to the layers.
 // Node only — no Sass toolchain needed.
 import { spawnSync } from 'node:child_process';
@@ -292,7 +290,7 @@ async function runTrack(opts, pkgRoot) {
 		? JSON.parse(fs.readFileSync(registryFile, 'utf8')).length
 		: null;
 	say(`Done. ${count ? `${count} classes are ` : ''}active once the import is in place.`);
-	say('Grep the registry: REGISTRY.md · docs/REGISTRY.api.md · references/configurations.md');
+	say('Grep the registry: docs/REGISTRY.api.md · references/configurations-api.md');
 }
 
 export async function runEject(opts, pkgRoot) {

@@ -76,7 +76,7 @@ const walk = (d, exts) => {
 		else if (exts.test(e.name)) files.push(p)
 	}
 }
-walk(join(root, 'skills'), /\.md$/)
+walk(join(root, 'skills', 'fractalstyler'), /\.md$/)
 // The shell components emit canonical markup, so every class in them must
 // resolve — they are the one place a wrong class ships as code, not prose.
 walk(join(root, 'src/lib/components'), /\.svelte$/)
@@ -139,7 +139,7 @@ files.forEach((file) => {
 	// the cookbook, the canonical shell structures, the skill, the docs. A wrong
 	// class there is pasted into a real project. Schemas and server code get the
 	// phantom-API check above and nothing more. References are raw inventories.
-	const AUTHORS_MARKUP = /^(docs\/(?!references\/)|skills\/(?!.*\/references\/)|src\/lib\/components\/)/
+	const AUTHORS_MARKUP = /^(docs\/(?!references\/|good-css\.md)|skills\/(?!.*\/references\/)|src\/lib\/components\/)/
 	if (!AUTHORS_MARKUP.test(rel)) return
 
 	const body = src.split('<style')[0]

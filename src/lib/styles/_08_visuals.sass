@@ -12,17 +12,17 @@
 @use '00_tokens' as *
 
 // --- Bare backgrounds (one declaration each) ----------------------------------
-.bg
+.bg-main
 	background: var(--bg)
-.surface
+.bg-surface
 	background: var(--bg-surface)
-.panel
+.bg-panel
 	background: var(--bg-panel)
-.sunken
+.bg-sunken
 	background: var(--bg-sunken)
-.raised
+.bg-raised
 	background: var(--bg-raised)
-.extra
+.bg-extra
 	background: var(--bg-extra)
 
 // --- Ink ----------------------------------------------------------------------
@@ -40,6 +40,10 @@
 	color: var(--black-fixed)
 .text-theme
 	color: var(--theme-color)
+.text-theme-alt
+	color: var(--theme-color-alt)
+.text-theme-sub
+	color: var(--theme-color-sub)
 .text-success
 	color: var(--success)
 .text-warning
@@ -54,12 +58,24 @@
 // reason to open _09_own.sass.
 .bg-success
 	background: var(--success)
+	transition: background var(--motionout2)
+	&:hover
+		background: var(--success-hover)
 .bg-warning
 	background: var(--warning)
+	transition: background var(--motionout2)
+	&:hover
+		background: var(--warning-hover)
 .bg-danger
 	background: var(--danger)
+	transition: background var(--motionout2)
+	&:hover
+		background: var(--danger-hover)
 .bg-info
 	background: var(--info)
+	transition: background var(--motionout2)
+	&:hover
+		background: var(--info-hover)
 
 // --- Lines (the partition-law set) ---------------------------------------------
 .border

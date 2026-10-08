@@ -6,7 +6,6 @@ type: fractalstyler
 
 # Configurations API — every variable, token, attribute and class in the system
 
-> Companion to [`configurations.md`](configurations.md) (the *why* and *how to edit*).
 > This document is the *what*: every Sass configuration variable in
 > `_00_config.sass`, every CSS custom property in `_00_tokens.sass`, every
 > `data-*` axis, and every class family the loops and partials emit — with
@@ -61,41 +60,41 @@ Structure: two authoring mixins, `=light-theme-tokens` and
 `[data-mode='light']` respectively. **A `data-mode` attribute on `<html>` is
 mandatory** — the colour roles live inside the mode mixins, not `:root`;
 without the attribute no colour token is defined. The `:root` block carries
-everything mode-independent: fonts, type/space/radius scales, motion language,
+everything mode-independent: type/space/radius scales, motion language,
 control metrics, page chrome.
 
 ### 2.1 Colour roles (light / dark)
 
 | Token | Light | Dark | Read by |
 |---|---|---|---|
-| `--white-fixed` | `#FFFFFF` | `#FFFFFF` | `.text-white`, `button[data-variant="primary"|"soft"|"destructive"]` |
+| `--white-fixed` | `#FFFFFF` | `#FFFFFF` | `.text-white`, `button[data-variant="primary"|"soft"|"destructive"]`, `a.btn` |
 | `--black-fixed` | `#171717` | `#171717` | `.text-black` |
-| `--bg` | `#ffffff` | `#101010` | `.bg`, `button[data-variant="outline"]` |
-| `--bg-surface` | `#FBFBF9` | `#202021` | `.surface`, `body`, `.app-header` |
-| `--bg-panel` | `#FBFBF9` | `#1f1f20` | `.panel`, `.card` |
-| `--bg-sunken` | `#F7F6F0` | `#1f1f20` | `.sunken` |
-| `--bg-raised` | `#F4F4F5` | `#3a3a3a` | `.raised`, `.accordion-trigger:hover` |
-| `--bg-extra` | `rgb(247, 248, 249)` | `#111111` | `.extra` |
+| `--bg` | `#ffffff` | `#101010` | `.bg-main`, `button[data-variant="outline"]`, `a.btn[data-variant="outline"]` |
+| `--bg-surface` | `#FBFBF9` | `#202021` | `.bg-surface`, `body`, `.app-header` |
+| `--bg-panel` | `#FBFBF9` | `#1f1f20` | `.bg-panel`, `.card` |
+| `--bg-sunken` | `#F7F6F0` | `#1f1f20` | `.bg-sunken` |
+| `--bg-raised` | `#F4F4F5` | `#3a3a3a` | `.bg-raised`, `.fsx-accordion-trigger:hover` |
+| `--bg-extra` | `rgb(247, 248, 249)` | `#111111` | `.bg-extra` |
 | `--bg-input` | `#f8f9fa` | `#1c1c1d` | `.input`, `.select` |
 | `--bg-button` | `#CED8D3` | `#171818` | reserved button fill channel |
 | `--text-primary` | `#262627` | `#EDF2F7` | `.text-primary`, body, headings |
 | `--text-secondary` | `#777777` | `#c7c7c7` | `.text-secondary` |
 | `--text-muted` | `#a3a4a7` | `#7c7c7c` | `.text-muted`, `.breadcrumb-*`, `.inputs-wrapper label` |
 | `--text-inverse` | `#ffffff` | `#7c7c7c` | `.text-inverse` — flips with mode by design |
-| `--state-surface` | `#F2EFE9` | `#7c7c7c` | `button[data-variant="secondary"]` |
+| `--state-surface` | `#F2EFE9` | `#7c7c7c` | `button[data-variant="secondary"]`, `a.btn[data-variant="secondary"]` |
 | `--state-hover` | `#ECE7DF` | `#4a4a4b` | `a.nav-link:hover`, `button[data-variant="secondary"|"outline"|"ghost"]:hover`, `button.icon:hover` |
 | `--state-selected` | `#E4DFD5` | `#666668` | selected-state channel |
-| `--border` | `#d8d8d8` | `#2f2f2f` | `.border`, `.bt`/`.br`/`.bb`/`.bl`, `.input`, `.select`, `.card`, `.accordion-item` |
+| `--border` | `#d8d8d8` | `#2f2f2f` | `.border`, `.bt`/`.br`/`.bb`/`.bl`, `.input`, `.select`, `.card`, `.fsx-accordion-item` |
 | `--border-subtle` | `#eceaea` | `#1e1e1f` | `.border-subtle`, `.bt-sub`/… |
 | `--border-strong` | `#cfcfcf` | `#7c7c7c` | `.border-strong`, `.bt-str`/…, `button[data-variant="secondary"]` |
-| `--theme-color` | `#ff4400` | `#2F9E44` | `.link`, `.text-theme`, `button[data-variant="primary"]`, `a.primary`, focus rims |
-| `--theme-color-alt` | `#be2f00` | `#36731d` | `.link:hover`, `a.primary` hover |
-| `--theme-color-sub` | `#feb18a` | *(undefined in dark — inherits)* | `button[data-variant="soft"]` |
+| `--theme-color` | `#ff4400` | `#2F9E44` | `.link`, `.text-theme`, `button[data-variant="primary"]`, `a.btn[data-variant="primary"]`, focus rims |
+| `--theme-color-alt` | `#be2f00` | `#36731d` | `.link:hover`, `.text-theme-alt`, `button[data-variant="primary"]:hover` |
+| `--theme-color-sub` | `#feb18a` | *(undefined in dark — inherits)* | `.text-theme-sub`, `button[data-variant="soft"]` |
 | `--success` / `--success-hover` | `#10B981` / `#059669` | `#34D399` / `#6EE7B7` | `.text-success`, `.bg-success` |
 | `--warning` / `--warning-hover` | `#F59E0B` / `#D97706` | `#FBBF24` / `#FCD34D` | `.text-warning`, `.bg-warning` |
 | `--danger` / `--danger-hover` | `#bf2a2a` / `#DC2626` | `#b21a1a` / `#FCA5A5` | `.text-danger`, `.bg-danger`, `button[data-variant="destructive"]` |
 | `--info` / `--info-hover` | `#3B82F6` / `#2563EB` | `#60A5FA` / `#93C5FD` | `.text-info`, `.bg-info` |
-| `--ring` | `rgba(0, 127, 78, 0.35)` | `rgba(16, 185, 129, 0.4)` | `.input`/`.select` focus, `.accordion-trigger` focus |
+| `--ring` | `rgba(0, 127, 78, 0.35)` | `rgba(16, 185, 129, 0.4)` | `.input`/`.select` focus, `.fsx-accordion-trigger` focus |
 | `--shadow-color` | `15 13 42` | `0 0 0` | every `--shadow-*` channel (RGB triplet) |
 | `--shadow-rim` | `transparent` | `inset 0 1px 0 rgba(255,255,255,0.09)` | prefixed onto `--shade-*` tokens |
 | `--shadow-umbra` | *(undefined in light)* | `rgb(0 0 0 / 0.50)` | dark-only umbra channel |
@@ -105,11 +104,11 @@ control metrics, page chrome.
 
 | Group | Tokens | Notes |
 |---|---|---|
-| Fonts | `--font-sans` (`"Timeless Sans", sans-serif`), `--timeless-sans`, `--timeless-grotesk` | `@font-face` families declared in `_00_fonts.sass`; `--font-mono` is *not* defined — `.mono` reads it and falls back to the browser stack until a mono face is added |
+| Fonts | Default assigns `font-family: var(--font-sans)` to `body, html`. | `_00_fonts.sass` ships blank for users to declare their own `@font-face` fonts and assign `--font-sans` / `--font-mono`. |
 | Type scale | `--text-scaling: 1.25`; `--text-xs` `0.67rem`, `--text-sm` `0.75rem`, `--text-md` `0.875rem`, `--text-bs` `1rem`; `--text-lg`+ each `calc(previous * var(--text-scaling))` up to `--text-5xl` | Fixed rem rungs to base, then compounded — not fluid interpolation |
 | Space scale | `--unit-space: 0.25rem`; `--space-xs` = unit, `sm` ×2, `md` ×3, `bs` ×4, `lg` ×6, `xl` ×8, `2xl` ×12, `3xl` ×16 | The rung set must mirror `$steps` — see §1 |
 | Radius | `--radius-xs: 2px`, `sm: 4px`, `md: 8px`, `bs: 16px`, `lg: 32px`, `full: 9999px` | Six channels; no literal-radius ladder exists |
-| Control metrics | `--control-h-sm: 21px`, `--control-h-bs: 32px`, `--control-h-lg: 38px`; `--height-sm: 16px`, `md: 20px`, `bs: 27px`, `lg: 32px` | `.h-*` classes read `--height-*`; `.input`/`.select` read `--height-lg` |
+| Control metrics | `--control-h-sm: 21px`, `--control-h-bs: 32px`, `--control-h-lg: 38px`; `--height-sm: 16px`, `md: 20px`, `bs: 27px`, `lg: 32px` | `.h-*` classes read `--height-*`; `.input`/`.select`/`button`/`a.btn` read `--height-*` |
 | Avatar / switch | `--avatar-size: 32px`, `--switch-w: 40px`, `--switch-h: 22px`, `--switch-thumb: 16px` | Load-bearing pairings documented in the source |
 | Motion | `--transin1..3`, `--transout1..3` (cubic-beziers); `--speed0: 50ms`, `--speed1: 90ms`, `--speed2: 140ms`, `--speed3: 220ms`; `--motionin1..3`/`--motionout1..3` = duration + easing | Every `transition:` in the system reads these |
 | Page chrome | `--header-height: 64px`, `--footer-height: 32px`, `--fit-height` (their sum), `--prose-clamp: 65ch`, `--content-clamp: 1600px`, `--app-inline: var(--space-lg)`, `--card-min: 240px`, `--sidebar-width`/`-left`/`-right: 280px`, `--z-sticky: 100`, `--z-raised: 200`, `--z-modal: 300`, `--z-toast: 500` | Shell geometry the L4 classes read |
@@ -123,37 +122,32 @@ control metrics, page chrome.
 | Attribute | Where | Values | Effect |
 |---|---|---|---|
 | `data-mode` | `<html>` (mandatory) | `light` \| `dark` | Applies `=light-theme-tokens` / `=dark-theme-tokens` — the entire colour-role set |
-| `data-shape` | `.card` | `modern` | `border-radius: var(--radius-sm)` |
-| `data-shape` | `button` | `modern` \| `curved` \| `round` | Corner treatment: `--radius-sm` / `--radius-md` / `--radius-full` |
-| `data-variant` | `button` | `primary` \| `secondary` \| `soft` \| `outline` \| `ghost` \| `link` \| `destructive` | Paint variant of the button quartet (`destructive` also runs the `vibrating` keyframes on hover) |
-| `data-size` | `button` | `sm` \| `md` \| `bs` \| `lg` | Metrics variant: height + font-size channels |
+| `data-shape` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `square` \| `modern` \| `curved` \| `round` | Corner treatment: `0` / `--radius-sm` / `--radius-md` / `--radius-full` |
+| `data-variant` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `primary` \| `secondary` \| `soft` \| `outline` \| `ghost` \| `link` \| `destructive` (button also: `icon`, `iconbox`, `icon-sm`, `icon-md`, `icon-bs`, `icon-lg`) | Visual paint & icon variant |
+| `data-size` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `sm` \| `md` \| `bs` \| `lg` | Metrics variant: height + font-size channels |
 
 Class-attribute states (not `data-*`, but part of the same runtime surface):
 `.app-shell.open` (left rail becomes a fixed drawer below 1025px),
-`.accordion-item.open` (expands `.accordion-content`),
-`.ta-c.mleft`/`.ta-r.mleft` (de-centers below 1024px),
+`.fsx-accordion-item.open` (expands `.fsx-accordion-content`),
 `.content-section.null|narrow-half|narrow-wide|narrow-full`,
-`.input.small`/`.select.small`, `.hide-mobile`/`.hide-desktop`.
+`.hide-mobile`/`.hide-desktop`.
 
 ---
 
 ## 4. C — class registry (summary)
 
-414 concrete classes across the layers; the full inventory with properties,
-kinds and examples is [`../REGISTRY.api.md`](../REGISTRY.api.md) (generated),
-and the grep cheatsheet is [`../../REGISTRY.md`](../../REGISTRY.md).
+482 concrete classes across the layers; the full inventory with properties,
+kinds and examples is [`../REGISTRY.api.md`](../REGISTRY.api.md) (generated).
 
 | Layer | Partial | Count | Contents |
 |---|---|---|---|
 | L0 | `_01_base.sass` | 2 | `.bdr` debug outline, `.mode-wipe` view-transition kill switch |
 | L1 | `_02_dimensions.sass` | 154 | 17 space families × 8 steps (136), 6 radius channels, `.wfull`/`.hfull`/`.full`, `.minw0`/`.minh0`/`.min0`, `.h-sm`…`.h-lg`, `.hfull-vh`, `.hfull-vh-fitted` |
-| L2 | `_04_containers.sass` | 54 | `.box` + 10 alignment modifiers, `.row` + 9, `.grid` + 16, `.wrap`, `.grow`, `.shrink-0`, position set, `.scroll-y`/`.scroll-x`, `.card` (+`data-shape`), `.chip`, `.prose-section`, `.nav-section`, `.page-header`, `.inputs-wrapper`, `.checkbox-wrapper` |
+| L2 | `_04_containers.sass` | 65 | `.box` + 10 alignment modifiers, `.row` + 9, `.grid` + 16, `.wrap`, `.grow`, `.shrink-0`, position set, `.scroll-y`/`.scroll-x`, `.card` (+`data-variant`/`data-shape`/`data-size`), `.chip`, `.prose-section`, `.nav-section`, `.page-header`, `.inputs-wrapper`, `.checkbox-wrapper` |
 | L3 | `_05_layouts.sass` | 23 | `.grid-1/2/3/4/6` (divisor stepping), `.cspan-1`…`.cspan-8`, `.card-grid`, `.prose`, 7 `.frame-*` (from `$frame-ratios`), `.reel` |
 | L4 | `_06_shells.sass` | 16 | `.app-shell` (+`.open` drawer compound), `.app-header` (+`.clamped`), `.app-main` (+`.clamped`), `.main-section`, `.sidebar-left`, `.sidebar-right`, `.app-footer`, `.content-section` (+`.null`/`.narrow-half`/`.narrow-wide`/`.narrow-full`) |
-| L5 | `_03_typography.sass` | 55 | `.text-xs`…`.text-5xl`, `.text-body*`, `.page-*`/`.card-*`/`.breadcrumb-*`/`.nav-*`/`.header-nav`, `.lh11`–`.lh16`, `.ls-*`, `.weight-300`–`.weight-800`, `.tt-*`, `.ta-*` (+`.mleft`), `.mono`, `.sans`, `.truncate` |
-| L5 | `_07_interactions.sass` | 31 | `button` element base, `button.icon/modern/primary`, 7 `button[data-variant]`, 3 `button[data-shape]`, 4 `button[data-size]`, `.input`(+`.small`), `.select`(+`.small`), `.link`, `.link-plain`, `.link-parent` (+`.link-title` child), `a.nav-link`, `a.primary`(+`.modern`), `a.outline`(+`.modern`) |
-| L5 | `_08_visuals.sass` | 52 | 6 bare backgrounds, 11 ink, 4 status fills, `.border`/`.border-subtle`/`.border-strong`, 12 partition borders (`.bt`/`.br`/`.bb`/`.bl` × 3 weights), 8 `.shadow-*`, `.hide-mobile`/`.hide-desktop`, `.orange1`–`.orange6` |
-| Custom | `_09_own.sass` | 27 | `.site-logomotif`, `.logotype`, `.project-circle`, the `.mascot`/`.mascotgl` families, `.hero-name`, the `.accordion` family |
+| L5 | `_03_typography.sass`, `_07_interactions.sass`, `_08_visuals.sass` | 181 | Typography scale/roles/modifiers, `.input`/`.select`, `button`/`a.btn` (+`data-variant`/`data-shape`/`data-size`/icon variants), link family, bare backgrounds (`.bg-main`, `.bg-surface`, `.bg-panel`, `.bg-sunken`, `.bg-raised`, `.bg-extra`), ink, status fills, border set, shadows, visibility |
+| Custom | `_09_own.sass` | 41 | `.site-logomotif`, `.logotype`, `.project-circle`, the `.mascot`/`.mascotgl` families, `.hero-name`, `.fsx-accordion` family (+`data-variant`/`data-shape`/`data-size`) |
 
 Every class entry in `registry.json` carries: `class`, `kind`
 (`family`/`class`/`modifier`/`child`/`variant`/`compound`/`element`),
@@ -164,22 +158,7 @@ Every class entry in `registry.json` carries: `class`, `kind`
 
 ## 5. Fonts (`_00_fonts.sass`)
 
-`@font-face` declarations only — no classes, no tokens:
-
-| Family | File | Weight | Style |
-|---|---|---|---|
-| `Google Sans Flex` | `/fonts/GoogleSansFlex.woff2` | 300 800 | normal, italic |
-| `Google Sans` | `/fonts/GoogleSans.woff2` | 400 700 | normal |
-| `Google Sans` (italic) | `/fonts/GoogleSans-Italic.woff2` | 400 700 | italic |
-| `Google Sans Code` | `/fonts/googlesanscode.woff2` | 300 800 | normal |
-| `Timeless Sans` | `/fonts/TimelessSansVF.woff2` | 300 800 | normal, italic |
-| `Timeless Grotesk` | `/fonts/TimelessSansVF.woff2` | 300 800 | normal, italic |
-| `General Sans` | `/fonts/generalsans.woff2` | 300 700 | normal |
-| `Satoshi` | `/fonts/satoshi.woff2` | 300 800 | normal |
-| `Stack Sans` | `/fonts/stacksans.woff2` | 300 800 | normal |
-
-`--font-sans` resolves to `Timeless Sans`; `Google Sans`/`General Sans`/
-`Satoshi`/`Stack Sans` are alternate stacks a consumer can swap in.
+The library no longer bundles or imports external font files. It ships a blank `_00_fonts.sass` file for the user/consumer project to declare their custom `@font-face` rules and define `--font-sans` / `--font-mono`. `_01_base.sass` applies `font-family: var(--font-sans)` to `body, html`.
 
 ---
 
@@ -189,25 +168,24 @@ Every class entry in `registry.json` carries: `class`, `kind`
 |---|---|---|
 | `--shade-*` | `_00_config.sass` `:root` loop | (reserved elevation channel; `.shadow-*` classes read `--shadow-*` instead) |
 | Colour roles (§2.1) | `_00_tokens.sass` mode mixins | L5 dress classes, interactions, body |
-| `--font-sans`, `--timeless-*` | `_00_tokens.sass` `:root` | `body`, `.sans` |
+| `--font-sans` | user-supplied (`_00_fonts.sass`) | `body`, `html` |
 | `--text-*` | `_00_tokens.sass` `:root` | `.text-*`, `.text-body*`, semantic type roles |
 | `--space-*`, `--unit-space` | `_00_tokens.sass` `:root` | all 17 L1 space families |
-| `--radius-*` | `_00_tokens.sass` `:root` | `.radius-*`, `.chip`, `.input`, `.select`, `.card`, `button[data-shape]`, `a.nav-link` |
-| `--height-*`, `--control-h-*` | `_00_tokens.sass` `:root` | `.h-*`, `.input`/`.select`, `.accordion-trigger` |
+| `--radius-*` | `_00_tokens.sass` `:root` | `.radius-*`, `.chip`, `.input`, `.select`, `.card`, `button[data-shape]`, `a.btn`, `a.nav-link` |
+| `--height-*`, `--control-h-*` | `_00_tokens.sass` `:root` | `.h-*`, `.input`/`.select`, `button`, `a.btn`, `.fsx-accordion-trigger` |
 | `--motion*`, `--speed*`, `--trans*` | `_00_tokens.sass` `:root` | every `transition:` in the system |
 | `--header-height`, `--footer-height`, `--fit-height` | `_00_tokens.sass` `:root` | `.app-header`, `.app-main`, `.hfull-vh-fitted`, rails |
 | `--prose-clamp`, `--content-clamp`, `--app-inline`, `--card-min` | `_00_tokens.sass` `:root` | `.prose`, `.app-header.clamped`, `.app-main.clamped`, shells, `.card-grid` |
 | `--sidebar-width*`, `--z-*` | `_00_tokens.sass` `:root` | rails, `.app-header`, drawer |
 | `--shadow-*`, `--shadow-color`, `--shadow-rim` | `_00_tokens.sass` mode mixins | `.shadow-*` classes, `--shade-*` composition |
 | `--greenpop*`, `--orangepop*` | `_00_tokens.sass` `:root` | `.orange1`…`.orange6` (green set reserved) |
-
 ---
 
 ## 7. Regeneration pipeline
 
 | Script | Emits |
 |---|---|
-| `scripts/update-registry.js` | `registry.json`, `REGISTRY.md`, `docs/REGISTRY.md`, `skills/fractal-styler/references/fractals.md`, `skills/fractal-styler/references/tokens.md` |
+| `scripts/update-registry.js` | `registry.json`, `skills/fractalstyler/references/fractals.md`, `skills/fractalstyler/references/tokens.md` |
 | `scripts/class-vocab.js` | `docs/REGISTRY.api.md` (reads `registry.json`) |
 | `lint/browser.mjs --out docs/browser.html` | `docs/browser.html` (searchable registry browser) |
 | `scripts/build-css.js` | `dist/css/fractalstyler.css` + `.min.css` (plain-CSS distribution) |

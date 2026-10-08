@@ -1,7 +1,7 @@
-# Fractalstyler2 — Class Reference
+# Fractalstyler — Class Reference
 
 GENERATED FILE — do not edit. Emitted by `scripts/update-registry.js` from the
-parsed stylesheet. 414 classes across 131 tokens.
+parsed stylesheet. 482 classes across 126 tokens.
 
 **The classes below are the entire public API.** The system defines no
 authoring mixins and no SASS functions — `+stack`, `+surface`, `space()` and
@@ -242,8 +242,19 @@ Flow and alignment. .box (flex column), .row (flex row), .grid — alignment mod
 | `.scroll-y` | Vertical scroll inside a bounded height; needs an .h-* or a constraining flex parent | `_04_containers.sass` |
 | `.scroll-x` | Horizontal scroll inside a bounded width; .reel adds snap points | `_04_containers.sass` |
 | `.card` | Panel card: padded, bordered, panel background; arrow svg and footer behaviors included | `_04_containers.sass` |
-| `.arrow` | color: var(--theme-color) — child of .card | `_04_containers.sass` |
+| `.card[data-variant="primary"]` | background: var(--bg-surface) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-variant="secondary"]` | background: var(--bg-sunken) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-variant="soft"]` | background: var(--bg-extra) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-variant="outline"]` | background: transparent — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-variant="ghost"]` | background: transparent — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-variant="link"]` | background: var(--bg-surface) — attribute variant of .card | `_04_containers.sass` |
 | `.card[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-size="sm"]` | padding: var(--space-sm) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-size="md"]` | padding: var(--space-md) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-size="bs"]` | padding: var(--space-bs) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-size="lg"]` | padding: var(--space-lg) — attribute variant of .card | `_04_containers.sass` |
 | `.chip` | Small inline label — tag/badge duty (xs type, md radius) | `_04_containers.sass` |
 | `.prose-section` | Vertical prose section (flex column, lg gap) | `_04_containers.sass` |
 | `.nav-section` | Vertical nav section (flex column, xs gap) | `_04_containers.sass` |
@@ -372,9 +383,33 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `.sans` | Sans font stack (var(--font-sans)) | `_03_typography.sass` |
 | `.truncate` | One-line ellipsis truncation | `_03_typography.sass` |
 | `.input` | Text input — themed field with focus ring | `_07_interactions.sass` |
-| `.input.small` | height: var(--height-bs) — modifier of .input | `_07_interactions.sass` |
+| `.input[data-variant="primary"]` | background: var(--bg-input) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-variant="secondary"]` | background: var(--bg-panel) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-variant="soft"]` | background: var(--bg-surface) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-variant="outline"]` | background: var(--bg) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-variant="ghost"]` | background: transparent — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-shape="square"]` | border-radius: 0 — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-size="sm"]` | height: var(--height-sm) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-size="md"]` | height: var(--height-md) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-size="bs"]` | height: var(--height-bs) — attribute variant of .input | `_07_interactions.sass` |
+| `.input[data-size="lg"]` | height: var(--height-lg) — attribute variant of .input | `_07_interactions.sass` |
 | `.select` | Select dropdown — themed field with chevron and focus ring | `_07_interactions.sass` |
-| `.select.small` | height: var(--height-bs) — modifier of .select | `_07_interactions.sass` |
+| `.select[data-variant="primary"]` | background: var(--bg-input) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-variant="secondary"]` | background: var(--bg-panel) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-variant="soft"]` | background: var(--bg-surface) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-variant="outline"]` | background: var(--bg) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-variant="ghost"]` | background: transparent — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-shape="square"]` | border-radius: 0 — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-size="sm"]` | height: var(--height-sm) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-size="md"]` | height: var(--height-md) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-size="bs"]` | height: var(--height-bs) — attribute variant of .select | `_07_interactions.sass` |
+| `.select[data-size="lg"]` | height: var(--height-lg) — attribute variant of .select | `_07_interactions.sass` |
 | `.link` | Themed link — theme color, alt on hover | `_07_interactions.sass` |
 | `.link-plain` | Plain link — inherits ink, theme color on hover | `_07_interactions.sass` |
 | `.link-parent` | Link block — hovers color its .link-title child instead of itself | `_07_interactions.sass` |
@@ -382,8 +417,6 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `a.nav-link` | Interactive form of .nav-link — padded, curved, hover fill | `_07_interactions.sass` |
 | `button` | Element base for every button — the quartet root (align, height, focus, disabled states) | `_07_interactions.sass` |
 | `button.icon` | height: 24px — modifier of button | `_07_interactions.sass` |
-| `button.modern` | border-radius: var(--space-xs) — modifier of button | `_07_interactions.sass` |
-| `button.primary` | background: var(--theme-color) — modifier of button | `_07_interactions.sass` |
 | `button[data-variant="primary"]` | background: var(--theme-color) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-variant="secondary"]` | background: var(--state-surface) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-variant="soft"]` | background: var(--theme-color-sub) — attribute variant of button | `_07_interactions.sass` |
@@ -391,6 +424,7 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `button[data-variant="ghost"]` | background: transparent — attribute variant of button | `_07_interactions.sass` |
 | `button[data-variant="link"]` | background: transparent — attribute variant of button | `_07_interactions.sass` |
 | `button[data-variant="destructive"]` | background: var(--danger) — attribute variant of button | `_07_interactions.sass` |
+| `button[data-shape="square"]` | border-radius: 0 — attribute variant of button | `_07_interactions.sass` |
 | `button[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of button | `_07_interactions.sass` |
@@ -398,16 +432,34 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `button[data-size="md"]` | height: var(--height-md) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-size="bs"]` | height: var(--height-bs) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-size="lg"]` | height: var(--height-lg) — attribute variant of button | `_07_interactions.sass` |
-| `a.primary` | Primary call-to-action anchor — theme fill, sm elevation, modern corner optional | `_07_interactions.sass` |
-| `a.primary.modern` | border-radius: var(--space-xs) — modifier of a.primary | `_07_interactions.sass` |
-| `a.outline` | Outline call-to-action anchor — transparent fill, ink border, sm elevation | `_07_interactions.sass` |
-| `a.outline.modern` | border-radius: var(--space-xs) — modifier of a.outline | `_07_interactions.sass` |
-| `.bg` | Bare background — page base fill (var(--bg)) | `_08_visuals.sass` |
-| `.surface` | Bare background — surface fill (var(--bg-surface)) | `_08_visuals.sass` |
-| `.panel` | Bare background — panel fill (var(--bg-panel)) | `_08_visuals.sass` |
-| `.sunken` | Bare background — sunken fill (var(--bg-sunken)) | `_08_visuals.sass` |
-| `.raised` | Bare background — raised fill (var(--bg-raised)) | `_08_visuals.sass` |
-| `.extra` | Bare background — extra fill (var(--bg-extra)) | `_08_visuals.sass` |
+| `button[data-variant="icon"]` | background: transparent — attribute variant of button | `_07_interactions.sass` |
+| `button[data-variant="iconbox"]` | background: var(--bg-panel) — attribute variant of button | `_07_interactions.sass` |
+| `button[data-variant="icon-sm"]` | height: 20px — attribute variant of button | `_07_interactions.sass` |
+| `button[data-variant="icon-md"]` | height: 24px — attribute variant of button | `_07_interactions.sass` |
+| `button[data-variant="icon-bs"]` | height: 28px — attribute variant of button | `_07_interactions.sass` |
+| `button[data-variant="icon-lg"]` | height: 32px — attribute variant of button | `_07_interactions.sass` |
+| `a.btn` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes | `_07_interactions.sass` |
+| `a.btn[data-variant="primary"]` | background: var(--theme-color) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-variant="secondary"]` | background: var(--state-surface) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-variant="soft"]` | background: var(--theme-color-sub) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-variant="outline"]` | background: var(--bg) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-variant="ghost"]` | background: transparent — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-variant="link"]` | background: transparent — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-variant="destructive"]` | background: var(--danger) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-shape="square"]` | border-radius: 0 — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-size="sm"]` | height: var(--height-sm) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-size="md"]` | height: var(--height-md) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-size="bs"]` | height: var(--height-bs) — attribute variant of a.btn | `_07_interactions.sass` |
+| `a.btn[data-size="lg"]` | height: var(--height-lg) — attribute variant of a.btn | `_07_interactions.sass` |
+| `.bg-main` | Bare background — page base fill (var(--bg)) | `_08_visuals.sass` |
+| `.bg-surface` | Bare background — surface fill (var(--bg-surface)) | `_08_visuals.sass` |
+| `.bg-panel` | Bare background — panel fill (var(--bg-panel)) | `_08_visuals.sass` |
+| `.bg-sunken` | Bare background — sunken fill (var(--bg-sunken)) | `_08_visuals.sass` |
+| `.bg-raised` | Bare background — raised fill (var(--bg-raised)) | `_08_visuals.sass` |
+| `.bg-extra` | Bare background — extra fill (var(--bg-extra)) | `_08_visuals.sass` |
 | `.text-primary` | color: var(--text-primary) | `_08_visuals.sass` |
 | `.text-secondary` | color: var(--text-secondary) | `_08_visuals.sass` |
 | `.text-muted` | color: var(--text-muted) | `_08_visuals.sass` |
@@ -415,6 +467,8 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `.text-white` | color: var(--white-fixed) | `_08_visuals.sass` |
 | `.text-black` | color: var(--black-fixed) | `_08_visuals.sass` |
 | `.text-theme` | color: var(--theme-color) | `_08_visuals.sass` |
+| `.text-theme-alt` | color: var(--theme-color-alt) | `_08_visuals.sass` |
+| `.text-theme-sub` | color: var(--theme-color-sub) | `_08_visuals.sass` |
 | `.text-success` | color: var(--success) | `_08_visuals.sass` |
 | `.text-warning` | color: var(--warning) | `_08_visuals.sass` |
 | `.text-danger` | color: var(--danger) | `_08_visuals.sass` |
@@ -484,12 +538,26 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
 | `.mascotgl-ready` | opacity: 1 | `_09_own.sass` |
 | `.mascotgl-compact .mascotgl-canvas` | Header-sized: 15% overhang per side (EXTENT_COMPACT = 0.65), still outside the layout box. | `_09_own.sass` |
 | `.hero-name` | Hero display name — text-5xl doubled, 800, tight tracking | `_09_own.sass` |
-| `.accordion` | Accordion group — vertical stack of .accordion-item | `_09_own.sass` |
-| `.accordion-item` | Accordion item — bordered, curved shell hosting trigger and content | `_09_own.sass` |
-| `.accordion-content` | Collapsible region of an .accordion-item — 0fr→1fr grid transition | `_09_own.sass` |
-| `.accordion-panel` | The panel is what collapses. It needs min-height: 0 so the grid row can | `_09_own.sass` |
-| `.accordion-item.open .accordion-content` | grid-template-rows: 1fr — combination rule (accordion-itemopen accordion-content) | `_09_own.sass` |
-| `.accordion-trigger` | Accordion trigger button — full-width, hover/focus states | `_09_own.sass` |
+| `.fsx-accordion` | Accordion group — vertical stack of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item` | Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes | `_09_own.sass` |
+| `.fsx-accordion-content` | Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition | `_09_own.sass` |
+| `.fsx-accordion-panel` | The panel is what collapses. It needs min-height: 0 so the grid row can | `_09_own.sass` |
+| `.fsx-accordion-item.open .fsx-accordion-content` | grid-template-rows: 1fr — combination rule (fsx-accordion-itemopen fsx-accordion-content) | `_09_own.sass` |
+| `.fsx-accordion-item[data-variant="primary"]` | background: var(--bg-panel) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-variant="secondary"]` | background: var(--bg-sunken) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-variant="soft"]` | background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-variant="outline"]` | background: var(--bg) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-variant="ghost"]` | background: transparent — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-variant="link"]` | background: transparent — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-variant="destructive"]` | background: var(--danger) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-size="sm"]` | height: var(--height-sm) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-size="md"]` | height: var(--height-md) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-size="bs"]` | height: var(--height-bs) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-item[data-size="lg"]` | height: var(--height-lg) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
+| `.fsx-accordion-trigger` | Accordion trigger button — full-width, hover/focus states | `_09_own.sass` |
 
 ---
 
@@ -508,7 +576,7 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --bg-button: #CED8D3; /* light */
   --text-primary: #262627; /* light */
   --text-secondary: #777777; /* light */
-  --text-muted: #a3a4a7; /* light */
+  --text-muted: #bac8f3; /* light */
   --text-inverse: #ffffff; /* light */
   --state-surface: #F2EFE9; /* light */
   --state-hover: #ECE7DF; /* light */
@@ -516,9 +584,9 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --border: #d8d8d8; /* light */
   --border-subtle: #eceaea; /* light */
   --border-strong: #cfcfcf; /* light */
-  --theme-color: #ff4400; /* light */
-  --theme-color-alt: #be2f00; /* light */
-  --theme-color-sub: #feb18a; /* light */
+  --theme-color: #0dc02e; /* light */
+  --theme-color-alt: #317b14; /* light */
+  --theme-color-sub: #2b571a; /* light */
   --success: #10B981; /* light */
   --success-hover: #059669; /* light */
   --warning: #F59E0B; /* light */
@@ -539,9 +607,6 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --shadow-2xl: 0 12px 24px rgb(var(--shadow-color) / 0.06), 0 28px 48px rgb(var(--shadow-color) / 0.06); /* light */
   --shadow-3xl: 0 16px 32px rgb(var(--shadow-color) / 0.06), 0 36px 64px rgb(var(--shadow-color) / 0.06); /* light */
   --shadow-umbra: rgb(0 0 0 / 0.50); /* dark */
-  --font-sans: "Timeless Sans", sans-serif; /* root */
-  --timeless-sans: "Timeless Sans", sans-serif; /* root */
-  --timeless-grotesk: "Timeless Grotesk", sans-serif; /* root */
   --text-scaling: 1.25; /* root */
   --text-xs: 0.67rem; /* root */
   --text-sm: 0.75rem; /* root */
@@ -568,9 +633,6 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --radius-bs: 16px; /* root */
   --radius-lg: 32px; /* root */
   --radius-full: 9999px; /* root */
-  --control-h-sm: 21px; /* root */
-  --control-h-bs: 32px; /* root */
-  --control-h-lg: 38px; /* root */
   --avatar-size: 32px; /* root */
   --switch-w: 40px; /* root */
   --switch-h: 22px; /* root */
@@ -598,10 +660,11 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --content-clamp: 1600px; /* root */
   --app-inline: var(--space-lg); /* root */
   --card-min: 240px; /* root */
-  --height-sm: 16px; /* root */
-  --height-md: 20px; /* root */
-  --height-bs: 27px; /* root */
+  --height-sm: 20px; /* root */
+  --height-md: 24px; /* root */
+  --height-bs: 28px; /* root */
   --height-lg: 32px; /* root */
+  --height-xl: 40; /* root */
   --sidebar-width: 280px; /* root */
   --sidebar-width-left: 280px; /* root */
   --sidebar-width-right: 280px; /* root */

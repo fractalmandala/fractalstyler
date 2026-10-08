@@ -3,7 +3,7 @@
 > Comprehensive index of the canonical styling system classes, layers, and intent.
 > Generated from `registry.json` via `scripts/class-vocab.js`.
 
-**414** classes indexed across layers.
+**482** classes indexed across layers.
 
 Every entry is a concrete class — the space families are expanded from the
 family maps in `_00_config.sass` across the eight steps `xs sm md bs lg xl 2xl 3xl`.
@@ -234,9 +234,20 @@ Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (
 | `.sticky` | `position: sticky` | position: sticky |
 | `.scroll-y` | `overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain` | Vertical scroll inside a bounded height; needs an .h-* or a constraining flex parent |
 | `.scroll-x` | `overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain` | Horizontal scroll inside a bounded width; .reel adds snap points |
-| `.card` | `padding: var(--space-bs); border: 1px solid var(--border); background: var(--bg-panel)` | Panel card: padded, bordered, panel background; arrow svg and footer behaviors included |
-| `.arrow` | `color: var(--theme-color); transition: transform var(--speed1) var(--transout1)` | color: var(--theme-color) — child of .card |
+| `.card` | `background: var(--bg-panel)` | Panel card: padded, bordered, panel background; arrow svg and footer behaviors included |
+| `.card[data-variant="primary"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle)` | background: var(--bg-surface) — attribute variant of .card |
+| `.card[data-variant="secondary"]` | `background: var(--bg-sunken); border: 1px solid var(--border-strong)` | background: var(--bg-sunken) — attribute variant of .card |
+| `.card[data-variant="soft"]` | `background: var(--bg-extra); border: 1px solid transparent` | background: var(--bg-extra) — attribute variant of .card |
+| `.card[data-variant="outline"]` | `background: transparent; color: var(--text-primary); border: 1px solid var(--border-strong)` | background: transparent — attribute variant of .card |
+| `.card[data-variant="ghost"]` | `background: transparent; border: none` | background: transparent — attribute variant of .card |
+| `.card[data-variant="link"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); text-decoration: none` | background: var(--bg-surface) — attribute variant of .card |
 | `.card[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .card |
+| `.card[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .card |
+| `.card[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .card |
+| `.card[data-size="sm"]` | `padding: var(--space-sm)` | padding: var(--space-sm) — attribute variant of .card |
+| `.card[data-size="md"]` | `padding: var(--space-md)` | padding: var(--space-md) — attribute variant of .card |
+| `.card[data-size="bs"]` | `padding: var(--space-bs)` | padding: var(--space-bs) — attribute variant of .card |
+| `.card[data-size="lg"]` | `padding: var(--space-lg)` | padding: var(--space-lg) — attribute variant of .card |
 | `.chip` | `font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.01rem; …` | Small inline label — tag/badge duty (xs type, md radius) |
 | `.prose-section` | `display: flex; flex-direction: column; gap: var(--space-lg)` | Vertical prose section (flex column, lg gap) |
 | `.nav-section` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Vertical nav section (flex column, xs gap) |
@@ -358,10 +369,34 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.mono` | `font-family: var(--font-mono)` | font usage shorthands |
 | `.sans` | `font-family: var(--font-sans)` | Sans font stack (var(--font-sans)) |
 | `.truncate` | `overflow: hidden; white-space: nowrap; text-overflow: ellipsis` | One-line ellipsis truncation |
-| `.input` | `display: block; width: 100%; height: var(--height-lg); …` | Text input — themed field with focus ring |
-| `.input.small` | `height: var(--height-bs); font-size: var(--text-sm)` | height: var(--height-bs) — modifier of .input |
+| `.input` | `display: block; width: 100%; height: var(--height-bs); …` | Text input — themed field with focus ring |
+| `.input[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .input |
+| `.input[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .input |
+| `.input[data-variant="soft"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)` | background: var(--bg-surface) — attribute variant of .input |
+| `.input[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .input |
+| `.input[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none; …` | background: transparent — attribute variant of .input |
+| `.input[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .input |
+| `.input[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .input |
+| `.input[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .input |
+| `.input[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .input |
+| `.input[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .input |
+| `.input[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .input |
+| `.input[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .input |
+| `.input[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .input |
 | `.select` | `display: block; width: 100%; height: var(--height-lg); …` | Select dropdown — themed field with chevron and focus ring |
-| `.select.small` | `height: var(--height-bs); font-size: var(--text-sm)` | height: var(--height-bs) — modifier of .select |
+| `.select[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .select |
+| `.select[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .select |
+| `.select[data-variant="soft"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)` | background: var(--bg-surface) — attribute variant of .select |
+| `.select[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .select |
+| `.select[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none; …` | background: transparent — attribute variant of .select |
+| `.select[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .select |
+| `.select[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .select |
+| `.select[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .select |
+| `.select[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .select |
+| `.select[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .select |
+| `.select[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .select |
+| `.select[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .select |
+| `.select[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .select |
 | `.link` | `color: var(--theme-color); text-decoration: none; transition: color var(--motionin1)` | Themed link — theme color, alt on hover |
 | `.link-plain` | `color: var(--text-primary); text-decoration: none; transition: color var(--motionin1)` | Plain link — inherits ink, theme color on hover |
 | `.link-parent` | `color: var(--text-primary); text-decoration: none` | Link block — hovers color its .link-title child instead of itself |
@@ -369,15 +404,14 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `a.nav-link` | `padding: var(--space-sm); border-radius: var(--radius-sm)` | Interactive form of .nav-link — padded, curved, hover fill |
 | `button` | `display: flex; align-items: center; justify-content: center; …` | Element base for every button — the quartet root (align, height, focus, disabled states) |
 | `button.icon` | `height: 24px; width: 24px; border: 1px solid transparent; …` | height: 24px — modifier of button |
-| `button.modern` | `border-radius: var(--space-xs)` | border-radius: var(--space-xs) — modifier of button |
-| `button.primary` | `background: var(--theme-color)` | background: var(--theme-color) — modifier of button |
 | `button[data-variant="primary"]` | `background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of button |
 | `button[data-variant="secondary"]` | `background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--state-surface) — attribute variant of button |
 | `button[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of button |
-| `button[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--text-primary)` | background: var(--bg) — attribute variant of button |
+| `button[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of button |
 | `button[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of button |
 | `button[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of button |
 | `button[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of button |
+| `button[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of button |
 | `button[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of button |
 | `button[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of button |
 | `button[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of button |
@@ -385,16 +419,34 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `button[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of button |
 | `button[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of button |
 | `button[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of button |
-| `a.primary` | `background: var(--theme-color); font-size: var(--text-lg); color: var(--white-fixed); …` | Primary call-to-action anchor — theme fill, sm elevation, modern corner optional |
-| `a.primary.modern` | `border-radius: var(--space-xs)` | border-radius: var(--space-xs) — modifier of a.primary |
-| `a.outline` | `background: transparent; font-size: var(--text-lg); color: var(--text-primary); …` | Outline call-to-action anchor — transparent fill, ink border, sm elevation |
-| `a.outline.modern` | `border-radius: var(--space-xs)` | border-radius: var(--space-xs) — modifier of a.outline |
-| `.bg` | `background: var(--bg)` | Bare background — page base fill (var(--bg)) |
-| `.surface` | `background: var(--bg-surface)` | Bare background — surface fill (var(--bg-surface)) |
-| `.panel` | `background: var(--bg-panel)` | Bare background — panel fill (var(--bg-panel)) |
-| `.sunken` | `background: var(--bg-sunken)` | Bare background — sunken fill (var(--bg-sunken)) |
-| `.raised` | `background: var(--bg-raised)` | Bare background — raised fill (var(--bg-raised)) |
-| `.extra` | `background: var(--bg-extra)` | Bare background — extra fill (var(--bg-extra)) |
+| `button[data-variant="icon"]` | `background: transparent; border: none; height: 24px; …` | background: transparent — attribute variant of button |
+| `button[data-variant="iconbox"]` | `background: var(--bg-panel); border: none; height: 24px; …` | background: var(--bg-panel) — attribute variant of button |
+| `button[data-variant="icon-sm"]` | `height: 20px; width: 20px` | height: 20px — attribute variant of button |
+| `button[data-variant="icon-md"]` | `height: 24px; width: 24px` | height: 24px — attribute variant of button |
+| `button[data-variant="icon-bs"]` | `height: 28px; width: 28px` | height: 28px — attribute variant of button |
+| `button[data-variant="icon-lg"]` | `height: 32px; width: 32px` | height: 32px — attribute variant of button |
+| `a.btn` | `background: var(--theme-color); font-size: var(--text-lg); color: var(--white-fixed); …` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
+| `a.btn[data-variant="primary"]` | `background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of a.btn |
+| `a.btn[data-variant="secondary"]` | `background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--state-surface) — attribute variant of a.btn |
+| `a.btn[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of a.btn |
+| `a.btn[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of a.btn |
+| `a.btn[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of a.btn |
+| `a.btn[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of a.btn |
+| `a.btn[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of a.btn |
+| `a.btn[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of a.btn |
+| `a.btn[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of a.btn |
+| `a.btn[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of a.btn |
+| `a.btn[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of a.btn |
+| `a.btn[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of a.btn |
+| `a.btn[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of a.btn |
+| `a.btn[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of a.btn |
+| `a.btn[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of a.btn |
+| `.bg-main` | `background: var(--bg)` | Bare background — page base fill (var(--bg)) |
+| `.bg-surface` | `background: var(--bg-surface)` | Bare background — surface fill (var(--bg-surface)) |
+| `.bg-panel` | `background: var(--bg-panel)` | Bare background — panel fill (var(--bg-panel)) |
+| `.bg-sunken` | `background: var(--bg-sunken)` | Bare background — sunken fill (var(--bg-sunken)) |
+| `.bg-raised` | `background: var(--bg-raised)` | Bare background — raised fill (var(--bg-raised)) |
+| `.bg-extra` | `background: var(--bg-extra)` | Bare background — extra fill (var(--bg-extra)) |
 | `.text-primary` | `color: var(--text-primary)` | color: var(--text-primary) |
 | `.text-secondary` | `color: var(--text-secondary)` | color: var(--text-secondary) |
 | `.text-muted` | `color: var(--text-muted)` | color: var(--text-muted) |
@@ -402,14 +454,16 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.text-white` | `color: var(--white-fixed)` | color: var(--white-fixed) |
 | `.text-black` | `color: var(--black-fixed)` | color: var(--black-fixed) |
 | `.text-theme` | `color: var(--theme-color)` | color: var(--theme-color) |
+| `.text-theme-alt` | `color: var(--theme-color-alt)` | color: var(--theme-color-alt) |
+| `.text-theme-sub` | `color: var(--theme-color-sub)` | color: var(--theme-color-sub) |
 | `.text-success` | `color: var(--success)` | color: var(--success) |
 | `.text-warning` | `color: var(--warning)` | color: var(--warning) |
 | `.text-danger` | `color: var(--danger)` | color: var(--danger) |
 | `.text-info` | `color: var(--info)` | color: var(--info) |
-| `.bg-success` | `background: var(--success)` | Status fills, mirroring the status inks above. A dot or chip that carries the |
-| `.bg-warning` | `background: var(--warning)` | background: var(--warning) |
-| `.bg-danger` | `background: var(--danger)` | background: var(--danger) |
-| `.bg-info` | `background: var(--info)` | background: var(--info) |
+| `.bg-success` | `background: var(--success); transition: background var(--motionout2)` | Status fills, mirroring the status inks above. A dot or chip that carries the |
+| `.bg-warning` | `background: var(--warning); transition: background var(--motionout2)` | background: var(--warning) |
+| `.bg-danger` | `background: var(--danger); transition: background var(--motionout2)` | background: var(--danger) |
+| `.bg-info` | `background: var(--info); transition: background var(--motionout2)` | background: var(--info) |
 | `.border` | `border: 1px solid var(--border)` | Full border, standard weight (var(--border)) |
 | `.border-subtle` | `border: 1px solid var(--border-subtle)` | Full border, subtle weight (var(--border-subtle)) |
 | `.border-strong` | `border: 1px solid var(--border-strong)` | Full border, strong weight (var(--border-strong)) |
@@ -469,9 +523,23 @@ Sanctioned extension point (_09_own.sass). Contains project-specific overrides a
 | `.mascotgl-ready` | `opacity: 1` | opacity: 1 |
 | `.mascotgl-compact .mascotgl-canvas` | `width: 130%; height: 130%` | Header-sized: 15% overhang per side (EXTENT_COMPACT = 0.65), still outside the layout box. |
 | `.hero-name` | `font-weight: 800; font-size: calc(var(--text-5xl) * 2); letter-spacing: -0.2rem` | Hero display name — text-5xl doubled, 800, tight tracking |
-| `.accordion` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Accordion group — vertical stack of .accordion-item |
-| `.accordion-item` | `border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-surface)` | Accordion item — bordered, curved shell hosting trigger and content |
-| `.accordion-content` | `display: grid; grid-template-rows: 0fr; padding: 0; …` | Collapsible region of an .accordion-item — 0fr→1fr grid transition |
-| `.accordion-panel` | `overflow: hidden; min-height: 0` | The panel is what collapses. It needs min-height: 0 so the grid row can |
-| `.accordion-item.open .accordion-content` | `grid-template-rows: 1fr; padding: var(--space-xs)` | grid-template-rows: 1fr — combination rule (accordion-itemopen accordion-content) |
-| `.accordion-trigger` | `display: flex; flex-direction: row; align-items: center; …` | Accordion trigger button — full-width, hover/focus states |
+| `.fsx-accordion` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Accordion group — vertical stack of .fsx-accordion-item |
+| `.fsx-accordion-item` | — | Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes |
+| `.fsx-accordion-content` | `display: grid; grid-template-rows: 0fr; padding: 0; …` | Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition |
+| `.fsx-accordion-panel` | `overflow: hidden; min-height: 0` | The panel is what collapses. It needs min-height: 0 so the grid row can |
+| `.fsx-accordion-item.open .fsx-accordion-content` | `grid-template-rows: 1fr; padding: var(--space-sm)` | grid-template-rows: 1fr — combination rule (fsx-accordion-itemopen fsx-accordion-content) |
+| `.fsx-accordion-item[data-variant="primary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-variant="secondary"]` | `background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)` | background: var(--bg-sunken) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-trigger` | `display: flex; flex-direction: row; align-items: center; …` | Accordion trigger button — full-width, hover/focus states |

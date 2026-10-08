@@ -97,7 +97,7 @@ export function lintSvelteFile(relPath, source, options = {}) {
 				const suggestion =
 					closest.length > 0
 						? `Class ".${cls}" is not in the system registry. Did you mean one of these?\n  - .${closest.join('\n  - .')}`
-						: `Class ".${cls}" is not in the system registry. Compose using existing classes in REGISTRY.md, or add it to the appropriate system partial in src/lib/styles (or _09_own.sass).`;
+						: `Class ".${cls}" is not in the system registry. Compose using existing classes in docs/REGISTRY.api.md, or add it to the appropriate system partial in src/lib/styles (or _09_own.sass).`;
 
 				diagnostics.push({
 					rule: 'fs/unknown-class',

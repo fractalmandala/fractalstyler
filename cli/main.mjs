@@ -25,6 +25,7 @@ Usage:
   fractalstyler init [options]     Scaffold a project (default command)
   fractalstyler eject [options]    Copy the styles sources into your project
   fractalstyler lint [dir] [flags]  Contract linter (self mode, or a target dir)
+  fractalstyler mcp               Start Model Context Protocol (MCP) server
   fractalstyler help               This message
 
 init options:
@@ -131,6 +132,12 @@ switch (command) {
 		const lint = join(PKG_ROOT, 'lint', 'cli.mjs');
 		const result = spawnSync(process.execPath, [lint, ...rest], { stdio: 'inherit' });
 		process.exit(result.status ?? 1);
+		break;
+	}
+	case 'mcp': {
+		const mcpServer = join(PKG_ROOT, 'mcp', 'server.mjs');
+		const result = spawnSync(process.execPath, [mcpServer, ...rest], { stdio: 'inherit' });
+		process.exit(result.status ?? 0);
 		break;
 	}
 	case 'help': case '--help': case '-h':

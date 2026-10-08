@@ -10,16 +10,16 @@ Operate within the `fractalstyler` registry as a **closed world**. Never invent 
 ## Mandatory Agent Workflow
 
 1. **Consult the Registry First**:
-   Read `REGISTRY.md` or `registry.json`. Search for existing utility classes, container bases, layouts, and shells before writing any markup.
+   Read `docs/REGISTRY.api.md` or `references/fractals.md`. Search for existing utility classes, container bases, layouts, and shells before writing any markup.
 2. **Review Recipes**:
    Check `data/recipes.json` for verified canonical compositions (segmented controls, search input bars, metrics grids, action rows, switches, modals).
 3. **Compose Only from Verified Classes**:
    - Containers: `.box` (column), `.row` (horizontal), `.grid` (CSS grid).
    - Physical Alignment: `.xcenter`, `.ycenter`, `.xbetween`, `.xright`, `.ytop`.
    - Dimensions & Spacing: `.gap-*`, `.pad-*`, `.pad-x-*`, `.pad-y-*`, `.w-*`, `.h-*`.
-   - Visuals: `.surface`, `.raised`, `.border`, `.border-bottom`, `.radius-*`, `.shadow-*`.
+   - Visuals: `.bg-main`, `.bg-surface`, `.bg-panel`, `.bg-sunken`, `.bg-raised`, `.bg-extra`, `.border`, `.border-bottom`, `.radius-*`, `.shadow-*`.
    - Typography: `.text-xs` .. `.text-5xl`, `.weight-500`, `.weight-600`, `.truncate`.
-   - Interactions: `.button`, `.primary`, `.ghost`, `.outline`, `.active`.
+   - Interactions: `button`, `a.btn`, `.input`, `.select`, `data-variant` (`primary`, `secondary`, `soft`, `outline`, `ghost`, `link`, `destructive`), `data-shape` (`square`, `modern`, `curved`, `round`), `data-size` (`sm`, `md`, `bs`, `lg`).
 4. **Hard Boundaries**:
    - **NO in-component `<style>` blocks**: Components must remain pure markup and logic.
    - **NO inline `style="..."` attributes**: Inline styles are unconstrained ad-hoc CSS.

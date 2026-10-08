@@ -1,4 +1,4 @@
-# Fractalstyler2 — Token Reference
+# Fractalstyler — Token Reference
 
 GENERATED FILE — do not edit. Emitted by `scripts/update-registry.js`
 from `_00_tokens.sass` (light/dark mixins + `:root`) and the shadow specs in
@@ -68,17 +68,15 @@ Heights for inputs, selects and buttons; avatar and switch channels.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--control-h-sm` | — | `21px` |
-| `--control-h-bs` | — | `32px` |
-| `--control-h-lg` | — | `38px` |
 | `--avatar-size` | — | `32px` |
 | `--switch-w` | — | `40px` |
 | `--switch-h` | — | `22px` |
 | `--switch-thumb` | — | `16px` |
-| `--height-sm` | `.h-sm` | `16px` |
-| `--height-md` | `.h-md` | `20px` |
-| `--height-bs` | `.h-bs` | `27px` |
+| `--height-sm` | `.h-sm` | `20px` |
+| `--height-md` | `.h-md` | `24px` |
+| `--height-bs` | `.h-bs` | `28px` |
 | `--height-lg` | `.h-lg` | `32px` |
+| `--height-xl` | `.h-xl` | `40` |
 
 ## Motion Language
 
@@ -112,17 +110,17 @@ Name the role, never the hex. Values shown are the light default;
 |:---|:---|:---|
 | `--white-fixed` | `.text-white` | `#FFFFFF` |
 | `--black-fixed` | `.text-black` | `#171717` |
-| `--bg` | — | `#ffffff` |
-| `--bg-surface` | — | `#FBFBF9` |
-| `--bg-panel` | — | `#FBFBF9` |
-| `--bg-sunken` | — | `#F7F6F0` |
-| `--bg-raised` | — | `#F4F4F5` |
-| `--bg-extra` | — | `rgb(247, 248, 249)` |
+| `--bg` | `.bg-main` | `#ffffff` |
+| `--bg-surface` | `.bg-surface` | `#FBFBF9` |
+| `--bg-panel` | `.bg-panel` | `#FBFBF9` |
+| `--bg-sunken` | `.bg-sunken` | `#F7F6F0` |
+| `--bg-raised` | `.bg-raised` | `#F4F4F5` |
+| `--bg-extra` | `.bg-extra` | `rgb(247, 248, 249)` |
 | `--bg-input` | — | `#f8f9fa` |
 | `--bg-button` | — | `#CED8D3` |
 | `--text-primary` | .text-primary | `#262627` |
 | `--text-secondary` | .text-secondary | `#777777` |
-| `--text-muted` | .text-muted | `#a3a4a7` |
+| `--text-muted` | .text-muted | `#bac8f3` |
 | `--text-inverse` | .text-inverse | `#ffffff` |
 | `--state-surface` | — | `#F2EFE9` |
 | `--state-hover` | — | `#ECE7DF` |
@@ -130,9 +128,9 @@ Name the role, never the hex. Values shown are the light default;
 | `--border` | — | `#d8d8d8` |
 | `--border-subtle` | — | `#eceaea` |
 | `--border-strong` | — | `#cfcfcf` |
-| `--theme-color` | `.text-theme` | `#ff4400` |
-| `--theme-color-alt` | — | `#be2f00` |
-| `--theme-color-sub` | — | `#feb18a` |
+| `--theme-color` | `.text-theme` | `#0dc02e` |
+| `--theme-color-alt` | `.text-theme-alt` | `#317b14` |
+| `--theme-color-sub` | `.text-theme-sub` | `#2b571a` |
 | `--success` | `.text-success` `.bg-success` | `#10B981` |
 | `--success-hover` | — | `#059669` |
 | `--warning` | `.text-warning` `.bg-warning` | `#F59E0B` |
@@ -178,9 +176,6 @@ Font stacks plus the page geometry the shells and viewport classes read.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--font-sans` | — | `"Timeless Sans", sans-serif` |
-| `--timeless-sans` | — | `"Timeless Sans", sans-serif` |
-| `--timeless-grotesk` | — | `"Timeless Grotesk", sans-serif` |
 | `--header-height` | — | `64px` |
 | `--footer-height` | — | `32px` |
 | `--fit-height` | — | `calc(var(--header-height) + var(--footer-height))` |
@@ -221,6 +216,6 @@ Named accent literals. The `.orange1`…`.orange6` ink classes read
 | Attribute | Where | Values | Effect |
 |:---|:---|:---|:---|
 | `data-mode` | `<html>` | `light` \| `dark` | Swaps `=light-theme-tokens` / `=dark-theme-tokens` |
-| `data-shape` | `.card`, `button` | `modern` \| `curved` \| `round` | Corner treatment of the component |
-| `data-variant` | `button` | `primary` \| `secondary` \| `soft` \| `outline` \| `ghost` \| `link` \| `destructive` | Paint variant of the button quartet |
-| `data-size` | `button` | `sm` \| `md` \| `bs` \| `lg` | Metrics variant of the button quartet |
+| `data-shape` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `square` \| `modern` \| `curved` \| `round` | Corner treatment of the component |
+| `data-variant` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `primary` \| `secondary` \| `soft` \| `outline` \| `ghost` \| `link` \| `destructive` | Visual paint variant |
+| `data-size` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `sm` \| `md` \| `bs` \| `lg` | Metrics / scale variant |

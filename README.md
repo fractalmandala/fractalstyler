@@ -6,11 +6,36 @@ CSS. MIT © [Fractal Mandala](https://github.com/fractalmandala)
 
 **This library is a work in constant progress and breaking changes each bump.**
 
-- Registry: [`REGISTRY.md`](REGISTRY.md) · [`docs/REGISTRY.api.md`](docs/REGISTRY.api.md)
-- Configuration, the *why/how*: [`docs/references/configurations.md`](docs/references/configurations.md) · the *what*: [`docs/references/configurations-api.md`](docs/references/configurations-api.md)
-- Agent skill: [`skills/fractal-styler/SKILL.md`](skills/fractalstyler/SKILL.md)
+- Registry: [`docs/REGISTRY.api.md`](docs/REGISTRY.api.md)
+- Configuration: [`docs/references/configurations-api.md`](docs/references/configurations-api.md)
+- Agent skill: [`skills/fractalstyler/SKILL.md`](skills/fractalstyler/SKILL.md)
 
----
+## 9th Oct changelog
+- removed heavy `.card` stylings, removed `_10_*`.sass file.
+- also removed classes - width additional styling imposed by `_10_*.sass` like hardcoded padding.
+- **the library no longer imports any font family at all. It ships a blank `_00_fonts.sass` file for user to fill and use**
+- **library does not declare or set values for `--font-sans` and `--font-mono`. It assigns to body and html font-family: `var(--font-sans)`. Users have to suppply**
+
+- data variant, data shape, and data size are now a typed canonical set applied to multiple classes- button, a.btn, .input, .select, and more. 
+- factory agents should be given `packages/fractalstyler/src/lib/libTypes.ts` for the full map. 
+- the raw forms of these classes (button, .input, ..) without `[data-variant="default"]` have been given minimal styling, left unstyled. Styling begins at variant primary. 
+- text color has not been defined in any variant, to leave that choice at frontend side. `--text-primary`, `--text-secondary`, `--text-muted`
+ remain the prime 3, along with accents.
+
+- Accordion group has been styled with prefix `fsx-` in the names `packages/fractalstyler/src/lib/styles/_09_own.sass`.
+- This is to leave the original `.accordion`, `.accordion-item` and other classes open for styling for now. 
+
+- ** data-variant= `icon` condenses sizes also in its own definition, data-variants `icon-sm`, `icon-md`, `icon-bs`, and `icon-lg`.
+
+**Version bumped - this will be 1.0.0 release of package**
+
+before release:
+- regenerate classes list and registry, to shake off tree and remove deprecated classes + add new few.
+- all three files inside `packages/fractalstyler/skills/fractalstyler` to be modified to drop old class references.
+- updated [configurations](docs/references/configurations-api.md) and [registry](docs/REGISTRY.api.md)
+- re-audit mcp to ensure it is not out of date and is using current classes and status
+- regenerate fractalstyler intellisense vscode plugin -`/Users/amrit/fractaldesign/packages/fractalstyler/styles-intellisense` vsix. 
+- update AGENTS.md where needed, update README.md where needed
 
 ## Using it in a project
 
@@ -39,8 +64,8 @@ the configuration docs greppable inside your project, run:
 npx @fractaldesign/fractalstyler init --track --docs
 ```
 
-which places `REGISTRY.md`, `REGISTRY.api.md` and
-`references/configurations{,-api}.md` into a `fractalstyler/` folder at your
+which places `REGISTRY.api.md` and
+`references/configurations-api.md` into a `fractalstyler/` folder at your
 project root (`--docs-dir` to choose another). Docs are snapshots — re-run
 `init` after upgrading to refresh them.
 
@@ -108,10 +133,41 @@ npx @fractaldesign/fractalstyler help     # all options
 `pnpm add -D sass`. Its own flags (`--json`, `--own <file>`, `--registry <f>`)
 pass through unchanged.
 
+## MCP Server (Agent Co-pilot)
+
+The package ships with a Model Context Protocol (MCP) server to guide AI coding agents:
+
+```sh
+npx @fractaldesign/fractalstyler mcp
+```
+
+Or configure in your MCP settings (Claude Desktop, Cursor, Antigravity):
+
+```json
+{
+  "mcpServers": {
+    "fractalstyler": {
+      "command": "npx",
+      "args": ["-y", "@fractaldesign/fractalstyler", "mcp"]
+    }
+  }
+}
+```
+
+Exposes 8 agent tools:
+- `guide_styling`: Intent-driven design advisor (gap, typography, layout, cards, buttons).
+- `search_classes`: Fast search and filter over the 429 canonical classes.
+- `get_tokens`: Inspect space, typography, radius, shadow, and surface tokens.
+- `snap_to_tokens`: Snaps raw pixel values to nearest canonical token utility classes.
+- `get_recipes`: Verified copy-paste recipes (segmented controls, metrics grids, dialogs, etc.).
+- `css_to_classes`: Translates raw CSS declarations into pure Fractalstyler markup.
+- `lint_markup`: Validates markup against closed-world styling contracts.
+- `get_system_rules`: Returns system constraints and architecture primer.
+
 ## Developing this package
 
 ```sh
-pnpm registry   # regenerate registry.json, REGISTRY.md, docs, skill references
+pnpm registry   # regenerate registry.json, docs/REGISTRY.api.md, skill references
 pnpm vocab      # regenerate docs/REGISTRY.api.md
 pnpm browser    # regenerate docs/browser.html
 pnpm lint       # contract linter (self mode)
@@ -121,4 +177,4 @@ pnpm css        # rebuild dist/css
 
 Architecture: **L0 (Tokens) → L1 (Dimensions) → L2 (Containers) → L3
 (Layouts) → L4 (Shells) → L5 (Visuals & Interactions)** — the layer map and
-the edit recipes are in [`docs/references/configurations.md`](docs/references/configurations.md).
+the definitions are in [`docs/references/configurations-api.md`](docs/references/configurations-api.md).

@@ -2492,19 +2492,69 @@
     "parent": null,
     "file": "_04_containers.sass",
     "layer": "L2",
-    "property": "padding: var(--space-bs); border: 1px solid var(--border); background: var(--bg-panel)",
+    "property": "background: var(--bg-panel)",
     "description": "Panel card: padded, bordered, panel background; arrow svg and footer behaviors included",
     "example": "<div class=\"card\">…</div>"
   },
   {
-    "class": ".arrow",
-    "kind": "child",
+    "class": ".card[data-variant=\"primary\"]",
+    "kind": "variant",
     "parent": ".card",
     "file": "_04_containers.sass",
     "layer": "L2",
-    "property": "color: var(--theme-color); transition: transform var(--speed1) var(--transout1)",
-    "description": "color: var(--theme-color) — child of .card",
-    "example": "<div class=\"arrow\">…</div>"
+    "property": "background: var(--bg-surface); border: 1px solid var(--border-subtle)",
+    "description": "background: var(--bg-surface) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-variant=\"secondary\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "background: var(--bg-sunken); border: 1px solid var(--border-strong)",
+    "description": "background: var(--bg-sunken) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-variant=\"soft\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "background: var(--bg-extra); border: 1px solid transparent",
+    "description": "background: var(--bg-extra) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-variant=\"outline\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "background: transparent; color: var(--text-primary); border: 1px solid var(--border-strong)",
+    "description": "background: transparent — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-variant=\"ghost\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "background: transparent; border: none",
+    "description": "background: transparent — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-variant=\"link\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "background: var(--bg-surface); border: 1px solid var(--border-subtle); text-decoration: none",
+    "description": "background: var(--bg-surface) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
   },
   {
     "class": ".card[data-shape=\"modern\"]",
@@ -2514,6 +2564,66 @@
     "layer": "L2",
     "property": "border-radius: var(--radius-sm)",
     "description": "border-radius: var(--radius-sm) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-shape=\"curved\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "border-radius: var(--radius-md)",
+    "description": "border-radius: var(--radius-md) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-shape=\"round\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "border-radius: var(--radius-full)",
+    "description": "border-radius: var(--radius-full) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-size=\"sm\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "padding: var(--space-sm)",
+    "description": "padding: var(--space-sm) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-size=\"md\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "padding: var(--space-md)",
+    "description": "padding: var(--space-md) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-size=\"bs\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "padding: var(--space-bs)",
+    "description": "padding: var(--space-bs) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-size=\"lg\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "padding: var(--space-lg)",
+    "description": "padding: var(--space-lg) — attribute variant of .card",
     "example": "<div class=\"card\">…</div>"
   },
   {
@@ -2902,19 +3012,139 @@
     "parent": null,
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "display: block; width: 100%; height: var(--height-lg); …",
+    "property": "display: block; width: 100%; height: var(--height-bs); …",
     "description": "Text input — themed field with focus ring",
     "example": "<div class=\"input\">…</div>"
   },
   {
-    "class": ".input.small",
-    "kind": "modifier",
+    "class": ".input[data-variant=\"primary\"]",
+    "kind": "variant",
     "parent": ".input",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "height: var(--height-bs); font-size: var(--text-sm)",
-    "description": "height: var(--height-bs) — modifier of .input",
-    "example": "<div class=\"input small\">…</div>"
+    "property": "background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)",
+    "description": "background: var(--bg-input) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-variant=\"secondary\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)",
+    "description": "background: var(--bg-panel) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-variant=\"soft\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)",
+    "description": "background: var(--bg-surface) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-variant=\"outline\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)",
+    "description": "background: var(--bg) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-variant=\"ghost\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: transparent; color: var(--text-primary); border: none; …",
+    "description": "background: transparent — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-shape=\"square\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: 0",
+    "description": "border-radius: 0 — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-shape=\"modern\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-sm)",
+    "description": "border-radius: var(--radius-sm) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-shape=\"curved\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-md)",
+    "description": "border-radius: var(--radius-md) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-shape=\"round\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-full)",
+    "description": "border-radius: var(--radius-full) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-size=\"sm\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-sm); font-size: var(--text-sm)",
+    "description": "height: var(--height-sm) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-size=\"md\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "description": "height: var(--height-md) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-size=\"bs\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-bs); font-size: var(--text-bs)",
+    "description": "height: var(--height-bs) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input[data-size=\"lg\"]",
+    "kind": "variant",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-lg); font-size: var(--text-bs)",
+    "description": "height: var(--height-lg) — attribute variant of .input",
+    "example": "<div class=\"input\">…</div>"
   },
   {
     "class": ".select",
@@ -2927,14 +3157,134 @@
     "example": "<div class=\"select\">…</div>"
   },
   {
-    "class": ".select.small",
-    "kind": "modifier",
+    "class": ".select[data-variant=\"primary\"]",
+    "kind": "variant",
     "parent": ".select",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "height: var(--height-bs); font-size: var(--text-sm)",
-    "description": "height: var(--height-bs) — modifier of .select",
-    "example": "<div class=\"select small\">…</div>"
+    "property": "background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)",
+    "description": "background: var(--bg-input) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-variant=\"secondary\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)",
+    "description": "background: var(--bg-panel) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-variant=\"soft\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)",
+    "description": "background: var(--bg-surface) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-variant=\"outline\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)",
+    "description": "background: var(--bg) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-variant=\"ghost\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: transparent; color: var(--text-primary); border: none; …",
+    "description": "background: transparent — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-shape=\"square\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: 0",
+    "description": "border-radius: 0 — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-shape=\"modern\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-sm)",
+    "description": "border-radius: var(--radius-sm) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-shape=\"curved\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-md)",
+    "description": "border-radius: var(--radius-md) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-shape=\"round\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-full)",
+    "description": "border-radius: var(--radius-full) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-size=\"sm\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-sm); font-size: var(--text-sm)",
+    "description": "height: var(--height-sm) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-size=\"md\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "description": "height: var(--height-md) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-size=\"bs\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-bs); font-size: var(--text-bs)",
+    "description": "height: var(--height-bs) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select[data-size=\"lg\"]",
+    "kind": "variant",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-lg); font-size: var(--text-bs)",
+    "description": "height: var(--height-lg) — attribute variant of .select",
+    "example": "<div class=\"select\">…</div>"
   },
   {
     "class": ".link",
@@ -3007,26 +3357,6 @@
     "example": "<button class=\"icon\">…</button>"
   },
   {
-    "class": "button.modern",
-    "kind": "modifier",
-    "parent": "button",
-    "file": "_07_interactions.sass",
-    "layer": "L5",
-    "property": "border-radius: var(--space-xs)",
-    "description": "border-radius: var(--space-xs) — modifier of button",
-    "example": "<button class=\"modern\">…</button>"
-  },
-  {
-    "class": "button.primary",
-    "kind": "modifier",
-    "parent": "button",
-    "file": "_07_interactions.sass",
-    "layer": "L5",
-    "property": "background: var(--theme-color)",
-    "description": "background: var(--theme-color) — modifier of button",
-    "example": "<button class=\"primary\">…</button>"
-  },
-  {
     "class": "button[data-variant=\"primary\"]",
     "kind": "variant",
     "parent": "button",
@@ -3062,7 +3392,7 @@
     "parent": "button",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--text-primary)",
+    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)",
     "description": "background: var(--bg) — attribute variant of button",
     "example": "<button [data-variant=\"outline\"]>…</button>"
   },
@@ -3095,6 +3425,16 @@
     "property": "background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)",
     "description": "background: var(--danger) — attribute variant of button",
     "example": "<button [data-variant=\"destructive\"]>…</button>"
+  },
+  {
+    "class": "button[data-shape=\"square\"]",
+    "kind": "variant",
+    "parent": "button",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: 0",
+    "description": "border-radius: 0 — attribute variant of button",
+    "example": "<button [data-shape=\"square\"]>…</button>"
   },
   {
     "class": "button[data-shape=\"modern\"]",
@@ -3167,104 +3507,284 @@
     "example": "<button [data-size=\"lg\"]>…</button>"
   },
   {
-    "class": "a.primary",
+    "class": "button[data-variant=\"icon\"]",
+    "kind": "variant",
+    "parent": "button",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: transparent; border: none; height: 24px; …",
+    "description": "background: transparent — attribute variant of button",
+    "example": "<button [data-variant=\"icon\"]>…</button>"
+  },
+  {
+    "class": "button[data-variant=\"iconbox\"]",
+    "kind": "variant",
+    "parent": "button",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg-panel); border: none; height: 24px; …",
+    "description": "background: var(--bg-panel) — attribute variant of button",
+    "example": "<button [data-variant=\"iconbox\"]>…</button>"
+  },
+  {
+    "class": "button[data-variant=\"icon-sm\"]",
+    "kind": "variant",
+    "parent": "button",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: 20px; width: 20px",
+    "description": "height: 20px — attribute variant of button",
+    "example": "<button [data-variant=\"icon-sm\"]>…</button>"
+  },
+  {
+    "class": "button[data-variant=\"icon-md\"]",
+    "kind": "variant",
+    "parent": "button",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: 24px; width: 24px",
+    "description": "height: 24px — attribute variant of button",
+    "example": "<button [data-variant=\"icon-md\"]>…</button>"
+  },
+  {
+    "class": "button[data-variant=\"icon-bs\"]",
+    "kind": "variant",
+    "parent": "button",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: 28px; width: 28px",
+    "description": "height: 28px — attribute variant of button",
+    "example": "<button [data-variant=\"icon-bs\"]>…</button>"
+  },
+  {
+    "class": "button[data-variant=\"icon-lg\"]",
+    "kind": "variant",
+    "parent": "button",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: 32px; width: 32px",
+    "description": "height: 32px — attribute variant of button",
+    "example": "<button [data-variant=\"icon-lg\"]>…</button>"
+  },
+  {
+    "class": "a.btn",
     "kind": "class",
     "parent": null,
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "background: var(--theme-color); font-size: var(--text-lg); color: var(--white-fixed); …",
-    "description": "Primary call-to-action anchor — theme fill, sm elevation, modern corner optional",
-    "example": "<a class=\"primary\" href=\"…\">…</a>"
+    "description": "Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
   },
   {
-    "class": "a.primary.modern",
-    "kind": "modifier",
-    "parent": "a.primary",
+    "class": "a.btn[data-variant=\"primary\"]",
+    "kind": "variant",
+    "parent": "a.btn",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "border-radius: var(--space-xs)",
-    "description": "border-radius: var(--space-xs) — modifier of a.primary",
-    "example": "<a class=\"primary modern\" href=\"…\">…</a>"
+    "property": "background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)",
+    "description": "background: var(--theme-color) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
   },
   {
-    "class": "a.outline",
-    "kind": "class",
-    "parent": null,
+    "class": "a.btn[data-variant=\"secondary\"]",
+    "kind": "variant",
+    "parent": "a.btn",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: transparent; font-size: var(--text-lg); color: var(--text-primary); …",
-    "description": "Outline call-to-action anchor — transparent fill, ink border, sm elevation",
-    "example": "<a class=\"outline\" href=\"…\">…</a>"
+    "property": "background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)",
+    "description": "background: var(--state-surface) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
   },
   {
-    "class": "a.outline.modern",
-    "kind": "modifier",
-    "parent": "a.outline",
+    "class": "a.btn[data-variant=\"soft\"]",
+    "kind": "variant",
+    "parent": "a.btn",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "border-radius: var(--space-xs)",
-    "description": "border-radius: var(--space-xs) — modifier of a.outline",
-    "example": "<a class=\"outline modern\" href=\"…\">…</a>"
+    "property": "background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)",
+    "description": "background: var(--theme-color-sub) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
   },
   {
-    "class": ".bg",
+    "class": "a.btn[data-variant=\"outline\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)",
+    "description": "background: var(--bg) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-variant=\"ghost\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: transparent; color: var(--text-primary); border: none",
+    "description": "background: transparent — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-variant=\"link\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: transparent; color: var(--theme-color); border: none",
+    "description": "background: transparent — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-variant=\"destructive\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)",
+    "description": "background: var(--danger) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-shape=\"square\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: 0",
+    "description": "border-radius: 0 — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-shape=\"modern\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-sm)",
+    "description": "border-radius: var(--radius-sm) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-shape=\"curved\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-md)",
+    "description": "border-radius: var(--radius-md) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-shape=\"round\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-full)",
+    "description": "border-radius: var(--radius-full) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-size=\"sm\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-sm); font-size: var(--text-sm)",
+    "description": "height: var(--height-sm) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-size=\"md\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "description": "height: var(--height-md) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-size=\"bs\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-bs); font-size: var(--text-bs)",
+    "description": "height: var(--height-bs) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": "a.btn[data-size=\"lg\"]",
+    "kind": "variant",
+    "parent": "a.btn",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-lg); font-size: var(--text-bs)",
+    "description": "height: var(--height-lg) — attribute variant of a.btn",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
+    "class": ".bg-main",
     "kind": "class",
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
     "property": "background: var(--bg)",
     "description": "Bare background — page base fill (var(--bg))",
-    "example": "<div class=\"bg\">…</div>"
+    "example": "<div class=\"bg-main\">…</div>"
   },
   {
-    "class": ".surface",
+    "class": ".bg-surface",
     "kind": "class",
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
     "property": "background: var(--bg-surface)",
     "description": "Bare background — surface fill (var(--bg-surface))",
-    "example": "<div class=\"surface\">…</div>"
+    "example": "<div class=\"bg-surface\">…</div>"
   },
   {
-    "class": ".panel",
+    "class": ".bg-panel",
     "kind": "class",
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
     "property": "background: var(--bg-panel)",
     "description": "Bare background — panel fill (var(--bg-panel))",
-    "example": "<div class=\"panel\">…</div>"
+    "example": "<div class=\"bg-panel\">…</div>"
   },
   {
-    "class": ".sunken",
+    "class": ".bg-sunken",
     "kind": "class",
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
     "property": "background: var(--bg-sunken)",
     "description": "Bare background — sunken fill (var(--bg-sunken))",
-    "example": "<div class=\"sunken\">…</div>"
+    "example": "<div class=\"bg-sunken\">…</div>"
   },
   {
-    "class": ".raised",
+    "class": ".bg-raised",
     "kind": "class",
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
     "property": "background: var(--bg-raised)",
     "description": "Bare background — raised fill (var(--bg-raised))",
-    "example": "<div class=\"raised\">…</div>"
+    "example": "<div class=\"bg-raised\">…</div>"
   },
   {
-    "class": ".extra",
+    "class": ".bg-extra",
     "kind": "class",
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
     "property": "background: var(--bg-extra)",
     "description": "Bare background — extra fill (var(--bg-extra))",
-    "example": "<div class=\"extra\">…</div>"
+    "example": "<div class=\"bg-extra\">…</div>"
   },
   {
     "class": ".text-primary",
@@ -3337,6 +3857,26 @@
     "example": "<div class=\"text-theme\">…</div>"
   },
   {
+    "class": ".text-theme-alt",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--theme-color-alt)",
+    "description": "color: var(--theme-color-alt)",
+    "example": "<div class=\"text-theme-alt\">…</div>"
+  },
+  {
+    "class": ".text-theme-sub",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--theme-color-sub)",
+    "description": "color: var(--theme-color-sub)",
+    "example": "<div class=\"text-theme-sub\">…</div>"
+  },
+  {
     "class": ".text-success",
     "kind": "class",
     "parent": null,
@@ -3382,7 +3922,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--success)",
+    "property": "background: var(--success); transition: background var(--motionout2)",
     "description": "Status fills, mirroring the status inks above. A dot or chip that carries the",
     "example": "<div class=\"bg-success\">…</div>"
   },
@@ -3392,7 +3932,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--warning)",
+    "property": "background: var(--warning); transition: background var(--motionout2)",
     "description": "background: var(--warning)",
     "example": "<div class=\"bg-warning\">…</div>"
   },
@@ -3402,7 +3942,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--danger)",
+    "property": "background: var(--danger); transition: background var(--motionout2)",
     "description": "background: var(--danger)",
     "example": "<div class=\"bg-danger\">…</div>"
   },
@@ -3412,7 +3952,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--info)",
+    "property": "background: var(--info); transition: background var(--motionout2)",
     "description": "background: var(--info)",
     "example": "<div class=\"bg-info\">…</div>"
   },
@@ -3937,63 +4477,203 @@
     "example": "<div class=\"hero-name\">…</div>"
   },
   {
-    "class": ".accordion",
+    "class": ".fsx-accordion",
     "kind": "class",
     "parent": null,
     "file": "_09_own.sass",
     "layer": "Custom",
     "property": "display: flex; flex-direction: column; gap: var(--space-xs)",
-    "description": "Accordion group — vertical stack of .accordion-item",
-    "example": "<div class=\"accordion\">…</div>"
+    "description": "Accordion group — vertical stack of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion\">…</div>"
   },
   {
-    "class": ".accordion-item",
+    "class": ".fsx-accordion-item",
     "kind": "class",
     "parent": null,
     "file": "_09_own.sass",
     "layer": "Custom",
-    "property": "border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-surface)",
-    "description": "Accordion item — bordered, curved shell hosting trigger and content",
-    "example": "<div class=\"accordion-item\">…</div>"
+    "property": "",
+    "description": "Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
   },
   {
-    "class": ".accordion-content",
+    "class": ".fsx-accordion-content",
     "kind": "child",
-    "parent": ".accordion-item",
+    "parent": ".fsx-accordion-item",
     "file": "_09_own.sass",
     "layer": "Custom",
     "property": "display: grid; grid-template-rows: 0fr; padding: 0; …",
-    "description": "Collapsible region of an .accordion-item — 0fr→1fr grid transition",
-    "example": "<div class=\"accordion-content\">…</div>"
+    "description": "Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition",
+    "example": "<div class=\"fsx-accordion-content\">…</div>"
   },
   {
-    "class": ".accordion-panel",
+    "class": ".fsx-accordion-panel",
     "kind": "child",
-    "parent": ".accordion-item",
+    "parent": ".fsx-accordion-item",
     "file": "_09_own.sass",
     "layer": "Custom",
     "property": "overflow: hidden; min-height: 0",
     "description": "The panel is what collapses. It needs min-height: 0 so the grid row can",
-    "example": "<div class=\"accordion-panel\">…</div>"
+    "example": "<div class=\"fsx-accordion-panel\">…</div>"
   },
   {
-    "class": ".accordion-item.open .accordion-content",
+    "class": ".fsx-accordion-item.open .fsx-accordion-content",
     "kind": "compound",
-    "parent": ".accordion-item",
+    "parent": ".fsx-accordion-item",
     "file": "_09_own.sass",
     "layer": "Custom",
-    "property": "grid-template-rows: 1fr; padding: var(--space-xs)",
-    "description": "grid-template-rows: 1fr — combination rule (accordion-itemopen accordion-content)",
-    "example": "<div class=\"accordion-item open\"><div class=\"accordion-content\">…</div></div>"
+    "property": "grid-template-rows: 1fr; padding: var(--space-sm)",
+    "description": "grid-template-rows: 1fr — combination rule (fsx-accordion-itemopen fsx-accordion-content)",
+    "example": "<div class=\"fsx-accordion-item open\"><div class=\"fsx-accordion-content\">…</div></div>"
   },
   {
-    "class": ".accordion-trigger",
+    "class": ".fsx-accordion-item[data-variant=\"primary\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)",
+    "description": "background: var(--bg-panel) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-variant=\"secondary\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)",
+    "description": "background: var(--bg-sunken) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-variant=\"soft\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)",
+    "description": "background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-variant=\"outline\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)",
+    "description": "background: var(--bg) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-variant=\"ghost\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "background: transparent; color: var(--text-primary); border: none",
+    "description": "background: transparent — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-variant=\"link\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "background: transparent; color: var(--theme-color); border: none",
+    "description": "background: transparent — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-variant=\"destructive\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)",
+    "description": "background: var(--danger) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-shape=\"modern\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "border-radius: var(--radius-sm)",
+    "description": "border-radius: var(--radius-sm) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-shape=\"curved\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "border-radius: var(--radius-md)",
+    "description": "border-radius: var(--radius-md) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-shape=\"round\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "border-radius: var(--radius-full)",
+    "description": "border-radius: var(--radius-full) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-size=\"sm\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "height: var(--height-sm); font-size: var(--text-sm)",
+    "description": "height: var(--height-sm) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-size=\"md\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "description": "height: var(--height-md) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-size=\"bs\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "height: var(--height-bs); font-size: var(--text-bs)",
+    "description": "height: var(--height-bs) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-item[data-size=\"lg\"]",
+    "kind": "variant",
+    "parent": ".fsx-accordion-item",
+    "file": "_09_own.sass",
+    "layer": "Custom",
+    "property": "height: var(--height-lg); font-size: var(--text-bs)",
+    "description": "height: var(--height-lg) — attribute variant of .fsx-accordion-item",
+    "example": "<div class=\"fsx-accordion-item\">…</div>"
+  },
+  {
+    "class": ".fsx-accordion-trigger",
     "kind": "class",
     "parent": null,
     "file": "_09_own.sass",
     "layer": "Custom",
     "property": "display: flex; flex-direction: row; align-items: center; …",
     "description": "Accordion trigger button — full-width, hover/focus states",
-    "example": "<div class=\"accordion-trigger\">…</div>"
+    "example": "<div class=\"fsx-accordion-trigger\">…</div>"
   }
 ]

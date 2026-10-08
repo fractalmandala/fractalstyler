@@ -120,19 +120,54 @@
 	overscroll-behavior: contain
 
 .card
-	padding: var(--space-bs)
-	border: 1px solid var(--border)
 	background: var(--bg-panel)
-	svg.arrow
-		color: var(--theme-color)
-		transition: transform var(--speed1) var(--transout1)
 	footer
 		margin-top: auto
+	&[data-variant="primary"]
+		background: var(--bg-surface)
+		border: 1px solid var(--border-subtle)
+		&:hover
+			border: 1px solid var(--border-strong)
+	&[data-variant="secondary"]
+		background: var(--bg-sunken)
+		border: 1px solid var(--border-strong)
+		&:hover
+			border: 1px solid var(--border-subtle)
+	&[data-variant="soft"]
+		background: var(--bg-extra)
+		border: 1px solid transparent
+		&:hover
+			background: var(--bg)
+			border: 1px solid var(--border)
+	&[data-variant="outline"]
+		background: transparent
+		color: var(--text-primary)
+		border: 1px solid var(--border-strong)
+		&:hover
+			background: var(--theme-color)
+	&[data-variant="ghost"]
+		background: transparent
+		border: none
+	&[data-variant="link"]
+		background: var(--bg-surface)
+		border: 1px solid var(--border-subtle)
+		text-decoration: none
+		&:hover
+			border: 1px solid var(--theme-color)
 	&[data-shape="modern"]
 		border-radius: var(--radius-sm)
-	&:hover
-		svg
-			transform: translateX(2rem)
+	&[data-shape="curved"]
+		border-radius: var(--radius-md)
+	&[data-shape="round"]
+		border-radius: var(--radius-full)
+	&[data-size="sm"]
+		padding: var(--space-sm)
+	&[data-size="md"]
+		padding: var(--space-md)
+	&[data-size="bs"]
+		padding: var(--space-bs)
+	&[data-size="lg"]
+		padding: var(--space-lg)
 
 .chip
 	font-size: var(--text-xs)

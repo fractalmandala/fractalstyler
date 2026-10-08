@@ -37,12 +37,12 @@ When beginning any styling task, inspect the designated file first rather than g
 ## Canonical Recipes (`data/recipes.json`)
 
 Consult `data/recipes.json` before inventing composite patterns. Canonical verified markups include:
-- **Segmented Control**: `<div class="row ycenter shrink-0 pad-2 raised border radius-sm"><button class="button ghost text-xs active">...</button></div>`
-- **Search Input Bar**: `<div class="row ycenter gap-xs pad-x-xs pad-y-2xs surface border radius-sm grow min0"><span class="text-muted text-xs">⌕</span><input class="input grow min0 text-sm" type="search" /><kbd class="kbd text-xs">⌘K</kbd></div>`
-- **Responsive Metrics Grid**: `<div class="grid-4 gap-sm"><div class="card box ycenter xcenter gap-2xs pad-sm surface border">...</div></div>`
+- **Segmented Control**: `<div class="row ycenter shrink-0 pad-2 bg-raised border radius-sm"><button class="button ghost text-xs active">...</button></div>`
+- **Search Input Bar**: `<div class="row ycenter gap-xs pad-x-xs pad-y-2xs bg-surface border radius-sm grow min0"><span class="text-muted text-xs">⌕</span><input class="input grow min0 text-sm" type="search" /><kbd class="kbd text-xs">⌘K</kbd></div>`
+- **Responsive Metrics Grid**: `<div class="grid-4 gap-sm"><div class="card box ycenter xcenter gap-2xs pad-sm bg-surface border">...</div></div>`
 - **Settings Switch Row**: `<div class="row ycenter xbetween gap-md pad-y-sm border-bottom">...</div>`
-- **Action Dialog**: `<dialog class="dialog pad-0 surface border radius-md">...`
-- **Dropdown Action Menu**: `<div class="relative"><button class="button ghost" aria-expanded="true">...</button><div class="popover open box gap-2xs pad-2xs surface border shadow-md radius-sm">...</div></div>`
+- **Action Dialog**: `<dialog class="dialog pad-0 bg-surface border radius-md">...`
+- **Dropdown Action Menu**: `<div class="relative"><button class="button ghost" aria-expanded="true">...</button><div class="popover open box gap-2xs pad-2xs bg-surface border shadow-md radius-sm">...</div></div>`
 
 ---
 
@@ -53,7 +53,7 @@ Before calling any fix or feature "Done", run the verification commands:
 ```bash
 pnpm lint        # Runs contract linter (validates Svelte, Sass, token purity, zero style blocks)
 pnpm check       # Validates documentation deck and compiles Sass fresh
-pnpm registry    # Regenerates registry.json, REGISTRY.md, and skills references
+pnpm registry    # Regenerates registry.json, docs/REGISTRY.api.md, and skills references
 pnpm vocab       # Updates docs/REGISTRY.api.md with class vocabulary decoders
 pnpm browser     # (Optional) Opens interactive browser page to inspect registry classes
 ```
@@ -61,15 +61,15 @@ pnpm browser     # (Optional) Opens interactive browser page to inspect registry
 ### Adding a Class to the System
 
 1. **Put it in the partial that owns its layer**:
-   - Do not invent new partials unless approved. Use `_00` to `_08` (or `_09_own.sass` for extensions).
+   - Do not invent new partials unless approved. Use `_00` to `_08` (or `_09_own.sass`).
 2. **Document it on the selector line**:
-   A trailing `// …` comment becomes the description in `registry.json`, `REGISTRY.md`, and the skill reference an agent greps:
+   A trailing `// …` comment becomes the description in `registry.json`, `docs/REGISTRY.api.md`, and the skill reference an agent greps:
    ```sass
    .scroll-y // Vertical scroll inside a bounded height; needs an .h-*
    	overflow-y: auto
    ```
 3. **Run `pnpm registry`**:
-   Discovers classes, variants, and updates `REGISTRY.md`, `docs/REGISTRY.md`, `registry.json`, `skills/fractal-styler/references/*.md`, and versions.
+   Discovers classes, variants, and updates `registry.json`, `docs/REGISTRY.api.md`, `skills/fractalstyler/references/*.md`, and versions.
 4. **Run `pnpm vocab`**:
    Generates updated `docs/REGISTRY.api.md`.
 5. **Run `pnpm lint && pnpm check`**:
@@ -97,3 +97,21 @@ pnpm browser     # (Optional) Opens interactive browser page to inspect registry
 3. **No child combinators**: `> *` and relatives are forbidden; selectors are plain descendants.
 4. **Icons**: For any icons, use `fractalicons` from NPM.
 5. **Ecosystem**: If you find yourself needing styling not in `fractalstyler`, or components not in `fractalsvelte-ui`, notify the user for feature requests rather than hacking local styles.
+
+
+## After every update
+
+- should not be any references to a registry.md or .json in the root folder
+- update AGENTS.md where needed
+- update new version of styles-intellisense
+
+- `styles/themeplates.sass
+    - add to `/Users/amrit/fractaldesign/packages/themepacks/src/lib/canonical` as themePlates.json, themePlates.md, themePlates.ts
+
+- if new classes/files have been added, if classes definitions have changed here and there, etc, then CLI update: update files `/Users/amrit/fractaldesign/packages/fractalstyler/cli/main.mjs` and `/Users/amrit/fractaldesign/packages/fractalstyler/cli/scaffold.mjs` .
+
+- run `/Users/amrit/fractaldesign/packages/fractalstyler/scripts/update-registry.js` to create registry again
+- update `/Users/amrit/fractaldesign/packages/fractalstyler/docs/REGISTRY.api.md`
+- update `/Users/amrit/fractaldesign/packages/fractalstyler/docs/references/configurations-api.md`
+
+- update README, update package.json, bump version (if applicable)

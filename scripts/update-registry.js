@@ -2,7 +2,7 @@
 // ============================================================================
 // update-registry — regenerates every registry surface from the stylesheet.
 //
-// Ground truth is src/lib/styles/_00…_09 (colorpacks.sass and themeplates.sass
+// Ground truth is src/lib/styles/_00…_10 (colorpacks.sass and themeplates.sass
 // are raw Sass variable palettes and emit no classes — they are not indexed).
 // This script parses them structurally and emits:
 //   registry.json                                       (class inventory)
@@ -390,8 +390,7 @@ const CURATED = {
 	'.link-parent': 'Link block — hovers color its .link-title child instead of itself',
 	'button': 'Element base for every button — the quartet root (align, height, focus, disabled states)',
 	'a.nav-link': 'Interactive form of .nav-link — padded, curved, hover fill',
-	'a.primary': 'Primary call-to-action anchor — theme fill, sm elevation, modern corner optional',
-	'a.outline': 'Outline call-to-action anchor — transparent fill, ink border, sm elevation',
+	'a.btn': 'Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes',
 	'.text-body': 'Body copy at base size (line-height 1.5)',
 	'.text-body-lg': 'Body copy at large size (line-height 1.5)',
 	'.text-body-sm': 'Body copy at small size (line-height 1.5)',
@@ -412,12 +411,12 @@ const CURATED = {
 	'.mono': 'Monospace font stack (var(--font-mono))',
 	'.sans': 'Sans font stack (var(--font-sans))',
 	'.truncate': 'One-line ellipsis truncation',
-	'.bg': 'Bare background — page base fill (var(--bg))',
-	'.surface': 'Bare background — surface fill (var(--bg-surface))',
-	'.panel': 'Bare background — panel fill (var(--bg-panel))',
-	'.sunken': 'Bare background — sunken fill (var(--bg-sunken))',
-	'.raised': 'Bare background — raised fill (var(--bg-raised))',
-	'.extra': 'Bare background — extra fill (var(--bg-extra))',
+	'.bg-main': 'Bare background — page base fill (var(--bg))',
+	'.bg-surface': 'Bare background — surface fill (var(--bg-surface))',
+	'.bg-panel': 'Bare background — panel fill (var(--bg-panel))',
+	'.bg-sunken': 'Bare background — sunken fill (var(--bg-sunken))',
+	'.bg-raised': 'Bare background — raised fill (var(--bg-raised))',
+	'.bg-extra': 'Bare background — extra fill (var(--bg-extra))',
 	'.border': 'Full border, standard weight (var(--border))',
 	'.border-subtle': 'Full border, subtle weight (var(--border-subtle))',
 	'.border-strong': 'Full border, strong weight (var(--border-strong))',
@@ -426,10 +425,11 @@ const CURATED = {
 	'.site-logomotif': 'Site logo motif — 48px, scales 1.2 on hover',
 	'.logotype': 'Logotype — 28px wordmark',
 	'.project-circle': 'Project dot — 16px circle',
-	'.accordion': 'Accordion group — vertical stack of .accordion-item',
-	'.accordion-item': 'Accordion item — bordered, curved shell hosting trigger and content',
-	'.accordion-content': 'Collapsible region of an .accordion-item — 0fr→1fr grid transition',
-	'.accordion-trigger': 'Accordion trigger button — full-width, hover/focus states',
+	'.fsx-accordion': 'Accordion group — vertical stack of .fsx-accordion-item',
+	'.fsx-accordion-item': 'Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes',
+	'.fsx-accordion-content': 'Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition',
+	'.fsx-accordion-panel': 'Collapsible panel inside .fsx-accordion-content (overflow: hidden, min-height: 0)',
+	'.fsx-accordion-trigger': 'Accordion trigger button — full-width, hover/focus states',
 	'.hero-name': 'Hero display name — text-5xl doubled, 800, tight tracking'
 };
 
@@ -718,11 +718,11 @@ function collectTokens() {
 // ============================================================================
 
 function generateMarkdownRegistry(registry, tokens) {
-	let md = `# Fractalstyler2 — Complete Class & Token Registry\n\n`;
+	let md = `# Fractalstyler — Complete Class & Token Registry\n\n`;
 	md += `Status: **LOCKED & CANONICAL**  \n`;
 	md += `Updated: **${new Date().toISOString().split('T')[0]}**  \n`;
 	md += `Architecture: **L0 (Tokens) $\\rightarrow$ L1 (Dimensions) $\\rightarrow$ L2 (Containers) $\\rightarrow$ L3 (Layouts) $\\rightarrow$ L4 (Shells) $\\rightarrow$ L5 (Visuals & Interactions)**\n\n`;
-	md += `This document is the **single, definitive, grepable master registry** for all CSS classes, tokens, modifiers, and canonical markup structures in \`fractalstyler2\`.\n\n`;
+	md += `This document is the **single, definitive, grepable master registry** for all CSS classes, tokens, modifiers, and canonical markup structures in \`fractalstyler\`.\n\n`;
 	md += `Every entry is a concrete class — the space families are expanded from the family maps in \`_00_config.sass\` across the eight steps \`xs sm md bs lg xl 2xl 3xl\`. There are no wildcard families, no literal ladders and no \`-mob\`/\`-desk\` bands.\n\n`;
 	md += `---\n\n## Quick Grep Cheatsheet\n\n`;
 	md += `Format: \`CLASS_NAME | LAYER | CSS PROPERTY / BEHAVIOR | FILE SOURCE | EXAMPLE\`\n\n\`\`\`\n`;
@@ -745,7 +745,7 @@ function generateMarkdownRegistry(registry, tokens) {
 }
 
 function generateSkillReference(registry, tokens) {
-	let md = `# Fractalstyler2 — Class Reference\n\n`;
+	let md = `# Fractalstyler — Class Reference\n\n`;
 	md += `GENERATED FILE — do not edit. Emitted by \`scripts/update-registry.js\` from the\n`;
 	md += `parsed stylesheet. ${registry.length} classes across ${tokens.length} tokens.\n\n`;
 	md += `**The classes below are the entire public API.** The system defines no\n`;
@@ -783,6 +783,14 @@ function generateTokenReference(tokens) {
 		'--white-fixed': '`.text-white`',
 		'--black-fixed': '`.text-black`',
 		'--theme-color': '`.text-theme`',
+		'--theme-color-alt': '`.text-theme-alt`',
+		'--theme-color-sub': '`.text-theme-sub`',
+		'--bg': '`.bg-main`',
+		'--bg-surface': '`.bg-surface`',
+		'--bg-panel': '`.bg-panel`',
+		'--bg-sunken': '`.bg-sunken`',
+		'--bg-raised': '`.bg-raised`',
+		'--bg-extra': '`.bg-extra`',
 		'--success': '`.text-success` `.bg-success`',
 		'--warning': '`.text-warning` `.bg-warning`',
 		'--danger': '`.text-danger` `.bg-danger`',
@@ -810,7 +818,7 @@ function generateTokenReference(tokens) {
 		return out;
 	};
 
-	let md = `# Fractalstyler2 \u2014 Token Reference\n\n`;
+	let md = `# Fractalstyler \u2014 Token Reference\n\n`;
 	md += `GENERATED FILE \u2014 do not edit. Emitted by \`scripts/update-registry.js\`\n`;
 	md += `from \`_00_tokens.sass\` (light/dark mixins + \`:root\`) and the shadow specs in\n`;
 	md += `\`_00_config.sass\`.\n\n`;
@@ -869,9 +877,9 @@ function generateTokenReference(tokens) {
 	md += `\n## Modes & Attribute Axes\n\n\`data-mode\` on the root selects the token mixin: \`light\` (default) or \`dark\`.\n\n`;
 	md += `| Attribute | Where | Values | Effect |\n|:---|:---|:---|:---|\n`;
 	md += `| \`data-mode\` | \`<html>\` | \`light\` \\| \`dark\` | Swaps \`=light-theme-tokens\` / \`=dark-theme-tokens\` |\n`;
-	md += `| \`data-shape\` | \`.card\`, \`button\` | \`modern\` \\| \`curved\` \\| \`round\` | Corner treatment of the component |\n`;
-	md += `| \`data-variant\` | \`button\` | \`primary\` \\| \`secondary\` \\| \`soft\` \\| \`outline\` \\| \`ghost\` \\| \`link\` \\| \`destructive\` | Paint variant of the button quartet |\n`;
-	md += `| \`data-size\` | \`button\` | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` | Metrics variant of the button quartet |\n`;
+	md += `| \`data-shape\` | \`.card\`, \`button\`, \`a.btn\`, \`.input\`, \`.select\`, \`.fsx-accordion-item\` | \`square\` \\| \`modern\` \\| \`curved\` \\| \`round\` | Corner treatment of the component |\n`;
+	md += `| \`data-variant\` | \`.card\`, \`button\`, \`a.btn\`, \`.input\`, \`.select\`, \`.fsx-accordion-item\` | \`primary\` \\| \`secondary\` \\| \`soft\` \\| \`outline\` \\| \`ghost\` \\| \`link\` \\| \`destructive\` | Visual paint variant |\n`;
+	md += `| \`data-size\` | \`.card\`, \`button\`, \`a.btn\`, \`.input\`, \`.select\`, \`.fsx-accordion-item\` | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` | Metrics / scale variant |\n`;
 	return md;
 }
 
@@ -904,23 +912,16 @@ for (const { file, layer } of FILES) {
 
 const tokens = collectTokens();
 
-fs.writeFileSync(path.join(rootDir, 'REGISTRY.md'), generateMarkdownRegistry(registry, tokens), 'utf8');
-fs.mkdirSync(path.join(rootDir, 'docs'), { recursive: true });
-fs.writeFileSync(
-	path.join(rootDir, 'docs', 'REGISTRY.md'),
-	`---\nid: registry-master\ntitle: Master Class & Token Registry\ntype: design\ntags: [registry, classes, tokens, grep, reference, complete]\nsummary: The complete, grepable master registry of all CSS classes, tokens, modifiers, and canonical markup structures in Fractalstyler2.\nupdated: ${new Date().toISOString().split('T')[0]}\n---\n\n# Master Class & Token Registry\n\nThis document is mirrored from [\`REGISTRY.md\`](../REGISTRY.md) at the repository root.\n\nPlease refer to [**\`../REGISTRY.md\`**](../REGISTRY.md) for the single, definitive, grepable master registry.\n`,
-	'utf8'
-);
 fs.writeFileSync(path.join(rootDir, 'registry.json'), JSON.stringify(registry, null, 2), 'utf8');
 
-fs.mkdirSync(path.join(rootDir, 'skills', 'fractal-styler', 'references'), { recursive: true });
+fs.mkdirSync(path.join(rootDir, 'skills', 'fractalstyler', 'references'), { recursive: true });
 fs.writeFileSync(
-	path.join(rootDir, 'skills', 'fractal-styler', 'references', 'fractals.md'),
+	path.join(rootDir, 'skills', 'fractalstyler', 'references', 'fractals.md'),
 	generateSkillReference(registry, tokens),
 	'utf8'
 );
 fs.writeFileSync(
-	path.join(rootDir, 'skills', 'fractal-styler', 'references', 'tokens.md'),
+	path.join(rootDir, 'skills', 'fractalstyler', 'references', 'tokens.md'),
 	generateTokenReference(tokens),
 	'utf8'
 );
@@ -931,4 +932,5 @@ const layerSummary = Object.entries(byLayer)
 	.map(([l, n]) => `${l}: ${n}`)
 	.join(', ');
 console.log(`✔ Registry updated: ${registry.length} classes (${layerSummary}) across ${tokens.length} tokens.`);
-console.log(`  Emit: registry.json, REGISTRY.md, docs/REGISTRY.md, skills/fractal-styler/references/{fractals,tokens}.md`);
+console.log(`  Emit: registry.json, skills/fractalstyler/references/{fractals,tokens}.md`);
+
