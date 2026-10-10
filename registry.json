@@ -1712,7 +1712,7 @@
     "parent": null,
     "file": "_03_typography.sass",
     "layer": "L5",
-    "property": "display: flex; justify-content: flex-start; margin-left: -0.5rem",
+    "property": "display: flex; justify-content: flex-start",
     "description": "Breadcrumb rail (flex, offset -0.5rem)",
     "example": "<div class=\"breadcrumb\">…</div>"
   },
@@ -2247,6 +2247,56 @@
     "example": "<div class=\"grid\">…</div>"
   },
   {
+    "class": ".grid-2",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "display: grid",
+    "description": "Responsive 2-column grid: 1 → 2 columns at 1025px",
+    "example": "<div class=\"grid-2\">…</div>"
+  },
+  {
+    "class": ".grid-3",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "display: grid",
+    "description": "Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule)",
+    "example": "<div class=\"grid-3\">…</div>"
+  },
+  {
+    "class": ".grid-4",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "display: grid",
+    "description": "Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1)",
+    "example": "<div class=\"grid-4\">…</div>"
+  },
+  {
+    "class": ".grid-5",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "display: grid",
+    "description": "display: grid",
+    "example": "<div class=\"grid-5\">…</div>"
+  },
+  {
+    "class": ".grid-6",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "display: grid",
+    "description": "Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold)",
+    "example": "<div class=\"grid-6\">…</div>"
+  },
+  {
     "class": ".grid.center",
     "kind": "modifier",
     "parent": ".grid",
@@ -2587,7 +2637,7 @@
     "example": "<div class=\"card\">…</div>"
   },
   {
-    "class": ".card[data-size=\"sm\"]",
+    "class": ".card[data-pad=\"sm\"]",
     "kind": "variant",
     "parent": ".card",
     "file": "_04_containers.sass",
@@ -2597,7 +2647,7 @@
     "example": "<div class=\"card\">…</div>"
   },
   {
-    "class": ".card[data-size=\"md\"]",
+    "class": ".card[data-pad=\"md\"]",
     "kind": "variant",
     "parent": ".card",
     "file": "_04_containers.sass",
@@ -2607,7 +2657,7 @@
     "example": "<div class=\"card\">…</div>"
   },
   {
-    "class": ".card[data-size=\"bs\"]",
+    "class": ".card[data-pad=\"bs\"]",
     "kind": "variant",
     "parent": ".card",
     "file": "_04_containers.sass",
@@ -2617,13 +2667,23 @@
     "example": "<div class=\"card\">…</div>"
   },
   {
-    "class": ".card[data-size=\"lg\"]",
+    "class": ".card[data-pad=\"lg\"]",
     "kind": "variant",
     "parent": ".card",
     "file": "_04_containers.sass",
     "layer": "L2",
     "property": "padding: var(--space-lg)",
     "description": "padding: var(--space-lg) — attribute variant of .card",
+    "example": "<div class=\"card\">…</div>"
+  },
+  {
+    "class": ".card[data-pad=\"xl\"]",
+    "kind": "variant",
+    "parent": ".card",
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "padding: var(--space-xl)",
+    "description": "padding: var(--space-xl) — attribute variant of .card",
     "example": "<div class=\"card\">…</div>"
   },
   {
@@ -2695,46 +2755,6 @@
     "property": "display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))",
     "description": "Gridding golden rules: exactly 3 items → 3→1, never 2+1; count 4 or a",
     "example": "<div class=\"grid-1\">…</div>"
-  },
-  {
-    "class": ".grid-2",
-    "kind": "class",
-    "parent": null,
-    "file": "_05_layouts.sass",
-    "layer": "L3",
-    "property": "display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(2, minmax(0, 1fr))",
-    "description": "Responsive 2-column grid: 1 → 2 columns at 1025px",
-    "example": "<div class=\"grid-2\">…</div>"
-  },
-  {
-    "class": ".grid-3",
-    "kind": "class",
-    "parent": null,
-    "file": "_05_layouts.sass",
-    "layer": "L3",
-    "property": "display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(3, minmax(0, 1fr))",
-    "description": "Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule)",
-    "example": "<div class=\"grid-3\">…</div>"
-  },
-  {
-    "class": ".grid-4",
-    "kind": "class",
-    "parent": null,
-    "file": "_05_layouts.sass",
-    "layer": "L3",
-    "property": "display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(2, minmax(0, 1fr)) · @min-width:1281px: grid-templ…",
-    "description": "Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1)",
-    "example": "<div class=\"grid-4\">…</div>"
-  },
-  {
-    "class": ".grid-6",
-    "kind": "class",
-    "parent": null,
-    "file": "_05_layouts.sass",
-    "layer": "L3",
-    "property": "display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(3, minmax(0, 1fr)) · @min-width:1281px: grid-templ…",
-    "description": "Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold)",
-    "example": "<div class=\"grid-6\">…</div>"
   },
   {
     "class": ".cspan-1",
@@ -3012,9 +3032,19 @@
     "parent": null,
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "display: block; width: 100%; height: var(--height-bs); …",
+    "property": "display: block; padding-inline: var(--space-md); border: 1px solid var(--border); …",
     "description": "Text input — themed field with focus ring",
     "example": "<div class=\"input\">…</div>"
+  },
+  {
+    "class": ".input.fitted",
+    "kind": "modifier",
+    "parent": ".input",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "width: max-content",
+    "description": "width: max-content — modifier of .input",
+    "example": "<div class=\"input fitted\">…</div>"
   },
   {
     "class": ".input[data-variant=\"primary\"]",
@@ -3022,7 +3052,7 @@
     "parent": ".input",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)",
+    "property": "background: var(--bg-input); border: 1px solid var(--border-strong); color: var(--text-primary)",
     "description": "background: var(--bg-input) — attribute variant of .input",
     "example": "<div class=\"input\">…</div>"
   },
@@ -3122,7 +3152,7 @@
     "parent": ".input",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "property": "height: var(--height-md); font-size: var(--text-sm)",
     "description": "height: var(--height-md) — attribute variant of .input",
     "example": "<div class=\"input\">…</div>"
   },
@@ -3152,9 +3182,19 @@
     "parent": null,
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "display: block; width: 100%; height: var(--height-lg); …",
+    "property": "display: block; padding-inline: var(--space-bs); appearance: none; …",
     "description": "Select dropdown — themed field with chevron and focus ring",
     "example": "<div class=\"select\">…</div>"
+  },
+  {
+    "class": ".select.fitted",
+    "kind": "modifier",
+    "parent": ".select",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "width: max-content",
+    "description": "width: max-content — modifier of .select",
+    "example": "<div class=\"select fitted\">…</div>"
   },
   {
     "class": ".select[data-variant=\"primary\"]",
@@ -3162,7 +3202,7 @@
     "parent": ".select",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)",
+    "property": "background: var(--bg-input); border: 1px solid var(--border-strong); color: var(--text-primary)",
     "description": "background: var(--bg-input) — attribute variant of .select",
     "example": "<div class=\"select\">…</div>"
   },
@@ -3262,7 +3302,7 @@
     "parent": ".select",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "property": "height: var(--height-md); font-size: var(--text-sm)",
     "description": "height: var(--height-md) — attribute variant of .select",
     "example": "<div class=\"select\">…</div>"
   },
@@ -3343,8 +3383,18 @@
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "display: flex; align-items: center; justify-content: center; …",
-    "description": "Element base for every button — the quartet root (align, height, focus, disabled states)",
+    "description": "Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes.",
     "example": "<button>…</button>"
+  },
+  {
+    "class": ".button",
+    "kind": "class",
+    "parent": null,
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "display: flex; align-items: center; justify-content: center; …",
+    "description": "Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes.",
+    "example": "<div class=\"button\">…</div>"
   },
   {
     "class": "button.icon",
@@ -3382,7 +3432,7 @@
     "parent": "button",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)",
+    "property": "background: var(--theme-color-sub); color: #191512; border: 1px solid var(--theme-color-sub)",
     "description": "background: var(--theme-color-sub) — attribute variant of button",
     "example": "<button [data-variant=\"soft\"]>…</button>"
   },
@@ -3482,7 +3532,7 @@
     "parent": "button",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "property": "height: var(--height-md); font-size: var(--text-sm)",
     "description": "height: var(--height-md) — attribute variant of button",
     "example": "<button [data-size=\"md\"]>…</button>"
   },
@@ -3507,14 +3557,44 @@
     "example": "<button [data-size=\"lg\"]>…</button>"
   },
   {
-    "class": "button[data-variant=\"icon\"]",
-    "kind": "variant",
-    "parent": "button",
+    "class": ".button-group",
+    "kind": "class",
+    "parent": null,
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: transparent; border: none; height: 24px; …",
-    "description": "background: transparent — attribute variant of button",
-    "example": "<button [data-variant=\"icon\"]>…</button>"
+    "property": "display: inline-flex; align-items: stretch; vertical-align: middle",
+    "description": "display: inline-flex",
+    "example": "<div class=\"button-group\">…</div>"
+  },
+  {
+    "class": ".split-button",
+    "kind": "class",
+    "parent": null,
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "display: inline-flex; align-items: stretch; vertical-align: middle",
+    "description": "display: inline-flex",
+    "example": "<div class=\"split-button\">…</div>"
+  },
+  {
+    "class": ".button-group.vertical",
+    "kind": "modifier",
+    "parent": ".button-group",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "flex-direction: column",
+    "description": "flex-direction: column — modifier of .button-group",
+    "example": "<div class=\"button-group vertical\">…</div>"
+  },
+  {
+    "class": ".button-group:not(.vertical)",
+    "kind": "modifier",
+    "parent": ".button-group",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "flex-direction: row",
+    "description": "flex-direction: row — modifier of .button-group",
+    "example": "<div class=\"button-group vertical\">…</div>"
   },
   {
     "class": "button[data-variant=\"iconbox\"]",
@@ -3522,49 +3602,49 @@
     "parent": "button",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: var(--bg-panel); border: none; height: 24px; …",
-    "description": "background: var(--bg-panel) — attribute variant of button",
+    "property": "background: transparent; border: none; height: 24px; …",
+    "description": "background: transparent — attribute variant of button",
     "example": "<button [data-variant=\"iconbox\"]>…</button>"
   },
   {
-    "class": "button[data-variant=\"icon-sm\"]",
+    "class": "button[data-variant=\"iconbox\"][data-size=\"sm\"]",
     "kind": "variant",
-    "parent": "button",
+    "parent": "button[data-variant=\"iconbox\"]",
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "height: 20px; width: 20px",
-    "description": "height: 20px — attribute variant of button",
-    "example": "<button [data-variant=\"icon-sm\"]>…</button>"
+    "description": "height: 20px — attribute variant of button[data-variant=\"iconbox\"]",
+    "example": "<button [data-variant=\"iconbox\"][data-size=\"sm\"]>…</button>"
   },
   {
-    "class": "button[data-variant=\"icon-md\"]",
+    "class": "button[data-variant=\"iconbox\"][data-size=\"icon-md\"]",
     "kind": "variant",
-    "parent": "button",
+    "parent": "button[data-variant=\"iconbox\"]",
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "height: 24px; width: 24px",
-    "description": "height: 24px — attribute variant of button",
-    "example": "<button [data-variant=\"icon-md\"]>…</button>"
+    "description": "height: 24px — attribute variant of button[data-variant=\"iconbox\"]",
+    "example": "<button [data-variant=\"iconbox\"][data-size=\"icon-md\"]>…</button>"
   },
   {
-    "class": "button[data-variant=\"icon-bs\"]",
+    "class": "button[data-variant=\"iconbox\"][data-size=\"icon-bs\"]",
     "kind": "variant",
-    "parent": "button",
+    "parent": "button[data-variant=\"iconbox\"]",
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "height: 28px; width: 28px",
-    "description": "height: 28px — attribute variant of button",
-    "example": "<button [data-variant=\"icon-bs\"]>…</button>"
+    "description": "height: 28px — attribute variant of button[data-variant=\"iconbox\"]",
+    "example": "<button [data-variant=\"iconbox\"][data-size=\"icon-bs\"]>…</button>"
   },
   {
-    "class": "button[data-variant=\"icon-lg\"]",
+    "class": "button[data-variant=\"iconbox\"][data-size=\"icon-lg\"]",
     "kind": "variant",
-    "parent": "button",
+    "parent": "button[data-variant=\"iconbox\"]",
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "height: 32px; width: 32px",
-    "description": "height: 32px — attribute variant of button",
-    "example": "<button [data-variant=\"icon-lg\"]>…</button>"
+    "description": "height: 32px — attribute variant of button[data-variant=\"iconbox\"]",
+    "example": "<button [data-variant=\"iconbox\"][data-size=\"icon-lg\"]>…</button>"
   },
   {
     "class": "a.btn",
@@ -3572,7 +3652,7 @@
     "parent": null,
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: var(--theme-color); font-size: var(--text-lg); color: var(--white-fixed); …",
+    "property": "background: var(--theme-color); font-size: var(--text-md); color: var(--white-fixed); …",
     "description": "Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes",
     "example": "<a class=\"btn\" href=\"…\">…</a>"
   },
@@ -4267,6 +4347,86 @@
     "example": "<div class=\"orange6\">…</div>"
   },
   {
+    "class": ".yellow1",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--yellowpop1)",
+    "description": "color: var(--yellowpop1)",
+    "example": "<div class=\"yellow1\">…</div>"
+  },
+  {
+    "class": ".yellow2",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--yellowpop2)",
+    "description": "color: var(--yellowpop2)",
+    "example": "<div class=\"yellow2\">…</div>"
+  },
+  {
+    "class": ".yellow3",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--yellowpop3)",
+    "description": "color: var(--yellowpop3)",
+    "example": "<div class=\"yellow3\">…</div>"
+  },
+  {
+    "class": ".yellow4",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--yellowpop4)",
+    "description": "color: var(--yellowpop4)",
+    "example": "<div class=\"yellow4\">…</div>"
+  },
+  {
+    "class": ".green1",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--greenpop1)",
+    "description": "color: var(--greenpop1)",
+    "example": "<div class=\"green1\">…</div>"
+  },
+  {
+    "class": ".green2",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--greenpop2)",
+    "description": "color: var(--greenpop2)",
+    "example": "<div class=\"green2\">…</div>"
+  },
+  {
+    "class": ".green3",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--greenpop3)",
+    "description": "color: var(--greenpop3)",
+    "example": "<div class=\"green3\">…</div>"
+  },
+  {
+    "class": ".green4",
+    "kind": "class",
+    "parent": null,
+    "file": "_08_visuals.sass",
+    "layer": "L5",
+    "property": "color: var(--greenpop4)",
+    "description": "color: var(--greenpop4)",
+    "example": "<div class=\"green4\">…</div>"
+  },
+  {
     "class": ".site-logomotif",
     "kind": "class",
     "parent": null,
@@ -4552,7 +4712,7 @@
     "parent": ".fsx-accordion-item",
     "file": "_09_own.sass",
     "layer": "Custom",
-    "property": "background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)",
+    "property": "background: var(--theme-color-sub); color: #191512; border: 1px solid var(--theme-color-sub)",
     "description": "background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item",
     "example": "<div class=\"fsx-accordion-item\">…</div>"
   },

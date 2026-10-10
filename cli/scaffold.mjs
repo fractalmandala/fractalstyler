@@ -123,10 +123,11 @@ function placeDocs(pkgRoot, docsDir) {
 	return { placed, kept };
 }
 
-// --- intellisense -------------------------------------------------------------
+// --- VS Code extension ---------------------------------------------------------
 
-const EXTENSION_ID = 'fractalmandala.styles-intellisense';
-const EXTENSION_REPO = 'https://github.com/fractalmandala/styles-intellisense';
+// The official extension: `fractaldesign.fractalstyler` — class completions,
+// hover docs, and the sidebar/panel editor for the styles files.
+const EXTENSION_ID = 'fractaldesign.fractalstyler';
 
 function mergeWorkspaceSettings(settingsFile, patch) {
 	// Tolerate JSONC-ish leftovers only enough to refuse corrupting the file:
@@ -183,35 +184,34 @@ function tryInstallExtension(code) {
 }
 
 /**
- * Configure the Styles IntelliSense VS Code extension: write the workspace
- * settings it reads (sources, description files) and make sure the extension
- * itself is installed. Never fatal — worst case it prints instructions.
+ * Configure the Fractalstyler VS Code extension: point it at this project's
+ * styles folder so class completions and the sidebar editor light up. The
+ * setting is only a hint — the extension auto-detects the same folders — so
+ * this matters most in eject mode, where the folder is not on the default
+ * candidate list. Never fatal: worst case it prints instructions.
  */
 function setupIntellisense(projectRoot, opts, packageStylesPath) {
 	const settingsFile = path.join(projectRoot, '.vscode', 'settings.json');
 	const patch = {};
 	// In track mode the styles live inside node_modules — point the extension
 	// straight at the shipped partials so classes still resolve and complete.
-	patch['stylesIntellisense.sources'] = [packageStylesPath];
-	if (opts.docs !== false) {
-		patch['stylesIntellisense.descriptionFiles'] = [path.posix.join(opts.docsDir, 'REGISTRY.api.md')];
-	}
+	patch['fractalstyler.stylesDirectory'] = packageStylesPath;
 	const merged = mergeWorkspaceSettings(settingsFile, patch);
 	if (!merged.ok) {
 		say(`  ⚠ kept .vscode/settings.json untouched — it is not plain JSON. Add manually:`);
-		for (const [key, values] of Object.entries(patch)) say(`     "${key}": ${JSON.stringify(values)}`);
+		for (const [key, value] of Object.entries(patch)) say(`     "${key}": ${JSON.stringify(value)}`);
 	} else {
 		say(`  ✓ .vscode/settings.json — ${merged.changed.join(', ') || 'already configured'}`);
 	}
 
 	const code = codeCli();
 	if (!code) {
-		say(`  ℹ no VS Code CLI found. Install the extension from ${EXTENSION_REPO} (dist/*.vsix)`);
-		say('     via Extensions: Install from VSIX… — the settings above are already in place.');
+		say(`  ℹ no VS Code CLI found. Install "${EXTENSION_ID}" from the fractalstyler-vscode/ folder`);
+		say('     (Extensions: Install from VSIX…) — the setting above is already in place.');
 		return;
 	}
 	if (extensionInstalled(code)) {
-		say('  ✓ Styles IntelliSense extension already installed');
+		say('  ✓ Fractalstyler extension already installed');
 		return;
 	}
 	say('  ℹ extension not installed yet — trying the marketplace…');
@@ -219,7 +219,7 @@ function setupIntellisense(projectRoot, opts, packageStylesPath) {
 		say(`  ✓ installed ${EXTENSION_ID} — reload the window`);
 	} else {
 		say(`  ⚠ not on the marketplace (or the CLI is offline). Install the VSIX manually:`);
-		say(`     ${EXTENSION_REPO} → dist/ → Extensions: Install from VSIX…`);
+		say(`     fractalstyler-vscode/ → Extensions: Install from VSIX…`);
 	}
 }
 
@@ -240,7 +240,7 @@ export async function runInit(opts, pkgRoot) {
 		if (opts.docs === null) opts.docs = interactive ? await confirm(rl, 'Copy the registry + configurations docs into the project?', true) : true;
 		if (opts.intellisense === null) {
 			opts.intellisense = interactive
-				? await confirm(rl, 'Configure the Styles IntelliSense VS Code extension?', true)
+				? await confirm(rl, 'Configure the Fractalstyler VS Code extension?', true)
 				: true;
 		}
 	} finally {
@@ -280,7 +280,7 @@ async function runTrack(opts, pkgRoot) {
 
 	if (opts.intellisense !== false) {
 		say();
-		say('Styles IntelliSense (VS Code):');
+		say('Fractalstyler extension (VS Code):');
 		setupIntellisense(projectRoot, opts, 'node_modules/@fractaldesign/fractalstyler/dist/styles');
 	}
 
@@ -362,7 +362,7 @@ export async function runEject(opts, pkgRoot) {
 
 	if (opts.intellisense !== false) {
 		say();
-		say('Styles IntelliSense (VS Code):');
+		say('Fractalstyler extension (VS Code):');
 		setupIntellisense(projectRoot, opts, opts.stylesDir);
 	}
 

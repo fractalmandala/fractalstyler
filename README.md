@@ -9,33 +9,7 @@ CSS. MIT © [Fractal Mandala](https://github.com/fractalmandala)
 - Registry: [`docs/REGISTRY.api.md`](docs/REGISTRY.api.md)
 - Configuration: [`docs/references/configurations-api.md`](docs/references/configurations-api.md)
 - Agent skill: [`skills/fractalstyler/SKILL.md`](skills/fractalstyler/SKILL.md)
-
-## 9th Oct changelog
-- removed heavy `.card` stylings, removed `_10_*`.sass file.
-- also removed classes - width additional styling imposed by `_10_*.sass` like hardcoded padding.
-- **the library no longer imports any font family at all. It ships a blank `_00_fonts.sass` file for user to fill and use**
-- **library does not declare or set values for `--font-sans` and `--font-mono`. It assigns to body and html font-family: `var(--font-sans)`. Users have to suppply**
-
-- data variant, data shape, and data size are now a typed canonical set applied to multiple classes- button, a.btn, .input, .select, and more. 
-- factory agents should be given `packages/fractalstyler/src/lib/libTypes.ts` for the full map. 
-- the raw forms of these classes (button, .input, ..) without `[data-variant="default"]` have been given minimal styling, left unstyled. Styling begins at variant primary. 
-- text color has not been defined in any variant, to leave that choice at frontend side. `--text-primary`, `--text-secondary`, `--text-muted`
- remain the prime 3, along with accents.
-
-- Accordion group has been styled with prefix `fsx-` in the names `packages/fractalstyler/src/lib/styles/_09_own.sass`.
-- This is to leave the original `.accordion`, `.accordion-item` and other classes open for styling for now. 
-
-- ** data-variant= `icon` condenses sizes also in its own definition, data-variants `icon-sm`, `icon-md`, `icon-bs`, and `icon-lg`.
-
-**Version bumped - this will be 1.0.0 release of package**
-
-before release:
-- regenerate classes list and registry, to shake off tree and remove deprecated classes + add new few.
-- all three files inside `packages/fractalstyler/skills/fractalstyler` to be modified to drop old class references.
-- updated [configurations](docs/references/configurations-api.md) and [registry](docs/REGISTRY.api.md)
-- re-audit mcp to ensure it is not out of date and is using current classes and status
-- regenerate fractalstyler intellisense vscode plugin -`/Users/amrit/fractaldesign/packages/fractalstyler/styles-intellisense` vsix. 
-- update AGENTS.md where needed, update README.md where needed
+- [VS Code Intellisense Extension](fractalstyler-vscode/fractalstyler-0.4.0.vsix)
 
 ## Using it in a project
 
@@ -98,16 +72,244 @@ and reported. Delete a kept file and re-run `eject` to re-place it.
 ### 3. Either mode, with or without the IDE extension
 
 Both `init` and `eject` accept `--intellisense` / `--no-intellisense`. With it
-on, the CLI writes the workspace settings read by the
-[Styles IntelliSense](https://github.com/fractalmandala/styles-intellisense)
-VS Code extension — class completions and hovers inside `class="…"`, token
-completions on `--custom-properties` — pointing at wherever your styles now
-live (`node_modules/…/dist/styles` in track mode, your local folder in eject
-mode), plus the copied `REGISTRY.api.md` as the description source. It also
-checks the extension is installed and prints how to get it if not.
+on, the CLI writes `fractalstyler.stylesDirectory` to `.vscode/settings.json`
+for the **Fractalstyler** VS Code extension (`fractaldesign.fractalstyler`) —
+class completions and hovers inside `class="…"`, plus the sidebar/panel editor
+for the styles files — pointing at wherever your styles now live
+(`node_modules/…/dist/styles` in track mode, your local folder in eject mode).
+It also checks the extension is installed and prints how to get it if not.
+
+The setting is only a hint: the extension auto-detects the same folders and
+works with no configuration at all. It picks the first of `src/lib/styles`,
+`node_modules/@fractaldesign/fractalstyler/dist/styles`, `src/styles` or
+`styles` that exists, so fractalstyler itself, an ejected copy, and an app
+consuming the package from npm are all covered. Run **Fractalstyler: Pick
+Styles Folder** to override it.
 
 `npx @fractaldesign/fractalstyler init` with no flags asks the three questions
 interactively; `--yes` takes the defaults (track + docs + intellisense).
+
+### 4. Preset Controls
+
+Optional runtime layer. Presets are plain `data-*` attributes written onto the
+page — no build step, no stylesheet of its own, safe to leave out entirely.
+
+| Axis | Attribute | Values | Reaches |
+|---|---|---|---|
+| Size | `data-size` | `sm` `md` `bs` `lg` | `button`, `input`, `select`, `a.btn`, `.card`, `.fsx-accordion-item` |
+| Shape | `data-shape` | `square` `modern` `curved` `round` | same targets |
+| Variant | `data-variant` | `primary` … `iconbox` (see `libTypes.ts`) | **`input.input`, `select.select`, `button.button`, `a.btn` only** |
+| Padding | `data-pad` | `sm` `md` `bs` `lg` `xl` | **`.card` only** |
+
+The variant axis is class-qualified rather than element-qualified: only controls
+that opted into the system's own class receive one. Bare `<input>`, `<select>`
+and `<button>` are left alone. Any element that already declares its own
+`data-variant` keeps it — the preset only fills in what is missing.
+
+> `.button` is a real class. `_07_interactions.sass` styles buttons as
+> `button, .button` — one selector list — so `<button class="button">` and a bare
+> `<button>` are identical and answer the same axes. Prefer the bare element;
+> `class="button"` is for opting in explicitly. It is `(0,1,0)`, the same as ink
+> utilities like `.text-danger`, so those utilities still win on it.
+
+Markup that already declares an attribute is never overwritten — the preset only
+fills in the blanks. Choices persist to `localStorage` under `fractalstyler:presets`,
+and a `MutationObserver` re-applies them to nodes added later.
+
+There are two ways in. Either one works on its own; you never need both.
+
+#### Mount the ready-made controls
+
+`PresetControls` is a Svelte 5 component with one picker per axis plus a Reset
+button. It is the shortest path — it calls `init()` on mount, so importing and
+rendering it is the entire setup:
+
+```svelte
+<script>
+	import { PresetControls } from '@fractaldesign/fractalstyler';
+	// or, as a subpath so the component is the only thing pulled in:
+	// import PresetControls from '@fractaldesign/fractalstyler/PresetControls';
+</script>
+
+<PresetControls />
+```
+
+It takes no props. Drop it wherever you want the pickers to live — commonly a
+settings panel or a dev-only toolbar:
+
+```svelte
+{#if dev}
+	<PresetControls />
+{/if}
+```
+
+#### Or drive it from your own code
+
+Every function calls `init()` itself before applying, so there is nothing to
+wire up first. Call them from a click handler, a store subscription, a URL
+parameter, anywhere:
+
+```js
+import { setPresetSize, setPresetShape, setPresetPad, setPresetVariant, resetPresets } from '@fractaldesign/fractalstyler';
+
+setPresetSize('lg');       // size sweep
+setPresetShape('round');   // shape sweep
+setPresetPad('xl');        // .card padding sweep
+setPresetVariant('soft');  // form-control paint sweep
+resetPresets();            // back to bs / modern / md / primary
+```
+
+`@fractaldesign/fractalstyler/presets` is available as a subpath if you would
+rather not import from the package root — it ships the functions without the
+component.
+
+In a component, import them into the `<script>` block:
+
+```svelte
+<script>
+	import { setPresetShape } from '@fractaldesign/fractalstyler';
+</script>
+
+<button onclick={() => setPresetShape('curved')}>Round the cards</button>
+```
+
+#### Reading the current value
+
+`presetState` is the live state object. Read the axis you want off it — the
+values are plain, already-narrowed unions:
+
+```js
+import { presetState } from '@fractaldesign/fractalstyler';
+
+presetState.size;     // 'sm' | 'md' | 'bs' | 'lg'
+presetState.shape;    // 'square' | 'modern' | 'curved' | 'round'
+presetState.pad;      // 'sm' | 'md' | 'bs' | 'lg' | 'xl'
+presetState.variant;  // 'primary' | 'secondary' | 'soft' | … | 'iconbox'
+presetState.initialized; // boolean — has init() run yet?
+```
+
+**Read only after `initPresets()`.** The setters call `init()` for you; reading
+does not. Until it has run, `presetState` holds the built-in defaults rather than
+whatever the returning user last chose — so a stored `lg` reads back as `bs`:
+
+```js
+import { initPresets, presetState } from '@fractaldesign/fractalstyler';
+
+initPresets();            // hydrate from localStorage, apply, start watching
+presetState.size;         // now the user's real choice
+```
+
+Mounting `PresetControls` does the same thing on mount, so if the component is
+on the page already you can read straight away. Guard on `initialized` if you
+cannot be sure which case you are in:
+
+```js
+const size = presetState.initialized ? presetState.size : null;
+```
+
+The fields are Svelte 5 runes, so a template updates as the pickers change with
+no extra wiring:
+
+```svelte
+<script>
+	import { presetState } from '@fractaldesign/fractalstyler';
+</script>
+
+<p>Size is {presetState.size}, cards are padded {presetState.pad}.</p>
+```
+
+Read it reactively elsewhere with `$derived` or `$effect` rather than a bare
+read — a plain read at the top of the script takes a one-time snapshot:
+
+```svelte
+<script>
+	import { presetState } from '@fractaldesign/fractalstyler';
+
+	// reactive — re-runs whenever the preset changes
+	const summary = $derived(`${presetState.shape} · ${presetState.pad}`);
+
+	// side-effect form
+	$effect(() => {
+		document.documentElement.dataset.size = presetState.size;
+	});
+</script>
+```
+
+Types `DataSize`, `DataShape` and `DataPad` come from `libTypes.ts` if you need
+to annotate a variable or pass a value on.
+
+To see what actually landed on a node rather than what was requested — useful
+when a component declares its own attribute and opts out of the preset — read
+the DOM attribute:
+
+```js
+document.querySelector('.card')?.getAttribute('data-pad'); // may be the markup's own value
+```
+
+#### Building your own picker
+
+The setter types come from `libTypes.ts` — `DataSize`, `DataShape`, `DataPad` —
+along with the runtime arrays `SIZES`, `SHAPES`, `VARIANTS`, `PADS`, so you can
+build a custom control without re-listing values the registry already owns:
+
+```svelte
+<script lang="ts">
+	import { setPresetSize, SIZES, presetState, type DataSize } from '@fractaldesign/fractalstyler';
+</script>
+
+<select
+	class="select"
+	value={presetState.size}
+	onchange={(event) => setPresetSize(event.currentTarget.value as DataSize)}
+>
+	{#each SIZES as size}<option value={size}>{size}</option>{/each}
+</select>
+```
+
+| Export | What it does |
+|---|---|
+| `setPresetSize(size)` | Sets the size sweep. Accepts `DataSize`. |
+| `setPresetShape(shape)` | Sets the shape sweep. Accepts `DataShape`. |
+| `setPresetPad(pad)` | Sets card padding. Accepts `DataPad`; `.card` only. |
+| `setPresetVariant(variant)` | Sets the control paint. Accepts `DataVariant`; reaches `input.input`, `select.select`, `button.button`, `a.btn`. |
+| `resetPresets()` | Back to the defaults: `bs` / `modern` / `md` / `primary`. |
+| `initPresets()` | Opt into the automatic behaviour alone — restores stored choices, applies them, and watches for new markup. No picker. **Call this before reading `presetState`.** |
+| `presetState` | The live state object. Read `presetState.size`, `.shape`, `.pad`, `.variant`, `.initialized`. |
+| `SIZES` `SHAPES` `VARIANTS` `PADS` | The runtime arrays behind each union. |
+| `PresetControls` | The ready-made component. |
+
+#### Notes
+
+- Everything is browser-only. The setters no-op during SSR, so calling them at
+  module scope in a shared file is safe.
+- A preset never overwrites an attribute your markup already declares — it only
+  fills in what is missing. If a card says `data-pad="sm"`, the pad control will
+  not touch it, and reading that element's attribute returns `sm`, not the
+  selected preset.
+- `data-pad` is written to `.card` only, and `data-variant` only to
+  `input.input`, `select.select`, `button.button` and `a.btn`. Size and shape
+  sweep the full `presetApplication` set; padding and variant are the two
+  class-qualified axes.
+- Four axes, four setters. `presetState.variant` starts at `primary` and reads
+  back `primary` until the variant preset is changed.
+
+## before release
+
+- regenerate classes list and registry, to shake off tree and remove deprecated classes + add new few.
+- all three files inside `packages/fractalstyler/skills/fractalstyler` to be modified to drop old class references.
+- updated [configurations](docs/references/configurations-api.md) and [registry](docs/REGISTRY.api.md)
+- re-audit mcp to ensure it is not out of date and is using current classes and status
+- **update the VS Code extension** — `fractalstyler-vscode/` carries a bundled copy of the registry so completions work with no project set up. After any class change, refresh it and rebuild:
+  ```sh
+  npm --prefix fractalstyler-vscode run sync:registry   # copies registry.json into the extension
+  npm --prefix fractalstyler-vscode run package        # rebuilds fractalstyler-<version>.vsix
+  ```
+- update AGENTS.md where needed, update README.md where needed
+
+## 11th Oct changelog
+- removed width 100% on input and select
+- added data-size to button data-variant = iconbox
+- added global presets for size, padding, height, variant, shape, and controls for it.
 
 ## CLI reference
 
@@ -156,7 +358,7 @@ Or configure in your MCP settings (Claude Desktop, Cursor, Antigravity):
 
 Exposes 8 agent tools:
 - `guide_styling`: Intent-driven design advisor (gap, typography, layout, cards, buttons).
-- `search_classes`: Fast search and filter over the 429 canonical classes.
+- `search_classes`: Fast search and filter over the 498 canonical classes.
 - `get_tokens`: Inspect space, typography, radius, shadow, and surface tokens.
 - `snap_to_tokens`: Snaps raw pixel values to nearest canonical token utility classes.
 - `get_recipes`: Verified copy-paste recipes (segmented controls, metrics grids, dialogs, etc.).
@@ -178,3 +380,33 @@ pnpm css        # rebuild dist/css
 Architecture: **L0 (Tokens) → L1 (Dimensions) → L2 (Containers) → L3
 (Layouts) → L4 (Shells) → L5 (Visuals & Interactions)** — the layer map and
 the definitions are in [`docs/references/configurations-api.md`](docs/references/configurations-api.md).
+
+## 9th Oct changelog
+- removed heavy `.card` stylings, removed `_10_*`.sass file.
+- also removed classes - width additional styling imposed by `_10_*.sass` like hardcoded padding.
+- **the library no longer imports any font family at all. It ships a blank `_00_fonts.sass` file for user to fill and use**
+- **library does not declare or set values for `--font-sans` and `--font-mono`. It assigns to body and html font-family: `var(--font-sans)`. Users have to suppply**
+
+- data variant, data shape, and data size are now a typed canonical set applied to multiple classes- button, a.btn, .input, .select, and more. 
+- factory agents should be given `packages/fractalstyler/src/lib/libTypes.ts` for the full map. 
+- the raw forms of these classes (button, .input, ..) without `[data-variant="default"]` have been given minimal styling, left unstyled. Styling begins at variant primary. 
+- text color has not been defined in any variant, to leave that choice at frontend side. `--text-primary`, `--text-secondary`, `--text-muted`
+ remain the prime 3, along with accents.
+
+- Accordion group has been styled with prefix `fsx-` in the names `packages/fractalstyler/src/lib/styles/_09_own.sass`.
+- This is to leave the original `.accordion`, `.accordion-item` and other classes open for styling for now. 
+
+- ** data-variant= `icon` condenses sizes also in its own definition, data-variants `icon-sm`, `icon-md`, `icon-bs`, and `icon-lg`.
+
+## 1.1.0 changelog
+- **global component presets are now a public export.** `setPresetSize`, `setPresetShape`, `setPresetPad`, `setPresetVariant` and `resetPresets` are importable from the package root, and `PresetControls.svelte` ships as a ready-made picker with one control per axis. Both paths live under [Preset Controls](#4-preset-controls); new subpath exports `./presets` and `./PresetControls` are available for consumers who prefer not to import from the root. `presetState` is exported for reading current values — call `initPresets()` first or you read the defaults, not the stored choice.
+- **variant is a real preset axis now.** It starts at `primary`, is persisted, has a setter, and gets a picker. It is class-qualified: `data-variant` reaches only `input.input`, `select.select`, `button.button` and `a.btn`, so bare form controls are never stamped.
+- **`.button` is now a real class.** `_07_interactions.sass` styles buttons as `button, .button`, so `<button class="button">` and a bare `<button>` are identical and answer the same axes. It is `(0,1,0)`, so ink utilities like `.text-danger` still win on it.
+- `.card` padding moved from `data-size` to a dedicated **`data-pad`** axis (`sm` `md` `bs` `lg` `xl`), so card padding no longer collides with the size ladder used by buttons and inputs.
+- `data-pad` is scoped to `.card` only — it is never written onto buttons, inputs or selects, which have no rule answering it.
+- new tokens `--accent-orange`, `--accent-green`, `--yellowpop1..4`; `--theme-color` is now yellow.
+- `data-variant` gained `iconbox` alongside `icon`.
+- `.grid` shares its `display: grid` base with `.grid-2` … `.grid-6`.
+- dropped the blanket `input, textarea, select { font-size: max(16px, 1rem) }` and the forced 100% width on inputs/selects — size is yours to set via `data-size`.
+- **`data/recipes.json` was rewritten against real classes.** It shipped `.kbd`, `.dialog`, `.popover`, `.avatar`, `.active`, `.switch-track`, `.pad-x-*`, `.border-top`, `.pad-0` and `.square-6`, none of which exist — and `get_recipes` served it verbatim. `validate-deck.js` now checks every recipe class against the compiled stylesheet, so this cannot drift again silently.
+- `docs/browser.html` regenerated; it still carried the pre-rename bare `.surface` / `.panel` / `.raised` background classes.

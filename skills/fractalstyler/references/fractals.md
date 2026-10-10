@@ -1,7 +1,7 @@
 # Fractalstyler — Class Reference
 
 GENERATED FILE — do not edit. Emitted by `scripts/update-registry.js` from the
-parsed stylesheet. 482 classes across 126 tokens.
+parsed stylesheet. 498 classes across 132 tokens.
 
 **The classes below are the entire public API.** The system defines no
 authoring mixins and no SASS functions — `+stack`, `+surface`, `space()` and
@@ -217,6 +217,11 @@ Flow and alignment. .box (flex column), .row (flex row), .grid — alignment mod
 | `.row.ytop` | align-items: flex-start — modifier of .row | `_04_containers.sass` |
 | `.row.ybot` | align-items: flex-end — modifier of .row | `_04_containers.sass` |
 | `.grid` | CSS grid container (columns composed via .grid-N / alignment below) | `_04_containers.sass` |
+| `.grid-2` | Responsive 2-column grid: 1 → 2 columns at 1025px | `_04_containers.sass` |
+| `.grid-3` | Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule) | `_04_containers.sass` |
+| `.grid-4` | Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1) | `_04_containers.sass` |
+| `.grid-5` | display: grid | `_04_containers.sass` |
+| `.grid-6` | Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold) | `_04_containers.sass` |
 | `.grid.center` | place-items: center — modifier of .grid | `_04_containers.sass` |
 | `.grid.xcenter` | justify-items: center — modifier of .grid | `_04_containers.sass` |
 | `.grid.xleft` | justify-items: start — modifier of .grid | `_04_containers.sass` |
@@ -251,10 +256,11 @@ Flow and alignment. .box (flex column), .row (flex row), .grid — alignment mod
 | `.card[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of .card | `_04_containers.sass` |
 | `.card[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of .card | `_04_containers.sass` |
 | `.card[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of .card | `_04_containers.sass` |
-| `.card[data-size="sm"]` | padding: var(--space-sm) — attribute variant of .card | `_04_containers.sass` |
-| `.card[data-size="md"]` | padding: var(--space-md) — attribute variant of .card | `_04_containers.sass` |
-| `.card[data-size="bs"]` | padding: var(--space-bs) — attribute variant of .card | `_04_containers.sass` |
-| `.card[data-size="lg"]` | padding: var(--space-lg) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-pad="sm"]` | padding: var(--space-sm) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-pad="md"]` | padding: var(--space-md) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-pad="bs"]` | padding: var(--space-bs) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-pad="lg"]` | padding: var(--space-lg) — attribute variant of .card | `_04_containers.sass` |
+| `.card[data-pad="xl"]` | padding: var(--space-xl) — attribute variant of .card | `_04_containers.sass` |
 | `.chip` | Small inline label — tag/badge duty (xs type, md radius) | `_04_containers.sass` |
 | `.prose-section` | Vertical prose section (flex column, lg gap) | `_04_containers.sass` |
 | `.nav-section` | Vertical nav section (flex column, xs gap) | `_04_containers.sass` |
@@ -278,10 +284,6 @@ Grids that step only through divisors (3→1, 4→2→1, 6→3→2→1), column 
 | `.frame-2-3` | Aspect-ratio media frame (2/3) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass) | `_05_layouts.sass` |
 | `.frame-1-1` | Aspect-ratio media frame (1/1) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass) | `_05_layouts.sass` |
 | `.grid-1` | Gridding golden rules: exactly 3 items → 3→1, never 2+1; count 4 or a | `_05_layouts.sass` |
-| `.grid-2` | Responsive 2-column grid: 1 → 2 columns at 1025px | `_05_layouts.sass` |
-| `.grid-3` | Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule) | `_05_layouts.sass` |
-| `.grid-4` | Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1) | `_05_layouts.sass` |
-| `.grid-6` | Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold) | `_05_layouts.sass` |
 | `.cspan-1` | Span 1 grid column | `_05_layouts.sass` |
 | `.cspan-2` | Span 2 grid columns | `_05_layouts.sass` |
 | `.cspan-3` | Span 3 grid columns | `_05_layouts.sass` |
@@ -383,6 +385,7 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `.sans` | Sans font stack (var(--font-sans)) | `_03_typography.sass` |
 | `.truncate` | One-line ellipsis truncation | `_03_typography.sass` |
 | `.input` | Text input — themed field with focus ring | `_07_interactions.sass` |
+| `.input.fitted` | width: max-content — modifier of .input | `_07_interactions.sass` |
 | `.input[data-variant="primary"]` | background: var(--bg-input) — attribute variant of .input | `_07_interactions.sass` |
 | `.input[data-variant="secondary"]` | background: var(--bg-panel) — attribute variant of .input | `_07_interactions.sass` |
 | `.input[data-variant="soft"]` | background: var(--bg-surface) — attribute variant of .input | `_07_interactions.sass` |
@@ -397,6 +400,7 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `.input[data-size="bs"]` | height: var(--height-bs) — attribute variant of .input | `_07_interactions.sass` |
 | `.input[data-size="lg"]` | height: var(--height-lg) — attribute variant of .input | `_07_interactions.sass` |
 | `.select` | Select dropdown — themed field with chevron and focus ring | `_07_interactions.sass` |
+| `.select.fitted` | width: max-content — modifier of .select | `_07_interactions.sass` |
 | `.select[data-variant="primary"]` | background: var(--bg-input) — attribute variant of .select | `_07_interactions.sass` |
 | `.select[data-variant="secondary"]` | background: var(--bg-panel) — attribute variant of .select | `_07_interactions.sass` |
 | `.select[data-variant="soft"]` | background: var(--bg-surface) — attribute variant of .select | `_07_interactions.sass` |
@@ -415,7 +419,8 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `.link-parent` | Link block — hovers color its .link-title child instead of itself | `_07_interactions.sass` |
 | `.link-title` | transition: color var(--motionin1) — child of .link-parent | `_07_interactions.sass` |
 | `a.nav-link` | Interactive form of .nav-link — padded, curved, hover fill | `_07_interactions.sass` |
-| `button` | Element base for every button — the quartet root (align, height, focus, disabled states) | `_07_interactions.sass` |
+| `button` | Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes. | `_07_interactions.sass` |
+| `.button` | Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes. | `_07_interactions.sass` |
 | `button.icon` | height: 24px — modifier of button | `_07_interactions.sass` |
 | `button[data-variant="primary"]` | background: var(--theme-color) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-variant="secondary"]` | background: var(--state-surface) — attribute variant of button | `_07_interactions.sass` |
@@ -432,12 +437,15 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `button[data-size="md"]` | height: var(--height-md) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-size="bs"]` | height: var(--height-bs) — attribute variant of button | `_07_interactions.sass` |
 | `button[data-size="lg"]` | height: var(--height-lg) — attribute variant of button | `_07_interactions.sass` |
-| `button[data-variant="icon"]` | background: transparent — attribute variant of button | `_07_interactions.sass` |
-| `button[data-variant="iconbox"]` | background: var(--bg-panel) — attribute variant of button | `_07_interactions.sass` |
-| `button[data-variant="icon-sm"]` | height: 20px — attribute variant of button | `_07_interactions.sass` |
-| `button[data-variant="icon-md"]` | height: 24px — attribute variant of button | `_07_interactions.sass` |
-| `button[data-variant="icon-bs"]` | height: 28px — attribute variant of button | `_07_interactions.sass` |
-| `button[data-variant="icon-lg"]` | height: 32px — attribute variant of button | `_07_interactions.sass` |
+| `.button-group` | display: inline-flex | `_07_interactions.sass` |
+| `.split-button` | display: inline-flex | `_07_interactions.sass` |
+| `.button-group.vertical` | flex-direction: column — modifier of .button-group | `_07_interactions.sass` |
+| `.button-group:not(.vertical)` | flex-direction: row — modifier of .button-group | `_07_interactions.sass` |
+| `button[data-variant="iconbox"]` | background: transparent — attribute variant of button | `_07_interactions.sass` |
+| `button[data-variant="iconbox"][data-size="sm"]` | height: 20px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
+| `button[data-variant="iconbox"][data-size="icon-md"]` | height: 24px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
+| `button[data-variant="iconbox"][data-size="icon-bs"]` | height: 28px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
+| `button[data-variant="iconbox"][data-size="icon-lg"]` | height: 32px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
 | `a.btn` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes | `_07_interactions.sass` |
 | `a.btn[data-variant="primary"]` | background: var(--theme-color) — attribute variant of a.btn | `_07_interactions.sass` |
 | `a.btn[data-variant="secondary"]` | background: var(--state-surface) — attribute variant of a.btn | `_07_interactions.sass` |
@@ -508,6 +516,14 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `.orange4` | color: var(--orangepop4) | `_08_visuals.sass` |
 | `.orange5` | color: var(--orangepop5) | `_08_visuals.sass` |
 | `.orange6` | color: var(--orangepop6) | `_08_visuals.sass` |
+| `.yellow1` | color: var(--yellowpop1) | `_08_visuals.sass` |
+| `.yellow2` | color: var(--yellowpop2) | `_08_visuals.sass` |
+| `.yellow3` | color: var(--yellowpop3) | `_08_visuals.sass` |
+| `.yellow4` | color: var(--yellowpop4) | `_08_visuals.sass` |
+| `.green1` | color: var(--greenpop1) | `_08_visuals.sass` |
+| `.green2` | color: var(--greenpop2) | `_08_visuals.sass` |
+| `.green3` | color: var(--greenpop3) | `_08_visuals.sass` |
+| `.green4` | color: var(--greenpop4) | `_08_visuals.sass` |
 
 ---
 
@@ -565,48 +581,50 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
 
 ```css
   --white-fixed: #FFFFFF; /* light */
-  --black-fixed: #171717; /* light */
-  --bg: #ffffff; /* light */
-  --bg-surface: #FBFBF9; /* light */
-  --bg-panel: #FBFBF9; /* light */
-  --bg-sunken: #F7F6F0; /* light */
-  --bg-raised: #F4F4F5; /* light */
-  --bg-extra: rgb(247, 248, 249); /* light */
-  --bg-input: #f8f9fa; /* light */
-  --bg-button: #CED8D3; /* light */
-  --text-primary: #262627; /* light */
-  --text-secondary: #777777; /* light */
-  --text-muted: #bac8f3; /* light */
-  --text-inverse: #ffffff; /* light */
-  --state-surface: #F2EFE9; /* light */
-  --state-hover: #ECE7DF; /* light */
-  --state-selected: #E4DFD5; /* light */
-  --border: #d8d8d8; /* light */
-  --border-subtle: #eceaea; /* light */
-  --border-strong: #cfcfcf; /* light */
-  --theme-color: #0dc02e; /* light */
-  --theme-color-alt: #317b14; /* light */
-  --theme-color-sub: #2b571a; /* light */
+  --black-fixed: #18181B; /* light */
+  --bg: #F8F9FA; /* light */
+  --bg-surface: #FFFFFF; /* light */
+  --bg-panel: #FFFFFF; /* light */
+  --bg-sunken: #F0F1F3; /* light */
+  --bg-raised: #FFFFFF; /* light */
+  --bg-extra: #EAECEF; /* light */
+  --bg-input: #F0F1F3; /* light */
+  --bg-button: #ECEEF1; /* light */
+  --text-primary: #18181B; /* light */
+  --text-secondary: #6B7280; /* light */
+  --text-muted: #9CA3AF; /* light */
+  --text-inverse: #FFFFFF; /* light */
+  --state-surface: #F4F4F6; /* light */
+  --state-hover: #ECEEF1; /* light */
+  --state-selected: #E2E4E8; /* light */
+  --border: #E5E7EB; /* light */
+  --border-subtle: #F0F1F3; /* light */
+  --border-strong: #D1D5DB; /* light */
+  --theme-color: #FFD000; /* light */
+  --theme-color-alt: #E5B800; /* light */
+  --theme-color-sub: #FEF3C7; /* light */
+  --accent-orange: #FF7A00; /* light */
+  --accent-green: #10B981; /* light */
   --success: #10B981; /* light */
   --success-hover: #059669; /* light */
-  --warning: #F59E0B; /* light */
-  --warning-hover: #D97706; /* light */
-  --danger: #bf2a2a; /* light */
+  --warning: #FFD000; /* light */
+  --warning-hover: #E5B800; /* light */
+  --danger: #EF4444; /* light */
   --danger-hover: #DC2626; /* light */
   --info: #3B82F6; /* light */
   --info-hover: #2563EB; /* light */
-  --ring: rgba(0, 127, 78, 0.35); /* light */
-  --shadow-color: 15 13 42; /* light */
-  --shadow-rim: transparent; /* light */
-  --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.14); /* light */
-  --shadow-sm: 0 1px 2px rgb(var(--shadow-color) / 0.10), 0 2px 4px rgb(var(--shadow-color) / 0.06); /* light */
-  --shadow-md: 0 2px 4px rgb(var(--shadow-color) / 0.06), 0 8px 16px rgb(var(--shadow-color) / 0.06); /* light */
-  --shadow-bs: 0 2px 4px rgb(var(--shadow-color) / 0.06), 0 6px 14px rgb(var(--shadow-color) / 0.06); /* light */
+  --ring: rgba(255, 208, 0, 0.4); /* light */
+  --shadow-color: 0 0 0; /* light */
+  --shadow-rim: inset 0 1px 0 rgba(255, 255, 255, 0.6); /* light */
+  --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.05); /* light */
+  --shadow-sm: 0 1px 2px rgb(var(--shadow-color) / 0.06), 0 2px 4px rgb(var(--shadow-color) / 0.04); /* light */
+  --shadow-md: 0 2px 4px rgb(var(--shadow-color) / 0.05), 0 8px 16px rgb(var(--shadow-color) / 0.05); /* light */
+  --shadow-bs: 0 2px 4px rgb(var(--shadow-color) / 0.05), 0 6px 14px rgb(var(--shadow-color) / 0.05); /* light */
   --shadow-lg: 0 4px 8px rgb(var(--shadow-color) / 0.06), 0 12px 24px rgb(var(--shadow-color) / 0.06); /* light */
-  --shadow-xl: 0 8px 16px rgb(var(--shadow-color) / 0.06), 0 20px 36px rgb(var(--shadow-color) / 0.06); /* light */
-  --shadow-2xl: 0 12px 24px rgb(var(--shadow-color) / 0.06), 0 28px 48px rgb(var(--shadow-color) / 0.06); /* light */
-  --shadow-3xl: 0 16px 32px rgb(var(--shadow-color) / 0.06), 0 36px 64px rgb(var(--shadow-color) / 0.06); /* light */
-  --shadow-umbra: rgb(0 0 0 / 0.50); /* dark */
+  --shadow-xl: 0 8px 16px rgb(var(--shadow-color) / 0.07), 0 20px 36px rgb(var(--shadow-color) / 0.07); /* light */
+  --shadow-2xl: 0 12px 24px rgb(var(--shadow-color) / 0.08), 0 28px 48px rgb(var(--shadow-color) / 0.08); /* light */
+  --shadow-3xl: 0 16px 32px rgb(var(--shadow-color) / 0.10), 0 36px 64px rgb(var(--shadow-color) / 0.10); /* light */
+  --shadow-umbra: rgb(0 0 0 / 0.60); /* dark */
   --text-scaling: 1.25; /* root */
   --text-xs: 0.67rem; /* root */
   --text-sm: 0.75rem; /* root */
@@ -672,16 +690,20 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --z-raised: 200; /* root */
   --z-modal: 300; /* root */
   --z-toast: 500; /* root */
-  --greenpop1: #70e000; /* root */
-  --greenpop2: #00df89; /* root */
-  --greenpop3: #69ff97; /* root */
+  --greenpop1: #10b981; /* root */
+  --greenpop2: #22c55e; /* root */
+  --greenpop3: #00df89; /* root */
   --greenpop4: #00e676; /* root */
-  --orangepop1: #ff7700; /* root */
-  --orangepop2: #ff4400; /* root */
-  --orangepop3: #ff0055; /* root */
+  --orangepop1: #ff7a00; /* root */
+  --orangepop2: #f97316; /* root */
+  --orangepop3: #ea580c; /* root */
   --orangepop4: #ff5e36; /* root */
   --orangepop5: #ff9966; /* root */
   --orangepop6: #ff9f1c; /* root */
+  --yellowpop1: #ffd000; /* root */
+  --yellowpop2: #facc15; /* root */
+  --yellowpop3: #fbbf24; /* root */
+  --yellowpop4: #eab308; /* root */
   --shade-xs: var(--shadow-rim), 0 1px 1px rgb(var(--shadow-color) / 0.14), 0 0px 0px rgb(var(--shadow-color) / 0.00); /* root */
   --shade-sm: var(--shadow-rim), 0 1px 2px rgb(var(--shadow-color) / 0.12), 0 1px 3px rgb(var(--shadow-color) / 0.02); /* root */
   --shade-md: var(--shadow-rim), 0 2px 4px rgb(var(--shadow-color) / 0.09), 0 3px 6px rgb(var(--shadow-color) / 0.04); /* root */

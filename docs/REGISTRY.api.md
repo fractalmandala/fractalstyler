@@ -3,7 +3,7 @@
 > Comprehensive index of the canonical styling system classes, layers, and intent.
 > Generated from `registry.json` via `scripts/class-vocab.js`.
 
-**482** classes indexed across layers.
+**498** classes indexed across layers.
 
 Every entry is a concrete class — the space families are expanded from the
 family maps in `_00_config.sass` across the eight steps `xs sm md bs lg xl 2xl 3xl`.
@@ -210,6 +210,11 @@ Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (
 | `.row.ytop` | `align-items: flex-start` | align-items: flex-start — modifier of .row |
 | `.row.ybot` | `align-items: flex-end` | align-items: flex-end — modifier of .row |
 | `.grid` | `display: grid` | CSS grid container (columns composed via .grid-N / alignment below) |
+| `.grid-2` | `display: grid` | Responsive 2-column grid: 1 → 2 columns at 1025px |
+| `.grid-3` | `display: grid` | Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule) |
+| `.grid-4` | `display: grid` | Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1) |
+| `.grid-5` | `display: grid` | display: grid |
+| `.grid-6` | `display: grid` | Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold) |
 | `.grid.center` | `place-items: center` | place-items: center — modifier of .grid |
 | `.grid.xcenter` | `justify-items: center; text-align: center` | justify-items: center — modifier of .grid |
 | `.grid.xleft` | `justify-items: start; text-align: left` | justify-items: start — modifier of .grid |
@@ -244,10 +249,11 @@ Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (
 | `.card[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .card |
 | `.card[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .card |
 | `.card[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .card |
-| `.card[data-size="sm"]` | `padding: var(--space-sm)` | padding: var(--space-sm) — attribute variant of .card |
-| `.card[data-size="md"]` | `padding: var(--space-md)` | padding: var(--space-md) — attribute variant of .card |
-| `.card[data-size="bs"]` | `padding: var(--space-bs)` | padding: var(--space-bs) — attribute variant of .card |
-| `.card[data-size="lg"]` | `padding: var(--space-lg)` | padding: var(--space-lg) — attribute variant of .card |
+| `.card[data-pad="sm"]` | `padding: var(--space-sm)` | padding: var(--space-sm) — attribute variant of .card |
+| `.card[data-pad="md"]` | `padding: var(--space-md)` | padding: var(--space-md) — attribute variant of .card |
+| `.card[data-pad="bs"]` | `padding: var(--space-bs)` | padding: var(--space-bs) — attribute variant of .card |
+| `.card[data-pad="lg"]` | `padding: var(--space-lg)` | padding: var(--space-lg) — attribute variant of .card |
+| `.card[data-pad="xl"]` | `padding: var(--space-xl)` | padding: var(--space-xl) — attribute variant of .card |
 | `.chip` | `font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.01rem; …` | Small inline label — tag/badge duty (xs type, md radius) |
 | `.prose-section` | `display: flex; flex-direction: column; gap: var(--space-lg)` | Vertical prose section (flex column, lg gap) |
 | `.nav-section` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Vertical nav section (flex column, xs gap) |
@@ -257,7 +263,7 @@ Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (
 
 ## Layer L3
 
-Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-6 with divisor stepping (3→1, 4→2→1, 6→3→2→1), .cspan-* column spans, .card-grid (auto-fit), .prose (reading measure), .frame-* aspect-ratio boxes (from $frame-ratios), and .reel (scroll-snap rail).
+Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 with divisor stepping (3→1, 4→2→1, 6→3→2→1), .cspan-* column spans, .card-grid (auto-fit), .prose (reading measure), .frame-* aspect-ratio boxes (from $frame-ratios), and .reel (scroll-snap rail).
 
 | Class | Property / Expansion | Description |
 |:---|:---|:---|
@@ -269,10 +275,6 @@ Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-6 with divis
 | `.frame-2-3` | `aspect-ratio: 2 / 3; overflow: hidden` | Aspect-ratio media frame (2/3) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass) |
 | `.frame-1-1` | `aspect-ratio: 1 / 1; overflow: hidden` | Aspect-ratio media frame (1/1) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass) |
 | `.grid-1` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Gridding golden rules: exactly 3 items → 3→1, never 2+1; count 4 or a |
-| `.grid-2` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(2, minmax(0, 1fr))` | Responsive 2-column grid: 1 → 2 columns at 1025px |
-| `.grid-3` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(3, minmax(0, 1fr))` | Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule) |
-| `.grid-4` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(2, minmax(0, 1fr)) · @min-width:1281px: grid-templ…` | Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1) |
-| `.grid-6` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)) · @min-width:1025px: grid-template-columns: repeat(3, minmax(0, 1fr)) · @min-width:1281px: grid-templ…` | Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold) |
 | `.cspan-1` | `grid-column: span 1` | Span 1 grid column |
 | `.cspan-2` | `grid-column: span 2` | Span 2 grid columns |
 | `.cspan-3` | `grid-column: span 3` | Span 3 grid columns |
@@ -336,7 +338,7 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.card-desc` | `font-size: var(--text-md); line-height: 1.2` | Card description — md |
 | `.breadcrumb-link` | `color: var(--text-muted); font-size: var(--text-xs); text-transform: uppercase` | Breadcrumb link — muted, uppercased, theme color on hover |
 | `.breadcrumb-spacer` | `color: var(--text-muted); font-size: var(--text-xs); text-transform: uppercase` | Breadcrumb spacer (non-link segment, same type treatment) |
-| `.breadcrumb` | `display: flex; justify-content: flex-start; margin-left: -0.5rem` | Breadcrumb rail (flex, offset -0.5rem) |
+| `.breadcrumb` | `display: flex; justify-content: flex-start` | Breadcrumb rail (flex, offset -0.5rem) |
 | `.nav-link` | `font-size: var(--text-md); line-height: 1.2` | navigation text in headers, sidebars, etc. |
 | `.nav-link-sm` | `font-size: var(--text-sm); line-height: 1.2` | Nav link type, small rung |
 | `.nav-header` | `font-size: var(--text-sm); line-height: 1.1; font-weight: 500; …` | Nav group header — sm, 500, padded |
@@ -369,8 +371,9 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.mono` | `font-family: var(--font-mono)` | font usage shorthands |
 | `.sans` | `font-family: var(--font-sans)` | Sans font stack (var(--font-sans)) |
 | `.truncate` | `overflow: hidden; white-space: nowrap; text-overflow: ellipsis` | One-line ellipsis truncation |
-| `.input` | `display: block; width: 100%; height: var(--height-bs); …` | Text input — themed field with focus ring |
-| `.input[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .input |
+| `.input` | `display: block; padding-inline: var(--space-md); border: 1px solid var(--border); …` | Text input — themed field with focus ring |
+| `.input.fitted` | `width: max-content` | width: max-content — modifier of .input |
+| `.input[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border-strong); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .input |
 | `.input[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .input |
 | `.input[data-variant="soft"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)` | background: var(--bg-surface) — attribute variant of .input |
 | `.input[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .input |
@@ -380,11 +383,12 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.input[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .input |
 | `.input[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .input |
 | `.input[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .input |
-| `.input[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .input |
+| `.input[data-size="md"]` | `height: var(--height-md); font-size: var(--text-sm)` | height: var(--height-md) — attribute variant of .input |
 | `.input[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .input |
 | `.input[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .input |
-| `.select` | `display: block; width: 100%; height: var(--height-lg); …` | Select dropdown — themed field with chevron and focus ring |
-| `.select[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .select |
+| `.select` | `display: block; padding-inline: var(--space-bs); appearance: none; …` | Select dropdown — themed field with chevron and focus ring |
+| `.select.fitted` | `width: max-content` | width: max-content — modifier of .select |
+| `.select[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border-strong); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .select |
 | `.select[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .select |
 | `.select[data-variant="soft"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)` | background: var(--bg-surface) — attribute variant of .select |
 | `.select[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .select |
@@ -394,7 +398,7 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.select[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .select |
 | `.select[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .select |
 | `.select[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .select |
-| `.select[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .select |
+| `.select[data-size="md"]` | `height: var(--height-md); font-size: var(--text-sm)` | height: var(--height-md) — attribute variant of .select |
 | `.select[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .select |
 | `.select[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .select |
 | `.link` | `color: var(--theme-color); text-decoration: none; transition: color var(--motionin1)` | Themed link — theme color, alt on hover |
@@ -402,11 +406,12 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.link-parent` | `color: var(--text-primary); text-decoration: none` | Link block — hovers color its .link-title child instead of itself |
 | `.link-title` | `transition: color var(--motionin1)` | transition: color var(--motionin1) — child of .link-parent |
 | `a.nav-link` | `padding: var(--space-sm); border-radius: var(--radius-sm)` | Interactive form of .nav-link — padded, curved, hover fill |
-| `button` | `display: flex; align-items: center; justify-content: center; …` | Element base for every button — the quartet root (align, height, focus, disabled states) |
+| `button` | `display: flex; align-items: center; justify-content: center; …` | Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes. |
+| `.button` | `display: flex; align-items: center; justify-content: center; …` | Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes. |
 | `button.icon` | `height: 24px; width: 24px; border: 1px solid transparent; …` | height: 24px — modifier of button |
 | `button[data-variant="primary"]` | `background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of button |
 | `button[data-variant="secondary"]` | `background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--state-surface) — attribute variant of button |
-| `button[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of button |
+| `button[data-variant="soft"]` | `background: var(--theme-color-sub); color: #191512; border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of button |
 | `button[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of button |
 | `button[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of button |
 | `button[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of button |
@@ -416,16 +421,19 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `button[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of button |
 | `button[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of button |
 | `button[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of button |
-| `button[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of button |
+| `button[data-size="md"]` | `height: var(--height-md); font-size: var(--text-sm)` | height: var(--height-md) — attribute variant of button |
 | `button[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of button |
 | `button[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of button |
-| `button[data-variant="icon"]` | `background: transparent; border: none; height: 24px; …` | background: transparent — attribute variant of button |
-| `button[data-variant="iconbox"]` | `background: var(--bg-panel); border: none; height: 24px; …` | background: var(--bg-panel) — attribute variant of button |
-| `button[data-variant="icon-sm"]` | `height: 20px; width: 20px` | height: 20px — attribute variant of button |
-| `button[data-variant="icon-md"]` | `height: 24px; width: 24px` | height: 24px — attribute variant of button |
-| `button[data-variant="icon-bs"]` | `height: 28px; width: 28px` | height: 28px — attribute variant of button |
-| `button[data-variant="icon-lg"]` | `height: 32px; width: 32px` | height: 32px — attribute variant of button |
-| `a.btn` | `background: var(--theme-color); font-size: var(--text-lg); color: var(--white-fixed); …` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
+| `.button-group` | `display: inline-flex; align-items: stretch; vertical-align: middle` | display: inline-flex |
+| `.split-button` | `display: inline-flex; align-items: stretch; vertical-align: middle` | display: inline-flex |
+| `.button-group.vertical` | `flex-direction: column` | flex-direction: column — modifier of .button-group |
+| `.button-group:not(.vertical)` | `flex-direction: row` | flex-direction: row — modifier of .button-group |
+| `button[data-variant="iconbox"]` | `background: transparent; border: none; height: 24px; …` | background: transparent — attribute variant of button |
+| `button[data-variant="iconbox"][data-size="sm"]` | `height: 20px; width: 20px` | height: 20px — attribute variant of button[data-variant="iconbox"] |
+| `button[data-variant="iconbox"][data-size="icon-md"]` | `height: 24px; width: 24px` | height: 24px — attribute variant of button[data-variant="iconbox"] |
+| `button[data-variant="iconbox"][data-size="icon-bs"]` | `height: 28px; width: 28px` | height: 28px — attribute variant of button[data-variant="iconbox"] |
+| `button[data-variant="iconbox"][data-size="icon-lg"]` | `height: 32px; width: 32px` | height: 32px — attribute variant of button[data-variant="iconbox"] |
+| `a.btn` | `background: var(--theme-color); font-size: var(--text-md); color: var(--white-fixed); …` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
 | `a.btn[data-variant="primary"]` | `background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of a.btn |
 | `a.btn[data-variant="secondary"]` | `background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--state-surface) — attribute variant of a.btn |
 | `a.btn[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of a.btn |
@@ -495,6 +503,14 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.orange4` | `color: var(--orangepop4)` | color: var(--orangepop4) |
 | `.orange5` | `color: var(--orangepop5)` | color: var(--orangepop5) |
 | `.orange6` | `color: var(--orangepop6)` | color: var(--orangepop6) |
+| `.yellow1` | `color: var(--yellowpop1)` | color: var(--yellowpop1) |
+| `.yellow2` | `color: var(--yellowpop2)` | color: var(--yellowpop2) |
+| `.yellow3` | `color: var(--yellowpop3)` | color: var(--yellowpop3) |
+| `.yellow4` | `color: var(--yellowpop4)` | color: var(--yellowpop4) |
+| `.green1` | `color: var(--greenpop1)` | color: var(--greenpop1) |
+| `.green2` | `color: var(--greenpop2)` | color: var(--greenpop2) |
+| `.green3` | `color: var(--greenpop3)` | color: var(--greenpop3) |
+| `.green4` | `color: var(--greenpop4)` | color: var(--greenpop4) |
 
 ## Layer Custom
 
@@ -530,7 +546,7 @@ Sanctioned extension point (_09_own.sass). Contains project-specific overrides a
 | `.fsx-accordion-item.open .fsx-accordion-content` | `grid-template-rows: 1fr; padding: var(--space-sm)` | grid-template-rows: 1fr — combination rule (fsx-accordion-itemopen fsx-accordion-content) |
 | `.fsx-accordion-item[data-variant="primary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .fsx-accordion-item |
 | `.fsx-accordion-item[data-variant="secondary"]` | `background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)` | background: var(--bg-sunken) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item |
+| `.fsx-accordion-item[data-variant="soft"]` | `background: var(--theme-color-sub); color: #191512; border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item |
 | `.fsx-accordion-item[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .fsx-accordion-item |
 | `.fsx-accordion-item[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of .fsx-accordion-item |
 | `.fsx-accordion-item[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of .fsx-accordion-item |

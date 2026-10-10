@@ -2,7 +2,7 @@
 // ============================================================================
 // update-registry — regenerates every registry surface from the stylesheet.
 //
-// Ground truth is src/lib/styles/_00…_10 (colorpacks.sass and themeplates.sass
+// Ground truth is src/lib/styles/_00…_09 (colorpacks.sass and themeplates.sass
 // are raw Sass variable palettes and emit no classes — they are not indexed).
 // This script parses them structurally and emits:
 //   registry.json                                       (class inventory)

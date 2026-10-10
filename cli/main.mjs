@@ -36,7 +36,7 @@ init options:
                           project (default: yes)
   --docs-dir <dir>        Where docs land (default: fractalstyler/)
   --intellisense / --no-intellisense
-                          Write .vscode settings for the Styles IntelliSense
+                          Write .vscode settings for the Fractalstyler
                           extension and check it is installed (default: ask;
                           --yes takes yes)
   --yes / -y              Non-interactive: take the defaults above

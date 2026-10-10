@@ -109,37 +109,37 @@ Name the role, never the hex. Values shown are the light default;
 | Token | Class | Value |
 |:---|:---|:---|
 | `--white-fixed` | `.text-white` | `#FFFFFF` |
-| `--black-fixed` | `.text-black` | `#171717` |
-| `--bg` | `.bg-main` | `#ffffff` |
-| `--bg-surface` | `.bg-surface` | `#FBFBF9` |
-| `--bg-panel` | `.bg-panel` | `#FBFBF9` |
-| `--bg-sunken` | `.bg-sunken` | `#F7F6F0` |
-| `--bg-raised` | `.bg-raised` | `#F4F4F5` |
-| `--bg-extra` | `.bg-extra` | `rgb(247, 248, 249)` |
-| `--bg-input` | — | `#f8f9fa` |
-| `--bg-button` | — | `#CED8D3` |
-| `--text-primary` | .text-primary | `#262627` |
-| `--text-secondary` | .text-secondary | `#777777` |
-| `--text-muted` | .text-muted | `#bac8f3` |
-| `--text-inverse` | .text-inverse | `#ffffff` |
-| `--state-surface` | — | `#F2EFE9` |
-| `--state-hover` | — | `#ECE7DF` |
-| `--state-selected` | — | `#E4DFD5` |
-| `--border` | — | `#d8d8d8` |
-| `--border-subtle` | — | `#eceaea` |
-| `--border-strong` | — | `#cfcfcf` |
-| `--theme-color` | `.text-theme` | `#0dc02e` |
-| `--theme-color-alt` | `.text-theme-alt` | `#317b14` |
-| `--theme-color-sub` | `.text-theme-sub` | `#2b571a` |
+| `--black-fixed` | `.text-black` | `#18181B` |
+| `--bg` | `.bg-main` | `#F8F9FA` |
+| `--bg-surface` | `.bg-surface` | `#FFFFFF` |
+| `--bg-panel` | `.bg-panel` | `#FFFFFF` |
+| `--bg-sunken` | `.bg-sunken` | `#F0F1F3` |
+| `--bg-raised` | `.bg-raised` | `#FFFFFF` |
+| `--bg-extra` | `.bg-extra` | `#EAECEF` |
+| `--bg-input` | — | `#F0F1F3` |
+| `--bg-button` | — | `#ECEEF1` |
+| `--text-primary` | .text-primary | `#18181B` |
+| `--text-secondary` | .text-secondary | `#6B7280` |
+| `--text-muted` | .text-muted | `#9CA3AF` |
+| `--text-inverse` | .text-inverse | `#FFFFFF` |
+| `--state-surface` | — | `#F4F4F6` |
+| `--state-hover` | — | `#ECEEF1` |
+| `--state-selected` | — | `#E2E4E8` |
+| `--border` | — | `#E5E7EB` |
+| `--border-subtle` | — | `#F0F1F3` |
+| `--border-strong` | — | `#D1D5DB` |
+| `--theme-color` | `.text-theme` | `#FFD000` |
+| `--theme-color-alt` | `.text-theme-alt` | `#E5B800` |
+| `--theme-color-sub` | `.text-theme-sub` | `#FEF3C7` |
 | `--success` | `.text-success` `.bg-success` | `#10B981` |
 | `--success-hover` | — | `#059669` |
-| `--warning` | `.text-warning` `.bg-warning` | `#F59E0B` |
-| `--warning-hover` | — | `#D97706` |
-| `--danger` | `.text-danger` `.bg-danger` | `#bf2a2a` |
+| `--warning` | `.text-warning` `.bg-warning` | `#FFD000` |
+| `--warning-hover` | — | `#E5B800` |
+| `--danger` | `.text-danger` `.bg-danger` | `#EF4444` |
 | `--danger-hover` | — | `#DC2626` |
 | `--info` | `.text-info` `.bg-info` | `#3B82F6` |
 | `--info-hover` | — | `#2563EB` |
-| `--ring` | — | `rgba(0, 127, 78, 0.35)` |
+| `--ring` | — | `rgba(255, 208, 0, 0.4)` |
 
 ## Elevation
 
@@ -148,17 +148,17 @@ loop-generated from `$shadow-specs` in `_00_config.sass` (rim + key + ambient).
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--shadow-color` | — | `15 13 42` |
-| `--shadow-rim` | — | `transparent` |
-| `--shadow-xs` | `.shadow-xs` | `0 1px 2px rgb(var(--shadow-color) / 0.14)` |
-| `--shadow-sm` | `.shadow-sm` | `0 1px 2px rgb(var(--shadow-color) / 0.10), 0 2px 4px rgb(var(--shadow-color) / 0.06)` |
-| `--shadow-md` | `.shadow-md` | `0 2px 4px rgb(var(--shadow-color) / 0.06), 0 8px 16px rgb(var(--shadow-color) / 0.06)` |
-| `--shadow-bs` | `.shadow-bs` | `0 2px 4px rgb(var(--shadow-color) / 0.06), 0 6px 14px rgb(var(--shadow-color) / 0.06)` |
+| `--shadow-color` | — | `0 0 0` |
+| `--shadow-rim` | — | `inset 0 1px 0 rgba(255, 255, 255, 0.6)` |
+| `--shadow-xs` | `.shadow-xs` | `0 1px 2px rgb(var(--shadow-color) / 0.05)` |
+| `--shadow-sm` | `.shadow-sm` | `0 1px 2px rgb(var(--shadow-color) / 0.06), 0 2px 4px rgb(var(--shadow-color) / 0.04)` |
+| `--shadow-md` | `.shadow-md` | `0 2px 4px rgb(var(--shadow-color) / 0.05), 0 8px 16px rgb(var(--shadow-color) / 0.05)` |
+| `--shadow-bs` | `.shadow-bs` | `0 2px 4px rgb(var(--shadow-color) / 0.05), 0 6px 14px rgb(var(--shadow-color) / 0.05)` |
 | `--shadow-lg` | `.shadow-lg` | `0 4px 8px rgb(var(--shadow-color) / 0.06), 0 12px 24px rgb(var(--shadow-color) / 0.06)` |
-| `--shadow-xl` | `.shadow-xl` | `0 8px 16px rgb(var(--shadow-color) / 0.06), 0 20px 36px rgb(var(--shadow-color) / 0.06)` |
-| `--shadow-2xl` | `.shadow-2xl` | `0 12px 24px rgb(var(--shadow-color) / 0.06), 0 28px 48px rgb(var(--shadow-color) / 0.06)` |
-| `--shadow-3xl` | `.shadow-3xl` | `0 16px 32px rgb(var(--shadow-color) / 0.06), 0 36px 64px rgb(var(--shadow-color) / 0.06)` |
-| `--shadow-umbra` | — | `rgb(0 0 0 / 0.50)` |
+| `--shadow-xl` | `.shadow-xl` | `0 8px 16px rgb(var(--shadow-color) / 0.07), 0 20px 36px rgb(var(--shadow-color) / 0.07)` |
+| `--shadow-2xl` | `.shadow-2xl` | `0 12px 24px rgb(var(--shadow-color) / 0.08), 0 28px 48px rgb(var(--shadow-color) / 0.08)` |
+| `--shadow-3xl` | `.shadow-3xl` | `0 16px 32px rgb(var(--shadow-color) / 0.10), 0 36px 64px rgb(var(--shadow-color) / 0.10)` |
+| `--shadow-umbra` | — | `rgb(0 0 0 / 0.60)` |
 | `--shade-xs` | — | `var(--shadow-rim), 0 1px 1px rgb(var(--shadow-color) / 0.14), 0 0px 0px rgb(var(--shadow-color) / 0.00)` |
 | `--shade-sm` | — | `var(--shadow-rim), 0 1px 2px rgb(var(--shadow-color) / 0.12), 0 1px 3px rgb(var(--shadow-color) / 0.02)` |
 | `--shade-md` | — | `var(--shadow-rim), 0 2px 4px rgb(var(--shadow-color) / 0.09), 0 3px 6px rgb(var(--shadow-color) / 0.04)` |
@@ -167,8 +167,8 @@ loop-generated from `$shadow-specs` in `_00_config.sass` (rim + key + ambient).
 | `--shade-xl` | — | `var(--shadow-rim), 0 6px 12px rgb(var(--shadow-color) / 0.03), 0 20px 36px rgb(var(--shadow-color) / 0.09)` |
 | `--shade-2xl` | — | `var(--shadow-rim), 0 8px 16px rgb(var(--shadow-color) / 0.02), 0 28px 48px rgb(var(--shadow-color) / 0.09)` |
 | `--shade-3xl` | — | `var(--shadow-rim), 0 12px 24px rgb(var(--shadow-color) / 0.02), 0 36px 64px rgb(var(--shadow-color) / 0.08)` |
-| `--shadow-color` | — | `15 13 42` |
-| `--shadow-rim` | — | `transparent` |
+| `--shadow-color` | — | `0 0 0` |
+| `--shadow-rim` | — | `inset 0 1px 0 rgba(255, 255, 255, 0.6)` |
 
 ## Fonts, Layout Constants & Page Chrome
 
@@ -198,13 +198,13 @@ Named accent literals. The `.orange1`…`.orange6` ink classes read
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--greenpop1` | — | `#70e000` |
-| `--greenpop2` | — | `#00df89` |
-| `--greenpop3` | — | `#69ff97` |
+| `--greenpop1` | — | `#10b981` |
+| `--greenpop2` | — | `#22c55e` |
+| `--greenpop3` | — | `#00df89` |
 | `--greenpop4` | — | `#00e676` |
-| `--orangepop1` | `.orange1` | `#ff7700` |
-| `--orangepop2` | `.orange2` | `#ff4400` |
-| `--orangepop3` | `.orange3` | `#ff0055` |
+| `--orangepop1` | `.orange1` | `#ff7a00` |
+| `--orangepop2` | `.orange2` | `#f97316` |
+| `--orangepop3` | `.orange3` | `#ea580c` |
 | `--orangepop4` | `.orange4` | `#ff5e36` |
 | `--orangepop5` | `.orange5` | `#ff9966` |
 | `--orangepop6` | `.orange6` | `#ff9f1c` |

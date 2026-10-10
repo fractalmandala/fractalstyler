@@ -8,6 +8,9 @@ node_modules
 /.svelte-kit
 /build
 /dist
+fractalstyler-vscode/node_modules
+fractalstyler-vscode/.vscode
+fractalstyler-vscode/media
 
 # OS
 .DS_Store

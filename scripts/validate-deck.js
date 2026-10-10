@@ -40,22 +40,13 @@ const exact = new Set([...compiled.matchAll(/\.([a-zA-Z][\w-]*)/g)].map((m) => m
  */
 const MODIFIERS = new Set([
 	'open', // drawer state on .app-shell; expanded state on .accordion-item
-	'active',
-	'checked',
 	'clamped', // .app-header.clamped / .app-main.clamped
 	'null', // .content-section.null
 	'narrow-half', // .content-section.narrow-*
 	'narrow-wide',
 	'narrow-full',
-	'small', // .input.small / .select.small
-	'modern', // legacy corner modifier on .card / buttons / a.primary / a.outline
-	'icon', // button.icon
-	'primary', // button.primary
-	'outline', // a.outline
 	'center', // .grid.center
-	'mleft', // .ta-c.mleft mobile de-centering
-	'ghost',
-	'is-icon'
+	'mleft' // .ta-c.mleft mobile de-centering
 ])
 
 // The components ARE the current system's shell vocabulary. Their class usage
@@ -159,6 +150,30 @@ files.forEach((file) => {
 		}
 	}
 })
+
+// ── data/recipes.json ───────────────────────────────────────────────────────
+// get_recipes hands this markup to agents verbatim, and every consumer pastes it
+// into a real project — so a class here that does not resolve ships as the
+// canonical example. It is JSON, not a walked file, so it needs its own pass.
+// This file went unvalidated for three releases carrying `.pad-x-*`, `.kbd`,
+// `.active`, `.popover` and `.dialog`, none of which exist.
+const recipesPath = join(root, 'data', 'recipes.json')
+if (existsSync(recipesPath)) {
+	const { recipes = [] } = JSON.parse(readFileSync(recipesPath, 'utf8'))
+	for (const recipe of recipes) {
+		CLASS_ATTR.lastIndex = 0
+		let m
+		while ((m = CLASS_ATTR.exec(recipe.markup ?? ''))) {
+			for (const raw of m[1].split(/\s+/)) {
+				if (!raw || !/^[a-zA-Z][\w-]*$/.test(raw)) continue
+				checked++
+				if (!inRegistry(raw)) {
+					problems.push(`data/recipes.json:${recipe.id}  →  .${raw}`)
+				}
+			}
+		}
+	}
+}
 
 // ── links, anchors and file references ─────────────────────────────────────
 // A broken cross-reference sat on line 6 of the first document through two

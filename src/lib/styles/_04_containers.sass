@@ -50,7 +50,7 @@
 	&.ybot
 		align-items: flex-end
 
-.grid
+.grid, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6
 	display: grid
 	&.center
 		place-items: center
@@ -160,14 +160,16 @@
 		border-radius: var(--radius-md)
 	&[data-shape="round"]
 		border-radius: var(--radius-full)
-	&[data-size="sm"]
+	&[data-pad="sm"]
 		padding: var(--space-sm)
-	&[data-size="md"]
+	&[data-pad="md"]
 		padding: var(--space-md)
-	&[data-size="bs"]
+	&[data-pad="bs"]
 		padding: var(--space-bs)
-	&[data-size="lg"]
+	&[data-pad="lg"]
 		padding: var(--space-lg)
+	&[data-pad="xl"]
+		padding: var(--space-xl)
 
 .chip
 	font-size: var(--text-xs)

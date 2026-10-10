@@ -1,6 +1,6 @@
 {
 	"name": "@fractaldesign/fractalstyler",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"license": "MIT",
 	"description": "A composition styling system, shipped as plain CSS and as editable SASS. The class registry is the public API: compose in markup, write no stylesheet.",
 	"bin": {
@@ -71,6 +71,16 @@
 			"default": "./dist/css/fractalstyler.min.css"
 		},
 		"./recipes": "./data/recipes.json",
+		"./presets": {
+			"types": "./dist/presets.svelte.d.ts",
+			"svelte": "./dist/presets.svelte.js",
+			"default": "./dist/presets.svelte.js"
+		},
+		"./PresetControls": {
+			"types": "./dist/ui/PresetControls.svelte.d.ts",
+			"svelte": "./dist/ui/PresetControls.svelte",
+			"default": "./dist/ui/PresetControls.svelte"
+		},
 		"./package.json": "./package.json"
 	},
 	"peerDependencies": {

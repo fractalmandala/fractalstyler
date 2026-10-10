@@ -28,11 +28,7 @@ export const VARIANTS = [
 	'link',
 	'destructive',
 	'icon',
-	'iconbox',
-	'icon-sm',
-	'icon-md',
-	'icon-bs',
-	'icon-lg'
+	'iconbox'
 ] as const;
 export type DataVariant = (typeof VARIANTS)[number];
 
@@ -44,3 +40,45 @@ export type DataShape = (typeof SHAPES)[number];
 
 export const ALERTVARIANTS = ['info', 'success', 'warning', 'danger'] as const;
 export type AlertVariant = (typeof ALERTVARIANTS)[number];
+
+export const PADS = ["sm", 'md', 'bs', 'lg', 'xl'] as const;
+export type DataPad = (typeof PADS)[number];
+
+export const presetApplication = [
+	'button', 'input', 'select', 'input.input', 'select.select', '.card', 'a.btn'
+] as const;
+
+export interface FractalTokens {
+	"bg": string;
+	"bg-surface": string;
+	"bg-panel": string;
+	"bg-sunken": string;
+	"bg-raised": string;
+	"bg-extra": string;
+	"bg-input": string;
+	"bg-button": string;
+	"text-primary": string;
+	"text-secondary": string;
+	"text-muted": string;
+	"text-inverse": string;
+	"state-surface": string;
+	"state-hover": string;
+	"state-selected": string;
+	"border": string;
+	"border-subtle": string;
+	"border-strong": string;
+	"theme-color": string;
+	"theme-color-alt": string;
+	"theme-color-sub": string;
+	"ring": string;
+	"white-fixed": string;
+	"black-fixed": string;
+	"danger": string;
+	"danger-hover": string;
+	"success": string;
+	"success-hover": string;
+	"info": string;
+	"info-hover": string;
+	"warning": string;
+	"warning-hover": string;
+}
