@@ -6,10 +6,11 @@ CSS. MIT © [Fractal Mandala](https://github.com/fractalmandala)
 
 **This library is a work in constant progress and breaking changes each bump.**
 
-- Registry: [`docs/REGISTRY.api.md`](docs/REGISTRY.api.md)
-- Configuration: [`docs/references/configurations-api.md`](docs/references/configurations-api.md)
-- Agent skill: [`skills/fractalstyler/SKILL.md`](skills/fractalstyler/SKILL.md)
-- [VS Code Intellisense Extension](fractalstyler-vscode/fractalstyler-0.4.0.vsix)
+- Registry: [`docs/REGISTRY.api.md`](https://github.com/fractalmandala/fractalstyler/blob/main/docs/REGISTRY.api.md)
+- Configuration: [`docs/references/configurations-api.md`](https://github.com/fractalmandala/fractalstyler/blob/main/docs/references/configurations-api.md)
+- Agent skill: [`skills/fractalstyler/SKILL.md`](https://github.com/fractalmandala/fractalstyler/blob/main/skills/fractalstyler/SKILL.md)
+- [VS Code Intellisense Extension](https://github.com/fractalmandala/fractalstyler/blob/main/fractalstyler-vscode/fractalstyler-0.4.0.vsix)
+- [NPM](https://www.npmjs.com/package/@fractaldesign/fractalstyler)
 
 ## Using it in a project
 
