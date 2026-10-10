@@ -148,7 +148,8 @@ Class-attribute states (not `data-*`, but part of the same runtime surface):
 
 The presets runtime (`presets.svelte.ts`, `PresetControls.svelte`) writes these
 attributes onto live markup. It never overwrites an attribute the markup
-already declares, and it writes `data-pad` to `.card` only.
+already declares. `data-pad` is written to `.card` only, `data-variant` reaches
+`.card` alongside the opted-in controls, and `data-size` skips `.card`.
 
 ---
 

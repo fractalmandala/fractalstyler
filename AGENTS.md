@@ -125,10 +125,12 @@ Exported: `setPresetSize`, `setPresetShape`, `setPresetPad`, `setPresetVariant`,
 **reading** `presetState` does not, so call `initPresets()` first or you get the
 defaults rather than the stored choice.
 
-Scope is deliberately narrow and differs per axis: size/shape sweep
-`presetApplication`, `data-pad` sweeps `.card` only, and `data-variant` is
-class-qualified to `input.input`, `select.select`, `button.button`, `a.btn`.
-A preset never overwrites an attribute the markup already declares.
+Scope is deliberately narrow and differs per axis: shape sweeps
+`presetApplication` (which includes `.card`), size sweeps the same minus
+`.card` (a card has no `data-size` rule), `data-pad` sweeps `.card` only, and
+`data-variant` is class-qualified to `input.input`, `select.select`,
+`button.button`, `a.btn` plus `.card`. A preset never overwrites an attribute
+the markup already declares.
 
 Prefer explicit attributes in authored markup. The preset layer is for the
 values you do not want to hand-write, and for driving a running app.

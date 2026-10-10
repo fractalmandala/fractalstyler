@@ -13,15 +13,25 @@ const DEFAULT_VARIANT: DataVariant = 'primary';
 // stamping a variant on them would silently invent styling the markup never
 // asked for.
 //
+// `.card` is on the other side of that line: it is a system class, and it
+// answers `data-variant` (see `.card[data-variant]` in _04_containers.sass), so
+// the variant preset paints cards alongside the controls.
+//
 // NOTE: `button.button` requires class="button". This system styles buttons on
 // the bare element, and `.button` is not a standalone class — it exists only as
 // a grouping hook inside `.button-group`. See the note in README §4.
-const VARIANT_TARGETS = 'input.input, select.select, button.button, a.btn';
+const VARIANT_TARGETS = 'input.input, select.select, button.button, a.btn, .card';
 
 // Only `.card` consumes `data-pad` (see `.card[data-pad]` in _04_containers.sass).
 // The pad preset is therefore written to cards alone, so a global sweep can never
 // stamp `data-pad` onto buttons, inputs or selects that have no rule to answer it.
 const PAD_TARGETS = '.card';
+
+// Size is a metrics axis: it steps height and type scale on controls. A `.card`
+// has no `data-size` rule of its own — it sizes through `data-pad` and the
+// layout classes — so stamping one would be a dead attribute on every card in
+// the document. Size therefore sweeps every preset target except `.card`.
+const SIZE_TARGETS = presetApplication.filter((selector) => selector !== PAD_TARGETS).join(', ');
 
 type Applied = { size?: string; shape?: string; variant?: string; pad?: string };
 
@@ -113,13 +123,15 @@ export class PresetState {
 		for (const selector of presetApplication) {
 			for (const element of document.querySelectorAll(selector)) {
 				const applied: Applied = this.#applied.get(element) ?? {};
-				if (!element.hasAttribute('data-size')) {
-					element.setAttribute('data-size', this.size);
-					applied.size = this.size;
-				}
+				// Shape is the one blanket axis — every swept target answers it,
+				// and `.card` is among them via `presetApplication`.
 				if (!element.hasAttribute('data-shape')) {
 					element.setAttribute('data-shape', this.shape);
 					applied.shape = this.shape;
+				}
+				if (element.matches(SIZE_TARGETS) && !element.hasAttribute('data-size')) {
+					element.setAttribute('data-size', this.size);
+					applied.size = this.size;
 				}
 				// Card-only axis: markup that declares its own data-pad always wins.
 				if (element.matches(PAD_TARGETS) && !element.hasAttribute('data-pad')) {

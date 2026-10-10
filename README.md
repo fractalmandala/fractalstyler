@@ -97,15 +97,19 @@ page — no build step, no stylesheet of its own, safe to leave out entirely.
 
 | Axis | Attribute | Values | Reaches |
 |---|---|---|---|
-| Size | `data-size` | `sm` `md` `bs` `lg` | `button`, `input`, `select`, `a.btn`, `.card`, `.fsx-accordion-item` |
-| Shape | `data-shape` | `square` `modern` `curved` `round` | same targets |
-| Variant | `data-variant` | `primary` … `iconbox` (see `libTypes.ts`) | **`input.input`, `select.select`, `button.button`, `a.btn` only** |
+| Size | `data-size` | `sm` `md` `bs` `lg` | `button`, `input`, `select`, `input.input`, `select.select`, `a.btn` |
+| Shape | `data-shape` | `square` `modern` `curved` `round` | same targets, plus `.card` |
+| Variant | `data-variant` | `primary` … `iconbox` (see `libTypes.ts`) | **`input.input`, `select.select`, `button.button`, `a.btn`, `.card`** |
 | Padding | `data-pad` | `sm` `md` `bs` `lg` `xl` | **`.card` only** |
 
 The variant axis is class-qualified rather than element-qualified: only controls
 that opted into the system's own class receive one. Bare `<input>`, `<select>`
-and `<button>` are left alone. Any element that already declares its own
-`data-variant` keeps it — the preset only fills in what is missing.
+and `<button>` are left alone. `.card` is the one non-control in the list — it is
+a system class and answers `.card[data-variant]`, so variant paints cards as
+well as controls. Size is the axis cards sit out: a card has no `data-size`
+rule of its own, it sizes through `data-pad` and the layout classes. Any element
+that already declares its own attribute keeps it — the preset only fills in what
+is missing.
 
 > `.button` is a real class. `_07_interactions.sass` styles buttons as
 > `button, .button` — one selector list — so `<button class="button">` and a bare
@@ -156,7 +160,7 @@ import { setPresetSize, setPresetShape, setPresetPad, setPresetVariant, resetPre
 setPresetSize('lg');       // size sweep
 setPresetShape('round');   // shape sweep
 setPresetPad('xl');        // .card padding sweep
-setPresetVariant('soft');  // form-control paint sweep
+setPresetVariant('soft');  // paint sweep — controls + .card
 resetPresets();            // back to bs / modern / md / primary
 ```
 
@@ -272,7 +276,7 @@ build a custom control without re-listing values the registry already owns:
 | `setPresetSize(size)` | Sets the size sweep. Accepts `DataSize`. |
 | `setPresetShape(shape)` | Sets the shape sweep. Accepts `DataShape`. |
 | `setPresetPad(pad)` | Sets card padding. Accepts `DataPad`; `.card` only. |
-| `setPresetVariant(variant)` | Sets the control paint. Accepts `DataVariant`; reaches `input.input`, `select.select`, `button.button`, `a.btn`. |
+| `setPresetVariant(variant)` | Sets the control paint. Accepts `DataVariant`; reaches `input.input`, `select.select`, `button.button`, `a.btn` and `.card`. |
 | `resetPresets()` | Back to the defaults: `bs` / `modern` / `md` / `primary`. |
 | `initPresets()` | Opt into the automatic behaviour alone — restores stored choices, applies them, and watches for new markup. No picker. **Call this before reading `presetState`.** |
 | `presetState` | The live state object. Read `presetState.size`, `.shape`, `.pad`, `.variant`, `.initialized`. |

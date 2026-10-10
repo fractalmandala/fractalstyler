@@ -46,8 +46,10 @@ Operate within the `fractalstyler` registry as a **closed world**. Never invent 
 
 The presets runtime (`presets.svelte.ts` + `PresetControls.svelte`) writes
 `data-*` attributes onto live markup and never overrides attributes the markup
-already declares. `data-pad` is scoped to `.card`; size/shape/variant sweep
-`button`, `input`, `select`, `.card` and `a.btn`.
+already declares. `data-pad` is scoped to `.card`; shape sweeps `button`,
+`input`, `select`, `.card` and `a.btn`, size sweeps the same list minus `.card`,
+and `data-variant` is class-qualified to `input.input`, `select.select`,
+`button.button`, `a.btn` plus `.card`.
 
 Prefer explicit attributes in authored markup. The preset layer is for the
 `data-*` values you do not want to hand-write, and for driving a running app.
