@@ -1,0 +1,44 @@
+{
+	// The shipped Node runtime: the bins (cli/, lint/, mcp/) and the registry
+	// builder that `eject` copies into consumer projects. Sources are TypeScript;
+	// `pnpm build:runtime` emits plain JS next to each one (.mts → .mjs,
+	// .ts → .js), because the package runs from node_modules on Node >=18, where
+	// Node will not strip types. The emitted files are gitignored and listed in
+	// package.json `files`. In the repo the sources run directly on Node 24.
+	"compilerOptions": {
+		"target": "ES2022",
+		"lib": ["ES2023"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"types": ["node"],
+		"strict": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"forceConsistentCasingInFileNames": true,
+		// Node's type stripping runs these sources as-is: only erasable syntax,
+		// explicit `import type`, and .mts/.ts import specifiers that the emit
+		// rewrites to .mjs/.js.
+		"erasableSyntaxOnly": true,
+		"verbatimModuleSyntax": true,
+		"rewriteRelativeImportExtensions": true,
+		"newLine": "lf",
+		"removeComments": false,
+		"sourceMap": false,
+		"declaration": false
+	},
+	"files": [
+		"cli/main.mts",
+		"cli/scaffold.mts",
+		"lint/cli.mts",
+		"lint/browser.mts",
+		"lint/lib/agent-reporter.mts",
+		"lint/lib/fuzzy.mts",
+		"lint/lib/registry.mts",
+		"lint/lib/sass-linter.mts",
+		"lint/lib/svelte-linter.mts",
+		"lint/lib/token-linter.mts",
+		"mcp/server.mts",
+		"scripts/update-registry.ts",
+		"scripts/class-vocab.ts"
+	]
+}

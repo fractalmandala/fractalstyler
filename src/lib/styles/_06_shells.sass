@@ -41,7 +41,6 @@ $lg: map.get($breakpoints, lg)
 	min-height: calc(100dvh - var(--fit-height))
 	display: flex
 	flex-direction: row
-	padding-inline: var(--app-inline)
 	&.clamped
 		width: var(--content-clamp)
 		margin-inline: auto
@@ -49,6 +48,8 @@ $lg: map.get($breakpoints, lg)
 .main-section
 	flex: 1 1 0%
 	min-width: 0
+	&.solo
+		padding-inline: var(--app-inline)
 
 // --- Role-bound rails (Amendment A1) -------------------------------------------
 // Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an

@@ -39,7 +39,7 @@ the `--shade-*` elevation tokens) is expanded from them.
 
 | Variable | Value | Consumed by | Effect of a change |
 |---|---|---|---|
-| `$steps` | `('xs' 'sm' 'md' 'bs' 'lg' 'xl' '2xl' '3xl')` — 8 steps | `_02_dimensions.sass` (gap/pad/mar loops), `scripts/update-registry.js` | Every space family is crossed with this list: a new step emits `.gap-…`/`.pad-…`/`.mar-…` rows for all 17 families — **only if** a matching `--space-<step>` token exists in `_00_tokens.sass`, else the emitted `var()` points at nothing |
+| `$steps` | `('xs' 'sm' 'md' 'bs' 'lg' 'xl' '2xl' '3xl')` — 8 steps | `_02_dimensions.sass` (gap/pad/mar loops), `scripts/update-registry.ts` | Every space family is crossed with this list: a new step emits `.gap-…`/`.pad-…`/`.mar-…` rows for all 17 families — **only if** a matching `--space-<step>` token exists in `_00_tokens.sass`, else the emitted `var()` points at nothing |
 | `$gap-families` | `(gap: gap, rgap: row-gap, cgap: column-gap)` — 3 families | `_02_dimensions.sass` | Key = class prefix, value = CSS property. Add `xgap: column-gap` and `.xgap-*` classes compile; remove a key and its classes cease to exist |
 | `$pad-families` | `(pad: padding, px: padding-inline, py: padding-block, pt: padding-top, pr: padding-right, pb: padding-bottom, pl: padding-left)` — 7 families | `_02_dimensions.sass` | Same key→property contract. `px`/`py` are logical (inline/block, RTL-safe); named sides are physical |
 | `$mar-families` | `(mar: margin, mx: margin-inline, my: margin-block, mt: margin-top, mr: margin-right, mb: margin-bottom, ml: margin-left)` — 7 families | `_02_dimensions.sass` | Same key→property contract. There are no negative-margin classes and no side-family aliases beyond these |
@@ -162,7 +162,7 @@ kinds and examples is [`../REGISTRY.api.md`](../REGISTRY.api.md) (generated).
 |---|---|---|---|
 | L0 | `_01_base.sass` | 2 | `.bdr` debug outline, `.mode-wipe` view-transition kill switch |
 | L1 | `_02_dimensions.sass` | 154 | 17 space families × 8 steps (136), 6 radius channels, `.wfull`/`.hfull`/`.full`, `.minw0`/`.minh0`/`.min0`, `.h-sm`…`.h-lg`, `.hfull-vh`, `.hfull-vh-fitted` |
-| L2 | `_04_containers.sass` | 71 | `.box` + 9 alignment modifiers, `.row` + 9, `.grid` + 15, `.wrap`, `.grow`, `.shrink-0`, position set, `.scroll-y`/`.scroll-x`, `.card` (+`data-variant`/`data-shape`/`data-pad`), `.chip`, `.prose-section`, `.nav-section`, `.page-header`, `.inputs-wrapper`, `.checkbox-wrapper` |
+| L2 | `_04_containers.sass` | 75 | `.box` + 9 alignment modifiers, `.row` + 9, `.grid` + 15, `.wrap`, `.grow`, `.shrink-0`, position set, `.z-sticky`/`.z-raised`/`.z-modal`/`.z-toast`, `.scroll-y`/`.scroll-x`, `.card` (+`data-variant`/`data-shape`/`data-pad`), `.chip`, `.prose-section`, `.nav-section`, `.page-header`, `.inputs-wrapper`, `.checkbox-wrapper` |
 | L3 | `_05_layouts.sass` | 19 | `.grid-1`…`.grid-6` (divisor stepping), `.cspan-1`…`.cspan-8`, `.card-grid`, `.prose`, 7 `.frame-*` (from `$frame-ratios`), `.reel` |
 | L4 | `_06_shells.sass` | 16 | `.app-shell` (+`.open` drawer compound), `.app-header` (+`.clamped`), `.app-main` (+`.clamped`), `.main-section`, `.sidebar-left`, `.sidebar-right`, `.app-footer`, `.content-section` (+`.null`/`.narrow-half`/`.narrow-wide`/`.narrow-full`), `.get` |
 | L5 | `_03_typography.sass`, `_07_interactions.sass`, `_08_visuals.sass` | 195 | Typography scale/roles/modifiers, `.input`/`.select`, `button`/`.button`/`a.btn` (+`data-variant`/`data-shape`/`data-size`/`iconbox`), `.button-group`/`.split-button`, link family, bare backgrounds (`.bg-main`, `.bg-surface`, `.bg-panel`, `.bg-sunken`, `.bg-raised`, `.bg-extra`), status fills, border set (`.border` + `-subtle`/`-strong`, per-side `.bt`/`.br`/`.bb`/`.bl` + `-str`/`-sub`), shadows, pop-colour inks, visibility |
@@ -205,21 +205,30 @@ The library no longer bundles or imports external font files. It ships a blank `
 
 | Script | Emits |
 |---|---|
-| `scripts/update-registry.js` | `registry.json`, `skills/fractalstyler/references/fractals.md`, `skills/fractalstyler/references/tokens.md` |
-| `scripts/class-vocab.js` | `docs/REGISTRY.api.md` (reads `registry.json`) |
-| `lint/browser.mjs --out docs/browser.html` | `docs/browser.html` (searchable registry browser) |
-| `scripts/build-css.js` | `dist/css/fractalstyler.css` + `.min.css` (plain-CSS distribution) |
-| `scripts/validate-deck.js` | exit 0/1 — every class named in docs/components resolves against the compiled stylesheet |
-| `lint/cli.mjs` | exit 0/1 — token purity and contract lint |
+| `scripts/update-registry.ts` | `registry.json`, `skills/fractalstyler/references/fractals.md`, `skills/fractalstyler/references/tokens.md` |
+| `scripts/class-vocab.ts` | `docs/REGISTRY.api.md` (reads `registry.json`) |
+| `lint/browser.mts --out docs/browser.html` | `docs/browser.html` (searchable registry browser) |
+| `scripts/build-css.ts` | `dist/css/fractalstyler.css` + `.min.css` (plain-CSS distribution) |
+| `scripts/validate-deck.ts` | exit 0/1 — every class named in docs/components resolves against the compiled stylesheet |
+| `lint/cli.mts` | exit 0/1 — token purity and contract lint |
 | `svelte-package` (`pnpm build`) | `dist/` — `index.js`, `presets.svelte.js`, `ui/PresetControls.svelte`, styles partials |
-| `cli/main.mjs` (`fractalstyler` bin) | consumer scaffolds: `npx @fractaldesign/fractalstyler init\|eject\|lint` — track or eject the styles, place these docs into a project, wire the VS Code extension |
-| `mcp/server.mjs` (`fractalstyler-mcp` bin) | MCP server; reads `registry.json` and `data/recipes.json` from disk at start-up |
+| `cli/main.mts` (`fractalstyler` bin) | consumer scaffolds: `npx @fractaldesign/fractalstyler init\|eject\|lint` — track or eject the styles, place these docs into a project, wire the VS Code extension |
+| `mcp/server.mts` (`fractalstyler-mcp` bin) | MCP server; reads `registry.json` and `data/recipes.json` from disk at start-up |
+| `tsc -p tsconfig.runtime.json` (`pnpm build:runtime`) | the shipped JS next to each runtime source: `cli/*.mjs`, `lint/**/*.mjs`, `mcp/server.mjs`, `scripts/update-registry.js`, `scripts/class-vocab.js` |
+
+Every script is TypeScript and runs directly on Node 24 (`node lint/cli.mts`).
+The runtime the package ships — the three bins and the registry builder — runs
+from `node_modules` on Node >=18, where Node does not strip types, so
+`build:runtime` compiles it to plain JS beside the sources. Those emitted files
+are gitignored and are what `files`, `bin` and `eject` point at.
 
 `pnpm registry` runs the first two; `pnpm browser` regenerates the browser
-page; `pnpm build` runs `registry` → `svelte-package` → `build-css` → `publint`;
-`pnpm check` runs the validator and the contract linter. Consumers get the same
-registry builder after `eject` as `scripts/build-registry.mjs`.
+page; `pnpm build` runs `registry` → `svelte-package` → `build-css` →
+`build:runtime` → `publint`; `pnpm check` runs svelte-check, the runtime type
+check, the validator and the contract linter. Consumers get the same registry
+builder after `eject` as `scripts/build-registry.mjs` (plus the compiled
+`update-registry.mjs` and `class-vocab.mjs` it runs).
 
-Note: `validate-deck.js` does **not** walk `mcp/`, `cli/`, `data/` or the
+Note: `validate-deck.ts` does **not** walk `mcp/`, `cli/`, `data/` or the
 presets runtime. Those surfaces drift silently — re-audit them by hand, or add
 them to the validator, when the class inventory changes.

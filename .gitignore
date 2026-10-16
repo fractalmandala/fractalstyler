@@ -12,6 +12,14 @@ fractalstyler-vscode/node_modules
 fractalstyler-vscode/.vscode
 fractalstyler-vscode/media
 
+# Compiled Node runtime — emitted next to the .mts/.ts sources by
+# `pnpm build:runtime` (tsconfig.runtime.json); shipped via package.json `files`
+/cli/*.mjs
+/lint/**/*.mjs
+/mcp/*.mjs
+/scripts/update-registry.js
+/scripts/class-vocab.js
+
 # OS
 .DS_Store
 Thumbs.db

@@ -309,10 +309,11 @@ button, .button // Button root: flex centring, type, cursor, focus ring, disable
 	100%
 		transform: scale(0)
 
-button, .button
-	&[data-variant="iconbox"]
+button, .button, a.btn
+	&[data-variant="iconbox"] // Square transparent icon button; drops the root inline padding so the icon keeps its width
 		background: transparent
 		border: none
+		padding-inline: 0
 		height: 24px
 		width: 24px
 		display: flex
@@ -335,20 +336,23 @@ button, .button
 
 
 a.btn
-	background: var(--theme-color)
-	font-size: var(--text-md)
-	color: var(--white-fixed)
-	height: 40px
+	display: flex
 	align-items: center
 	justify-content: center
-	display: flex
-	min-width: 6rem
-	box-shadow: var(--shadow-sm)
-	transition: box-shadow var(--motionin1), border var(--motionin1), color var(--motionin1), background var(--motionin1)
+	font-size: var(--text-md)
+	color: var(--text-primary)
 	text-decoration: none
+	cursor: pointer
+	user-select: none
+	transition: background var(--motionin1), border-color var(--motionin1), color var(--motionin1)
 	padding-inline: var(--space-md)
-	&:hover
-		box-shadow: var(--shadow-bs)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 1px
+	&:disabled
+		opacity: 0.5
+		cursor: not-allowed
+		pointer-events: none
 	&[data-variant="primary"]
 		background: var(--theme-color)
 		color: var(--white-fixed)
@@ -413,3 +417,109 @@ a.btn
 	&[data-size="lg"]
 		height: var(--height-lg)
 		font-size: var(--text-bs)
+
+.accordion
+	display: flex
+	flex-direction: column
+	gap: var(--space-xs)
+
+.accordion-item
+	.accordion-content
+		display: grid
+		grid-template-rows: 0fr
+		padding: 0
+		transition: grid-template-rows var(--speed2) var(--transout1)
+	// The panel is what collapses. It needs min-height: 0 so the grid row can
+	// size it, and overflow: hidden so the content clips while closed — which
+	// is why it carries a name rather than being reached at by position.
+	.accordion-panel
+		overflow: hidden
+		min-height: 0
+	&.open 
+		.accordion-content
+			grid-template-rows: 1fr
+			padding: var(--space-sm)
+
+.accordion-item
+	&[data-variant="primary"]
+		background: var(--bg-panel)
+		border: 1px solid var(--border)
+		color: var(--text-primary)
+		&:hover
+			background: var(--bg-raised)
+			border: 1px solid var(--border-strong)
+	&[data-variant="secondary"]
+		background: var(--bg-sunken)
+		color: var(--text-secondary)
+		border: 1px solid var(--border)
+		&:hover
+			background: var(--state-hover)
+	&[data-variant="soft"]
+		background: var(--theme-color-sub)
+		color: var(--text-primary)
+		border: 1px solid var(--theme-color-sub)
+		&:hover
+			background: var(--theme-color)
+			border: 1px solid var(--theme-color)
+			color: var(--white-fixed)
+	&[data-variant="outline"]
+		background: var(--bg)
+		color: var(--text-primary)
+		border: 1px solid var(--border-strong)
+		&:hover
+			background: var(--state-hover)
+	&[data-variant="ghost"]
+		background: transparent
+		color: var(--text-primary)
+		border: none
+		&:hover
+			background: var(--state-hover)
+	&[data-variant="link"]
+		background: transparent
+		color: var(--theme-color)
+		border: none
+		&:hover
+			text-decoration: underline
+	&[data-variant="destructive"]
+		background: var(--danger)
+		color: var(--white-fixed)
+		border: 1px solid var(--danger)
+		&:hover
+			background: var(--danger-hover)
+	&[data-shape="modern"]
+		border-radius: var(--radius-sm)
+	&[data-shape="curved"]
+		border-radius: var(--radius-md)
+	&[data-shape="round"]
+		border-radius: var(--radius-full)
+	&[data-size="sm"]
+		height: var(--height-sm)
+		font-size: var(--text-sm)
+	&[data-size="md"]
+		height: var(--height-md)
+		font-size: var(--text-md)
+	&[data-size="bs"]
+		height: var(--height-bs)
+		font-size: var(--text-bs)
+	&[data-size="lg"]
+		height: var(--height-lg)
+		font-size: var(--text-bs)
+
+.accordion-trigger
+	display: flex
+	flex-direction: row
+	align-items: center
+	justify-content: space-between
+	width: 100%
+	min-height: var(--height-lg)
+	padding: var(--space-sm)
+	text-align: left
+	background: transparent
+	border: 0
+	cursor: pointer
+	user-select: none
+	&:hover
+		background: var(--bg-raised)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: -2px

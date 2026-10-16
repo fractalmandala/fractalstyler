@@ -76,6 +76,16 @@
 	h1, h2, h3, h4
 		&:first-child
 			margin-top: 0
+	
+.prose-left
+	max-width: var(--prose-clamp)
+	margin-right: auto
+	display: flex
+	flex-direction: column
+	gap: var(--space-sm)
+	h1, h2, h3, h4
+		&:first-child
+			margin-top: 0
 
 // Frame presets — aspect-ratio media boxes (replaces any frame abstraction).
 @each $name, $ratio in $frame-ratios
@@ -98,7 +108,7 @@
 	// The system's one permitted `>`. Snap targets must be the rail's own
 	// children: a descendant selector would make nested elements snap too and
 	// the rail would catch in the wrong places. Kept deliberately — see the
-	// combinator guard in scripts/validate-deck.js.
+	// combinator guard in scripts/validate-deck.ts.
 	> *
 		flex: 0 0 auto
 		scroll-snap-align: start

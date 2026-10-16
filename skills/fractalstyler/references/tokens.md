@@ -128,9 +128,9 @@ Name the role, never the hex. Values shown are the light default;
 | `--border` | — | `#E5E7EB` |
 | `--border-subtle` | — | `#F0F1F3` |
 | `--border-strong` | — | `#D1D5DB` |
-| `--theme-color` | `.text-theme` | `#FFD000` |
-| `--theme-color-alt` | `.text-theme-alt` | `#E5B800` |
-| `--theme-color-sub` | `.text-theme-sub` | `#FEF3C7` |
+| `--theme-color` | `.text-theme` | `#22c55e` |
+| `--theme-color-alt` | `.text-theme-alt` | `#00df89` |
+| `--theme-color-sub` | `.text-theme-sub` | `#10b981` |
 | `--success` | `.text-success` `.bg-success` | `#10B981` |
 | `--success-hover` | — | `#059669` |
 | `--warning` | `.text-warning` `.bg-warning` | `#FFD000` |

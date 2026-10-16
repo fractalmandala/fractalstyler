@@ -3,7 +3,7 @@
 > Comprehensive index of the canonical styling system classes, layers, and intent.
 > Generated from `registry.json` via `scripts/class-vocab.js`.
 
-**498** classes indexed across layers.
+**503** classes indexed across layers.
 
 Every entry is a concrete class — the space families are expanded from the
 family maps in `_00_config.sass` across the eight steps `xs sm md bs lg xl 2xl 3xl`.
@@ -181,7 +181,7 @@ Dimensions. Loop-generated space families — .gap/.rgap/.cgap, .pad/.px/.py/.pt
 | `.h-bs` | `height: var(--height-bs)` | Control height step bs (var(--height-bs)) |
 | `.h-lg` | `height: var(--height-lg)` | Control height step lg (var(--height-lg)) |
 | `.hfull-vh` | `min-height: 100vh` | Viewport heights |
-| `.hfull-vh-fitted` | `min-height: var(--fit-height)` | Viewport height fitted between header and footer (var(--fit-height)) |
+| `.hfull-vh-fitted` | `min-height: calc(100vh - var(--fit-height))` | Viewport height fitted between header and footer (var(--fit-height)) |
 
 ## Layer L2
 
@@ -237,6 +237,10 @@ Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (
 | `.absolute` | `position: absolute` | position: absolute |
 | `.fixed` | `position: fixed` | position: fixed |
 | `.sticky` | `position: sticky` | position: sticky |
+| `.z-sticky` | `z-index: var(--z-sticky)` | Stacking: sticky headers and rails (var(--z-sticky)) |
+| `.z-raised` | `z-index: var(--z-raised)` | Stacking: dropdowns, menus and floating panels above sticky chrome (var(--z-raised)) |
+| `.z-modal` | `z-index: var(--z-modal)` | Stacking: modal overlays and drawers (var(--z-modal)) |
+| `.z-toast` | `z-index: var(--z-toast)` | Stacking: toasts and notifications, above modals (var(--z-toast)) |
 | `.scroll-y` | `overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain` | Vertical scroll inside a bounded height; needs an .h-* or a constraining flex parent |
 | `.scroll-x` | `overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain` | Horizontal scroll inside a bounded width; .reel adds snap points |
 | `.card` | `background: var(--bg-panel)` | Panel card: padded, bordered, panel background; arrow svg and footer behaviors included |
@@ -300,6 +304,7 @@ Shells and canonical application markups. The .app-shell canon: .app-header, .ap
 | `.app-main` | `flex: 1 1 0%; min-width: 0; min-height: calc(100dvh - var(--fit-height)); …` | Main region between header and footer — flex row, fitted to 100dvh minus chrome |
 | `.app-main.clamped` | `width: var(--content-clamp); margin-inline: auto` | width: var(--content-clamp) — modifier of .app-main |
 | `.main-section` | `flex: 1 1 0%; min-width: 0` | Primary content column inside .app-main (flex: 1, min-width: 0) |
+| `.main-section.solo` | `padding-inline: var(--app-inline)` | padding-inline: var(--app-inline) — modifier of .main-section |
 | `.sidebar-left` | `display: none; flex-shrink: 0; position: sticky; …` | Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an |
 | `.sidebar-right` | `display: none; flex-shrink: 0; position: sticky; …` | Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an |
 | `.app-shell.open .sidebar-left` | `display: block; position: fixed; left: 0; …` | display: block — combination rule (app-shellopen sidebar-left) |
@@ -428,12 +433,12 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.split-button` | `display: inline-flex; align-items: stretch; vertical-align: middle` | display: inline-flex |
 | `.button-group.vertical` | `flex-direction: column` | flex-direction: column — modifier of .button-group |
 | `.button-group:not(.vertical)` | `flex-direction: row` | flex-direction: row — modifier of .button-group |
-| `button[data-variant="iconbox"]` | `background: transparent; border: none; height: 24px; …` | background: transparent — attribute variant of button |
+| `a.btn` | — | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
+| `button[data-variant="iconbox"]` | `background: transparent; border: none; padding-inline: 0; …` | Square transparent icon button; drops the root inline padding so the icon keeps its width |
 | `button[data-variant="iconbox"][data-size="sm"]` | `height: 20px; width: 20px` | height: 20px — attribute variant of button[data-variant="iconbox"] |
 | `button[data-variant="iconbox"][data-size="icon-md"]` | `height: 24px; width: 24px` | height: 24px — attribute variant of button[data-variant="iconbox"] |
 | `button[data-variant="iconbox"][data-size="icon-bs"]` | `height: 28px; width: 28px` | height: 28px — attribute variant of button[data-variant="iconbox"] |
 | `button[data-variant="iconbox"][data-size="icon-lg"]` | `height: 32px; width: 32px` | height: 32px — attribute variant of button[data-variant="iconbox"] |
-| `a.btn` | `background: var(--theme-color); font-size: var(--text-md); color: var(--white-fixed); …` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
 | `a.btn[data-variant="primary"]` | `background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of a.btn |
 | `a.btn[data-variant="secondary"]` | `background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--state-surface) — attribute variant of a.btn |
 | `a.btn[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of a.btn |

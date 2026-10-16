@@ -11,5 +11,25 @@
 		"strict": true,
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext"
-	}
+	},
+	// SvelteKit's own list, plus the repo's TypeScript scripts (run on Node's type stripping)
+	// and the shipped Node runtime sources (cli/, lint/, mcp/ .mts; scripts/update-registry.ts,
+	// scripts/class-vocab.ts). The runtime runs from node_modules on Node >=18, where type
+	// stripping is unavailable, so tsconfig.runtime.json compiles it to the JS that ships.
+	"include": [
+		".svelte-kit/ambient.d.ts",
+		".svelte-kit/env.d.ts",
+		".svelte-kit/non-ambient.d.ts",
+		".svelte-kit/types/**/$types.d.ts",
+		"vite.config.ts",
+		"src/**/*.js",
+		"src/**/*.ts",
+		"src/**/*.svelte",
+		"scripts/**/*.ts",
+		"cli/**/*.mts",
+		"lint/**/*.mts",
+		"mcp/**/*.mts",
+		"fractalstyler-vscode/esbuild.mts",
+		"fractalstyler-vscode/scripts/**/*.mts"
+	]
 }

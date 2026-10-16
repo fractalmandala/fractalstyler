@@ -1,7 +1,7 @@
 # Fractalstyler — Class Reference
 
 GENERATED FILE — do not edit. Emitted by `scripts/update-registry.js` from the
-parsed stylesheet. 498 classes across 132 tokens.
+parsed stylesheet. 503 classes across 132 tokens.
 
 **The classes below are the entire public API.** The system defines no
 authoring mixins and no SASS functions — `+stack`, `+surface`, `space()` and
@@ -244,6 +244,10 @@ Flow and alignment. .box (flex column), .row (flex row), .grid — alignment mod
 | `.absolute` | position: absolute | `_04_containers.sass` |
 | `.fixed` | position: fixed | `_04_containers.sass` |
 | `.sticky` | position: sticky | `_04_containers.sass` |
+| `.z-sticky` | Stacking: sticky headers and rails (var(--z-sticky)) | `_04_containers.sass` |
+| `.z-raised` | Stacking: dropdowns, menus and floating panels above sticky chrome (var(--z-raised)) | `_04_containers.sass` |
+| `.z-modal` | Stacking: modal overlays and drawers (var(--z-modal)) | `_04_containers.sass` |
+| `.z-toast` | Stacking: toasts and notifications, above modals (var(--z-toast)) | `_04_containers.sass` |
 | `.scroll-y` | Vertical scroll inside a bounded height; needs an .h-* or a constraining flex parent | `_04_containers.sass` |
 | `.scroll-x` | Horizontal scroll inside a bounded width; .reel adds snap points | `_04_containers.sass` |
 | `.card` | Panel card: padded, bordered, panel background; arrow svg and footer behaviors included | `_04_containers.sass` |
@@ -311,6 +315,7 @@ Application scaffolding: the .app-shell canon, header, role-bound rails, footer,
 | `.app-main` | Main region between header and footer — flex row, fitted to 100dvh minus chrome | `_06_shells.sass` |
 | `.app-main.clamped` | width: var(--content-clamp) — modifier of .app-main | `_06_shells.sass` |
 | `.main-section` | Primary content column inside .app-main (flex: 1, min-width: 0) | `_06_shells.sass` |
+| `.main-section.solo` | padding-inline: var(--app-inline) — modifier of .main-section | `_06_shells.sass` |
 | `.sidebar-left` | Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an | `_06_shells.sass` |
 | `.sidebar-right` | Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an | `_06_shells.sass` |
 | `.app-shell.open .sidebar-left` | display: block — combination rule (app-shellopen sidebar-left) | `_06_shells.sass` |
@@ -441,12 +446,12 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `.split-button` | display: inline-flex | `_07_interactions.sass` |
 | `.button-group.vertical` | flex-direction: column — modifier of .button-group | `_07_interactions.sass` |
 | `.button-group:not(.vertical)` | flex-direction: row — modifier of .button-group | `_07_interactions.sass` |
-| `button[data-variant="iconbox"]` | background: transparent — attribute variant of button | `_07_interactions.sass` |
+| `a.btn` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes | `_07_interactions.sass` |
+| `button[data-variant="iconbox"]` | Square transparent icon button; drops the root inline padding so the icon keeps its width | `_07_interactions.sass` |
 | `button[data-variant="iconbox"][data-size="sm"]` | height: 20px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
 | `button[data-variant="iconbox"][data-size="icon-md"]` | height: 24px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
 | `button[data-variant="iconbox"][data-size="icon-bs"]` | height: 28px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
 | `button[data-variant="iconbox"][data-size="icon-lg"]` | height: 32px — attribute variant of button[data-variant="iconbox"] | `_07_interactions.sass` |
-| `a.btn` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes | `_07_interactions.sass` |
 | `a.btn[data-variant="primary"]` | background: var(--theme-color) — attribute variant of a.btn | `_07_interactions.sass` |
 | `a.btn[data-variant="secondary"]` | background: var(--state-surface) — attribute variant of a.btn | `_07_interactions.sass` |
 | `a.btn[data-variant="soft"]` | background: var(--theme-color-sub) — attribute variant of a.btn | `_07_interactions.sass` |
@@ -600,9 +605,9 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --border: #E5E7EB; /* light */
   --border-subtle: #F0F1F3; /* light */
   --border-strong: #D1D5DB; /* light */
-  --theme-color: #FFD000; /* light */
-  --theme-color-alt: #E5B800; /* light */
-  --theme-color-sub: #FEF3C7; /* light */
+  --theme-color: #22c55e; /* light */
+  --theme-color-alt: #00df89; /* light */
+  --theme-color-sub: #10b981; /* light */
   --accent-orange: #FF7A00; /* light */
   --accent-green: #10B981; /* light */
   --success: #10B981; /* light */

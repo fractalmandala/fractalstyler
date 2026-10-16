@@ -1482,7 +1482,7 @@
     "parent": null,
     "file": "_02_dimensions.sass",
     "layer": "L1",
-    "property": "min-height: var(--fit-height)",
+    "property": "min-height: calc(100vh - var(--fit-height))",
     "description": "Viewport height fitted between header and footer (var(--fit-height))",
     "example": "<div class=\"hfull-vh-fitted\">…</div>"
   },
@@ -2517,6 +2517,46 @@
     "example": "<div class=\"sticky\">…</div>"
   },
   {
+    "class": ".z-sticky",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "z-index: var(--z-sticky)",
+    "description": "Stacking: sticky headers and rails (var(--z-sticky))",
+    "example": "<div class=\"z-sticky\">…</div>"
+  },
+  {
+    "class": ".z-raised",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "z-index: var(--z-raised)",
+    "description": "Stacking: dropdowns, menus and floating panels above sticky chrome (var(--z-raised))",
+    "example": "<div class=\"z-raised\">…</div>"
+  },
+  {
+    "class": ".z-modal",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "z-index: var(--z-modal)",
+    "description": "Stacking: modal overlays and drawers (var(--z-modal))",
+    "example": "<div class=\"z-modal\">…</div>"
+  },
+  {
+    "class": ".z-toast",
+    "kind": "class",
+    "parent": null,
+    "file": "_04_containers.sass",
+    "layer": "L2",
+    "property": "z-index: var(--z-toast)",
+    "description": "Stacking: toasts and notifications, above modals (var(--z-toast))",
+    "example": "<div class=\"z-toast\">…</div>"
+  },
+  {
     "class": ".scroll-y",
     "kind": "class",
     "parent": null,
@@ -2935,6 +2975,16 @@
     "property": "flex: 1 1 0%; min-width: 0",
     "description": "Primary content column inside .app-main (flex: 1, min-width: 0)",
     "example": "<div class=\"main-section\">…</div>"
+  },
+  {
+    "class": ".main-section.solo",
+    "kind": "modifier",
+    "parent": ".main-section",
+    "file": "_06_shells.sass",
+    "layer": "L4",
+    "property": "padding-inline: var(--app-inline)",
+    "description": "padding-inline: var(--app-inline) — modifier of .main-section",
+    "example": "<div class=\"main-section solo\">…</div>"
   },
   {
     "class": ".sidebar-left",
@@ -3597,13 +3647,23 @@
     "example": "<div class=\"button-group vertical\">…</div>"
   },
   {
+    "class": "a.btn",
+    "kind": "class",
+    "parent": null,
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "",
+    "description": "Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes",
+    "example": "<a class=\"btn\" href=\"…\">…</a>"
+  },
+  {
     "class": "button[data-variant=\"iconbox\"]",
     "kind": "variant",
     "parent": "button",
     "file": "_07_interactions.sass",
     "layer": "L5",
-    "property": "background: transparent; border: none; height: 24px; …",
-    "description": "background: transparent — attribute variant of button",
+    "property": "background: transparent; border: none; padding-inline: 0; …",
+    "description": "Square transparent icon button; drops the root inline padding so the icon keeps its width",
     "example": "<button [data-variant=\"iconbox\"]>…</button>"
   },
   {
@@ -3645,16 +3705,6 @@
     "property": "height: 32px; width: 32px",
     "description": "height: 32px — attribute variant of button[data-variant=\"iconbox\"]",
     "example": "<button [data-variant=\"iconbox\"][data-size=\"icon-lg\"]>…</button>"
-  },
-  {
-    "class": "a.btn",
-    "kind": "class",
-    "parent": null,
-    "file": "_07_interactions.sass",
-    "layer": "L5",
-    "property": "background: var(--theme-color); font-size: var(--text-md); color: var(--white-fixed); …",
-    "description": "Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes",
-    "example": "<a class=\"btn\" href=\"…\">…</a>"
   },
   {
     "class": "a.btn[data-variant=\"primary\"]",

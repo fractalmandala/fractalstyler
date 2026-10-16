@@ -41,6 +41,9 @@ export type DataShape = (typeof SHAPES)[number];
 export const ALERTVARIANTS = ['info', 'success', 'warning', 'danger'] as const;
 export type AlertVariant = (typeof ALERTVARIANTS)[number];
 
+export const BTNTYPE = [ 'button', 'submit', 'reset', 'loading' ] as const;
+export type TYPE = (typeof BTNTYPE)[number]; 
+
 export const PADS = ["sm", 'md', 'bs', 'lg', 'xl'] as const;
 export type DataPad = (typeof PADS)[number];
 

@@ -7,6 +7,11 @@
 *
 	margin: 0
 
+// The `*` reset above wipes the UA `margin: auto` that centres a modal <dialog>
+// and a [popover] in the top layer; put it back so they open centred.
+dialog, [popover] // Restores UA auto margins so modal dialogs and popovers centre in the viewport
+	margin: auto
+
 body, html
 	color: var(--text-primary)
 	font-family: var(--font-sans)
@@ -69,8 +74,9 @@ a
 .bdr
 	border: 1px solid red
 
-ul, ol
+ul, ol // List reset: no markers, no UA 40px inline-start indent
 	list-style-type: none
+	padding-inline-start: 0
 
 ::view-transition-old(root),
 ::view-transition-new(root)
