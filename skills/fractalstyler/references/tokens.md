@@ -76,7 +76,8 @@ Heights for inputs, selects and buttons; avatar and switch channels.
 | `--height-md` | `.h-md` | `24px` |
 | `--height-bs` | `.h-bs` | `28px` |
 | `--height-lg` | `.h-lg` | `32px` |
-| `--height-xl` | `.h-xl` | `40` |
+| `--height-xl` | `.h-xl` | `40px` |
+| `--height-2xl` | `.h-2xl` | `48px` |
 
 ## Motion Language
 

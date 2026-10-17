@@ -4,14 +4,6 @@
 	box-sizing: border-box
 	min-width: 0
 
-*
-	margin: 0
-
-// The `*` reset above wipes the UA `margin: auto` that centres a modal <dialog>
-// and a [popover] in the top layer; put it back so they open centred.
-dialog, [popover] // Restores UA auto margins so modal dialogs and popovers centre in the viewport
-	margin: auto
-
 body, html
 	color: var(--text-primary)
 	font-family: var(--font-sans)
@@ -38,7 +30,7 @@ body
 
 button, a, [role="button"]
 	touch-action: manipulation
-	
+
 button, [role="button"]
 	user-select: none
 	-webkit-user-select: none
@@ -74,15 +66,13 @@ a
 .bdr
 	border: 1px solid red
 
-ul, ol // List reset: no markers, no UA 40px inline-start indent
+ul, ol
 	list-style-type: none
 	padding-inline-start: 0
 
-::view-transition-old(root),
-::view-transition-new(root)
+::view-transition-old(root), ::view-transition-new(root)
 	animation: none
 	mix-blend-mode: normal
 
-html.mode-wipe::view-transition-old(root),
-html.mode-wipe::view-transition-new(root)
+html.mode-wipe::view-transition-old(root), html.mode-wipe::view-transition-new(root)
 	animation: none

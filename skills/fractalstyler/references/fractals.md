@@ -1,7 +1,7 @@
 # Fractalstyler — Class Reference
 
 GENERATED FILE — do not edit. Emitted by `scripts/update-registry.js` from the
-parsed stylesheet. 503 classes across 132 tokens.
+parsed stylesheet. 504 classes across 133 tokens.
 
 **The classes below are the entire public API.** The system defines no
 authoring mixins and no SASS functions — `+stack`, `+surface`, `space()` and
@@ -298,6 +298,7 @@ Grids that step only through divisors (3→1, 4→2→1, 6→3→2→1), column 
 | `.cspan-8` | Span 8 grid columns | `_05_layouts.sass` |
 | `.card-grid` | Auto-fit repeatable cards — column count negotiable, min track from config. | `_05_layouts.sass` |
 | `.prose` | Prose — the reading measure (≤ 760px) + typographic rhythm (rhythm authored). | `_05_layouts.sass` |
+| `.prose-left` | max-width: var(--prose-clamp) | `_05_layouts.sass` |
 | `.reel` | Reel — the human-driven scroll-snap rail (filmstrip). Open for carousel duty. | `_05_layouts.sass` |
 
 ---
@@ -467,6 +468,26 @@ Typography roles, inputs, links, the button quartet, surface fills, ink, borders
 | `a.btn[data-size="md"]` | height: var(--height-md) — attribute variant of a.btn | `_07_interactions.sass` |
 | `a.btn[data-size="bs"]` | height: var(--height-bs) — attribute variant of a.btn | `_07_interactions.sass` |
 | `a.btn[data-size="lg"]` | height: var(--height-lg) — attribute variant of a.btn | `_07_interactions.sass` |
+| `.accordion` | display: flex | `_07_interactions.sass` |
+| `.accordion-item` | .accordion-item rule | `_07_interactions.sass` |
+| `.accordion-content` | display: grid — child of .accordion-item | `_07_interactions.sass` |
+| `.accordion-panel` | The panel is what collapses. It needs min-height: 0 so the grid row can | `_07_interactions.sass` |
+| `.accordion-item.open` |  — modifier of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-variant="primary"]` | background: var(--bg-panel) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-variant="secondary"]` | background: var(--bg-sunken) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-variant="soft"]` | background: var(--theme-color-sub) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-variant="outline"]` | background: var(--bg) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-variant="ghost"]` | background: transparent — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-variant="link"]` | background: transparent — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-variant="destructive"]` | background: var(--danger) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-size="sm"]` | height: var(--height-sm) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-size="md"]` | height: var(--height-md) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-size="bs"]` | height: var(--height-bs) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-item[data-size="lg"]` | height: var(--height-lg) — attribute variant of .accordion-item | `_07_interactions.sass` |
+| `.accordion-trigger` | display: flex | `_07_interactions.sass` |
 | `.bg-main` | Bare background — page base fill (var(--bg)) | `_08_visuals.sass` |
 | `.bg-surface` | Bare background — surface fill (var(--bg-surface)) | `_08_visuals.sass` |
 | `.bg-panel` | Bare background — panel fill (var(--bg-panel)) | `_08_visuals.sass` |
@@ -559,26 +580,6 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
 | `.mascotgl-ready` | opacity: 1 | `_09_own.sass` |
 | `.mascotgl-compact .mascotgl-canvas` | Header-sized: 15% overhang per side (EXTENT_COMPACT = 0.65), still outside the layout box. | `_09_own.sass` |
 | `.hero-name` | Hero display name — text-5xl doubled, 800, tight tracking | `_09_own.sass` |
-| `.fsx-accordion` | Accordion group — vertical stack of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item` | Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes | `_09_own.sass` |
-| `.fsx-accordion-content` | Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition | `_09_own.sass` |
-| `.fsx-accordion-panel` | The panel is what collapses. It needs min-height: 0 so the grid row can | `_09_own.sass` |
-| `.fsx-accordion-item.open .fsx-accordion-content` | grid-template-rows: 1fr — combination rule (fsx-accordion-itemopen fsx-accordion-content) | `_09_own.sass` |
-| `.fsx-accordion-item[data-variant="primary"]` | background: var(--bg-panel) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-variant="secondary"]` | background: var(--bg-sunken) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-variant="soft"]` | background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-variant="outline"]` | background: var(--bg) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-variant="ghost"]` | background: transparent — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-variant="link"]` | background: transparent — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-variant="destructive"]` | background: var(--danger) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-shape="modern"]` | border-radius: var(--radius-sm) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-shape="curved"]` | border-radius: var(--radius-md) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-shape="round"]` | border-radius: var(--radius-full) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-size="sm"]` | height: var(--height-sm) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-size="md"]` | height: var(--height-md) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-size="bs"]` | height: var(--height-bs) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-item[data-size="lg"]` | height: var(--height-lg) — attribute variant of .fsx-accordion-item | `_09_own.sass` |
-| `.fsx-accordion-trigger` | Accordion trigger button — full-width, hover/focus states | `_09_own.sass` |
 
 ---
 
@@ -687,7 +688,8 @@ Sanctioned extension point (_09_own.sass). Project-specific additions that canno
   --height-md: 24px; /* root */
   --height-bs: 28px; /* root */
   --height-lg: 32px; /* root */
-  --height-xl: 40; /* root */
+  --height-xl: 40px; /* root */
+  --height-2xl: 48px; /* root */
   --sidebar-width: 280px; /* root */
   --sidebar-width-left: 280px; /* root */
   --sidebar-width-right: 280px; /* root */

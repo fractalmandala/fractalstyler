@@ -3,7 +3,7 @@
 > Comprehensive index of the canonical styling system classes, layers, and intent.
 > Generated from `registry.json` via `scripts/class-vocab.js`.
 
-**503** classes indexed across layers.
+**504** classes indexed across layers.
 
 Every entry is a concrete class — the space families are expanded from the
 family maps in `_00_config.sass` across the eight steps `xs sm md bs lg xl 2xl 3xl`.
@@ -185,7 +185,7 @@ Dimensions. Loop-generated space families — .gap/.rgap/.cgap, .pad/.px/.py/.pt
 
 ## Layer L2
 
-Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (css-grid) are the three structural foundations with strict physical axis modifiers (xcenter, ycenter, xbetween, etc.) nested under their base — never standalone. Scroll containers, cards, chips, and form/section wrappers live here too.
+Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (css-grid) are the three structural foundations with strict physical axis modifiers (xcenter, ycenter, xbetween, etc.) nested under their base — never standalone. Stacking classes (.z-sticky, .z-raised, .z-modal, .z-toast), scroll containers, cards, chips, and form/section wrappers live here too.
 
 | Class | Property / Expansion | Description |
 |:---|:---|:---|
@@ -289,11 +289,12 @@ Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 wi
 | `.cspan-8` | `grid-column: span 8` | Span 8 grid columns |
 | `.card-grid` | `display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--card-min), 1…` | Auto-fit repeatable cards — column count negotiable, min track from config. |
 | `.prose` | `max-width: var(--prose-clamp); margin-inline: auto; display: flex; …` | Prose — the reading measure (≤ 760px) + typographic rhythm (rhythm authored). |
+| `.prose-left` | `max-width: var(--prose-clamp); margin-right: auto; display: flex; …` | max-width: var(--prose-clamp) |
 | `.reel` | `display: flex; flex-direction: row; overflow-x: auto; …` | Reel — the human-driven scroll-snap rail (filmstrip). Open for carousel duty. |
 
 ## Layer L4
 
-Shells and canonical application markups. The .app-shell canon: .app-header, .app-main, .main-section, the role-bound rails (.sidebar-left drawer, .sidebar-right TOC), .app-footer, and .content-section with its narrow width modes.
+Shells and canonical application markups. The .app-shell canon: .app-header, .app-main, .main-section (+.solo), the role-bound rails (.sidebar-left drawer, .sidebar-right TOC), .app-footer, and .content-section with its narrow width modes.
 
 | Class | Property / Expansion | Description |
 |:---|:---|:---|
@@ -454,6 +455,26 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `a.btn[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of a.btn |
 | `a.btn[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of a.btn |
 | `a.btn[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of a.btn |
+| `.accordion` | `display: flex; flex-direction: column; gap: var(--space-xs)` | display: flex |
+| `.accordion-item` | — | .accordion-item rule |
+| `.accordion-content` | `display: grid; grid-template-rows: 0fr; padding: 0; …` | display: grid — child of .accordion-item |
+| `.accordion-panel` | `overflow: hidden; min-height: 0` | The panel is what collapses. It needs min-height: 0 so the grid row can |
+| `.accordion-item.open` | — |  — modifier of .accordion-item |
+| `.accordion-item[data-variant="primary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .accordion-item |
+| `.accordion-item[data-variant="secondary"]` | `background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)` | background: var(--bg-sunken) — attribute variant of .accordion-item |
+| `.accordion-item[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--text-primary); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of .accordion-item |
+| `.accordion-item[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .accordion-item |
+| `.accordion-item[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of .accordion-item |
+| `.accordion-item[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of .accordion-item |
+| `.accordion-item[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of .accordion-item |
+| `.accordion-item[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .accordion-item |
+| `.accordion-item[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .accordion-item |
+| `.accordion-item[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .accordion-item |
+| `.accordion-item[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .accordion-item |
+| `.accordion-item[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .accordion-item |
+| `.accordion-item[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .accordion-item |
+| `.accordion-item[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .accordion-item |
+| `.accordion-trigger` | `display: flex; flex-direction: row; align-items: center; …` | display: flex |
 | `.bg-main` | `background: var(--bg)` | Bare background — page base fill (var(--bg)) |
 | `.bg-surface` | `background: var(--bg-surface)` | Bare background — surface fill (var(--bg-surface)) |
 | `.bg-panel` | `background: var(--bg-panel)` | Bare background — panel fill (var(--bg-panel)) |
@@ -544,23 +565,3 @@ Sanctioned extension point (_09_own.sass). Contains project-specific overrides a
 | `.mascotgl-ready` | `opacity: 1` | opacity: 1 |
 | `.mascotgl-compact .mascotgl-canvas` | `width: 130%; height: 130%` | Header-sized: 15% overhang per side (EXTENT_COMPACT = 0.65), still outside the layout box. |
 | `.hero-name` | `font-weight: 800; font-size: calc(var(--text-5xl) * 2); letter-spacing: -0.2rem` | Hero display name — text-5xl doubled, 800, tight tracking |
-| `.fsx-accordion` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Accordion group — vertical stack of .fsx-accordion-item |
-| `.fsx-accordion-item` | — | Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes |
-| `.fsx-accordion-content` | `display: grid; grid-template-rows: 0fr; padding: 0; …` | Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition |
-| `.fsx-accordion-panel` | `overflow: hidden; min-height: 0` | The panel is what collapses. It needs min-height: 0 so the grid row can |
-| `.fsx-accordion-item.open .fsx-accordion-content` | `grid-template-rows: 1fr; padding: var(--space-sm)` | grid-template-rows: 1fr — combination rule (fsx-accordion-itemopen fsx-accordion-content) |
-| `.fsx-accordion-item[data-variant="primary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-variant="secondary"]` | `background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)` | background: var(--bg-sunken) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-variant="soft"]` | `background: var(--theme-color-sub); color: #191512; border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-item[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .fsx-accordion-item |
-| `.fsx-accordion-trigger` | `display: flex; flex-direction: row; align-items: center; …` | Accordion trigger button — full-width, hover/focus states |

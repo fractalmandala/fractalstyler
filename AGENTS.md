@@ -138,10 +138,8 @@ values you do not want to hand-write, and for driving a running app.
 
 ## After every update
 
-- should not be any references to a registry.md or .json in the root folder
-- update AGENTS.md where needed
+- update `/Users/amrit/fractaldesign/packages/fractalstyler/registry.json` - add any new classes it doesn't have, remove from it classes it has that no longer exist.
+- similarly update `packages/fractalstyler/docs/references/configurations-api.md`, and `packages/fractalstyler/docs/REGISTRY.api.md`.
+- review AGENTS.md, DESIGN.md, `/fractalstyler/lint`, README - if there is any drift or divergence in them from new updated status of fractalstyler, edit them.
 - if new classes/files have been added, if classes definitions have changed here and there, etc, then CLI update: update files `/Users/amrit/fractaldesign/packages/fractalstyler/cli/main.mjs` and `/Users/amrit/fractaldesign/packages/fractalstyler/cli/scaffold.mjs` .
 - run `/Users/amrit/fractaldesign/packages/fractalstyler/scripts/update-registry.js` to create registry again
-- update `/Users/amrit/fractaldesign/packages/fractalstyler/docs/REGISTRY.api.md`
-- update `/Users/amrit/fractaldesign/packages/fractalstyler/docs/references/configurations-api.md`
-- update README, update package.json, bump version (if applicable)

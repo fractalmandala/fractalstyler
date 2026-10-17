@@ -2897,6 +2897,16 @@
     "example": "<div class=\"prose\">…</div>"
   },
   {
+    "class": ".prose-left",
+    "kind": "class",
+    "parent": null,
+    "file": "_05_layouts.sass",
+    "layer": "L3",
+    "property": "max-width: var(--prose-clamp); margin-right: auto; display: flex; …",
+    "description": "max-width: var(--prose-clamp)",
+    "example": "<div class=\"prose-left\">…</div>"
+  },
+  {
     "class": ".reel",
     "kind": "class",
     "parent": null,
@@ -3857,6 +3867,206 @@
     "example": "<a class=\"btn\" href=\"…\">…</a>"
   },
   {
+    "class": ".accordion",
+    "kind": "class",
+    "parent": null,
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "display: flex; flex-direction: column; gap: var(--space-xs)",
+    "description": "display: flex",
+    "example": "<div class=\"accordion\">…</div>"
+  },
+  {
+    "class": ".accordion-item",
+    "kind": "class",
+    "parent": null,
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "",
+    "description": ".accordion-item rule",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-content",
+    "kind": "child",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "display: grid; grid-template-rows: 0fr; padding: 0; …",
+    "description": "display: grid — child of .accordion-item",
+    "example": "<div class=\"accordion-content\">…</div>"
+  },
+  {
+    "class": ".accordion-panel",
+    "kind": "child",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "overflow: hidden; min-height: 0",
+    "description": "The panel is what collapses. It needs min-height: 0 so the grid row can",
+    "example": "<div class=\"accordion-panel\">…</div>"
+  },
+  {
+    "class": ".accordion-item.open",
+    "kind": "modifier",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "",
+    "description": " — modifier of .accordion-item",
+    "example": "<div class=\"accordion-item open\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-variant=\"primary\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)",
+    "description": "background: var(--bg-panel) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-variant=\"secondary\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)",
+    "description": "background: var(--bg-sunken) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-variant=\"soft\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--theme-color-sub); color: var(--text-primary); border: 1px solid var(--theme-color-sub)",
+    "description": "background: var(--theme-color-sub) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-variant=\"outline\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)",
+    "description": "background: var(--bg) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-variant=\"ghost\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: transparent; color: var(--text-primary); border: none",
+    "description": "background: transparent — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-variant=\"link\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: transparent; color: var(--theme-color); border: none",
+    "description": "background: transparent — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-variant=\"destructive\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)",
+    "description": "background: var(--danger) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-shape=\"modern\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-sm)",
+    "description": "border-radius: var(--radius-sm) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-shape=\"curved\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-md)",
+    "description": "border-radius: var(--radius-md) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-shape=\"round\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "border-radius: var(--radius-full)",
+    "description": "border-radius: var(--radius-full) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-size=\"sm\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-sm); font-size: var(--text-sm)",
+    "description": "height: var(--height-sm) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-size=\"md\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-md); font-size: var(--text-md)",
+    "description": "height: var(--height-md) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-size=\"bs\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-bs); font-size: var(--text-bs)",
+    "description": "height: var(--height-bs) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-item[data-size=\"lg\"]",
+    "kind": "variant",
+    "parent": ".accordion-item",
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "height: var(--height-lg); font-size: var(--text-bs)",
+    "description": "height: var(--height-lg) — attribute variant of .accordion-item",
+    "example": "<div class=\"accordion-item\">…</div>"
+  },
+  {
+    "class": ".accordion-trigger",
+    "kind": "class",
+    "parent": null,
+    "file": "_07_interactions.sass",
+    "layer": "L5",
+    "property": "display: flex; flex-direction: row; align-items: center; …",
+    "description": "display: flex",
+    "example": "<div class=\"accordion-trigger\">…</div>"
+  },
+  {
     "class": ".bg-main",
     "kind": "class",
     "parent": null,
@@ -4685,205 +4895,5 @@
     "property": "font-weight: 800; font-size: calc(var(--text-5xl) * 2); letter-spacing: -0.2rem",
     "description": "Hero display name — text-5xl doubled, 800, tight tracking",
     "example": "<div class=\"hero-name\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion",
-    "kind": "class",
-    "parent": null,
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "display: flex; flex-direction: column; gap: var(--space-xs)",
-    "description": "Accordion group — vertical stack of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item",
-    "kind": "class",
-    "parent": null,
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "",
-    "description": "Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-content",
-    "kind": "child",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "display: grid; grid-template-rows: 0fr; padding: 0; …",
-    "description": "Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition",
-    "example": "<div class=\"fsx-accordion-content\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-panel",
-    "kind": "child",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "overflow: hidden; min-height: 0",
-    "description": "The panel is what collapses. It needs min-height: 0 so the grid row can",
-    "example": "<div class=\"fsx-accordion-panel\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item.open .fsx-accordion-content",
-    "kind": "compound",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "grid-template-rows: 1fr; padding: var(--space-sm)",
-    "description": "grid-template-rows: 1fr — combination rule (fsx-accordion-itemopen fsx-accordion-content)",
-    "example": "<div class=\"fsx-accordion-item open\"><div class=\"fsx-accordion-content\">…</div></div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-variant=\"primary\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)",
-    "description": "background: var(--bg-panel) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-variant=\"secondary\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)",
-    "description": "background: var(--bg-sunken) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-variant=\"soft\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "background: var(--theme-color-sub); color: #191512; border: 1px solid var(--theme-color-sub)",
-    "description": "background: var(--theme-color-sub) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-variant=\"outline\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)",
-    "description": "background: var(--bg) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-variant=\"ghost\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "background: transparent; color: var(--text-primary); border: none",
-    "description": "background: transparent — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-variant=\"link\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "background: transparent; color: var(--theme-color); border: none",
-    "description": "background: transparent — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-variant=\"destructive\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)",
-    "description": "background: var(--danger) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-shape=\"modern\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "border-radius: var(--radius-sm)",
-    "description": "border-radius: var(--radius-sm) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-shape=\"curved\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "border-radius: var(--radius-md)",
-    "description": "border-radius: var(--radius-md) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-shape=\"round\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "border-radius: var(--radius-full)",
-    "description": "border-radius: var(--radius-full) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-size=\"sm\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "height: var(--height-sm); font-size: var(--text-sm)",
-    "description": "height: var(--height-sm) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-size=\"md\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "height: var(--height-md); font-size: var(--text-md)",
-    "description": "height: var(--height-md) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-size=\"bs\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "height: var(--height-bs); font-size: var(--text-bs)",
-    "description": "height: var(--height-bs) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-item[data-size=\"lg\"]",
-    "kind": "variant",
-    "parent": ".fsx-accordion-item",
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "height: var(--height-lg); font-size: var(--text-bs)",
-    "description": "height: var(--height-lg) — attribute variant of .fsx-accordion-item",
-    "example": "<div class=\"fsx-accordion-item\">…</div>"
-  },
-  {
-    "class": ".fsx-accordion-trigger",
-    "kind": "class",
-    "parent": null,
-    "file": "_09_own.sass",
-    "layer": "Custom",
-    "property": "display: flex; flex-direction: row; align-items: center; …",
-    "description": "Accordion trigger button — full-width, hover/focus states",
-    "example": "<div class=\"fsx-accordion-trigger\">…</div>"
   }
 ]
