@@ -1,6 +1,6 @@
 # Fractalstyler — Token Reference
 
-GENERATED FILE — do not edit. Emitted by `scripts/update-registry.js`
+GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts`
 from `_00_tokens.sass` (light/dark mixins + `:root`) and the shadow specs in
 `_00_config.sass`.
 
@@ -132,6 +132,8 @@ Name the role, never the hex. Values shown are the light default;
 | `--theme-color` | `.text-theme` | `#22c55e` |
 | `--theme-color-alt` | `.text-theme-alt` | `#00df89` |
 | `--theme-color-sub` | `.text-theme-sub` | `#10b981` |
+| `--accent-orange` | — | `#FF7A00` |
+| `--accent-green` | — | `#10B981` |
 | `--success` | `.text-success` `.bg-success` | `#10B981` |
 | `--success-hover` | — | `#059669` |
 | `--warning` | `.text-warning` `.bg-warning` | `#FFD000` |
@@ -187,28 +189,31 @@ Font stacks plus the page geometry the shells and viewport classes read.
 | `--sidebar-width` | — | `280px` |
 | `--sidebar-width-left` | — | `280px` |
 | `--sidebar-width-right` | — | `280px` |
-| `--z-sticky` | — | `100` |
-| `--z-raised` | — | `200` |
-| `--z-modal` | — | `300` |
-| `--z-toast` | — | `500` |
+| `--z-sticky` | `.z-sticky` | `100` |
+| `--z-raised` | `.z-raised` | `200` |
+| `--z-modal` | `.z-modal` | `300` |
+| `--z-toast` | `.z-toast` | `500` |
 
 ## Pop Colors
 
-Named accent literals. The `.orange1`…`.orange6` ink classes read
-`--orangepop*`; the green set is reserved for future use.
+Named accent literals. The `.green1`…`.green4`, `.orange1`…`.orange6`, and `.yellow1`…`.yellow4` ink classes read them.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--greenpop1` | — | `#10b981` |
-| `--greenpop2` | — | `#22c55e` |
-| `--greenpop3` | — | `#00df89` |
-| `--greenpop4` | — | `#00e676` |
+| `--greenpop1` | `.green1` | `#10b981` |
+| `--greenpop2` | `.green2` | `#22c55e` |
+| `--greenpop3` | `.green3` | `#00df89` |
+| `--greenpop4` | `.green4` | `#00e676` |
 | `--orangepop1` | `.orange1` | `#ff7a00` |
 | `--orangepop2` | `.orange2` | `#f97316` |
 | `--orangepop3` | `.orange3` | `#ea580c` |
 | `--orangepop4` | `.orange4` | `#ff5e36` |
 | `--orangepop5` | `.orange5` | `#ff9966` |
 | `--orangepop6` | `.orange6` | `#ff9f1c` |
+| `--yellowpop1` | `.yellow1` | `#ffd000` |
+| `--yellowpop2` | `.yellow2` | `#facc15` |
+| `--yellowpop3` | `.yellow3` | `#fbbf24` |
+| `--yellowpop4` | `.yellow4` | `#eab308` |
 
 ## Modes & Attribute Axes
 
@@ -217,6 +222,7 @@ Named accent literals. The `.orange1`…`.orange6` ink classes read
 | Attribute | Where | Values | Effect |
 |:---|:---|:---|:---|
 | `data-mode` | `<html>` | `light` \| `dark` | Swaps `=light-theme-tokens` / `=dark-theme-tokens` |
-| `data-shape` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `square` \| `modern` \| `curved` \| `round` | Corner treatment of the component |
-| `data-variant` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `primary` \| `secondary` \| `soft` \| `outline` \| `ghost` \| `link` \| `destructive` | Visual paint variant |
-| `data-size` | `.card`, `button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `sm` \| `md` \| `bs` \| `lg` | Metrics / scale variant |
+| `data-shape` | `button`, `.button`, `a.btn`, `.input`, `.select`, `.card`, `.fsx-accordion-item` | `square` \| `modern` \| `curved` \| `round` | Corner treatment of the component (`square` on controls only) |
+| `data-variant` | `button`, `.button`, `a.btn`, `.card`, `.fsx-accordion-item`, `.input`, `.select` | `primary` \| `secondary` \| `soft` \| `outline` \| `ghost` \| `link` \| `destructive` \| `iconbox` | Visual paint variant |
+| `data-size` | `button`, `.button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `sm` \| `md` \| `bs` \| `lg` | Metrics / scale variant (plus `icon-md` \| `icon-bs` \| `icon-lg` on `iconbox`; not `.card`) |
+| `data-pad` | `.card` only | `sm` \| `md` \| `bs` \| `lg` \| `xl` | Card padding from `--space-*` |

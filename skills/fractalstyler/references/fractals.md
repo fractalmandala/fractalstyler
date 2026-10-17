@@ -1,6 +1,6 @@
 # Fractalstyler — Class Reference
 
-GENERATED FILE — do not edit. Emitted by `scripts/update-registry.js` from the
+GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts` from the
 parsed stylesheet. 504 classes across 133 tokens.
 
 **The classes below are the entire public API.** The system defines no
