@@ -3,7 +3,7 @@
 > Comprehensive index of the canonical styling system classes, layers, and intent.
 > Generated from `registry.json` via `scripts/class-vocab.js`.
 
-**504** classes indexed across layers.
+**481** classes indexed across layers.
 
 Every entry is a concrete class — the space families are expanded from the
 family maps in `_00_config.sass` across the eight steps `xs sm md bs lg xl 2xl 3xl`.
@@ -180,12 +180,14 @@ Dimensions. Loop-generated space families — .gap/.rgap/.cgap, .pad/.px/.py/.pt
 | `.h-md` | `height: var(--height-md)` | Control height step md (var(--height-md)) |
 | `.h-bs` | `height: var(--height-bs)` | Control height step bs (var(--height-bs)) |
 | `.h-lg` | `height: var(--height-lg)` | Control height step lg (var(--height-lg)) |
+| `.h-xl` | `height: var(--height-xl)` | height: var(--height-xl) |
+| `.h-2xl` | `height: var(--height-2xl)` | height: var(--height-2xl) |
 | `.hfull-vh` | `min-height: 100vh` | Viewport heights |
 | `.hfull-vh-fitted` | `min-height: calc(100vh - var(--fit-height))` | Viewport height fitted between header and footer (var(--fit-height)) |
 
 ## Layer L2
 
-Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (css-grid) are the three structural foundations with strict physical axis modifiers (xcenter, ycenter, xbetween, etc.) nested under their base — never standalone. Stacking classes (.z-sticky, .z-raised, .z-modal, .z-toast), scroll containers, cards, chips, and form/section wrappers live here too.
+Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (css-grid) are the three structural foundations with strict physical axis modifiers (xcenter, ycenter, xbetween, etc.) nested under their base — never standalone. Positioning, stacking order (.z-sticky, .z-raised, .z-modal, .z-toast), scroll containers and the flex sizing helpers (.grow, .shrink-0, .min0, .wrap) live here too.
 
 | Class | Property / Expansion | Description |
 |:---|:---|:---|
@@ -210,11 +212,6 @@ Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (
 | `.row.ytop` | `align-items: flex-start` | align-items: flex-start — modifier of .row |
 | `.row.ybot` | `align-items: flex-end` | align-items: flex-end — modifier of .row |
 | `.grid` | `display: grid` | CSS grid container (columns composed via .grid-N / alignment below) |
-| `.grid-2` | `display: grid` | Responsive 2-column grid: 1 → 2 columns at 1025px |
-| `.grid-3` | `display: grid` | Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule) |
-| `.grid-4` | `display: grid` | Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1) |
-| `.grid-5` | `display: grid` | display: grid |
-| `.grid-6` | `display: grid` | Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold) |
 | `.grid.center` | `place-items: center` | place-items: center — modifier of .grid |
 | `.grid.xcenter` | `justify-items: center; text-align: center` | justify-items: center — modifier of .grid |
 | `.grid.xleft` | `justify-items: start; text-align: left` | justify-items: start — modifier of .grid |
@@ -243,31 +240,10 @@ Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (
 | `.z-toast` | `z-index: var(--z-toast)` | Stacking: toasts and notifications, above modals (var(--z-toast)) |
 | `.scroll-y` | `overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain` | Vertical scroll inside a bounded height; needs an .h-* or a constraining flex parent |
 | `.scroll-x` | `overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain` | Horizontal scroll inside a bounded width; .reel adds snap points |
-| `.card` | `background: var(--bg-panel)` | Panel card: padded, bordered, panel background; arrow svg and footer behaviors included |
-| `.card[data-variant="primary"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle)` | background: var(--bg-surface) — attribute variant of .card |
-| `.card[data-variant="secondary"]` | `background: var(--bg-sunken); border: 1px solid var(--border-strong)` | background: var(--bg-sunken) — attribute variant of .card |
-| `.card[data-variant="soft"]` | `background: var(--bg-extra); border: 1px solid transparent` | background: var(--bg-extra) — attribute variant of .card |
-| `.card[data-variant="outline"]` | `background: transparent; color: var(--text-primary); border: 1px solid var(--border-strong)` | background: transparent — attribute variant of .card |
-| `.card[data-variant="ghost"]` | `background: transparent; border: none` | background: transparent — attribute variant of .card |
-| `.card[data-variant="link"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); text-decoration: none` | background: var(--bg-surface) — attribute variant of .card |
-| `.card[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .card |
-| `.card[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .card |
-| `.card[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .card |
-| `.card[data-pad="sm"]` | `padding: var(--space-sm)` | padding: var(--space-sm) — attribute variant of .card |
-| `.card[data-pad="md"]` | `padding: var(--space-md)` | padding: var(--space-md) — attribute variant of .card |
-| `.card[data-pad="bs"]` | `padding: var(--space-bs)` | padding: var(--space-bs) — attribute variant of .card |
-| `.card[data-pad="lg"]` | `padding: var(--space-lg)` | padding: var(--space-lg) — attribute variant of .card |
-| `.card[data-pad="xl"]` | `padding: var(--space-xl)` | padding: var(--space-xl) — attribute variant of .card |
-| `.chip` | `font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.01rem; …` | Small inline label — tag/badge duty (xs type, md radius) |
-| `.prose-section` | `display: flex; flex-direction: column; gap: var(--space-lg)` | Vertical prose section (flex column, lg gap) |
-| `.nav-section` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Vertical nav section (flex column, xs gap) |
-| `.page-header` | `display: flex; flex-direction: column; padding-bottom: var(--space-2xl); …` | Page header block (flex column, sm gap, 2xl bottom pad) |
-| `.inputs-wrapper` | `display: flex; gap: var(--space-xs)` | Form field group (flex row, xs gap; labels at sm muted) |
-| `.checkbox-wrapper` | `display: flex; align-items: center; gap: var(--space-xs)` | Checkbox row (flex, centered, xs gap; span at sm weight 500) |
 
 ## Layer L3
 
-Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 with divisor stepping (3→1, 4→2→1, 6→3→2→1), .cspan-* column spans, .card-grid (auto-fit), .prose (reading measure), .frame-* aspect-ratio boxes (from $frame-ratios), and .reel (scroll-snap rail).
+Layouts and page furniture. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 with divisor stepping (3→1, 4→2→1, 6→3→2→1), .cspan-* column spans, .card-grid (auto-fit), .prose (reading measure), .frame-* aspect-ratio boxes (from $frame-ratios), the .reel (scroll-snap rail), and the furniture partial: .card, .chip, .nav-section, .page-header, .inputs-wrapper, .checkbox-wrapper.
 
 | Class | Property / Expansion | Description |
 |:---|:---|:---|
@@ -278,6 +254,11 @@ Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 wi
 | `.frame-3-2` | `aspect-ratio: 3 / 2; overflow: hidden` | Aspect-ratio media frame (3/2) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass) |
 | `.frame-2-3` | `aspect-ratio: 2 / 3; overflow: hidden` | Aspect-ratio media frame (2/3) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass) |
 | `.frame-1-1` | `aspect-ratio: 1 / 1; overflow: hidden` | Aspect-ratio media frame (1/1) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass) |
+| `.grid-2` | `display: grid` | Responsive 2-column grid: 1 → 2 columns at 1025px |
+| `.grid-3` | `display: grid` | Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule) |
+| `.grid-4` | `display: grid` | Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1) |
+| `.grid-5` | `display: grid` | display: grid |
+| `.grid-6` | `display: grid` | Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold) |
 | `.grid-1` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Gridding golden rules: exactly 3 items → 3→1, never 2+1; count 4 or a |
 | `.cspan-1` | `grid-column: span 1` | Span 1 grid column |
 | `.cspan-2` | `grid-column: span 2` | Span 2 grid columns |
@@ -291,6 +272,12 @@ Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 wi
 | `.prose` | `max-width: var(--prose-clamp); margin-inline: auto; display: flex; …` | Prose — the reading measure (≤ 760px) + typographic rhythm (rhythm authored). |
 | `.prose-left` | `max-width: var(--prose-clamp); margin-right: auto; display: flex; …` | max-width: var(--prose-clamp) |
 | `.reel` | `display: flex; flex-direction: row; overflow-x: auto; …` | Reel — the human-driven scroll-snap rail (filmstrip). Open for carousel duty. |
+| `.card` | — | Panel card: padded, bordered, panel background; arrow svg and footer behaviors included |
+| `.chip` | `font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.01rem; …` | Small inline label — tag/badge duty (xs type, md radius) |
+| `.nav-section` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Vertical nav section (flex column, xs gap) |
+| `.page-header` | `display: flex; flex-direction: column; padding-bottom: var(--space-2xl); …` | Page header block (flex column, sm gap, 2xl bottom pad) |
+| `.inputs-wrapper` | `display: flex; gap: var(--space-xs)` | Form field group (flex row, xs gap; labels at sm muted) |
+| `.checkbox-wrapper` | `display: flex; align-items: center; gap: var(--space-xs)` | Checkbox row (flex, centered, xs gap; span at sm weight 500) |
 
 ## Layer L4
 
@@ -310,15 +297,15 @@ Shells and canonical application markups. The .app-shell canon: .app-header, .ap
 | `.sidebar-right` | `display: none; flex-shrink: 0; position: sticky; …` | Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an |
 | `.app-shell.open .sidebar-left` | `display: block; position: fixed; left: 0; …` | display: block — combination rule (app-shellopen sidebar-left) |
 | `.app-footer` | `display: flex; flex-direction: row; align-items: center; …` | Application footer (var(--footer-height)) |
-| `.content-section` | `width: 100%; padding: var(--space-2xl) 0 · @min-width:769px: padding: var(--space-2xl) var(--space-bs) · @min-width:1025px: padding: var(--space-2xl) var(--space-bs)` | Page content block — responsive padding and narrow width modes |
-| `.content-section.null` | `padding: 0 var(--space-bs)` | padding: 0 var(--space-bs) — modifier of .content-section |
-| `.content-section.narrow-half` | `padding: var(--space-2xl) 0; width: 640px; margin-inline: auto` | padding: var(--space-2xl) 0 — modifier of .content-section |
-| `.content-section.narrow-wide` | `padding: var(--space-2xl) 0; width: 720px; margin-inline: auto` | padding: var(--space-2xl) 0 — modifier of .content-section |
+| `.content-section` | `width: 100% · @min-width:769px: padding-inline: var(--space-bs)` | Page content block — responsive padding and narrow width modes |
+| `.content-section.null` | `padding-inline: 0 var(--space-bs)` | padding-inline: 0 var(--space-bs) — modifier of .content-section |
+| `.content-section.narrow-half` | `width: 640px; margin-inline: auto` | width: 640px — modifier of .content-section |
+| `.content-section.narrow-wide` | `width: 720px; margin-inline: auto` | width: 720px — modifier of .content-section |
 | `.content-section.narrow-full` | `width: 640px; margin-inline: auto` | width: 640px — modifier of .content-section |
 
 ## Layer L5
 
-Visuals and Interactions. Typography primitives and roles (_03), inputs, selects, links and the button quartet with its data-variant/data-shape/data-size axes (_07), surface fills, ink, the partition-law border set, elevation shadows, and responsive visibility (_08).
+Visuals and Interactions. Typography primitives and roles (_03), inputs, selects, links and the button quartet, surface fills, ink, the partition-law border set, elevation shadows, and responsive visibility (_08).
 
 | Class | Property / Expansion | Description |
 |:---|:---|:---|
@@ -336,7 +323,7 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.text-body-lg` | `font-size: var(--text-lg); line-height: 1.5` | Body copy at large size (line-height 1.5) |
 | `.text-body-sm` | `font-size: var(--text-sm); line-height: 1.5` | Body copy at small size (line-height 1.5) |
 | `.page-title` | `font-size: var(--text-3xl); line-height: 1.1; font-weight: 700; …` | Page title — 3xl, 700, tight tracking |
-| `.page-desc` | `font-size: var(--text-lg); line-height: 1.2` | Page description — lg, airy |
+| `.page-desc` | `font-size: var(--text-md)` | Page description — lg, airy |
 | `.page-heading-xl` | `font-size: var(--text-xl); line-height: 1.1; font-weight: 600; …` | Page heading, xl rung — 600, tight tracking |
 | `.page-heading-lg` | `font-size: var(--text-lg); line-height: 1.1; font-weight: 600; …` | Page heading, lg rung — 600, tight tracking |
 | `.page-heading-bs` | `font-size: var(--text-bs); line-height: 1.1; font-weight: 600; …` | Page heading, base rung — 600, tight tracking |
@@ -377,105 +364,31 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.mono` | `font-family: var(--font-mono)` | font usage shorthands |
 | `.sans` | `font-family: var(--font-sans)` | Sans font stack (var(--font-sans)) |
 | `.truncate` | `overflow: hidden; white-space: nowrap; text-overflow: ellipsis` | One-line ellipsis truncation |
-| `.input` | `display: block; padding-inline: var(--space-md); border: 1px solid var(--border); …` | Text input — themed field with focus ring |
+| `.input` | `display: block; padding-inline: var(--space-md); transition: background var(--motionin1), border-color var(--motionin1…` | Text input — themed field with focus ring |
 | `.input.fitted` | `width: max-content` | width: max-content — modifier of .input |
-| `.input[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border-strong); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .input |
-| `.input[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .input |
-| `.input[data-variant="soft"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)` | background: var(--bg-surface) — attribute variant of .input |
-| `.input[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .input |
-| `.input[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none; …` | background: transparent — attribute variant of .input |
-| `.input[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .input |
-| `.input[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .input |
-| `.input[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .input |
-| `.input[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .input |
-| `.input[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .input |
-| `.input[data-size="md"]` | `height: var(--height-md); font-size: var(--text-sm)` | height: var(--height-md) — attribute variant of .input |
-| `.input[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .input |
-| `.input[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .input |
 | `.select` | `display: block; padding-inline: var(--space-bs); appearance: none; …` | Select dropdown — themed field with chevron and focus ring |
 | `.select.fitted` | `width: max-content` | width: max-content — modifier of .select |
-| `.select[data-variant="primary"]` | `background: var(--bg-input); border: 1px solid var(--border-strong); color: var(--text-primary)` | background: var(--bg-input) — attribute variant of .select |
-| `.select[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .select |
-| `.select[data-variant="soft"]` | `background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary)` | background: var(--bg-surface) — attribute variant of .select |
-| `.select[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .select |
-| `.select[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none; …` | background: transparent — attribute variant of .select |
-| `.select[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .select |
-| `.select[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .select |
-| `.select[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .select |
-| `.select[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .select |
-| `.select[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .select |
-| `.select[data-size="md"]` | `height: var(--height-md); font-size: var(--text-sm)` | height: var(--height-md) — attribute variant of .select |
-| `.select[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .select |
-| `.select[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .select |
 | `.link` | `color: var(--theme-color); text-decoration: none; transition: color var(--motionin1)` | Themed link — theme color, alt on hover |
 | `.link-plain` | `color: var(--text-primary); text-decoration: none; transition: color var(--motionin1)` | Plain link — inherits ink, theme color on hover |
 | `.link-parent` | `color: var(--text-primary); text-decoration: none` | Link block — hovers color its .link-title child instead of itself |
-| `.link-title` | `transition: color var(--motionin1)` | transition: color var(--motionin1) — child of .link-parent |
+| `.link-title` | `transition: color var(--motionin1); text-decoration: none` | transition: color var(--motionin1) — child of .link-parent |
 | `a.nav-link` | `padding: var(--space-sm); border-radius: var(--radius-sm)` | Interactive form of .nav-link — padded, curved, hover fill |
-| `button` | `display: flex; align-items: center; justify-content: center; …` | Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes. |
-| `.button` | `display: flex; align-items: center; justify-content: center; …` | Button root: flex centring, type, cursor, focus ring, disabled state. Carries the data-variant / data-shape / data-size / iconbox axes. |
-| `button.icon` | `height: 24px; width: 24px; border: 1px solid transparent; …` | height: 24px — modifier of button |
-| `button[data-variant="primary"]` | `background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of button |
-| `button[data-variant="secondary"]` | `background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--state-surface) — attribute variant of button |
-| `button[data-variant="soft"]` | `background: var(--theme-color-sub); color: #191512; border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of button |
-| `button[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of button |
-| `button[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of button |
-| `button[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of button |
-| `button[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of button |
-| `button[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of button |
-| `button[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of button |
-| `button[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of button |
-| `button[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of button |
-| `button[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of button |
-| `button[data-size="md"]` | `height: var(--height-md); font-size: var(--text-sm)` | height: var(--height-md) — attribute variant of button |
-| `button[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of button |
-| `button[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of button |
+| `button` | `display: flex; align-items: center; justify-content: center; …` | Button root: flex centring, type, cursor, focus ring, disabled state. The axes ride the .el-* classes in _10_propped.sass. |
+| `.button` | `display: flex; align-items: center; justify-content: center; …` | Button root: flex centring, type, cursor, focus ring, disabled state. The axes ride the .el-* classes in _10_propped.sass. |
 | `.button-group` | `display: inline-flex; align-items: stretch; vertical-align: middle` | display: inline-flex |
 | `.split-button` | `display: inline-flex; align-items: stretch; vertical-align: middle` | display: inline-flex |
 | `.button-group.vertical` | `flex-direction: column` | flex-direction: column — modifier of .button-group |
 | `.button-group:not(.vertical)` | `flex-direction: row` | flex-direction: row — modifier of .button-group |
-| `a.btn` | — | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
-| `button[data-variant="iconbox"]` | `background: transparent; border: none; padding-inline: 0; …` | Square transparent icon button; drops the root inline padding so the icon keeps its width |
-| `button[data-variant="iconbox"][data-size="sm"]` | `height: 20px; width: 20px` | height: 20px — attribute variant of button[data-variant="iconbox"] |
-| `button[data-variant="iconbox"][data-size="icon-md"]` | `height: 24px; width: 24px` | height: 24px — attribute variant of button[data-variant="iconbox"] |
-| `button[data-variant="iconbox"][data-size="icon-bs"]` | `height: 28px; width: 28px` | height: 28px — attribute variant of button[data-variant="iconbox"] |
-| `button[data-variant="iconbox"][data-size="icon-lg"]` | `height: 32px; width: 32px` | height: 32px — attribute variant of button[data-variant="iconbox"] |
-| `a.btn[data-variant="primary"]` | `background: var(--theme-color); color: var(--white-fixed); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of a.btn |
-| `a.btn[data-variant="secondary"]` | `background: var(--state-surface); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--state-surface) — attribute variant of a.btn |
-| `a.btn[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--white-fixed); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of a.btn |
-| `a.btn[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of a.btn |
-| `a.btn[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of a.btn |
-| `a.btn[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of a.btn |
-| `a.btn[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of a.btn |
-| `a.btn[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of a.btn |
-| `a.btn[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of a.btn |
-| `a.btn[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of a.btn |
-| `a.btn[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of a.btn |
-| `a.btn[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of a.btn |
-| `a.btn[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of a.btn |
-| `a.btn[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of a.btn |
-| `a.btn[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of a.btn |
+| `a.btn` | `display: flex; align-items: center; justify-content: center; …` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
+| `a.button` | `display: flex; align-items: center; justify-content: center; …` | display: flex |
 | `.accordion` | `display: flex; flex-direction: column; gap: var(--space-xs)` | display: flex |
 | `.accordion-item` | — | .accordion-item rule |
 | `.accordion-content` | `display: grid; grid-template-rows: 0fr; padding: 0; …` | display: grid — child of .accordion-item |
 | `.accordion-panel` | `overflow: hidden; min-height: 0` | The panel is what collapses. It needs min-height: 0 so the grid row can |
 | `.accordion-item.open` | — |  — modifier of .accordion-item |
-| `.accordion-item[data-variant="primary"]` | `background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary)` | background: var(--bg-panel) — attribute variant of .accordion-item |
-| `.accordion-item[data-variant="secondary"]` | `background: var(--bg-sunken); color: var(--text-secondary); border: 1px solid var(--border)` | background: var(--bg-sunken) — attribute variant of .accordion-item |
-| `.accordion-item[data-variant="soft"]` | `background: var(--theme-color-sub); color: var(--text-primary); border: 1px solid var(--theme-color-sub)` | background: var(--theme-color-sub) — attribute variant of .accordion-item |
-| `.accordion-item[data-variant="outline"]` | `background: var(--bg); color: var(--text-primary); border: 1px solid var(--border-strong)` | background: var(--bg) — attribute variant of .accordion-item |
-| `.accordion-item[data-variant="ghost"]` | `background: transparent; color: var(--text-primary); border: none` | background: transparent — attribute variant of .accordion-item |
-| `.accordion-item[data-variant="link"]` | `background: transparent; color: var(--theme-color); border: none` | background: transparent — attribute variant of .accordion-item |
-| `.accordion-item[data-variant="destructive"]` | `background: var(--danger); color: var(--white-fixed); border: 1px solid var(--danger)` | background: var(--danger) — attribute variant of .accordion-item |
-| `.accordion-item[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .accordion-item |
-| `.accordion-item[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .accordion-item |
-| `.accordion-item[data-shape="round"]` | `border-radius: var(--radius-full)` | border-radius: var(--radius-full) — attribute variant of .accordion-item |
-| `.accordion-item[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .accordion-item |
-| `.accordion-item[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .accordion-item |
-| `.accordion-item[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-bs)` | height: var(--height-bs) — attribute variant of .accordion-item |
-| `.accordion-item[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .accordion-item |
 | `.accordion-trigger` | `display: flex; flex-direction: row; align-items: center; …` | display: flex |
 | `.bg-main` | `background: var(--bg)` | Bare background — page base fill (var(--bg)) |
+| `.bg` | `background: var(--bg)` | background: var(--bg) |
 | `.bg-surface` | `background: var(--bg-surface)` | Bare background — surface fill (var(--bg-surface)) |
 | `.bg-panel` | `background: var(--bg-panel)` | Bare background — panel fill (var(--bg-panel)) |
 | `.bg-sunken` | `background: var(--bg-sunken)` | Bare background — sunken fill (var(--bg-sunken)) |
@@ -537,6 +450,77 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.green2` | `color: var(--greenpop2)` | color: var(--greenpop2) |
 | `.green3` | `color: var(--greenpop3)` | color: var(--greenpop3) |
 | `.green4` | `color: var(--greenpop4)` | color: var(--greenpop4) |
+
+## Layer L6
+
+Element Axes (_10_propped). The orthogonal attribute axes, authored once and applied by class: .el-variants (data-variant), .el-shape (data-shape), .el-size (data-size), .el-pad (data-pad), .el-shadow / .el-shadow-hover (data-shadow) and .el-vss (variant + shape + size in one class). An element opts into an axis by carrying its class — the element name is never the qualifier, so a button, an input and a card answer the same axes.
+
+| Class | Property / Expansion | Description |
+|:---|:---|:---|
+| `.el-variants` | — | .el-variants rule |
+| `.el-variants[data-variant="primary"]` | `background: var(--state-surface); border: 1px solid var(--border)` | background: var(--state-surface) — attribute variant of .el-variants |
+| `.el-variants[data-variant="primary"].selected` | `background: var(--state-selected); border: 1px solid var(--border-strong)` | background: var(--state-selected) — modifier of .el-variants[data-variant="primary"] |
+| `.el-variants[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border-subtle)` | background: var(--bg-panel) — attribute variant of .el-variants |
+| `.el-variants[data-variant="secondary"].selected` | `background: var(--state-selected); border: 1px solid var(--border)` | background: var(--state-selected) — modifier of .el-variants[data-variant="secondary"] |
+| `.el-variants[data-variant="themed"]` | `background: var(--theme-color); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of .el-variants |
+| `.el-variants[data-variant="themed"].selected` | `background: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)` | background: var(--theme-color-alt) — modifier of .el-variants[data-variant="themed"] |
+| `.el-variants[data-variant="outline"]` | `background: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)` | background: transparent — attribute variant of .el-variants |
+| `.el-variants[data-variant="outline"].selected` | `color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-variants[data-variant="outline"] |
+| `.el-variants[data-variant="ghost"]` | `background: transparent; border: none` | background: transparent — attribute variant of .el-variants |
+| `.el-variants[data-variant="link"]` | `background: transparent; border: none; text-decoration: none` | background: transparent — attribute variant of .el-variants |
+| `.el-variants[data-variant="icon"]` | `background: none; border: none` | background: none — attribute variant of .el-variants |
+| `.el-variants[data-variant="icon"].selected` | `color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-variants[data-variant="icon"] |
+| `.el-shape` | — | .el-shape rule |
+| `.el-shape[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .el-shape |
+| `.el-shape[data-shape="min"]` | `border-radius: var(--radius-xs)` | border-radius: var(--radius-xs) — attribute variant of .el-shape |
+| `.el-shape[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .el-shape |
+| `.el-shape[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .el-shape |
+| `.el-shape[data-shape="round"]` | `border-radius: 9999px` | border-radius: 9999px — attribute variant of .el-shape |
+| `.el-size` | — | .el-size rule |
+| `.el-size[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .el-size |
+| `.el-size[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .el-size |
+| `.el-size[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-md)` | height: var(--height-bs) — attribute variant of .el-size |
+| `.el-size[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .el-size |
+| `.el-size[data-size="xl"]` | `height: var(--height-xl); font-size: var(--text-bs)` | height: var(--height-xl) — attribute variant of .el-size |
+| `.el-pad` | — | .el-pad rule |
+| `.el-pad[data-pad="sm"]` | `padding: var(--space-xs) var(--space-sm)` | padding: var(--space-xs) var(--space-sm) — attribute variant of .el-pad |
+| `.el-pad[data-pad="md"]` | `padding: var(--space-sm) var(--space-md)` | padding: var(--space-sm) var(--space-md) — attribute variant of .el-pad |
+| `.el-pad[data-pad="bs"]` | `padding: var(--space-md) var(--space-bs)` | padding: var(--space-md) var(--space-bs) — attribute variant of .el-pad |
+| `.el-pad[data-pad="lg"]` | `padding: var(--space-bs)` | padding: var(--space-bs) — attribute variant of .el-pad |
+| `.el-pad[data-pad="xl"]` | `padding: var(--space-lg)` | padding: var(--space-lg) — attribute variant of .el-pad |
+| `.el-shadow` | — | .el-shadow rule |
+| `.el-shadow[data-shadow="sm"]` | `box-shadow: var(--shadow-sm)` | box-shadow: var(--shadow-sm) — attribute variant of .el-shadow |
+| `.el-shadow[data-shadow="bs"]` | `box-shadow: var(--shadow-bs)` | box-shadow: var(--shadow-bs) — attribute variant of .el-shadow |
+| `.el-shadow[data-shadow="lg"]` | `box-shadow: var(--shadow-lg)` | box-shadow: var(--shadow-lg) — attribute variant of .el-shadow |
+| `.el-shadow[data-shadow="xl"]` | `box-shadow: var(--shadow-xl)` | box-shadow: var(--shadow-xl) — attribute variant of .el-shadow |
+| `.el-shadow[data-shadow="2xl"]` | `box-shadow: var(--shadow-2xl)` | box-shadow: var(--shadow-2xl) — attribute variant of .el-shadow |
+| `.el-shadow-hover` | — | .el-shadow-hover rule |
+| `.el-shadow-hover[data-shadow="sm"]` | `box-shadow: var(--shadow-sm)` | box-shadow: var(--shadow-sm) — attribute variant of .el-shadow-hover |
+| `.el-shadow-hover[data-shadow="bs"]` | `box-shadow: var(--shadow-bs)` | box-shadow: var(--shadow-bs) — attribute variant of .el-shadow-hover |
+| `.el-shadow-hover[data-shadow="lg"]` | `box-shadow: var(--shadow-lg)` | box-shadow: var(--shadow-lg) — attribute variant of .el-shadow-hover |
+| `.el-shadow-hover[data-shadow="xl"]` | `box-shadow: var(--shadow-xl)` | box-shadow: var(--shadow-xl) — attribute variant of .el-shadow-hover |
+| `.el-shadow-hover[data-shadow="2xl"]` | `box-shadow: var(--shadow-2xl)` | box-shadow: var(--shadow-2xl) — attribute variant of .el-shadow-hover |
+| `.el-vss` | — | .el-vss rule |
+| `.el-vss[data-variant="primary"]` | `background: var(--state-surface); border: 1px solid var(--border)` | background: var(--state-surface) — attribute variant of .el-vss |
+| `.el-vss[data-variant="primary"].selected` | `background: var(--state-selected); border: 1px solid var(--border-strong)` | background: var(--state-selected) — modifier of .el-vss[data-variant="primary"] |
+| `.el-vss[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border-subtle)` | background: var(--bg-panel) — attribute variant of .el-vss |
+| `.el-vss[data-variant="secondary"].selected` | `background: var(--state-selected); border: 1px solid var(--border)` | background: var(--state-selected) — modifier of .el-vss[data-variant="secondary"] |
+| `.el-vss[data-variant="themed"]` | `background: var(--theme-color); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of .el-vss |
+| `.el-vss[data-variant="themed"].selected` | `background: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)` | background: var(--theme-color-alt) — modifier of .el-vss[data-variant="themed"] |
+| `.el-vss[data-variant="outline"]` | `background: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)` | background: transparent — attribute variant of .el-vss |
+| `.el-vss[data-variant="outline"].selected` | `color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-vss[data-variant="outline"] |
+| `.el-vss[data-variant="ghost"]` | `background: transparent; border: none` | background: transparent — attribute variant of .el-vss |
+| `.el-vss[data-variant="link"]` | `background: transparent; border: none; text-decoration: none` | background: transparent — attribute variant of .el-vss |
+| `.el-vss[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .el-vss |
+| `.el-vss[data-shape="min"]` | `border-radius: var(--radius-xs)` | border-radius: var(--radius-xs) — attribute variant of .el-vss |
+| `.el-vss[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .el-vss |
+| `.el-vss[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .el-vss |
+| `.el-vss[data-shape="round"]` | `border-radius: 9999px` | border-radius: 9999px — attribute variant of .el-vss |
+| `.el-vss[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .el-vss |
+| `.el-vss[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .el-vss |
+| `.el-vss[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-md)` | height: var(--height-bs) — attribute variant of .el-vss |
+| `.el-vss[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .el-vss |
+| `.el-vss[data-size="xl"]` | `height: var(--height-xl); font-size: var(--text-bs)` | height: var(--height-xl) — attribute variant of .el-vss |
 
 ## Layer Custom
 

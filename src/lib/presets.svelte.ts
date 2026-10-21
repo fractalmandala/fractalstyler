@@ -1,37 +1,39 @@
-import { presetApplication, VARIANTS, SHAPES, SIZES, PADS, type DataShape, type DataSize, type DataVariant, type DataPad } from '$lib/libTypes.js';
+import {
+	presetApplication,
+	VARIANTS,
+	SHAPES,
+	SIZES,
+	PADS,
+	VARIANT_TARGETS,
+	SHAPE_TARGETS,
+	SIZE_TARGETS,
+	PAD_TARGETS,
+	type DataShape,
+	type DataSize,
+	type DataVariant,
+	type DataPad
+} from '$lib/types.js';
 
 const STORAGE_KEY = 'fractalstyler:presets';
 
 // Default variant, and the value the variant preset starts from. Written to
-// form controls that do not declare their own data-variant, so an unstyled
-// control still lands on a real paint rather than no paint at all.
+// elements that do not declare their own data-variant, so an unstyled
+// element still lands on a real paint rather than no paint at all.
 const DEFAULT_VARIANT: DataVariant = 'primary';
 
-// The variant axis is class-qualified, not element-qualified: only controls
-// that opted into the system's own class receive a variant. Bare <input>,
-// <select> and <button> are left alone — they are unstyled by design, and
-// stamping a variant on them would silently invent styling the markup never
-// asked for.
+// Every axis is class-qualified. `_10_propped.sass` defines the axes as
+// standalone classes — `.el-variants`, `.el-shape`, `.el-size`, `.el-pad` —
+// and each one answers its `data-*` attribute. An element opts into an axis by
+// carrying that class; the element name is never the qualifier. A bare
+// <button> or <input> therefore stays unstyled by design, and stamping a
+// variant on it would invent styling the markup never asked for.
 //
-// `.card` is on the other side of that line: it is a system class, and it
-// answers `data-variant` (see `.card[data-variant]` in _04_containers.sass), so
-// the variant preset paints cards alongside the controls.
-//
-// NOTE: `button.button` requires class="button". This system styles buttons on
-// the bare element, and `.button` is not a standalone class — it exists only as
-// a grouping hook inside `.button-group`. See the note in README §4.
-const VARIANT_TARGETS = 'input.input, select.select, button.button, a.btn, .card';
+// The four target lists come from `types.ts` so the runtime and the type
+// contract cannot drift apart.
 
-// Only `.card` consumes `data-pad` (see `.card[data-pad]` in _04_containers.sass).
-// The pad preset is therefore written to cards alone, so a global sweep can never
-// stamp `data-pad` onto buttons, inputs or selects that have no rule to answer it.
-const PAD_TARGETS = '.card';
-
-// Size is a metrics axis: it steps height and type scale on controls. A `.card`
-// has no `data-size` rule of its own — it sizes through `data-pad` and the
-// layout classes — so stamping one would be a dead attribute on every card in
-// the document. Size therefore sweeps every preset target except `.card`.
-const SIZE_TARGETS = presetApplication.filter((selector) => selector !== PAD_TARGETS).join(', ');
+// The pad axis has its own class, so a card that carries `.el-pad` is the only
+// thing the pad sweep can reach.
+export { VARIANT_TARGETS, SHAPE_TARGETS, SIZE_TARGETS, PAD_TARGETS };
 
 type Applied = { size?: string; shape?: string; variant?: string; pad?: string };
 
@@ -111,7 +113,7 @@ export class PresetState {
 				if (applied.size && element.getAttribute('data-size') === applied.size) element.removeAttribute('data-size');
 				if (applied.shape && element.getAttribute('data-shape') === applied.shape) element.removeAttribute('data-shape');
 				if (applied.variant && element.getAttribute('data-variant') === applied.variant) element.removeAttribute('data-variant');
-                if (applied.pad && element.getAttribute('data-pad') === applied.pad) element.removeAttribute('data-pad');
+				if (applied.pad && element.getAttribute('data-pad') === applied.pad) element.removeAttribute('data-pad');
 				this.#applied.delete(element);
 			}
 		}
@@ -120,30 +122,21 @@ export class PresetState {
 	private apply() {
 		if (typeof document === 'undefined') return;
 		this.clearApplied();
-		for (const selector of presetApplication) {
-			for (const element of document.querySelectorAll(selector)) {
-				const applied: Applied = this.#applied.get(element) ?? {};
-				// Shape is the one blanket axis — every swept target answers it,
-				// and `.card` is among them via `presetApplication`.
-				if (!element.hasAttribute('data-shape')) {
-					element.setAttribute('data-shape', this.shape);
-					applied.shape = this.shape;
-				}
-				if (element.matches(SIZE_TARGETS) && !element.hasAttribute('data-size')) {
-					element.setAttribute('data-size', this.size);
-					applied.size = this.size;
-				}
-				// Card-only axis: markup that declares its own data-pad always wins.
-				if (element.matches(PAD_TARGETS) && !element.hasAttribute('data-pad')) {
-					element.setAttribute('data-pad', this.pad);
-					applied.pad = this.pad;
-				}
-				if (element.matches(VARIANT_TARGETS) && !element.hasAttribute('data-variant')) {
-					element.setAttribute('data-variant', this.variant);
-					applied.variant = this.variant;
-				}
-				if (applied.size || applied.shape || applied.pad || applied.variant) this.#applied.set(element, applied);
-			}
+		this.sweep('data-variant', VARIANT_TARGETS, this.variant, 'variant');
+		this.sweep('data-shape', SHAPE_TARGETS, this.shape, 'shape');
+		this.sweep('data-size', SIZE_TARGETS, this.size, 'size');
+		this.sweep('data-pad', PAD_TARGETS, this.pad, 'pad');
+	}
+
+	// One axis, one target list. Markup that declares its own attribute always
+	// wins — the sweep only fills in what is missing.
+	private sweep(attribute: string, selector: string, value: string, key: keyof Applied) {
+		for (const element of document.querySelectorAll(selector)) {
+			if (element.hasAttribute(attribute)) continue;
+			element.setAttribute(attribute, value);
+			const applied: Applied = this.#applied.get(element) ?? {};
+			applied[key] = value;
+			this.#applied.set(element, applied);
 		}
 	}
 }

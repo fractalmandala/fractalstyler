@@ -231,7 +231,7 @@ for (const file of files.filter((f) => f.endsWith('.md'))) {
 // Exactly one exception, matched literally: the scroll-snap rail, where snap
 // targets must be the rail's own children or the rail catches in the wrong
 // places. A second exception should be a deliberate edit here, not a drift.
-const COMBINATOR_ALLOWED = new Set(['_05_layouts.sass:\t> *'])
+const COMBINATOR_ALLOWED = new Set(['_04_containers.sass:\t> *'])
 
 for (const file of readdirSync(join(root, 'src/lib/styles')).filter((f) => f.endsWith('.sass'))) {
 	const lines = readFileSync(join(root, 'src/lib/styles', file), 'utf8').split('\n')

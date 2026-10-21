@@ -2,7 +2,7 @@
 // ============================================================================
 // update-registry — regenerates every registry surface from the stylesheet.
 //
-// Ground truth is src/lib/styles/_00…_09 (colorpacks.sass and themeplates.sass
+// Ground truth is src/lib/styles/_00…_10 (colorpacks.sass and themeplates.sass
 // are raw Sass variable palettes and emit no classes — they are not indexed).
 // This script parses them structurally and emits:
 //   registry.json                                       (class inventory)
@@ -96,16 +96,18 @@ const FILES = [
 	{ file: '_06_shells.sass', layer: 'L4' },
 	{ file: '_07_interactions.sass', layer: 'L5' },
 	{ file: '_08_visuals.sass', layer: 'L5' },
-	{ file: '_09_own.sass', layer: 'Custom' }
+	{ file: '_09_own.sass', layer: 'Custom' },
+	{ file: '_10_propped.sass', layer: 'L6' }
 ];
 
 const LAYERS: [layer: string, title: string, blurb: string][] = [
 	['L0', 'Tokens & Base', 'Raw values and native resets. Never hardcode a literal a token covers.'],
 	['L1', 'Dimensions', 'Loop-generated space families (gap/rgap/cgap, pad/px/py/pt/pr/pb/pl, mar/mx/my/mt/mr/mb/ml × the eight steps), radius channels, full/zero sizing, viewport heights. All token-routed.'],
-	['L2', 'Containers', 'Flow and alignment. .box (flex column), .row (flex row), .grid — alignment modifiers nest under their base, never standalone. x* is ALWAYS the horizontal/inline axis, y* the vertical/block axis.'],
-	['L3', 'Layouts', 'Grids that step only through divisors (3→1, 4→2→1, 6→3→2→1), column spans, card-grid, prose, frame ratios, the reel.'],
+	['L2', 'Containers', 'Flow and alignment. .box (flex column), .row (flex row), .grid — alignment modifiers nest under their base, never standalone. x* is ALWAYS the horizontal/inline axis, y* the vertical/block axis. Positioning, stacking order, scroll containers and the flex sizing helpers live here too.'],
+	['L3', 'Layouts', 'Responsive grids and page furniture. .grid-1..6 with divisor stepping, column spans, .card-grid, .prose, the aspect-ratio frames, the .reel rail, and the furniture partial: .card, .chip, .nav-section, .page-header, .inputs-wrapper, .checkbox-wrapper.'],
 	['L4', 'Shells', 'Application scaffolding: the .app-shell canon, header, role-bound rails, footer, content sections.'],
 	['L5', 'Visuals & Interactions', 'Typography roles, inputs, links, the button quartet, surface fills, ink, borders, elevation shadows, visibility.'],
+	['L6', 'Element Axes', 'The orthogonal attribute axes, authored once and applied by class: .el-variants (data-variant), .el-shape (data-shape), .el-size (data-size), .el-pad (data-pad), .el-shadow / .el-shadow-hover (data-shadow) and .el-vss (variant + shape + size in one class). An element opts into an axis by carrying its class; the element name is never the qualifier.'],
 	['Custom', 'Own', 'Sanctioned extension point (_09_own.sass). Project-specific additions that cannot be expressed via canonical layers.']
 ];
 
@@ -543,6 +545,42 @@ function exampleFor(cls: string, kind: EntryKind): string {
 const ELEMENT_ENTRIES: Record<string, string> = { button: '_07_interactions.sass' };
 
 /**
+ * Classes that belong to a layer other than the one their file defaults to.
+ * A partial can hold more than one layer's classes; the layer is a property of
+ * the class, not of the file it happens to live in.
+ */
+const LAYER_OVERRIDES: Record<string, Record<string, string>> = {
+	'_04_containers.sass': {
+		'grid-1': 'L3',
+		'grid-2': 'L3',
+		'grid-3': 'L3',
+		'grid-4': 'L3',
+		'grid-5': 'L3',
+		'grid-6': 'L3',
+		'cspan-1': 'L3',
+		'cspan-2': 'L3',
+		'cspan-3': 'L3',
+		'cspan-4': 'L3',
+		'cspan-5': 'L3',
+		'cspan-6': 'L3',
+		'cspan-7': 'L3',
+		'cspan-8': 'L3',
+		'card-grid': 'L3',
+		'prose': 'L3',
+		'prose-left': 'L3',
+		'reel': 'L3'
+	}
+};
+
+/** The layer an entry belongs to, honouring the per-class overrides. */
+function resolveLayer(entry: RegistryEntry): string {
+	const overrides = LAYER_OVERRIDES[entry.file];
+	if (!overrides) return entry.layer;
+	const first = classesIn(entry.class)[0];
+	return (first && overrides[first]) || entry.layer;
+}
+
+/**
  * Walk the rule tree and emit registry entries.
  * ctx: { selPath: string|null, owner: string|null, media: [] }
  */
@@ -657,6 +695,7 @@ function walkRules(
 function push(entry: RegistryEntry, node: RuleNode, out: RegistryEntry[], seen: Set<string>): void {
 	if (seen.has(entry.class)) return;
 	seen.add(entry.class);
+	entry.layer = resolveLayer(entry);
 	const decls = collectDecls(node);
 	entry.property = propertyString(decls);
 	entry.description = describe(entry, node, decls);
@@ -721,7 +760,7 @@ function familyEntries(config: SassConfig, out: RegistryEntry[], seen: Set<strin
 			class: cls,
 			kind: 'family',
 			layer: 'L3',
-			file: '_05_layouts.sass',
+			file: '_04_containers.sass',
 			property: `aspect-ratio: ${ratio}; overflow: hidden`,
 			description: `Aspect-ratio media frame (${ratio.replace(/\s/g, '')}) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass)`,
 			example: `<div class="frame-${name}"><img …></div>`
@@ -920,13 +959,15 @@ function generateTokenReference(tokens: Token[]): string {
 	md += `\n## Pop Colors\n\nNamed accent literals. The \`.green1\`\u2026\`.green4\`, \`.orange1\`\u2026\`.orange6\`, and \`.yellow1\`\u2026\`.yellow4\` ink classes read them.\n\n`;
 	md += table(group('--greenpop').concat(group('--orangepop'), group('--yellowpop')));
 
-	md += `\n## Modes & Attribute Axes\n\n\`data-mode\` on the root selects the token mixin: \`light\` (default) or \`dark\`.\n\n`;
-	md += `| Attribute | Where | Values | Effect |\n|:---|:---|:---|:---|\n`;
+	md += `\n## Modes & Attribute Axes\n\n\`data-mode\` on the root selects the token mixin: \`light\` (default) or \`dark\`.\n\nThe other axes are class-qualified: an element opts into an axis by carrying the\nclass that answers it, and the element name is never the qualifier. A bare\n\`<button data-variant="primary">\` paints nothing.\n\n`;
+	md += `| Axis class | Attribute | Values | Effect |\n|:---|:---|:---|:---|\n`;
 	md += `| \`data-mode\` | \`<html>\` | \`light\` \\| \`dark\` | Swaps \`=light-theme-tokens\` / \`=dark-theme-tokens\` |\n`;
-	md += `| \`data-shape\` | \`button\`, \`.button\`, \`a.btn\`, \`.input\`, \`.select\`, \`.card\`, \`.fsx-accordion-item\` | \`square\` \\| \`modern\` \\| \`curved\` \\| \`round\` | Corner treatment of the component (\`square\` on controls only) |\n`;
-	md += `| \`data-variant\` | \`button\`, \`.button\`, \`a.btn\`, \`.card\`, \`.fsx-accordion-item\`, \`.input\`, \`.select\` | \`primary\` \\| \`secondary\` \\| \`soft\` \\| \`outline\` \\| \`ghost\` \\| \`link\` \\| \`destructive\` \\| \`iconbox\` | Visual paint variant |\n`;
-	md += `| \`data-size\` | \`button\`, \`.button\`, \`a.btn\`, \`.input\`, \`.select\`, \`.fsx-accordion-item\` | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` | Metrics / scale variant (plus \`icon-md\` \\| \`icon-bs\` \\| \`icon-lg\` on \`iconbox\`; not \`.card\`) |\n`;
-	md += `| \`data-pad\` | \`.card\` only | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` \\| \`xl\` | Card padding from \`--space-*\` |\n`;
+	md += `| \`.el-variants\` | \`data-variant\` | \`primary\` \\| \`secondary\` \\| \`themed\` \\| \`outline\` \\| \`ghost\` \\| \`link\` \\| \`icon\` | Visual paint variant |\n`;
+	md += `| \`.el-shape\` | \`data-shape\` | \`square\` \\| \`min\` \\| \`modern\` \\| \`curved\` \\| \`round\` | Corner treatment of the component |\n`;
+	md += `| \`.el-size\` | \`data-size\` | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` \\| \`xl\` | Metrics / scale variant (height + type) |\n`;
+	md += `| \`.el-pad\` | \`data-pad\` | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` \\| \`xl\` | Padding from \`--space-*\` |\n`;
+	md += `| \`.el-shadow\` / \`.el-shadow-hover\` | \`data-shadow\` | \`sm\` \\| \`bs\` \\| \`lg\` \\| \`xl\` \\| \`2xl\` | Elevation from \`--shadow-*\` |\n`;
+	md += `| \`.el-vss\` | \`data-variant\` + \`data-shape\` + \`data-size\` | as above | Variant, shape and size in one class |\n`;
 	return md;
 }
 
@@ -952,7 +993,10 @@ familyEntries(config, registry, seen);
 
 // 2. Explicit classes from every partial, in layer order.
 for (const { file, layer } of FILES) {
-	const content = fs.readFileSync(path.join(stylesDir, file), 'utf8');
+	const partial = path.join(stylesDir, file);
+	// An ejected tree is the user's to edit — a layer they deleted is not an error.
+	if (!fs.existsSync(partial)) continue;
+	const content = fs.readFileSync(partial, 'utf8');
 	const tree = parseSassTree(content);
 	walkRules(tree, { selPath: null, owner: null, media: [] }, file, layer, registry, seen);
 }

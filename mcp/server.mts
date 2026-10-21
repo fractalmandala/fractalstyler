@@ -327,7 +327,7 @@ Example:
 Example:
 <div class="row ycenter xbetween gap-sm pad-sm bg-surface border">
 \t<span class="text-sm weight-500">Label</span>
-\t<button data-variant="primary" data-size="sm">Action</button>
+\t<button class="button el-variants el-size" data-variant="primary" data-size="sm">Action</button>
 </div>`
 		});
 	}
@@ -335,24 +335,31 @@ Example:
 	// 4. Cards & Interactive Components
 	if (/card|cards|accordion|collapse|header|dialog|modal/.test(q)) {
 		sections.push({
-			title: 'Cards & Interactive Elements (Layer L2/L5/Custom)',
-			guidance: `Components use typed data attributes for variant, shape, and size:
+			title: 'Cards & Interactive Elements (Layer L3/L5/L6/Custom)',
+			guidance: `The attribute axes are class-qualified: an element opts into an axis by carrying
+its class from _10_propped.sass, and the class answers the data-* attribute.
+• Axes (Layer L6):
+  - .el-variants  → data-variant: "primary" | "secondary" | "themed" | "outline" | "ghost" | "link" | "icon"
+  - .el-shape     → data-shape:   "square" | "min" | "modern" | "curved" | "round"
+  - .el-size      → data-size:    "sm" | "md" | "bs" | "lg" | "xl"
+  - .el-pad       → data-pad:     "sm" | "md" | "bs" | "lg" | "xl"
+  - .el-shadow / .el-shadow-hover → data-shadow: "sm" | "bs" | "lg" | "xl" | "2xl"
+  - .el-vss       → variant + shape + size in one class
+  Without the class the attribute paints nothing — a bare <button data-variant="primary"> is unstyled.
+
 • Card (padding rides data-pad — cards have NO data-size):
-  <article class="card" data-variant="primary" data-shape="modern" data-pad="md">
+  <article class="card el-variants el-pad" data-variant="primary" data-pad="md">
     <h3 class="card-title">Card Heading</h3>
     <p class="card-desc">Description text</p>
     <footer>Action area</footer>
   </article>
 
-  Card axes: data-variant (primary|secondary|soft|outline|ghost|link),
-  data-shape (modern|curved|round — no "square"), data-pad (sm|md|bs|lg|xl).
-
-• Accordion (Custom / _09_own):
-  <div class="fsx-accordion">
-    <div class="fsx-accordion-item" data-variant="primary" data-shape="curved">
-      <button class="fsx-accordion-trigger"><span>Title</span></button>
-      <div class="fsx-accordion-content">
-        <div class="fsx-accordion-panel"><p>Panel body content...</p></div>
+• Accordion:
+  <div class="accordion">
+    <div class="accordion-item">
+      <button class="accordion-trigger"><span>Title</span></button>
+      <div class="accordion-content">
+        <div class="accordion-panel"><p>Panel body content...</p></div>
       </div>
     </div>
   </div>`
@@ -362,26 +369,27 @@ Example:
 	// 5. Buttons & Interactions
 	if (/button|btn|link|input|select|switch|interactive|click|hover|active|focus/.test(q)) {
 		sections.push({
-			title: 'Interactive Controls & Buttons (Layer L5)',
-			guidance: `Buttons, inputs, and selects share canonical data-* axes:
+			title: 'Interactive Controls & Buttons (Layer L5/L6)',
+			guidance: `Buttons, inputs, and selects take the same axes as everything else — through
+their classes:
 • Button & Anchor Button:
-  - Elements: <button>, <button class="button">, or <a class="btn">
-    (.button is a real class — "button, .button" is one selector list, so it is
+  - Elements: <button class="button">, or <a class="btn">
+    (a .button is a real class — "button, .button" is one selector list, so it is
     styled identically to the bare element. Prefer the bare element.)
-  - data-variant: "primary" | "secondary" | "soft" | "outline" | "ghost" | "link" | "destructive" | "iconbox"
-  - data-shape: "square" | "modern" | "curved" | "round"
-  - data-size: "sm" | "md" | "bs" | "lg"
-  - iconbox is button-only and adds its own size rungs: "icon-md" | "icon-bs" | "icon-lg"
-  - a.btn answers every variant except iconbox/icon.
-  - Icon buttons: <button class="icon text-muted">...</button> (icons come from the fractalicons package, never inline SVG or glyphs)
+  - .el-variants → data-variant: "primary" | "secondary" | "themed" | "outline" | "ghost" | "link" | "icon"
+  - .el-shape    → data-shape:  "square" | "min" | "modern" | "curved" | "round"
+  - .el-size     → data-size:   "sm" | "md" | "bs" | "lg" | "xl"
+  - .el-vss      → variant + shape + size in one class
+  - There is no .icon class. An icon-only button is a .button carrying .el-variants
+    with data-variant="icon" and a .el-size rung.
+  - Icon glyphs come from the fractalicons package, never inline SVG or glyphs.
 
 • Form Fields:
-  - .input and .select support data-shape and data-size, but only these variants:
-    "primary" | "secondary" | "soft" | "outline" | "ghost" — no "link", no "destructive".
+  - .input and .select take the same axis classes as everything else.
 
 Example:
-<button data-variant="primary" data-shape="modern" data-size="md">Submit</button>
-<a class="btn" data-variant="outline" data-shape="curved" data-size="sm" href="/explore">Explore</a>`
+<button class="button el-variants el-shape el-size" data-variant="primary" data-shape="modern" data-size="md">Submit</button>
+<a class="btn el-variants el-shape el-size" data-variant="outline" data-shape="curved" data-size="sm" href="/explore">Explore</a>`
 		});
 	}
 
@@ -423,7 +431,9 @@ Never use raw hex codes (#ffffff, #1e293b). All colors adapt automatically betwe
 2. Write zero in-component <style> blocks and zero inline style="..." attributes.
 3. Spacing ladders (.gap-*, .pad-*, .px-*, .py-*) use 8 steps: xs, sm, md, bs, lg, xl, 2xl, 3xl.
 4. Containers (.box, .row) take physical modifiers (.xcenter, .ycenter, .xbetween).
-5. Elements like button, a.btn, .input, .select, .card use typed data-variant, data-shape, and data-size axes — except .card, whose padding rides data-pad instead of data-size.`
+5. The attribute axes are class-qualified: .el-variants, .el-shape, .el-size, .el-pad,
+   .el-shadow answer data-variant, data-shape, data-size, data-pad and data-shadow.
+   An element without the class paints nothing.`
 		});
 	}
 
@@ -718,14 +728,21 @@ const SYSTEM_RULES = `# Fractalstyler Closed-World Design Rules
 2. **Layer Architecture**:
    - L0 (Tokens): Design token source of truth (_00_tokens.sass, driven by _00_config.sass).
    - L0 (Base): Low-specificity resets (_01_base.sass).
-   - L1 (Dimensions): Loop-generated ladders (.gap-*, .rgap-*, .cgap-*, .pad-*, .px-*, .py-*, .mar-*, .mx-*, .my-* across 8 steps; six .radius-*; .h-sm/.h-md/.h-bs/.h-lg; .wfull/.hfull).
-   - L2 (Containers): .box (col), .row (horizontal), .grid. Physical modifiers (.xcenter, .ycenter, .xbetween).
-   - L3 (Layouts): Stepping columns (.grid-1..6), .cspan-1..8, .card-grid, .prose, frame ratios, .reel.
+   - L1 (Dimensions): Loop-generated ladders (.gap-*, .rgap-*, .cgap-*, .pad-*, .px-*, .py-*, .mar-*, .mx-*, .my-* across 8 steps; six .radius-*; .h-sm/.h-md/.h-bs/.h-lg/.h-xl/.h-2xl; .wfull/.hfull).
+   - L2 (Containers): .box (col), .row (horizontal), .grid. Physical modifiers (.xcenter, .ycenter, .xbetween). Positioning, stacking, scroll containers, flex sizing helpers.
+   - L3 (Layouts): Stepping columns (.grid-1..6), .cspan-1..8, .card-grid, .prose, frame ratios, .reel, and the furniture partial (.card, .chip, .nav-section, .page-header, .inputs-wrapper, .checkbox-wrapper).
    - L4 (Shells): .app-shell, .app-header, .app-main, .app-footer, .sidebar-left, .sidebar-right, .content-section, .get.
    - L5 (Typography): .text-xs..5xl, roles (.page-title, .nav-link), .weight-*, .truncate.
-   - L5 (Interactions): Inputs, selects, button + .button, a.btn, .button-group / .split-button, links, data-* axes.
+   - L5 (Interactions): Inputs, selects, button + .button, a.btn, .button-group / .split-button, links.
    - L5 (Visuals): Surface styling (.bg-main, .bg-surface, .bg-panel, .bg-sunken, .bg-raised, .bg-extra, .border, .bt/.br/.bb/.bl, .shadow-*), pop-colour inks (.orange1..6, .yellow1..4, .green1..4).
-   - Custom (_09_own.sass): Sanctioned extension point — project skins, .fsx-accordion, the .mascot* family.
+   - L6 (Element Axes): The class-qualified attribute axes — .el-variants (data-variant), .el-shape (data-shape), .el-size (data-size), .el-pad (data-pad), .el-shadow / .el-shadow-hover (data-shadow), .el-vss (variant + shape + size).
+   - Custom (_09_own.sass): Sanctioned extension point — project skins, the .mascot* family.
+
+2b. **The axes are class-qualified**:
+   An element opts into an axis by carrying its class; the element name is never
+   the qualifier. A bare <button data-variant="primary"> paints nothing — it
+   must carry .el-variants. The same classes work on a button, an input, a
+   select, a card or a div.
 
 3. **Verification**:
    Always verify with:
@@ -741,10 +758,9 @@ const SYSTEM_RULES = `# Fractalstyler Closed-World Design Rules
    The package ships a runtime that writes data-* attributes onto live markup
    (presets.svelte.ts + PresetControls.svelte). It never overwrites an attribute
    the markup already declares — it only fills in what is missing.
-   - size / shape sweep: button, input, select, a.btn, .card, .fsx-accordion-item
-   - data-pad sweeps .card ONLY (sm|md|bs|lg|xl)
-   - data-variant sweeps input.input, select.select, button.button, a.btn ONLY
-     (class-qualified — bare <input>/<select>/<button> are never touched)
+   - Every axis is class-qualified, so the sweep targets the axis classes:
+     data-variant → .el-variants, data-shape → .el-shape, data-size → .el-size,
+     data-pad → .el-pad
    - Defaults: bs / modern / md / primary. Persisted to localStorage.
    Exported setters: setPresetSize, setPresetShape, setPresetPad,
    setPresetVariant, resetPresets, initPresets. Each calls init() itself.
@@ -809,7 +825,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 						},
 						layer: {
 							type: 'string',
-							enum: ['all', 'L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'Custom'],
+							enum: ['all', 'L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'Custom'],
 							description: 'Optional layer filter. Defaults to "all".'
 						},
 						limit: {
@@ -1136,7 +1152,7 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
 				uri: 'fractalstyler://registry',
 				name: 'Fractalstyler Class Registry',
 				mimeType: 'application/json',
-				description: `Full JSON inventory of all ${REGISTRY.length} canonical classes across L0-L5 + Custom layers.`
+				description: `Full JSON inventory of all ${REGISTRY.length} canonical classes across L0-L6 + Custom layers.`
 			},
 			{
 				uri: 'fractalstyler://tokens',
@@ -1274,7 +1290,7 @@ Constraints:
 3. Spacing: Use canonical step ladders (.gap-*, .pad-*, .px-*, .py-*).
 4. Visuals: Surface styling rides .bg-surface, .bg-raised, .border, .bb, .radius-*, .shadow-*.
 5. Typography: Sizing rides .text-xs .. .text-5xl, weights ride .weight-*.
-6. State: Interactive elements use the bare \`<button>\` (or \`a.btn\`) plus data-variant / data-shape / data-size.
+6. State: Interactive elements take the class-qualified axes — \`<button class="button el-variants el-size">\` plus data-variant / data-size. A bare \`<button>\` with a data-variant attribute paints nothing.
 
 Execute:
 1. Call \`guide_styling\` or \`get_recipes\` to discover verified patterns.

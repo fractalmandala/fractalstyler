@@ -16,14 +16,14 @@ Fixed rem rungs up to base, then compounded by `--text-scaling` (1.25).
 |:---|:---|:---|
 | `--text-xs` | `.text-xs` | `0.67rem` |
 | `--text-sm` | `.text-sm` | `0.75rem` |
-| `--text-md` | `.text-md` | `0.875rem` |
-| `--text-bs` | `.text-bs` | `1rem` |
-| `--text-lg` | `.text-lg` | `calc(var(--text-bs) * var(--text-scaling))` |
-| `--text-xl` | `.text-xl` | `calc(var(--text-lg) * var(--text-scaling))` |
-| `--text-2xl` | `.text-2xl` | `calc(var(--text-xl) * var(--text-scaling))` |
-| `--text-3xl` | `.text-3xl` | `calc(var(--text-2xl) * var(--text-scaling))` |
-| `--text-4xl` | `.text-4xl` | `calc(var(--text-3xl) * var(--text-scaling))` |
-| `--text-5xl` | `.text-5xl` | `calc(var(--text-4xl) * var(--text-scaling))` |
+| `--text-md` | `.text-md` | `clamp(0.8333rem, 0.8061rem + 0.1212vw, 0.9rem)` |
+| `--text-bs` | `.text-bs` | `clamp(1rem, 0.9489rem + 0.2273vw, 1rem)` |
+| `--text-lg` | `.text-lg` | `clamp(1.2rem, 1.1156rem + 0.375vw, 1.4063rem)` |
+| `--text-xl` | `.text-xl` | `clamp(1.44rem, 1.31rem + 0.5778vw, 1.7578rem)` |
+| `--text-2xl` | `.text-2xl` | `clamp(1.728rem, 1.536rem + 0.8532vw, 2.1973rem)` |
+| `--text-3xl` | `.text-3xl` | `clamp(2.0736rem, 1.7983rem + 1.2236vw, 2.7466rem)` |
+| `--text-4xl` | `.text-4xl` | `clamp(2.4883rem, 2.1018rem + 1.718vw, 3.4332rem)` |
+| `--text-5xl` | `.text-5xl` | `clamp(2.986rem, 2.4519rem + 2.3737vw, 4.2915rem)` |
 
 | Token | Class | Value |
 |:---|:---|:---|
@@ -111,21 +111,21 @@ Name the role, never the hex. Values shown are the light default;
 |:---|:---|:---|
 | `--white-fixed` | `.text-white` | `#FFFFFF` |
 | `--black-fixed` | `.text-black` | `#18181B` |
-| `--bg` | `.bg-main` | `#F8F9FA` |
-| `--bg-surface` | `.bg-surface` | `#FFFFFF` |
-| `--bg-panel` | `.bg-panel` | `#FFFFFF` |
-| `--bg-sunken` | `.bg-sunken` | `#F0F1F3` |
-| `--bg-raised` | `.bg-raised` | `#FFFFFF` |
-| `--bg-extra` | `.bg-extra` | `#EAECEF` |
-| `--bg-input` | — | `#F0F1F3` |
-| `--bg-button` | — | `#ECEEF1` |
-| `--text-primary` | .text-primary | `#18181B` |
-| `--text-secondary` | .text-secondary | `#6B7280` |
-| `--text-muted` | .text-muted | `#9CA3AF` |
+| `--bg` | `.bg-main` | `#FFFFFF` |
+| `--bg-surface` | `.bg-surface` | `#F4F3EE` |
+| `--bg-panel` | `.bg-panel` | `#F5F4EF` |
+| `--bg-sunken` | `.bg-sunken` | `#F6F6F6` |
+| `--bg-raised` | `.bg-raised` | `#FCFDFD` |
+| `--bg-extra` | `.bg-extra` | `#F5F7F9` |
+| `--bg-input` | — | `#F4F3EE` |
+| `--bg-button` | — | `#6f6f6e` |
+| `--text-primary` | .text-primary | `#1c1c1d` |
+| `--text-secondary` | .text-secondary | `#808182` |
+| `--text-muted` | .text-muted | `#aaacaf` |
 | `--text-inverse` | .text-inverse | `#FFFFFF` |
 | `--state-surface` | — | `#F4F4F6` |
-| `--state-hover` | — | `#ECEEF1` |
-| `--state-selected` | — | `#E2E4E8` |
+| `--state-hover` | — | `#E4E5E8` |
+| `--state-selected` | — | `#7c7c7a` |
 | `--border` | — | `#E5E7EB` |
 | `--border-subtle` | — | `#F0F1F3` |
 | `--border-strong` | — | `#D1D5DB` |
@@ -219,10 +219,16 @@ Named accent literals. The `.green1`…`.green4`, `.orange1`…`.orange6`, and `
 
 `data-mode` on the root selects the token mixin: `light` (default) or `dark`.
 
-| Attribute | Where | Values | Effect |
+The other axes are class-qualified: an element opts into an axis by carrying the
+class that answers it, and the element name is never the qualifier. A bare
+`<button data-variant="primary">` paints nothing.
+
+| Axis class | Attribute | Values | Effect |
 |:---|:---|:---|:---|
 | `data-mode` | `<html>` | `light` \| `dark` | Swaps `=light-theme-tokens` / `=dark-theme-tokens` |
-| `data-shape` | `button`, `.button`, `a.btn`, `.input`, `.select`, `.card`, `.fsx-accordion-item` | `square` \| `modern` \| `curved` \| `round` | Corner treatment of the component (`square` on controls only) |
-| `data-variant` | `button`, `.button`, `a.btn`, `.card`, `.fsx-accordion-item`, `.input`, `.select` | `primary` \| `secondary` \| `soft` \| `outline` \| `ghost` \| `link` \| `destructive` \| `iconbox` | Visual paint variant |
-| `data-size` | `button`, `.button`, `a.btn`, `.input`, `.select`, `.fsx-accordion-item` | `sm` \| `md` \| `bs` \| `lg` | Metrics / scale variant (plus `icon-md` \| `icon-bs` \| `icon-lg` on `iconbox`; not `.card`) |
-| `data-pad` | `.card` only | `sm` \| `md` \| `bs` \| `lg` \| `xl` | Card padding from `--space-*` |
+| `.el-variants` | `data-variant` | `primary` \| `secondary` \| `themed` \| `outline` \| `ghost` \| `link` \| `icon` | Visual paint variant |
+| `.el-shape` | `data-shape` | `square` \| `min` \| `modern` \| `curved` \| `round` | Corner treatment of the component |
+| `.el-size` | `data-size` | `sm` \| `md` \| `bs` \| `lg` \| `xl` | Metrics / scale variant (height + type) |
+| `.el-pad` | `data-pad` | `sm` \| `md` \| `bs` \| `lg` \| `xl` | Padding from `--space-*` |
+| `.el-shadow` / `.el-shadow-hover` | `data-shadow` | `sm` \| `bs` \| `lg` \| `xl` \| `2xl` | Elevation from `--shadow-*` |
+| `.el-vss` | `data-variant` + `data-shape` + `data-size` | as above | Variant, shape and size in one class |

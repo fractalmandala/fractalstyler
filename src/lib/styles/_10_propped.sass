@@ -1,0 +1,203 @@
+.el-variants
+	&[data-variant="primary"]
+		background: var(--state-surface)
+		border: 1px solid var(--border)
+		&:hover
+			background: var(--state-hover)
+		&.selected
+			background: var(--state-selected)
+			border: 1px solid var(--border-strong)
+	&[data-variant="secondary"]
+		background: var(--bg-panel)
+		border: 1px solid var(--border-subtle)
+		&:hover
+			border: 1px solid var(--border)
+		&.selected
+			background: var(--state-selected)
+			border: 1px solid var(--border)
+	&[data-variant="themed"]
+		background: var(--theme-color)
+		border: 1px solid var(--theme-color)
+		&:hover
+			background: var(--theme-color-sub)
+			border: 1px solid var(--theme-color-sub)
+		&.selected
+			background: var(--theme-color-alt)
+			border: 1px solid var(--theme-color-alt)
+	&[data-variant="outline"]
+		background: transparent
+		color: var(--text-primary)
+		border: 1px solid var(--text-primary)
+		&:hover
+			color: var(--theme-color)
+			border: 1px solid var(--theme-color)
+		&.selected
+			color: var(--text-primary)
+			background: var(--state-selected)
+			border: 1px solid var(--border)
+	&[data-variant="ghost"]
+		background: transparent
+		border: none
+	&[data-variant="link"]
+		background: transparent
+		border: none
+		text-decoration: none
+		&:hover
+			border: 1px solid var(--theme-color)
+	&[data-variant="icon"]
+		background: none
+		border: none
+		&:hover
+			color: var(--theme-color)
+		&.selected
+			color: var(--text-primary)
+			background: var(--state-selected)
+			border: 1px solid var(--border)
+		
+
+.el-shape
+	&[data-shape="square"]
+		border-radius: 0
+	&[data-shape="min"]
+		border-radius: var(--radius-xs)
+	&[data-shape="modern"]
+		border-radius: var(--radius-sm)
+	&[data-shape="curved"]
+		border-radius: var(--radius-md)
+	&[data-shape="round"]
+		border-radius: 9999px
+
+.el-size
+	&[data-size="sm"]
+		height: var(--height-sm)
+		font-size: var(--text-sm)
+	&[data-size="md"]
+		height: var(--height-md)
+		font-size: var(--text-md)
+	&[data-size="bs"]
+		height: var(--height-bs)
+		font-size: var(--text-md)
+	&[data-size="lg"]
+		height: var(--height-lg)
+		font-size: var(--text-bs)
+	&[data-size="xl"]
+		height: var(--height-xl)
+		font-size: var(--text-bs)
+
+.el-pad
+	&[data-pad="sm"]
+		padding: var(--space-xs) var(--space-sm)
+	&[data-pad="md"]
+		padding: var(--space-sm) var(--space-md)
+	&[data-pad="bs"]
+		padding: var(--space-md) var(--space-bs)
+	&[data-pad="lg"]
+		padding: var(--space-bs)
+	&[data-pad="xl"]
+		padding: var(--space-lg)
+
+.el-shadow
+	&[data-shadow="sm"]
+		box-shadow: var(--shadow-sm)
+	&[data-shadow="bs"]
+		box-shadow: var(--shadow-bs)
+	&[data-shadow="lg"]
+		box-shadow: var(--shadow-lg)
+	&[data-shadow="xl"]
+		box-shadow: var(--shadow-xl)
+	&[data-shadow="2xl"]
+		box-shadow: var(--shadow-2xl)
+
+.el-shadow-hover
+	&[data-shadow="sm"]
+		box-shadow: var(--shadow-sm)
+		&:hover
+			box-shadow: var(--shadow-xs)
+	&[data-shadow="bs"]
+		box-shadow: var(--shadow-bs)
+		&:hover
+			box-shadow: var(--shadow-md)
+	&[data-shadow="lg"]
+		box-shadow: var(--shadow-lg)
+		&:hover
+			box-shadow: var(--shadow-bs)
+	&[data-shadow="xl"]
+		box-shadow: var(--shadow-xl)
+		&:hover
+			box-shadow: var(--shadow-lg)
+	&[data-shadow="2xl"]
+		box-shadow: var(--shadow-2xl)
+		&:hover
+			box-shadow: var(--shadow-xl)
+
+.el-vss
+	&[data-variant="primary"]
+		background: var(--state-surface)
+		border: 1px solid var(--border)
+		&:hover
+			background: var(--state-hover)
+		&.selected
+			background: var(--state-selected)
+			border: 1px solid var(--border-strong)
+	&[data-variant="secondary"]
+		background: var(--bg-panel)
+		border: 1px solid var(--border-subtle)
+		&:hover
+			border: 1px solid var(--border)
+		&.selected
+			background: var(--state-selected)
+			border: 1px solid var(--border)
+	&[data-variant="themed"]
+		background: var(--theme-color)
+		border: 1px solid var(--theme-color)
+		&:hover
+			background: var(--theme-color-sub)
+			border: 1px solid var(--theme-color-sub)
+		&.selected
+			background: var(--theme-color-alt)
+			border: 1px solid var(--theme-color-alt)
+	&[data-variant="outline"]
+		background: transparent
+		color: var(--text-primary)
+		border: 1px solid var(--text-primary)
+		&:hover
+			color: var(--theme-color)
+			border: 1px solid var(--theme-color)
+		&.selected
+			color: var(--text-primary)
+			background: var(--state-selected)
+			border: 1px solid var(--border)
+	&[data-variant="ghost"]
+		background: transparent
+		border: none
+	&[data-variant="link"]
+		background: transparent
+		border: none
+		text-decoration: none
+		&:hover
+			border: 1px solid var(--theme-color)
+	&[data-shape="square"]
+		border-radius: 0
+	&[data-shape="min"]
+		border-radius: var(--radius-xs)
+	&[data-shape="modern"]
+		border-radius: var(--radius-sm)
+	&[data-shape="curved"]
+		border-radius: var(--radius-md)
+	&[data-shape="round"]
+		border-radius: 9999px
+	&[data-size="sm"]
+		height: var(--height-sm)
+		font-size: var(--text-sm)
+	&[data-size="md"]
+		height: var(--height-md)
+		font-size: var(--text-md)
+	&[data-size="bs"]
+		height: var(--height-bs)
+		font-size: var(--text-md)
+	&[data-size="lg"]
+		height: var(--height-lg)
+		font-size: var(--text-bs)
+	&[data-size="xl"]
+		height: var(--height-xl)
+		font-size: var(--text-bs)

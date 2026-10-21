@@ -6,7 +6,7 @@
  * (or `import '@fractaldesign/fractalstyler/css'`) once in your entry file.
  */
 export const name = 'fractalstyler';
-export const version = '1.1.0';
+export const version = '1.4.0';
 
 // Global component presets — the optional runtime layer. Import the functions to
 // drive presets from your own code, or mount `PresetControls` for ready-made pickers.
@@ -25,5 +25,5 @@ export {
 
 // The unions the presets are drawn from, so consumers can build their own pickers
 // without re-listing values that the registry already owns.
-export { SIZES, SHAPES, VARIANTS, PADS, union } from './libTypes.js';
-export type { DataSize, DataShape, DataVariant, DataPad, FractalTokens } from './libTypes.js';
+export { SIZES, SHAPES, VARIANTS, PADS, union } from './types.js';
+export type { DataSize, DataShape, DataVariant, DataPad, FractalTokens } from './types.js';

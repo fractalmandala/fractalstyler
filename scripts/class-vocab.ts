@@ -30,10 +30,11 @@ export interface VocabEntry {
 export const LAYER_INTROS: Record<string, string> = {
 	L0: 'Tokens and Base resets. L0 defines the CSS custom properties for both color modes (via the =light-theme-tokens / =dark-theme-tokens mixins in _00_tokens.sass), the type/space/radius/motion scales, and native element resets. Never hardcode a raw hex or pixel literal that L0 covers.',
 	L1: 'Dimensions. Loop-generated space families — .gap/.rgap/.cgap, .pad/.px/.py/.pt/.pr/.pb/.pl, .mar/.mx/.my/.mt/.mr/.mb/.ml — each across the eight steps (xs sm md bs lg xl 2xl 3xl), all token-routed through var(--space-*). Plus the six radius channels, full/zero sizing, control heights, and viewport heights. No literal ladder; no -mob/-desk bands.',
-	L2: 'Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (css-grid) are the three structural foundations with strict physical axis modifiers (xcenter, ycenter, xbetween, etc.) nested under their base — never standalone. Stacking classes (.z-sticky, .z-raised, .z-modal, .z-toast), scroll containers, cards, chips, and form/section wrappers live here too.',
-	L3: 'Layouts and responsive grids. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 with divisor stepping (3→1, 4→2→1, 6→3→2→1), .cspan-* column spans, .card-grid (auto-fit), .prose (reading measure), .frame-* aspect-ratio boxes (from $frame-ratios), and .reel (scroll-snap rail).',
+	L2: 'Containers and alignment universe. .box (flex-col), .row (flex-row), and .grid (css-grid) are the three structural foundations with strict physical axis modifiers (xcenter, ycenter, xbetween, etc.) nested under their base — never standalone. Positioning, stacking order (.z-sticky, .z-raised, .z-modal, .z-toast), scroll containers and the flex sizing helpers (.grow, .shrink-0, .min0, .wrap) live here too.',
+	L3: 'Layouts and page furniture. .grid-1/.grid-2/.grid-3/.grid-4/.grid-5/.grid-6 with divisor stepping (3→1, 4→2→1, 6→3→2→1), .cspan-* column spans, .card-grid (auto-fit), .prose (reading measure), .frame-* aspect-ratio boxes (from $frame-ratios), the .reel (scroll-snap rail), and the furniture partial: .card, .chip, .nav-section, .page-header, .inputs-wrapper, .checkbox-wrapper.',
 	L4: 'Shells and canonical application markups. The .app-shell canon: .app-header, .app-main, .main-section (+.solo), the role-bound rails (.sidebar-left drawer, .sidebar-right TOC), .app-footer, and .content-section with its narrow width modes.',
-	L5: 'Visuals and Interactions. Typography primitives and roles (_03), inputs, selects, links and the button quartet with its data-variant/data-shape/data-size axes (_07), surface fills, ink, the partition-law border set, elevation shadows, and responsive visibility (_08).',
+	L5: 'Visuals and Interactions. Typography primitives and roles (_03), inputs, selects, links and the button quartet, surface fills, ink, the partition-law border set, elevation shadows, and responsive visibility (_08).',
+	L6: 'Element Axes (_10_propped). The orthogonal attribute axes, authored once and applied by class: .el-variants (data-variant), .el-shape (data-shape), .el-size (data-size), .el-pad (data-pad), .el-shadow / .el-shadow-hover (data-shadow) and .el-vss (variant + shape + size in one class). An element opts into an axis by carrying its class — the element name is never the qualifier, so a button, an input and a card answer the same axes.',
 	Custom: 'Sanctioned extension point (_09_own.sass). Contains project-specific overrides and third-party styling additions that cannot be expressed via canonical layers.'
 };
 
@@ -90,6 +91,7 @@ export function renderBrowserHtml(registryEntries: unknown, options = {}): strin
 			<option value="L3">L3 (Layouts)</option>
 			<option value="L4">L4 (Shells)</option>
 			<option value="L5">L5 (Visuals & Interactions)</option>
+			<option value="L6">L6 (Element Axes)</option>
 			<option value="Custom">Custom (_09_own)</option>
 		</select>
 	</div>
@@ -153,7 +155,7 @@ render();
 
 export function renderApiMarkdown(registryEntries: unknown): string {
 	const entries: VocabEntry[] = Array.isArray(registryEntries) ? registryEntries : [];
-	const layers = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'Custom'];
+	const layers = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'Custom'];
 
 	const lines = [
 		'# Fractalstyler — Class API & Vocabulary Reference',

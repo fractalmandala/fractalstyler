@@ -1,6 +1,6 @@
 {
 	"name": "@fractaldesign/fractalstyler",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"license": "MIT",
 	"description": "A composition styling system, shipped as plain CSS and as editable SASS. The class registry is the public API: compose in markup, write no stylesheet.",
 	"homepage": "https://fractalsvelte.dev/fractalstyler",

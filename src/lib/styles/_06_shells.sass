@@ -98,21 +98,17 @@ $lg: map.get($breakpoints, lg)
 
 .content-section
 	width: 100%
-	padding: var(--space-2xl) 0
 	&.null
-		padding: 0 var(--space-bs)
+		padding-inline: 0 var(--space-bs)
 	@media (min-width: 769px)
-		padding: var(--space-2xl) var(--space-bs)
+		padding-inline: var(--space-bs)
 		&.narrow-half
-			padding: var(--space-2xl) 0
 			width: 640px
 			margin-inline: auto
 		&.narrow-wide
-			padding: var(--space-2xl) 0
 			width: 720px
 			margin-inline: auto
 	@media (min-width: 1025px)
-		padding: var(--space-2xl) var(--space-bs)
 		&.narrow-full
 			width: 640px
 			margin-inline: auto
@@ -132,3 +128,5 @@ $lg: map.get($breakpoints, lg)
 	@media (min-width: 1441px)
 		&.narrow-wide
 			width: 1280px
+		&.narrow-half
+			width: 1024px

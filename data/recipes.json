@@ -5,29 +5,29 @@
 			"id": "workspace-segmented-control",
 			"name": "Segmented control",
 			"intents": ["segmented control", "mode switcher", "view switcher", "tab selector"],
-			"markup": "<div class=\"row ycenter shrink-0 pad-xs bg-raised border radius-sm\">\n\t<button data-variant=\"primary\" data-size=\"sm\" aria-pressed=\"true\">View</button>\n\t<button data-variant=\"ghost\" data-size=\"sm\" aria-pressed=\"false\">Split</button>\n</div>",
-			"notes": "There is no .active class — the selected segment is the one carrying data-variant=\"primary\" while its siblings stay ghost. Drive selection with aria-pressed and swap the variant when it changes."
+			"markup": "<div class=\"row ycenter shrink-0 pad-xs bg-raised border radius-sm\">\n\t<button class=\"button el-variants el-size\" data-variant=\"primary\" data-size=\"sm\" aria-pressed=\"true\">View</button>\n\t<button class=\"button el-variants el-size\" data-variant=\"ghost\" data-size=\"sm\" aria-pressed=\"false\">Split</button>\n</div>",
+			"notes": "There is no .active class — the selected segment is the one carrying data-variant=\"primary\" while its siblings stay ghost. Drive selection with aria-pressed and swap the variant when it changes. The variant axis is class-qualified: every segment carries .el-variants, because that class is what answers data-variant."
 		},
 		{
 			"id": "search-input-bar",
 			"name": "Search input bar",
 			"intents": ["search", "command search", "filter input", "omnibar"],
-			"markup": "<div class=\"row ycenter gap-xs px-xs py-xs bg-surface border radius-sm grow min0\">\n\t<span class=\"text-muted text-xs\">⌕</span>\n\t<input class=\"input grow min0 text-sm\" data-variant=\"ghost\" type=\"search\" placeholder=\"Search entries…\" />\n\t<span class=\"text-xs text-muted shrink-0\">⌘K</span>\n</div>",
-			"notes": "Provide an accessible label when no visible label is present. There is no .kbd class — a bare span carries the shortcut hint."
+			"markup": "<div class=\"row ycenter gap-xs px-xs py-xs bg-surface border radius-sm grow min0\">\n\t<!-- fractalicons: search -->\n\t<input class=\"input el-variants grow min0 text-sm\" data-variant=\"ghost\" type=\"search\" placeholder=\"Search entries…\" />\n\t<span class=\"text-xs text-muted shrink-0\">⌘K</span>\n</div>",
+			"notes": "Provide an accessible label when no visible label is present. There is no .kbd class — a bare span carries the shortcut hint. Icons come from the fractalicons package, never inline SVG or unicode glyphs."
 		},
 		{
 			"id": "responsive-metrics-grid",
 			"name": "Responsive metrics grid",
 			"intents": ["metrics", "kpi", "analytics", "dashboard cards", "stat grid"],
-			"markup": "<div class=\"grid-4 gap-sm\">\n\t<div class=\"card box ycenter xcenter gap-xs\" data-variant=\"primary\" data-pad=\"sm\">\n\t\t<span class=\"text-xl weight-600 text-primary\">99.98%</span>\n\t\t<span class=\"text-xs text-muted\">Availability</span>\n\t</div>\n</div>",
-			"notes": "Repeat the card child for each metric; grid-4 owns responsive column stepping. Card padding rides data-pad — cards have no data-size, and data-variant already paints the surface, so no .bg-* class is needed."
+			"markup": "<div class=\"grid-4 gap-sm\">\n\t<div class=\"card el-variants el-pad box ycenter xcenter gap-xs\" data-variant=\"primary\" data-pad=\"sm\">\n\t\t<span class=\"text-xl weight-600 text-primary\">99.98%</span>\n\t\t<span class=\"text-xs text-muted\">Availability</span>\n\t</div>\n</div>",
+			"notes": "Repeat the card child for each metric; grid-4 owns responsive column stepping. Card padding rides data-pad, and the card's surface rides data-variant — both need their class: .el-pad and .el-variants. A card carries no data-size; it sizes through .el-pad and the layout classes."
 		},
 		{
 			"id": "profile-action-row",
 			"name": "Profile action row",
 			"intents": ["profile row", "user list", "avatar actions", "user card"],
-			"markup": "<div class=\"row ycenter xbetween gap-sm pad-sm bg-surface border radius-md\">\n\t<div class=\"row ycenter gap-sm min0\">\n\t\t<span class=\"chip shrink-0\">AV</span>\n\t\t<div class=\"box min0 gap-xs\"><span class=\"text-sm weight-600 truncate\">Alex Vance</span><span class=\"text-xs text-muted truncate\">alex@example.com</span></div>\n\t</div>\n\t<button class=\"icon text-muted\" aria-label=\"More actions\">⋯</button>\n</div>",
-			"notes": "There is no .avatar class — .chip carries the initials. Give the image meaningful alt text when it conveys information not already present in adjacent text."
+			"markup": "<div class=\"row ycenter xbetween gap-sm pad-sm bg-surface border radius-md\">\n\t<div class=\"row ycenter gap-sm min0\">\n\t\t<span class=\"chip shrink-0\">AV</span>\n\t\t<div class=\"box min0 gap-xs\"><span class=\"text-sm weight-600 truncate\">Alex Vance</span><span class=\"text-xs text-muted truncate\">alex@example.com</span></div>\n\t</div>\n\t<button class=\"button el-variants el-size text-muted\" data-variant=\"icon\" data-size=\"sm\" aria-label=\"More actions\"><!-- fractalicons: more --></button>\n</div>",
+			"notes": "There is no .avatar class — .chip carries the initials. Give the image meaningful alt text when it conveys information not already present in adjacent text. There is no .icon class either: an icon-only button is a .button carrying .el-variants with data-variant=\"icon\"."
 		},
 		{
 			"id": "settings-switch-row",
@@ -40,14 +40,14 @@
 			"id": "action-dialog",
 			"name": "Action dialog",
 			"intents": ["dialog", "modal", "confirmation", "alert modal"],
-			"markup": "<dialog class=\"bg-surface border radius-md\">\n\t<header class=\"row ycenter xbetween px-md py-sm bb\"><h3 class=\"text-sm weight-600\">Confirm action</h3><button class=\"icon text-muted\" aria-label=\"Close\">×</button></header>\n\t<div class=\"box gap-sm pad-md\"><p class=\"text-sm text-secondary\">Review this action before continuing.</p></div>\n\t<footer class=\"row ycenter xright gap-xs px-md py-sm bt bg-raised\"><button data-variant=\"ghost\" data-size=\"sm\">Cancel</button><button data-variant=\"primary\" data-size=\"sm\">Continue</button></footer>\n</dialog>",
+			"markup": "<dialog class=\"bg-surface border radius-md\">\n\t<header class=\"row ycenter xbetween px-md py-sm bb\"><h3 class=\"text-sm weight-600\">Confirm action</h3><button class=\"button el-variants el-size text-muted\" data-variant=\"icon\" data-size=\"sm\" aria-label=\"Close\"><!-- fractalicons: close --></button></header>\n\t<div class=\"box gap-sm pad-md\"><p class=\"text-sm text-secondary\">Review this action before continuing.</p></div>\n\t<footer class=\"row ycenter xright gap-xs px-md py-sm bt bg-raised\"><button class=\"button el-variants el-size\" data-variant=\"ghost\" data-size=\"sm\">Cancel</button><button class=\"button el-variants el-size\" data-variant=\"primary\" data-size=\"sm\">Continue</button></footer>\n</dialog>",
 			"notes": "Use the native dialog API and return focus to the invoking control. There is no .dialog class and no .pad-0 (the ladder starts at .pad-xs) — put the padding on the inner regions instead."
 		},
 		{
 			"id": "dropdown-action-menu",
 			"name": "Dropdown action menu",
 			"intents": ["dropdown", "action menu", "popover menu", "context menu"],
-			"markup": "<div class=\"relative\">\n\t<button data-variant=\"ghost\" aria-expanded=\"true\" aria-haspopup=\"menu\">Actions</button>\n\t<div class=\"absolute box gap-xs pad-xs bg-surface border shadow-md radius-md\" role=\"menu\">\n\t\t<button data-variant=\"ghost\" data-size=\"sm\" class=\"wfull ta-l\" role=\"menuitem\">Duplicate</button>\n\t\t<button data-variant=\"ghost\" data-size=\"sm\" class=\"wfull ta-l text-danger\" role=\"menuitem\">Delete</button>\n\t</div>\n</div>",
+			"markup": "<div class=\"relative\">\n\t<button class=\"button el-variants\" data-variant=\"ghost\" aria-expanded=\"true\" aria-haspopup=\"menu\">Actions</button>\n\t<div class=\"absolute box gap-xs pad-xs bg-surface border shadow-md radius-md\" role=\"menu\">\n\t\t<button class=\"button el-variants el-size wfull ta-l\" data-variant=\"ghost\" data-size=\"sm\" role=\"menuitem\">Duplicate</button>\n\t\t<button class=\"button el-variants el-size wfull ta-l text-danger\" data-variant=\"ghost\" data-size=\"sm\" role=\"menuitem\">Delete</button>\n\t</div>\n</div>",
 			"notes": "There is no .popover or .open class — show and hide the panel with the native hidden attribute or a framework conditional. .xleft is a container modifier and does not apply to buttons; use .ta-l to align menu item text."
 		},
 		{
