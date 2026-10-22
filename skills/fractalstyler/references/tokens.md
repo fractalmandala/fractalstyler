@@ -14,20 +14,9 @@ Fixed rem rungs up to base, then compounded by `--text-scaling` (1.25).
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--text-xs` | `.text-xs` | `0.67rem` |
-| `--text-sm` | `.text-sm` | `0.75rem` |
-| `--text-md` | `.text-md` | `clamp(0.8333rem, 0.8061rem + 0.1212vw, 0.9rem)` |
-| `--text-bs` | `.text-bs` | `clamp(1rem, 0.9489rem + 0.2273vw, 1rem)` |
-| `--text-lg` | `.text-lg` | `clamp(1.2rem, 1.1156rem + 0.375vw, 1.4063rem)` |
-| `--text-xl` | `.text-xl` | `clamp(1.44rem, 1.31rem + 0.5778vw, 1.7578rem)` |
-| `--text-2xl` | `.text-2xl` | `clamp(1.728rem, 1.536rem + 0.8532vw, 2.1973rem)` |
-| `--text-3xl` | `.text-3xl` | `clamp(2.0736rem, 1.7983rem + 1.2236vw, 2.7466rem)` |
-| `--text-4xl` | `.text-4xl` | `clamp(2.4883rem, 2.1018rem + 1.718vw, 3.4332rem)` |
-| `--text-5xl` | `.text-5xl` | `clamp(2.986rem, 2.4519rem + 2.3737vw, 4.2915rem)` |
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--text-scaling` | — | `1.25` |
 
 ## Space Scale
 
@@ -36,18 +25,9 @@ gap/pad/mar families in L1.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--unit-space` | — | `0.25rem` |
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--space-xs` | `.gap-xs` `.pad-xs` `.mar-xs` + sides | `var(--unit-space)` |
-| `--space-sm` | `.gap-sm` `.pad-sm` `.mar-sm` + sides | `calc(var(--unit-space) * 2)` |
-| `--space-md` | `.gap-md` `.pad-md` `.mar-md` + sides | `calc(var(--unit-space) * 3)` |
-| `--space-bs` | `.gap-bs` `.pad-bs` `.mar-bs` + sides | `calc(var(--unit-space) * 4)` |
-| `--space-lg` | `.gap-lg` `.pad-lg` `.mar-lg` + sides | `calc(var(--unit-space) * 6)` |
-| `--space-xl` | `.gap-xl` `.pad-xl` `.mar-xl` + sides | `calc(var(--unit-space) * 8)` |
-| `--space-2xl` | `.gap-2xl` `.pad-2xl` `.mar-2xl` + sides | `calc(var(--unit-space) * 12)` |
-| `--space-3xl` | `.gap-3xl` `.pad-3xl` `.mar-3xl` + sides | `calc(var(--unit-space) * 16)` |
 
 ## Radius
 
@@ -55,12 +35,6 @@ Six channels. Compositions read the tokens, never a literal radius.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--radius-xs` | `.radius-xs` | `2px` |
-| `--radius-sm` | `.radius-sm` | `4px` |
-| `--radius-md` | `.radius-md` | `8px` |
-| `--radius-bs` | `.radius-bs` | `16px` |
-| `--radius-lg` | `.radius-lg` | `32px` |
-| `--radius-full` | `.radius-full` | `9999px` |
 
 ## Control & Component Metrics
 
@@ -68,16 +42,6 @@ Heights for inputs, selects and buttons; avatar and switch channels.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--avatar-size` | — | `32px` |
-| `--switch-w` | — | `40px` |
-| `--switch-h` | — | `22px` |
-| `--switch-thumb` | — | `16px` |
-| `--height-sm` | `.h-sm` | `20px` |
-| `--height-md` | `.h-md` | `24px` |
-| `--height-bs` | `.h-bs` | `28px` |
-| `--height-lg` | `.h-lg` | `32px` |
-| `--height-xl` | `.h-xl` | `40px` |
-| `--height-2xl` | `.h-2xl` | `48px` |
 
 ## Motion Language
 
@@ -85,22 +49,6 @@ Durations, easings and the composed `--motion*` channels every transition reads.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--transin1` | — | `cubic-bezier(0.470, 0.000, 0.745, 0.715)` |
-| `--transin2` | — | `cubic-bezier(0.550, 0.055, 0.675, 0.190)` |
-| `--transin3` | — | `cubic-bezier(0.755, 0.050, 0.855, 0.060)` |
-| `--transout1` | — | `cubic-bezier(0.390, 0.575, 0.565, 1.000)` |
-| `--transout2` | — | `cubic-bezier(0.215, 0.610, 0.355, 1.000)` |
-| `--transout3` | — | `cubic-bezier(0.230, 1.000, 0.320, 1.000)` |
-| `--speed0` | — | `50ms` |
-| `--speed1` | — | `90ms` |
-| `--speed2` | — | `140ms` |
-| `--speed3` | — | `220ms` |
-| `--motionin1` | — | `var(--speed0) var(--transin1)` |
-| `--motionout1` | — | `var(--speed1) var(--transout1)` |
-| `--motionin2` | — | `var(--speed2) var(--transin2)` |
-| `--motionout2` | — | `var(--speed2) var(--transout2)` |
-| `--motionin3` | — | `var(--speed3) var(--transin3)` |
-| `--motionout3` | — | `var(--speed3) var(--transout3)` |
 
 ## Colour Roles
 
@@ -179,20 +127,6 @@ Font stacks plus the page geometry the shells and viewport classes read.
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--header-height` | — | `64px` |
-| `--footer-height` | — | `32px` |
-| `--fit-height` | — | `calc(var(--header-height) + var(--footer-height))` |
-| `--prose-clamp` | — | `65ch` |
-| `--content-clamp` | — | `1600px` |
-| `--app-inline` | — | `var(--space-lg)` |
-| `--card-min` | — | `240px` |
-| `--sidebar-width` | — | `280px` |
-| `--sidebar-width-left` | — | `280px` |
-| `--sidebar-width-right` | — | `280px` |
-| `--z-sticky` | `.z-sticky` | `100` |
-| `--z-raised` | `.z-raised` | `200` |
-| `--z-modal` | `.z-modal` | `300` |
-| `--z-toast` | `.z-toast` | `500` |
 
 ## Pop Colors
 
@@ -200,20 +134,6 @@ Named accent literals. The `.green1`…`.green4`, `.orange1`…`.orange6`, and `
 
 | Token | Class | Value |
 |:---|:---|:---|
-| `--greenpop1` | `.green1` | `#10b981` |
-| `--greenpop2` | `.green2` | `#22c55e` |
-| `--greenpop3` | `.green3` | `#00df89` |
-| `--greenpop4` | `.green4` | `#00e676` |
-| `--orangepop1` | `.orange1` | `#ff7a00` |
-| `--orangepop2` | `.orange2` | `#f97316` |
-| `--orangepop3` | `.orange3` | `#ea580c` |
-| `--orangepop4` | `.orange4` | `#ff5e36` |
-| `--orangepop5` | `.orange5` | `#ff9966` |
-| `--orangepop6` | `.orange6` | `#ff9f1c` |
-| `--yellowpop1` | `.yellow1` | `#ffd000` |
-| `--yellowpop2` | `.yellow2` | `#facc15` |
-| `--yellowpop3` | `.yellow3` | `#fbbf24` |
-| `--yellowpop4` | `.yellow4` | `#eab308` |
 
 ## Modes & Attribute Axes
 
