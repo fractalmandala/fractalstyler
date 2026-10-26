@@ -142,6 +142,10 @@ Choices persist to `localStorage` under `fractalstyler:presets`, and a
   ```
 - update AGENTS.md where needed, update README.md where needed
 
+## 26 Oct changelog
+Dropped `[data-variant]`, `[data-shape]` and all such catchers. Now it's just class definitions - `el-variant primary`, `el-size h-md`, `el-shape modern` etc.
+Removed clamping from --text-* scale. Because those don't work in GPUI. 
+
 ## 21st Oct changelog
 
 Complete standardization and type definition of all props, shared surface with Fractalsvelte UI components library. Now no need to keep record of what props are for what styles and/or components. `_10_propped.sass` extends the classes `.el-variants`, `.el-shape`, `.el-size`, `.el-pad`, `.el-shadow`. Use these on buttons, inputs, cards - you decide. Canonical definitions will be set at the Fractalsvelte UI componenents level.

@@ -10,7 +10,10 @@
 		"sourceMap": true,
 		"strict": true,
 		"module": "NodeNext",
-		"moduleResolution": "NodeNext"
+		"moduleResolution": "NodeNext",
+		"types": [
+      "node"
+    ]
 	},
 	// SvelteKit's own list, plus the repo's TypeScript scripts (run on Node's type stripping)
 	// and the shipped Node runtime sources (cli/, lint/, mcp/ .mts; scripts/update-registry.ts,

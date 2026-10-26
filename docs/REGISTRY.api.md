@@ -3,7 +3,7 @@
 > Comprehensive index of the canonical styling system classes, layers, and intent.
 > Generated from `registry.json` via `scripts/class-vocab.js`.
 
-**481** classes indexed across layers.
+**479** classes indexed across layers.
 
 Every entry is a concrete class — the space families are expanded from the
 family maps in `_00_config.sass` across the eight steps `xs sm md bs lg xl 2xl 3xl`.
@@ -302,6 +302,8 @@ Shells and canonical application markups. The .app-shell canon: .app-header, .ap
 | `.content-section.narrow-half` | `width: 640px; margin-inline: auto` | width: 640px — modifier of .content-section |
 | `.content-section.narrow-wide` | `width: 720px; margin-inline: auto` | width: 720px — modifier of .content-section |
 | `.content-section.narrow-full` | `width: 640px; margin-inline: auto` | width: 640px — modifier of .content-section |
+| `.sitedocs` | `display: flex; flex-direction: column; color: var(--text-primary); …` | display: flex |
+| `.doc-element` | `margin-bottom: 1.5rem` | margin-bottom: 1.5rem — child of .sitedocs |
 
 ## Layer L5
 
@@ -381,19 +383,19 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.button-group:not(.vertical)` | `flex-direction: row` | flex-direction: row — modifier of .button-group |
 | `a.btn` | `display: flex; align-items: center; justify-content: center; …` | Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes |
 | `a.button` | `display: flex; align-items: center; justify-content: center; …` | display: flex |
-| `.accordion` | `display: flex; flex-direction: column; gap: var(--space-xs)` | display: flex |
-| `.accordion-item` | — | .accordion-item rule |
-| `.accordion-content` | `display: grid; grid-template-rows: 0fr; padding: 0; …` | display: grid — child of .accordion-item |
+| `.accordion` | `display: flex; flex-direction: column; gap: var(--space-xs)` | Accordion group — vertical stack of .accordion-item |
+| `.accordion-item` | — | Accordion item — bordered, styled shell hosting trigger and content |
+| `.accordion-content` | `display: grid; grid-template-rows: 0fr; padding: 0; …` | Collapsible region of an .accordion-item — 0fr→1fr grid transition |
 | `.accordion-panel` | `overflow: hidden; min-height: 0` | The panel is what collapses. It needs min-height: 0 so the grid row can |
 | `.accordion-item.open` | — |  — modifier of .accordion-item |
-| `.accordion-trigger` | `display: flex; flex-direction: row; align-items: center; …` | display: flex |
-| `.bg-main` | `background: var(--bg)` | Bare background — page base fill (var(--bg)) |
-| `.bg` | `background: var(--bg)` | background: var(--bg) |
-| `.bg-surface` | `background: var(--bg-surface)` | Bare background — surface fill (var(--bg-surface)) |
-| `.bg-panel` | `background: var(--bg-panel)` | Bare background — panel fill (var(--bg-panel)) |
-| `.bg-sunken` | `background: var(--bg-sunken)` | Bare background — sunken fill (var(--bg-sunken)) |
-| `.bg-raised` | `background: var(--bg-raised)` | Bare background — raised fill (var(--bg-raised)) |
-| `.bg-extra` | `background: var(--bg-extra)` | Bare background — extra fill (var(--bg-extra)) |
+| `.accordion-trigger` | `display: flex; flex-direction: row; align-items: center; …` | Accordion trigger button — full-width, hover/focus states |
+| `.bg-main` | `background-color: var(--bg)` | Bare background — page base fill (var(--bg)) |
+| `.bg` | `background-color: var(--bg)` | background-color: var(--bg) |
+| `.bg-surface` | `background-color: var(--bg-surface)` | Bare background — surface fill (var(--bg-surface)) |
+| `.bg-panel` | `background-color: var(--bg-panel)` | Bare background — panel fill (var(--bg-panel)) |
+| `.bg-sunken` | `background-color: var(--bg-sunken)` | Bare background — sunken fill (var(--bg-sunken)) |
+| `.bg-raised` | `background-color: var(--bg-raised)` | Bare background — raised fill (var(--bg-raised)) |
+| `.bg-extra` | `background-color: var(--bg-extra)` | Bare background — extra fill (var(--bg-extra)) |
 | `.text-primary` | `color: var(--text-primary)` | color: var(--text-primary) |
 | `.text-secondary` | `color: var(--text-secondary)` | color: var(--text-secondary) |
 | `.text-muted` | `color: var(--text-muted)` | color: var(--text-muted) |
@@ -407,10 +409,10 @@ Visuals and Interactions. Typography primitives and roles (_03), inputs, selects
 | `.text-warning` | `color: var(--warning)` | color: var(--warning) |
 | `.text-danger` | `color: var(--danger)` | color: var(--danger) |
 | `.text-info` | `color: var(--info)` | color: var(--info) |
-| `.bg-success` | `background: var(--success); transition: background var(--motionout2)` | Status fills, mirroring the status inks above. A dot or chip that carries the |
-| `.bg-warning` | `background: var(--warning); transition: background var(--motionout2)` | background: var(--warning) |
-| `.bg-danger` | `background: var(--danger); transition: background var(--motionout2)` | background: var(--danger) |
-| `.bg-info` | `background: var(--info); transition: background var(--motionout2)` | background: var(--info) |
+| `.bg-success` | `background-color: var(--success); transition: background var(--motionout2)` | Status fills, mirroring the status inks above. A dot or chip that carries the |
+| `.bg-warning` | `background-color: var(--warning); transition: background var(--motionout2)` | background-color: var(--warning) |
+| `.bg-danger` | `background-color: var(--danger); transition: background var(--motionout2)` | background-color: var(--danger) |
+| `.bg-info` | `background-color: var(--info); transition: background var(--motionout2)` | background-color: var(--info) |
 | `.border` | `border: 1px solid var(--border)` | Full border, standard weight (var(--border)) |
 | `.border-subtle` | `border: 1px solid var(--border-subtle)` | Full border, subtle weight (var(--border-subtle)) |
 | `.border-strong` | `border: 1px solid var(--border-strong)` | Full border, strong weight (var(--border-strong)) |
@@ -457,70 +459,66 @@ Element Axes (_10_propped). The orthogonal attribute axes, authored once and app
 
 | Class | Property / Expansion | Description |
 |:---|:---|:---|
-| `.el-variants` | — | .el-variants rule |
-| `.el-variants[data-variant="primary"]` | `background: var(--state-surface); border: 1px solid var(--border)` | background: var(--state-surface) — attribute variant of .el-variants |
-| `.el-variants[data-variant="primary"].selected` | `background: var(--state-selected); border: 1px solid var(--border-strong)` | background: var(--state-selected) — modifier of .el-variants[data-variant="primary"] |
-| `.el-variants[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border-subtle)` | background: var(--bg-panel) — attribute variant of .el-variants |
-| `.el-variants[data-variant="secondary"].selected` | `background: var(--state-selected); border: 1px solid var(--border)` | background: var(--state-selected) — modifier of .el-variants[data-variant="secondary"] |
-| `.el-variants[data-variant="themed"]` | `background: var(--theme-color); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of .el-variants |
-| `.el-variants[data-variant="themed"].selected` | `background: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)` | background: var(--theme-color-alt) — modifier of .el-variants[data-variant="themed"] |
-| `.el-variants[data-variant="outline"]` | `background: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)` | background: transparent — attribute variant of .el-variants |
-| `.el-variants[data-variant="outline"].selected` | `color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-variants[data-variant="outline"] |
-| `.el-variants[data-variant="ghost"]` | `background: transparent; border: none` | background: transparent — attribute variant of .el-variants |
-| `.el-variants[data-variant="link"]` | `background: transparent; border: none; text-decoration: none` | background: transparent — attribute variant of .el-variants |
-| `.el-variants[data-variant="icon"]` | `background: none; border: none` | background: none — attribute variant of .el-variants |
-| `.el-variants[data-variant="icon"].selected` | `color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-variants[data-variant="icon"] |
+| `.el-variant` | — | .el-variant rule |
+| `.el-variant.primary` | `background-color: var(--state-surface); border: 1px solid var(--border)` | background-color: var(--state-surface) — modifier of .el-variant |
+| `.el-variant.primary.selected` | `background-color: var(--state-selected); border: 1px solid var(--border-strong)` | background-color: var(--state-selected) — modifier of .el-variant.primary |
+| `.el-variant.secondary` | `background-color: var(--bg-panel); border: 1px solid var(--border-subtle)` | background-color: var(--bg-panel) — modifier of .el-variant |
+| `.el-variant.secondary.selected` | `background-color: var(--state-selected); border: 1px solid var(--border)` | background-color: var(--state-selected) — modifier of .el-variant.secondary |
+| `.el-variant.themed` | `background-color: var(--theme-color); border: 1px solid var(--theme-color)` | background-color: var(--theme-color) — modifier of .el-variant |
+| `.el-variant.themed.selected` | `background-color: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)` | background-color: var(--theme-color-alt) — modifier of .el-variant.themed |
+| `.el-variant.outline` | `background-color: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)` | background-color: transparent — modifier of .el-variant |
+| `.el-variant.outline.selected` | `color: var(--text-primary); background-color: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-variant.outline |
+| `.el-variant.ghost` | `background-color: transparent; border: none` | background-color: transparent — modifier of .el-variant |
+| `.el-variant.link` | `background-color: transparent; border: none; text-decoration: none` | background-color: transparent — modifier of .el-variant |
+| `.el-variant.icon` | `background-color: var(--bg-extra); border: none; color: var(--text-primary)` | background-color: var(--bg-extra) — modifier of .el-variant |
+| `.el-variant.icon.selected` | `background-color: var(--state-selected)` | background-color: var(--state-selected) — modifier of .el-variant.icon |
+| `.el-variant.icon-ghost` | `background-color: none; border: none; color: var(--text-secondary)` | background-color: none — modifier of .el-variant |
+| `.el-variant.icon-ghost.selected` | `color: var(--text-primary); background-color: var(--state-selected)` | color: var(--text-primary) — modifier of .el-variant.icon-ghost |
+| `.el-variant.danger` | `background-color: var(--danger); color: #FFFFFF; border: none` | background-color: var(--danger) — modifier of .el-variant |
+| `.el-variant.icon-danger` | `color: var(--danger)` | color: var(--danger) — modifier of .el-variant |
 | `.el-shape` | — | .el-shape rule |
-| `.el-shape[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .el-shape |
-| `.el-shape[data-shape="min"]` | `border-radius: var(--radius-xs)` | border-radius: var(--radius-xs) — attribute variant of .el-shape |
-| `.el-shape[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .el-shape |
-| `.el-shape[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .el-shape |
-| `.el-shape[data-shape="round"]` | `border-radius: 9999px` | border-radius: 9999px — attribute variant of .el-shape |
+| `.el-shape.square` | `border-radius: 0` | border-radius: 0 — modifier of .el-shape |
+| `.el-shape.min` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — modifier of .el-shape |
+| `.el-shape.modern` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — modifier of .el-shape |
+| `.el-shape.curved` | `border-radius: var(--radius-bs)` | border-radius: var(--radius-bs) — modifier of .el-shape |
+| `.el-shape.round` | `border-radius: 9999px` | border-radius: 9999px — modifier of .el-shape |
 | `.el-size` | — | .el-size rule |
-| `.el-size[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .el-size |
-| `.el-size[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .el-size |
-| `.el-size[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-md)` | height: var(--height-bs) — attribute variant of .el-size |
-| `.el-size[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .el-size |
-| `.el-size[data-size="xl"]` | `height: var(--height-xl); font-size: var(--text-bs)` | height: var(--height-xl) — attribute variant of .el-size |
-| `.el-pad` | — | .el-pad rule |
-| `.el-pad[data-pad="sm"]` | `padding: var(--space-xs) var(--space-sm)` | padding: var(--space-xs) var(--space-sm) — attribute variant of .el-pad |
-| `.el-pad[data-pad="md"]` | `padding: var(--space-sm) var(--space-md)` | padding: var(--space-sm) var(--space-md) — attribute variant of .el-pad |
-| `.el-pad[data-pad="bs"]` | `padding: var(--space-md) var(--space-bs)` | padding: var(--space-md) var(--space-bs) — attribute variant of .el-pad |
-| `.el-pad[data-pad="lg"]` | `padding: var(--space-bs)` | padding: var(--space-bs) — attribute variant of .el-pad |
-| `.el-pad[data-pad="xl"]` | `padding: var(--space-lg)` | padding: var(--space-lg) — attribute variant of .el-pad |
-| `.el-shadow` | — | .el-shadow rule |
-| `.el-shadow[data-shadow="sm"]` | `box-shadow: var(--shadow-sm)` | box-shadow: var(--shadow-sm) — attribute variant of .el-shadow |
-| `.el-shadow[data-shadow="bs"]` | `box-shadow: var(--shadow-bs)` | box-shadow: var(--shadow-bs) — attribute variant of .el-shadow |
-| `.el-shadow[data-shadow="lg"]` | `box-shadow: var(--shadow-lg)` | box-shadow: var(--shadow-lg) — attribute variant of .el-shadow |
-| `.el-shadow[data-shadow="xl"]` | `box-shadow: var(--shadow-xl)` | box-shadow: var(--shadow-xl) — attribute variant of .el-shadow |
-| `.el-shadow[data-shadow="2xl"]` | `box-shadow: var(--shadow-2xl)` | box-shadow: var(--shadow-2xl) — attribute variant of .el-shadow |
-| `.el-shadow-hover` | — | .el-shadow-hover rule |
-| `.el-shadow-hover[data-shadow="sm"]` | `box-shadow: var(--shadow-sm)` | box-shadow: var(--shadow-sm) — attribute variant of .el-shadow-hover |
-| `.el-shadow-hover[data-shadow="bs"]` | `box-shadow: var(--shadow-bs)` | box-shadow: var(--shadow-bs) — attribute variant of .el-shadow-hover |
-| `.el-shadow-hover[data-shadow="lg"]` | `box-shadow: var(--shadow-lg)` | box-shadow: var(--shadow-lg) — attribute variant of .el-shadow-hover |
-| `.el-shadow-hover[data-shadow="xl"]` | `box-shadow: var(--shadow-xl)` | box-shadow: var(--shadow-xl) — attribute variant of .el-shadow-hover |
-| `.el-shadow-hover[data-shadow="2xl"]` | `box-shadow: var(--shadow-2xl)` | box-shadow: var(--shadow-2xl) — attribute variant of .el-shadow-hover |
+| `.el-size.h-sm` | `height: var(--height-sm)` | height: var(--height-sm) — modifier of .el-size |
+| `.el-size.h-md` | `height: var(--height-md)` | height: var(--height-md) — modifier of .el-size |
+| `.el-size.h-bs` | `height: var(--height-bs)` | height: var(--height-bs) — modifier of .el-size |
+| `.el-size.h-lg` | `height: var(--height-lg)` | height: var(--height-lg) — modifier of .el-size |
+| `.shadow-hover-sm` | `box-shadow: var(--shadow-sm)` | box-shadow: var(--shadow-sm) |
+| `.shadow-hover-bs` | `box-shadow: var(--shadow-bs)` | box-shadow: var(--shadow-bs) |
+| `.shadow-hover-lg` | `box-shadow: var(--shadow-lg)` | box-shadow: var(--shadow-lg) |
+| `.shadow-hover-xl` | `box-shadow: var(--shadow-xl)` | box-shadow: var(--shadow-xl) |
+| `.shadow-hover-2xl` | `box-shadow: var(--shadow-2xl)` | box-shadow: var(--shadow-2xl) |
 | `.el-vss` | — | .el-vss rule |
-| `.el-vss[data-variant="primary"]` | `background: var(--state-surface); border: 1px solid var(--border)` | background: var(--state-surface) — attribute variant of .el-vss |
-| `.el-vss[data-variant="primary"].selected` | `background: var(--state-selected); border: 1px solid var(--border-strong)` | background: var(--state-selected) — modifier of .el-vss[data-variant="primary"] |
-| `.el-vss[data-variant="secondary"]` | `background: var(--bg-panel); border: 1px solid var(--border-subtle)` | background: var(--bg-panel) — attribute variant of .el-vss |
-| `.el-vss[data-variant="secondary"].selected` | `background: var(--state-selected); border: 1px solid var(--border)` | background: var(--state-selected) — modifier of .el-vss[data-variant="secondary"] |
-| `.el-vss[data-variant="themed"]` | `background: var(--theme-color); border: 1px solid var(--theme-color)` | background: var(--theme-color) — attribute variant of .el-vss |
-| `.el-vss[data-variant="themed"].selected` | `background: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)` | background: var(--theme-color-alt) — modifier of .el-vss[data-variant="themed"] |
-| `.el-vss[data-variant="outline"]` | `background: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)` | background: transparent — attribute variant of .el-vss |
-| `.el-vss[data-variant="outline"].selected` | `color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-vss[data-variant="outline"] |
-| `.el-vss[data-variant="ghost"]` | `background: transparent; border: none` | background: transparent — attribute variant of .el-vss |
-| `.el-vss[data-variant="link"]` | `background: transparent; border: none; text-decoration: none` | background: transparent — attribute variant of .el-vss |
-| `.el-vss[data-shape="square"]` | `border-radius: 0` | border-radius: 0 — attribute variant of .el-vss |
-| `.el-vss[data-shape="min"]` | `border-radius: var(--radius-xs)` | border-radius: var(--radius-xs) — attribute variant of .el-vss |
-| `.el-vss[data-shape="modern"]` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — attribute variant of .el-vss |
-| `.el-vss[data-shape="curved"]` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — attribute variant of .el-vss |
-| `.el-vss[data-shape="round"]` | `border-radius: 9999px` | border-radius: 9999px — attribute variant of .el-vss |
-| `.el-vss[data-size="sm"]` | `height: var(--height-sm); font-size: var(--text-sm)` | height: var(--height-sm) — attribute variant of .el-vss |
-| `.el-vss[data-size="md"]` | `height: var(--height-md); font-size: var(--text-md)` | height: var(--height-md) — attribute variant of .el-vss |
-| `.el-vss[data-size="bs"]` | `height: var(--height-bs); font-size: var(--text-md)` | height: var(--height-bs) — attribute variant of .el-vss |
-| `.el-vss[data-size="lg"]` | `height: var(--height-lg); font-size: var(--text-bs)` | height: var(--height-lg) — attribute variant of .el-vss |
-| `.el-vss[data-size="xl"]` | `height: var(--height-xl); font-size: var(--text-bs)` | height: var(--height-xl) — attribute variant of .el-vss |
+| `.el-vss.primary` | `background-color: var(--state-surface); border: 1px solid var(--border)` | background-color: var(--state-surface) — modifier of .el-vss |
+| `.el-vss.primary.selected` | `background-color: var(--state-selected); border: 1px solid var(--border-strong)` | background-color: var(--state-selected) — modifier of .el-vss.primary |
+| `.el-vss.secondary` | `background-color: var(--bg-panel); border: 1px solid var(--border-subtle)` | background-color: var(--bg-panel) — modifier of .el-vss |
+| `.el-vss.secondary.selected` | `background-color: var(--state-selected); border: 1px solid var(--border)` | background-color: var(--state-selected) — modifier of .el-vss.secondary |
+| `.el-vss.themed` | `background-color: var(--theme-color); border: 1px solid var(--theme-color)` | background-color: var(--theme-color) — modifier of .el-vss |
+| `.el-vss.themed.selected` | `background-color: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)` | background-color: var(--theme-color-alt) — modifier of .el-vss.themed |
+| `.el-vss.outline` | `background-color: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)` | background-color: transparent — modifier of .el-vss |
+| `.el-vss.outline.selected` | `color: var(--text-primary); background-color: var(--state-selected); border: 1px solid var(--border)` | color: var(--text-primary) — modifier of .el-vss.outline |
+| `.el-vss.ghost` | `background-color: transparent; border: none` | background-color: transparent — modifier of .el-vss |
+| `.el-vss.link` | `background-color: transparent; border: none; text-decoration: none` | background-color: transparent — modifier of .el-vss |
+| `.el-vss.icon` | `background-color: var(--bg-extra); border: none; color: var(--text-primary)` | background-color: var(--bg-extra) — modifier of .el-vss |
+| `.el-vss.icon.selected` | `background-color: var(--state-selected)` | background-color: var(--state-selected) — modifier of .el-vss.icon |
+| `.el-vss.icon-ghost` | `background-color: none; border: none; color: var(--text-secondary)` | background-color: none — modifier of .el-vss |
+| `.el-vss.icon-ghost.selected` | `color: var(--text-primary); background-color: var(--state-selected)` | color: var(--text-primary) — modifier of .el-vss.icon-ghost |
+| `.el-vss.danger` | `background-color: var(--danger); color: #FFFFFF; border: none` | background-color: var(--danger) — modifier of .el-vss |
+| `.el-vss.icon-danger` | `color: var(--danger)` | color: var(--danger) — modifier of .el-vss |
+| `.el-vss.square` | `border-radius: 0` | border-radius: 0 — modifier of .el-vss |
+| `.el-vss.min` | `border-radius: var(--radius-sm)` | border-radius: var(--radius-sm) — modifier of .el-vss |
+| `.el-vss.modern` | `border-radius: var(--radius-md)` | border-radius: var(--radius-md) — modifier of .el-vss |
+| `.el-vss.curved` | `border-radius: var(--radius-bs)` | border-radius: var(--radius-bs) — modifier of .el-vss |
+| `.el-vss.round` | `border-radius: 9999px` | border-radius: 9999px — modifier of .el-vss |
+| `.el-vss.h-sm` | `height: var(--height-sm)` | height: var(--height-sm) — modifier of .el-vss |
+| `.el-vss.h-md` | `height: var(--height-md)` | height: var(--height-md) — modifier of .el-vss |
+| `.el-vss.h-bs` | `height: var(--height-bs)` | height: var(--height-bs) — modifier of .el-vss |
+| `.el-vss.h-lg` | `height: var(--height-lg)` | height: var(--height-lg) — modifier of .el-vss |
+| `.el-vss.h-xl` | `height: var(--height-xl)` | height: var(--height-xl) — modifier of .el-vss |
 
 ## Layer Custom
 

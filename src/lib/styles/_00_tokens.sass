@@ -101,17 +101,34 @@
 		+light-theme-tokens
 
 	:root
-		--text-scaling: 1.25
 		--text-xs: 0.67rem
 		--text-sm: 0.75rem
-		--text-md: clamp(0.8333rem, 0.8061rem + 0.1212vw, 0.9rem)
-		--text-bs: clamp(1rem, 0.9489rem + 0.2273vw, 1rem)
-		--text-lg: clamp(1.2rem, 1.1156rem + 0.375vw, 1.4063rem)
-		--text-xl: clamp(1.44rem, 1.31rem + 0.5778vw, 1.7578rem)
-		--text-2xl: clamp(1.728rem, 1.536rem + 0.8532vw, 2.1973rem)
-		--text-3xl: clamp(2.0736rem, 1.7983rem + 1.2236vw, 2.7466rem)
-		--text-4xl: clamp(2.4883rem, 2.1018rem + 1.718vw, 3.4332rem)
-		--text-5xl: clamp(2.986rem, 2.4519rem + 2.3737vw, 4.2915rem)
+		--text-md: 0.8061rem
+		--text-bs: 0.9489rem
+		--text-lg: 1.1156rem
+		--text-xl: 1.31rem
+		--text-2xl: 1.536rem
+		--text-3xl: 1.7983rem
+		--text-4xl: 2.1018rem
+		--text-5xl: 2.4519rem
+		@media (min-width: 1025px)
+			--text-md: 0.8333rem
+			--text-bs: 1rem
+			--text-lg: 1.2rem
+			--text-xl: 1.44rem
+			--text-2xl: 1.728rem
+			--text-3xl: 2.0736rem
+			--text-4xl: 2.4883rem
+			--text-5xl: 2.986rem
+		@media (min-width: 1281px)
+			--text-md: 0.9rem
+			--text-bs: 1rem
+			--text-lg: 1.4rem
+			--text-xl: 1.7578rem
+			--text-2xl: 2.1973rem
+			--text-3xl: 2.7466rem
+			--text-4xl: 3.4332rem
+			--text-5xl: 4.2915rem
 
 		--unit-space: 0.25rem
 		--space-xs: var(--unit-space)
@@ -163,9 +180,9 @@
 		--content-clamp: 1600px
 		--app-inline: var(--space-lg)
 		--card-min: 240px
-		--height-sm: 20px
-		--height-md: 24px
-		--height-bs: 28px
+		--height-sm: 16px
+		--height-md: 20px
+		--height-bs: 24px
 		--height-lg: 32px
 		--height-xl: 40px
 		--height-2xl: 48px

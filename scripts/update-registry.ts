@@ -485,11 +485,11 @@ const CURATED: Record<string, string> = {
 	'.site-logomotif': 'Site logo motif — 48px, scales 1.2 on hover',
 	'.logotype': 'Logotype — 28px wordmark',
 	'.project-circle': 'Project dot — 16px circle',
-	'.fsx-accordion': 'Accordion group — vertical stack of .fsx-accordion-item',
-	'.fsx-accordion-item': 'Accordion item — bordered, styled shell hosting trigger and content with data-variant/data-shape/data-size axes',
-	'.fsx-accordion-content': 'Collapsible region of an .fsx-accordion-item — 0fr→1fr grid transition',
-	'.fsx-accordion-panel': 'Collapsible panel inside .fsx-accordion-content (overflow: hidden, min-height: 0)',
-	'.fsx-accordion-trigger': 'Accordion trigger button — full-width, hover/focus states',
+	'.accordion': 'Accordion group — vertical stack of .accordion-item',
+	'.accordion-item': 'Accordion item — bordered, styled shell hosting trigger and content',
+	'.accordion-content': 'Collapsible region of an .accordion-item — 0fr→1fr grid transition',
+	'.accordion-panel': 'Collapsible panel inside .accordion-content (overflow: hidden, min-height: 0)',
+	'.accordion-trigger': 'Accordion trigger button — full-width, hover/focus states',
 	'.hero-name': 'Hero display name — text-5xl doubled, 800, tight tracking'
 };
 
@@ -959,15 +959,14 @@ function generateTokenReference(tokens: Token[]): string {
 	md += `\n## Pop Colors\n\nNamed accent literals. The \`.green1\`\u2026\`.green4\`, \`.orange1\`\u2026\`.orange6\`, and \`.yellow1\`\u2026\`.yellow4\` ink classes read them.\n\n`;
 	md += table(group('--greenpop').concat(group('--orangepop'), group('--yellowpop')));
 
-	md += `\n## Modes & Attribute Axes\n\n\`data-mode\` on the root selects the token mixin: \`light\` (default) or \`dark\`.\n\nThe other axes are class-qualified: an element opts into an axis by carrying the\nclass that answers it, and the element name is never the qualifier. A bare\n\`<button data-variant="primary">\` paints nothing.\n\n`;
-	md += `| Axis class | Attribute | Values | Effect |\n|:---|:---|:---|:---|\n`;
+	md += `\n## Modes & Attribute Axes\n\n\`data-mode\` on the root selects the token mixin: \`light\` (default) or \`dark\`.\n\nThe other axes are classes: an element opts into an axis by carrying the\nclass that answers it, and the element name is never the qualifier. A bare\n\`<button class="el-variant">\` paints nothing. It must carry a paint - \`<button class="el-variant primary">\` \n\n`;
+	md += `| Axis class | Attribute | Values | Effect |\n|:---|:---|:---|\n`;
 	md += `| \`data-mode\` | \`<html>\` | \`light\` \\| \`dark\` | Swaps \`=light-theme-tokens\` / \`=dark-theme-tokens\` |\n`;
-	md += `| \`.el-variants\` | \`data-variant\` | \`primary\` \\| \`secondary\` \\| \`themed\` \\| \`outline\` \\| \`ghost\` \\| \`link\` \\| \`icon\` | Visual paint variant |\n`;
-	md += `| \`.el-shape\` | \`data-shape\` | \`square\` \\| \`min\` \\| \`modern\` \\| \`curved\` \\| \`round\` | Corner treatment of the component |\n`;
-	md += `| \`.el-size\` | \`data-size\` | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` \\| \`xl\` | Metrics / scale variant (height + type) |\n`;
-	md += `| \`.el-pad\` | \`data-pad\` | \`sm\` \\| \`md\` \\| \`bs\` \\| \`lg\` \\| \`xl\` | Padding from \`--space-*\` |\n`;
-	md += `| \`.el-shadow\` / \`.el-shadow-hover\` | \`data-shadow\` | \`sm\` \\| \`bs\` \\| \`lg\` \\| \`xl\` \\| \`2xl\` | Elevation from \`--shadow-*\` |\n`;
-	md += `| \`.el-vss\` | \`data-variant\` + \`data-shape\` + \`data-size\` | as above | Variant, shape and size in one class |\n`;
+	md += `| \`.el-variant\` | \`primary\` \\| \`secondary\` \\| \`themed\` \\| \`outline\` \\| \`ghost\` \\| \`link\` \\| \`icon\` \\| \`icon-danger\` \\| \`danger\` \\| Visual paint variant |\n`;
+	md += `| \`.el-shape\` | \`square\` \\| \`min\` \\| \`modern\` \\| \`curved\` \\| \`round\` | Corner treatment of the component |\n`;
+	md += `| \`.el-size\` | \`h-sm\` \\| \`h-md\` \\| \`h-bs\` \\| \`h-lg\` \\| \`h-xl\` | Metrics / scale variant (height + type) |\n`;
+	md += `| \`.pad-*\` | \`*-sm\` \\| \`*-md\` \\| \`*-bs\` \\| \`*-lg\` \\| \`*-xl\` | Padding from \`--space-*\` |\n`;
+	md += `| \`.shadow\` / \`.shadow-hover\` | \`sm\` \\| \`bs\` \\| \`lg\` \\| \`xl\` \\| \`2xl\` | Elevation from \`--shadow-*\` |\n`;
 	return md;
 }
 

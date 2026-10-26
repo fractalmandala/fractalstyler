@@ -139,16 +139,15 @@ Named accent literals. The `.green1`…`.green4`, `.orange1`…`.orange6`, and `
 
 `data-mode` on the root selects the token mixin: `light` (default) or `dark`.
 
-The other axes are class-qualified: an element opts into an axis by carrying the
+The other axes are classes: an element opts into an axis by carrying the
 class that answers it, and the element name is never the qualifier. A bare
-`<button data-variant="primary">` paints nothing.
+`<button class="el-variant">` paints nothing. It must carry a paint - `<button class="el-variant primary">` 
 
 | Axis class | Attribute | Values | Effect |
-|:---|:---|:---|:---|
+|:---|:---|:---|
 | `data-mode` | `<html>` | `light` \| `dark` | Swaps `=light-theme-tokens` / `=dark-theme-tokens` |
-| `.el-variants` | `data-variant` | `primary` \| `secondary` \| `themed` \| `outline` \| `ghost` \| `link` \| `icon` | Visual paint variant |
-| `.el-shape` | `data-shape` | `square` \| `min` \| `modern` \| `curved` \| `round` | Corner treatment of the component |
-| `.el-size` | `data-size` | `sm` \| `md` \| `bs` \| `lg` \| `xl` | Metrics / scale variant (height + type) |
-| `.el-pad` | `data-pad` | `sm` \| `md` \| `bs` \| `lg` \| `xl` | Padding from `--space-*` |
-| `.el-shadow` / `.el-shadow-hover` | `data-shadow` | `sm` \| `bs` \| `lg` \| `xl` \| `2xl` | Elevation from `--shadow-*` |
-| `.el-vss` | `data-variant` + `data-shape` + `data-size` | as above | Variant, shape and size in one class |
+| `.el-variant` | `primary` \| `secondary` \| `themed` \| `outline` \| `ghost` \| `link` \| `icon` \| `icon-danger` \| `danger` \| Visual paint variant |
+| `.el-shape` | `square` \| `min` \| `modern` \| `curved` \| `round` | Corner treatment of the component |
+| `.el-size` | `h-sm` \| `h-md` \| `h-bs` \| `h-lg` \| `h-xl` | Metrics / scale variant (height + type) |
+| `.pad-*` | `*-sm` \| `*-md` \| `*-bs` \| `*-lg` \| `*-xl` | Padding from `--space-*` |
+| `.shadow` / `.shadow-hover` | `sm` \| `bs` \| `lg` \| `xl` \| `2xl` | Elevation from `--shadow-*` |

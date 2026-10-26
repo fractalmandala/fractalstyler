@@ -11,30 +11,24 @@ Operate within the `fractalstyler` registry as a **closed world**. Never invent 
 
 1. **Consult the Registry First**:
    Read `docs/REGISTRY.api.md` or `references/fractals.md`. Search for existing utility classes, container bases, layouts, and shells before writing any markup.
-2. **Review Recipes**:
-   Check `data/recipes.json` for verified canonical compositions (segmented controls, search input bars, metrics grids, action rows, switches, modals).
-3. **Compose Only from Verified Classes**:
+2. **Compose Only from Verified Classes**:
    - Containers: `.box` (column), `.row` (horizontal), `.grid` (CSS grid).
    - Physical Alignment: **modifiers, never standalone** — they only resolve on a container: `.row.xcenter`, `.box.ycenter`, `.grid.xbetween`. There is no bare `.xcenter`.
    - Dimensions & Spacing: `.gap-*`/`.rgap-*`/`.cgap-*`, `.pad-*`, `.px-*` (inline) / `.py-*` (block) / `.pt-*` `.pr-*` `.pb-*` `.pl-*`, `.mar-*`/`.mx-*`/`.my-*`, `.wfull`/`.hfull`, `.h-sm`…`.h-xl`/`.h-2xl`. **There is no `.pad-x-*`, `.pad-y-*` or `.w-*`.**
    - Visuals: `.bg-main`, `.bg`, `.bg-surface`, `.bg-panel`, `.bg-sunken`, `.bg-raised`, `.bg-extra`, `.bg-success`/`.bg-warning`/`.bg-danger`/`.bg-info`, `.border` (+`-subtle`/`-strong`), per-side `.bt`/`.br`/`.bb`/`.bl` (+`-str`/`-sub`), `.radius-*`, `.shadow-*`. **There is no `.border-top`/`.border-bottom`.**
-   - Ink: `.orange1`…`.orange6`, `.yellow1`…`.yellow4`, `.green1`…`.green4`.
    - Typography: `.text-xs` .. `.text-5xl`, `.weight-300`…`.weight-800`, `.truncate`.
    - Layouts: `.grid-1`…`.grid-6`, `.cspan-1`…`.cspan-8`, `.card-grid`, `.prose`, `.prose-left`, `.frame-16-9`…, `.reel`, `.card`, `.chip`, `.nav-section`, `.page-header`, `.inputs-wrapper`, `.checkbox-wrapper`.
    - Interactions: `button` (or the equivalent `.button` class), `a.btn`, `.input`, `.select`, `.button-group`, `.split-button`, `.accordion`/`.accordion-item`/`.accordion-trigger`/`.accordion-content`/`.accordion-panel`.
-4. **The attribute axes are class-qualified** — the class is the qualifier, never the element name:
-   | Axis class | Attribute | Values |
-   |:---|:---|:---|
-   | `.el-variants` | `data-variant` | `primary` `secondary` `themed` `outline` `ghost` `link` `icon` |
-   | `.el-shape` | `data-shape` | `square` `min` `modern` `curved` `round` |
-   | `.el-size` | `data-size` | `sm` `md` `bs` `lg` `xl` |
-   | `.el-pad` | `data-pad` | `sm` `md` `bs` `lg` `xl` |
-   | `.el-shadow` / `.el-shadow-hover` | `data-shadow` | `sm` `bs` `lg` `xl` `2xl` |
-   | `.el-vss` | variant + shape + size | one class, all three axes |
-   - A bare `<button data-variant="primary">` paints **nothing**. It must carry `.el-variants`.
-   - The same axis classes work on a button, an input, a select, a card or a div — you decide which element carries which axis.
-   - There is no `.icon` class. An icon-only button is `<button class="button el-variants el-size" data-variant="icon" data-size="sm">`.
-   - A card is `<article class="card el-variants el-pad" data-variant="primary" data-pad="md">` — the card carries no rules of its own beyond its footer spacing.
+4. **The attribute axes are managed directly via class definitions, dropped `[data-variant]` type of selectors to enable same convention to work in Svelte, gpuix-Svelte, GPUI. 
+   - activate by assigning these classes to intended recipient element - `el-variant`, `el-shape`, `el-size`,  or catch all three together with `el-vss`. Then assign one of following as sister inline class: 
+   | Axis class | Values |
+   |:---|:---|
+   | `.el-variant` | `primary` `secondary` `themed` `outline` `ghost` `link` `icon`, `danger`, `icon-danger` |
+   | `.el-shape` | `square` `min` `modern` `curved` `round` |
+   | `.el-size` | `h-sm` `h-md` `h-bs` `h-lg` `h-xl` |
+   | `.pad-*` | `pad-xs` `pad-sm` `pad-bs` `pad-lg` `pad-xl` |
+   | `.shadow-*`, `.shadow-hover-*` | `*-sm` `*-bs` `*-lg` `*-xl` `*-2xl` | 
+   - A bare `<button>` paints **nothing**, nor does `<button class="el-variant">`. It must carry a variant declaration also - `<button class="el-variant primary">`
 5. **Hard Boundaries**:
    - **NO in-component `<style>` blocks**: Components must remain pure markup and logic.
    - **NO inline `style="..."` attributes**: Inline styles are unconstrained ad-hoc CSS.
@@ -50,21 +44,6 @@ Operate within the `fractalstyler` registry as a **closed world**. Never invent 
    ```
    Both checks must pass with 0 errors.
 
-## Global presets
-
-The presets runtime (`presets.svelte.ts` + `PresetControls.svelte`) writes
-`data-*` attributes onto live markup and never overrides attributes the markup
-already declares. Every axis is class-qualified, so the sweep targets the axis
-classes themselves: `data-variant` → `.el-variants`, `data-shape` → `.el-shape`,
-`data-size` → `.el-size`, `data-pad` → `.el-pad`. An element that does not carry
-an axis class is never touched.
-
-Prefer explicit attributes in authored markup. The preset layer is for the
-`data-*` values you do not want to hand-write, and for driving a running app.
-
-The canonical prop unions live at `src/lib/types.ts` (`VARIANTS`, `SIZES`,
-`SHAPES`, `PADS`, `SHADOWS`) and are shared with the Fractalsvelte UI
-components library.
 
 ## Progressive Discovery Index
 
@@ -81,7 +60,7 @@ components library.
 | Buttons, links, pills, states | `src/lib/styles/_07_interactions.sass` | L5 orthogonal interactive elements. |
 | Backgrounds, ink, shadows, borders | `src/lib/styles/_08_visuals.sass` | L5 surface styling & decorative treatments. |
 | Project-specific third-party overrides | `src/lib/styles/_09_own.sass` | Sanctioned extension point. |
-| The attribute axes | `src/lib/styles/_10_propped.sass` | L6 `.el-variants`, `.el-shape`, `.el-size`, `.el-pad`, `.el-shadow`, `.el-vss`. |
+| The attribute axes | `src/lib/styles/_10_propped.sass` | L6 `.el-variant`, `.el-shape`, `.el-size`, `.el-pad`, `.el-shadow`, `.el-vss`. |
 
 ## Handling Coverage Gaps
 

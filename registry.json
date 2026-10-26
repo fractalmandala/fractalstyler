@@ -2957,6 +2957,26 @@
     "example": "<div class=\"content-section narrow-full\">…</div>"
   },
   {
+    "class": ".sitedocs",
+    "kind": "class",
+    "parent": null,
+    "file": "_06_shells.sass",
+    "layer": "L4",
+    "property": "display: flex; flex-direction: column; color: var(--text-primary); …",
+    "description": "display: flex",
+    "example": "<div class=\"sitedocs\">…</div>"
+  },
+  {
+    "class": ".doc-element",
+    "kind": "child",
+    "parent": ".sitedocs",
+    "file": "_06_shells.sass",
+    "layer": "L4",
+    "property": "margin-bottom: 1.5rem",
+    "description": "margin-bottom: 1.5rem — child of .sitedocs",
+    "example": "<div class=\"doc-element\">…</div>"
+  },
+  {
     "class": ".input",
     "kind": "class",
     "parent": null,
@@ -3133,7 +3153,7 @@
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "display: flex; flex-direction: column; gap: var(--space-xs)",
-    "description": "display: flex",
+    "description": "Accordion group — vertical stack of .accordion-item",
     "example": "<div class=\"accordion\">…</div>"
   },
   {
@@ -3143,7 +3163,7 @@
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "",
-    "description": ".accordion-item rule",
+    "description": "Accordion item — bordered, styled shell hosting trigger and content",
     "example": "<div class=\"accordion-item\">…</div>"
   },
   {
@@ -3153,7 +3173,7 @@
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "display: grid; grid-template-rows: 0fr; padding: 0; …",
-    "description": "display: grid — child of .accordion-item",
+    "description": "Collapsible region of an .accordion-item — 0fr→1fr grid transition",
     "example": "<div class=\"accordion-content\">…</div>"
   },
   {
@@ -3183,7 +3203,7 @@
     "file": "_07_interactions.sass",
     "layer": "L5",
     "property": "display: flex; flex-direction: row; align-items: center; …",
-    "description": "display: flex",
+    "description": "Accordion trigger button — full-width, hover/focus states",
     "example": "<div class=\"accordion-trigger\">…</div>"
   },
   {
@@ -3192,7 +3212,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--bg)",
+    "property": "background-color: var(--bg)",
     "description": "Bare background — page base fill (var(--bg))",
     "example": "<div class=\"bg-main\">…</div>"
   },
@@ -3202,8 +3222,8 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--bg)",
-    "description": "background: var(--bg)",
+    "property": "background-color: var(--bg)",
+    "description": "background-color: var(--bg)",
     "example": "<div class=\"bg\">…</div>"
   },
   {
@@ -3212,7 +3232,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--bg-surface)",
+    "property": "background-color: var(--bg-surface)",
     "description": "Bare background — surface fill (var(--bg-surface))",
     "example": "<div class=\"bg-surface\">…</div>"
   },
@@ -3222,7 +3242,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--bg-panel)",
+    "property": "background-color: var(--bg-panel)",
     "description": "Bare background — panel fill (var(--bg-panel))",
     "example": "<div class=\"bg-panel\">…</div>"
   },
@@ -3232,7 +3252,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--bg-sunken)",
+    "property": "background-color: var(--bg-sunken)",
     "description": "Bare background — sunken fill (var(--bg-sunken))",
     "example": "<div class=\"bg-sunken\">…</div>"
   },
@@ -3242,7 +3262,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--bg-raised)",
+    "property": "background-color: var(--bg-raised)",
     "description": "Bare background — raised fill (var(--bg-raised))",
     "example": "<div class=\"bg-raised\">…</div>"
   },
@@ -3252,7 +3272,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--bg-extra)",
+    "property": "background-color: var(--bg-extra)",
     "description": "Bare background — extra fill (var(--bg-extra))",
     "example": "<div class=\"bg-extra\">…</div>"
   },
@@ -3392,7 +3412,7 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--success); transition: background var(--motionout2)",
+    "property": "background-color: var(--success); transition: background var(--motionout2)",
     "description": "Status fills, mirroring the status inks above. A dot or chip that carries the",
     "example": "<div class=\"bg-success\">…</div>"
   },
@@ -3402,8 +3422,8 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--warning); transition: background var(--motionout2)",
-    "description": "background: var(--warning)",
+    "property": "background-color: var(--warning); transition: background var(--motionout2)",
+    "description": "background-color: var(--warning)",
     "example": "<div class=\"bg-warning\">…</div>"
   },
   {
@@ -3412,8 +3432,8 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--danger); transition: background var(--motionout2)",
-    "description": "background: var(--danger)",
+    "property": "background-color: var(--danger); transition: background var(--motionout2)",
+    "description": "background-color: var(--danger)",
     "example": "<div class=\"bg-danger\">…</div>"
   },
   {
@@ -3422,8 +3442,8 @@
     "parent": null,
     "file": "_08_visuals.sass",
     "layer": "L5",
-    "property": "background: var(--info); transition: background var(--motionout2)",
-    "description": "background: var(--info)",
+    "property": "background-color: var(--info); transition: background var(--motionout2)",
+    "description": "background-color: var(--info)",
     "example": "<div class=\"bg-info\">…</div>"
   },
   {
@@ -4027,134 +4047,174 @@
     "example": "<div class=\"hero-name\">…</div>"
   },
   {
-    "class": ".el-variants",
+    "class": ".el-variant",
     "kind": "class",
     "parent": null,
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "",
-    "description": ".el-variants rule",
-    "example": "<div class=\"el-variants\">…</div>"
+    "description": ".el-variant rule",
+    "example": "<div class=\"el-variant\">…</div>"
   },
   {
-    "class": ".el-variants[data-variant=\"primary\"]",
-    "kind": "variant",
-    "parent": ".el-variants",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: var(--state-surface); border: 1px solid var(--border)",
-    "description": "background: var(--state-surface) — attribute variant of .el-variants",
-    "example": "<div class=\"el-variants\">…</div>"
-  },
-  {
-    "class": ".el-variants[data-variant=\"primary\"].selected",
+    "class": ".el-variant.primary",
     "kind": "modifier",
-    "parent": ".el-variants[data-variant=\"primary\"]",
+    "parent": ".el-variant",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: var(--state-selected); border: 1px solid var(--border-strong)",
-    "description": "background: var(--state-selected) — modifier of .el-variants[data-variant=\"primary\"]",
-    "example": "<div class=\"el-variants selected\">…</div>"
+    "property": "background-color: var(--state-surface); border: 1px solid var(--border)",
+    "description": "background-color: var(--state-surface) — modifier of .el-variant",
+    "example": "<div class=\"el-variant primary\">…</div>"
   },
   {
-    "class": ".el-variants[data-variant=\"secondary\"]",
-    "kind": "variant",
-    "parent": ".el-variants",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: var(--bg-panel); border: 1px solid var(--border-subtle)",
-    "description": "background: var(--bg-panel) — attribute variant of .el-variants",
-    "example": "<div class=\"el-variants\">…</div>"
-  },
-  {
-    "class": ".el-variants[data-variant=\"secondary\"].selected",
+    "class": ".el-variant.primary.selected",
     "kind": "modifier",
-    "parent": ".el-variants[data-variant=\"secondary\"]",
+    "parent": ".el-variant.primary",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: var(--state-selected); border: 1px solid var(--border)",
-    "description": "background: var(--state-selected) — modifier of .el-variants[data-variant=\"secondary\"]",
-    "example": "<div class=\"el-variants selected\">…</div>"
+    "property": "background-color: var(--state-selected); border: 1px solid var(--border-strong)",
+    "description": "background-color: var(--state-selected) — modifier of .el-variant.primary",
+    "example": "<div class=\"el-variant primary selected\">…</div>"
   },
   {
-    "class": ".el-variants[data-variant=\"themed\"]",
-    "kind": "variant",
-    "parent": ".el-variants",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: var(--theme-color); border: 1px solid var(--theme-color)",
-    "description": "background: var(--theme-color) — attribute variant of .el-variants",
-    "example": "<div class=\"el-variants\">…</div>"
-  },
-  {
-    "class": ".el-variants[data-variant=\"themed\"].selected",
+    "class": ".el-variant.secondary",
     "kind": "modifier",
-    "parent": ".el-variants[data-variant=\"themed\"]",
+    "parent": ".el-variant",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)",
-    "description": "background: var(--theme-color-alt) — modifier of .el-variants[data-variant=\"themed\"]",
-    "example": "<div class=\"el-variants selected\">…</div>"
+    "property": "background-color: var(--bg-panel); border: 1px solid var(--border-subtle)",
+    "description": "background-color: var(--bg-panel) — modifier of .el-variant",
+    "example": "<div class=\"el-variant secondary\">…</div>"
   },
   {
-    "class": ".el-variants[data-variant=\"outline\"]",
-    "kind": "variant",
-    "parent": ".el-variants",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)",
-    "description": "background: transparent — attribute variant of .el-variants",
-    "example": "<div class=\"el-variants\">…</div>"
-  },
-  {
-    "class": ".el-variants[data-variant=\"outline\"].selected",
+    "class": ".el-variant.secondary.selected",
     "kind": "modifier",
-    "parent": ".el-variants[data-variant=\"outline\"]",
+    "parent": ".el-variant.secondary",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)",
-    "description": "color: var(--text-primary) — modifier of .el-variants[data-variant=\"outline\"]",
-    "example": "<div class=\"el-variants selected\">…</div>"
+    "property": "background-color: var(--state-selected); border: 1px solid var(--border)",
+    "description": "background-color: var(--state-selected) — modifier of .el-variant.secondary",
+    "example": "<div class=\"el-variant secondary selected\">…</div>"
   },
   {
-    "class": ".el-variants[data-variant=\"ghost\"]",
-    "kind": "variant",
-    "parent": ".el-variants",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: transparent; border: none",
-    "description": "background: transparent — attribute variant of .el-variants",
-    "example": "<div class=\"el-variants\">…</div>"
-  },
-  {
-    "class": ".el-variants[data-variant=\"link\"]",
-    "kind": "variant",
-    "parent": ".el-variants",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: transparent; border: none; text-decoration: none",
-    "description": "background: transparent — attribute variant of .el-variants",
-    "example": "<div class=\"el-variants\">…</div>"
-  },
-  {
-    "class": ".el-variants[data-variant=\"icon\"]",
-    "kind": "variant",
-    "parent": ".el-variants",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: none; border: none",
-    "description": "background: none — attribute variant of .el-variants",
-    "example": "<div class=\"el-variants\">…</div>"
-  },
-  {
-    "class": ".el-variants[data-variant=\"icon\"].selected",
+    "class": ".el-variant.themed",
     "kind": "modifier",
-    "parent": ".el-variants[data-variant=\"icon\"]",
+    "parent": ".el-variant",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)",
-    "description": "color: var(--text-primary) — modifier of .el-variants[data-variant=\"icon\"]",
-    "example": "<div class=\"el-variants selected\">…</div>"
+    "property": "background-color: var(--theme-color); border: 1px solid var(--theme-color)",
+    "description": "background-color: var(--theme-color) — modifier of .el-variant",
+    "example": "<div class=\"el-variant themed\">…</div>"
+  },
+  {
+    "class": ".el-variant.themed.selected",
+    "kind": "modifier",
+    "parent": ".el-variant.themed",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)",
+    "description": "background-color: var(--theme-color-alt) — modifier of .el-variant.themed",
+    "example": "<div class=\"el-variant themed selected\">…</div>"
+  },
+  {
+    "class": ".el-variant.outline",
+    "kind": "modifier",
+    "parent": ".el-variant",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)",
+    "description": "background-color: transparent — modifier of .el-variant",
+    "example": "<div class=\"el-variant outline\">…</div>"
+  },
+  {
+    "class": ".el-variant.outline.selected",
+    "kind": "modifier",
+    "parent": ".el-variant.outline",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "color: var(--text-primary); background-color: var(--state-selected); border: 1px solid var(--border)",
+    "description": "color: var(--text-primary) — modifier of .el-variant.outline",
+    "example": "<div class=\"el-variant outline selected\">…</div>"
+  },
+  {
+    "class": ".el-variant.ghost",
+    "kind": "modifier",
+    "parent": ".el-variant",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: transparent; border: none",
+    "description": "background-color: transparent — modifier of .el-variant",
+    "example": "<div class=\"el-variant ghost\">…</div>"
+  },
+  {
+    "class": ".el-variant.link",
+    "kind": "modifier",
+    "parent": ".el-variant",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: transparent; border: none; text-decoration: none",
+    "description": "background-color: transparent — modifier of .el-variant",
+    "example": "<div class=\"el-variant link\">…</div>"
+  },
+  {
+    "class": ".el-variant.icon",
+    "kind": "modifier",
+    "parent": ".el-variant",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--bg-extra); border: none; color: var(--text-primary)",
+    "description": "background-color: var(--bg-extra) — modifier of .el-variant",
+    "example": "<div class=\"el-variant icon\">…</div>"
+  },
+  {
+    "class": ".el-variant.icon.selected",
+    "kind": "modifier",
+    "parent": ".el-variant.icon",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--state-selected)",
+    "description": "background-color: var(--state-selected) — modifier of .el-variant.icon",
+    "example": "<div class=\"el-variant icon selected\">…</div>"
+  },
+  {
+    "class": ".el-variant.icon-ghost",
+    "kind": "modifier",
+    "parent": ".el-variant",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: none; border: none; color: var(--text-secondary)",
+    "description": "background-color: none — modifier of .el-variant",
+    "example": "<div class=\"el-variant icon-ghost\">…</div>"
+  },
+  {
+    "class": ".el-variant.icon-ghost.selected",
+    "kind": "modifier",
+    "parent": ".el-variant.icon-ghost",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "color: var(--text-primary); background-color: var(--state-selected)",
+    "description": "color: var(--text-primary) — modifier of .el-variant.icon-ghost",
+    "example": "<div class=\"el-variant icon-ghost selected\">…</div>"
+  },
+  {
+    "class": ".el-variant.danger",
+    "kind": "modifier",
+    "parent": ".el-variant",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--danger); color: #FFFFFF; border: none",
+    "description": "background-color: var(--danger) — modifier of .el-variant",
+    "example": "<div class=\"el-variant danger\">…</div>"
+  },
+  {
+    "class": ".el-variant.icon-danger",
+    "kind": "modifier",
+    "parent": ".el-variant",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "color: var(--danger)",
+    "description": "color: var(--danger) — modifier of .el-variant",
+    "example": "<div class=\"el-variant icon-danger\">…</div>"
   },
   {
     "class": ".el-shape",
@@ -4167,54 +4227,54 @@
     "example": "<div class=\"el-shape\">…</div>"
   },
   {
-    "class": ".el-shape[data-shape=\"square\"]",
-    "kind": "variant",
+    "class": ".el-shape.square",
+    "kind": "modifier",
     "parent": ".el-shape",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: 0",
-    "description": "border-radius: 0 — attribute variant of .el-shape",
-    "example": "<div class=\"el-shape\">…</div>"
+    "description": "border-radius: 0 — modifier of .el-shape",
+    "example": "<div class=\"el-shape square\">…</div>"
   },
   {
-    "class": ".el-shape[data-shape=\"min\"]",
-    "kind": "variant",
-    "parent": ".el-shape",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "border-radius: var(--radius-xs)",
-    "description": "border-radius: var(--radius-xs) — attribute variant of .el-shape",
-    "example": "<div class=\"el-shape\">…</div>"
-  },
-  {
-    "class": ".el-shape[data-shape=\"modern\"]",
-    "kind": "variant",
+    "class": ".el-shape.min",
+    "kind": "modifier",
     "parent": ".el-shape",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: var(--radius-sm)",
-    "description": "border-radius: var(--radius-sm) — attribute variant of .el-shape",
-    "example": "<div class=\"el-shape\">…</div>"
+    "description": "border-radius: var(--radius-sm) — modifier of .el-shape",
+    "example": "<div class=\"el-shape min\">…</div>"
   },
   {
-    "class": ".el-shape[data-shape=\"curved\"]",
-    "kind": "variant",
+    "class": ".el-shape.modern",
+    "kind": "modifier",
     "parent": ".el-shape",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: var(--radius-md)",
-    "description": "border-radius: var(--radius-md) — attribute variant of .el-shape",
-    "example": "<div class=\"el-shape\">…</div>"
+    "description": "border-radius: var(--radius-md) — modifier of .el-shape",
+    "example": "<div class=\"el-shape modern\">…</div>"
   },
   {
-    "class": ".el-shape[data-shape=\"round\"]",
-    "kind": "variant",
+    "class": ".el-shape.curved",
+    "kind": "modifier",
+    "parent": ".el-shape",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "border-radius: var(--radius-bs)",
+    "description": "border-radius: var(--radius-bs) — modifier of .el-shape",
+    "example": "<div class=\"el-shape curved\">…</div>"
+  },
+  {
+    "class": ".el-shape.round",
+    "kind": "modifier",
     "parent": ".el-shape",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: 9999px",
-    "description": "border-radius: 9999px — attribute variant of .el-shape",
-    "example": "<div class=\"el-shape\">…</div>"
+    "description": "border-radius: 9999px — modifier of .el-shape",
+    "example": "<div class=\"el-shape round\">…</div>"
   },
   {
     "class": ".el-size",
@@ -4227,234 +4287,94 @@
     "example": "<div class=\"el-size\">…</div>"
   },
   {
-    "class": ".el-size[data-size=\"sm\"]",
-    "kind": "variant",
+    "class": ".el-size.h-sm",
+    "kind": "modifier",
     "parent": ".el-size",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-sm); font-size: var(--text-sm)",
-    "description": "height: var(--height-sm) — attribute variant of .el-size",
-    "example": "<div class=\"el-size\">…</div>"
+    "property": "height: var(--height-sm)",
+    "description": "height: var(--height-sm) — modifier of .el-size",
+    "example": "<div class=\"el-size h-sm\">…</div>"
   },
   {
-    "class": ".el-size[data-size=\"md\"]",
-    "kind": "variant",
+    "class": ".el-size.h-md",
+    "kind": "modifier",
     "parent": ".el-size",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-md); font-size: var(--text-md)",
-    "description": "height: var(--height-md) — attribute variant of .el-size",
-    "example": "<div class=\"el-size\">…</div>"
+    "property": "height: var(--height-md)",
+    "description": "height: var(--height-md) — modifier of .el-size",
+    "example": "<div class=\"el-size h-md\">…</div>"
   },
   {
-    "class": ".el-size[data-size=\"bs\"]",
-    "kind": "variant",
+    "class": ".el-size.h-bs",
+    "kind": "modifier",
     "parent": ".el-size",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-bs); font-size: var(--text-md)",
-    "description": "height: var(--height-bs) — attribute variant of .el-size",
-    "example": "<div class=\"el-size\">…</div>"
+    "property": "height: var(--height-bs)",
+    "description": "height: var(--height-bs) — modifier of .el-size",
+    "example": "<div class=\"el-size h-bs\">…</div>"
   },
   {
-    "class": ".el-size[data-size=\"lg\"]",
-    "kind": "variant",
+    "class": ".el-size.h-lg",
+    "kind": "modifier",
     "parent": ".el-size",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-lg); font-size: var(--text-bs)",
-    "description": "height: var(--height-lg) — attribute variant of .el-size",
-    "example": "<div class=\"el-size\">…</div>"
+    "property": "height: var(--height-lg)",
+    "description": "height: var(--height-lg) — modifier of .el-size",
+    "example": "<div class=\"el-size h-lg\">…</div>"
   },
   {
-    "class": ".el-size[data-size=\"xl\"]",
-    "kind": "variant",
-    "parent": ".el-size",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "height: var(--height-xl); font-size: var(--text-bs)",
-    "description": "height: var(--height-xl) — attribute variant of .el-size",
-    "example": "<div class=\"el-size\">…</div>"
-  },
-  {
-    "class": ".el-pad",
+    "class": ".shadow-hover-sm",
     "kind": "class",
     "parent": null,
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "",
-    "description": ".el-pad rule",
-    "example": "<div class=\"el-pad\">…</div>"
-  },
-  {
-    "class": ".el-pad[data-pad=\"sm\"]",
-    "kind": "variant",
-    "parent": ".el-pad",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "padding: var(--space-xs) var(--space-sm)",
-    "description": "padding: var(--space-xs) var(--space-sm) — attribute variant of .el-pad",
-    "example": "<div class=\"el-pad\">…</div>"
-  },
-  {
-    "class": ".el-pad[data-pad=\"md\"]",
-    "kind": "variant",
-    "parent": ".el-pad",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "padding: var(--space-sm) var(--space-md)",
-    "description": "padding: var(--space-sm) var(--space-md) — attribute variant of .el-pad",
-    "example": "<div class=\"el-pad\">…</div>"
-  },
-  {
-    "class": ".el-pad[data-pad=\"bs\"]",
-    "kind": "variant",
-    "parent": ".el-pad",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "padding: var(--space-md) var(--space-bs)",
-    "description": "padding: var(--space-md) var(--space-bs) — attribute variant of .el-pad",
-    "example": "<div class=\"el-pad\">…</div>"
-  },
-  {
-    "class": ".el-pad[data-pad=\"lg\"]",
-    "kind": "variant",
-    "parent": ".el-pad",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "padding: var(--space-bs)",
-    "description": "padding: var(--space-bs) — attribute variant of .el-pad",
-    "example": "<div class=\"el-pad\">…</div>"
-  },
-  {
-    "class": ".el-pad[data-pad=\"xl\"]",
-    "kind": "variant",
-    "parent": ".el-pad",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "padding: var(--space-lg)",
-    "description": "padding: var(--space-lg) — attribute variant of .el-pad",
-    "example": "<div class=\"el-pad\">…</div>"
-  },
-  {
-    "class": ".el-shadow",
-    "kind": "class",
-    "parent": null,
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "",
-    "description": ".el-shadow rule",
-    "example": "<div class=\"el-shadow\">…</div>"
-  },
-  {
-    "class": ".el-shadow[data-shadow=\"sm\"]",
-    "kind": "variant",
-    "parent": ".el-shadow",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "box-shadow: var(--shadow-sm)",
-    "description": "box-shadow: var(--shadow-sm) — attribute variant of .el-shadow",
-    "example": "<div class=\"el-shadow\">…</div>"
+    "description": "box-shadow: var(--shadow-sm)",
+    "example": "<div class=\"shadow-hover-sm\">…</div>"
   },
   {
-    "class": ".el-shadow[data-shadow=\"bs\"]",
-    "kind": "variant",
-    "parent": ".el-shadow",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "box-shadow: var(--shadow-bs)",
-    "description": "box-shadow: var(--shadow-bs) — attribute variant of .el-shadow",
-    "example": "<div class=\"el-shadow\">…</div>"
-  },
-  {
-    "class": ".el-shadow[data-shadow=\"lg\"]",
-    "kind": "variant",
-    "parent": ".el-shadow",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "box-shadow: var(--shadow-lg)",
-    "description": "box-shadow: var(--shadow-lg) — attribute variant of .el-shadow",
-    "example": "<div class=\"el-shadow\">…</div>"
-  },
-  {
-    "class": ".el-shadow[data-shadow=\"xl\"]",
-    "kind": "variant",
-    "parent": ".el-shadow",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "box-shadow: var(--shadow-xl)",
-    "description": "box-shadow: var(--shadow-xl) — attribute variant of .el-shadow",
-    "example": "<div class=\"el-shadow\">…</div>"
-  },
-  {
-    "class": ".el-shadow[data-shadow=\"2xl\"]",
-    "kind": "variant",
-    "parent": ".el-shadow",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "box-shadow: var(--shadow-2xl)",
-    "description": "box-shadow: var(--shadow-2xl) — attribute variant of .el-shadow",
-    "example": "<div class=\"el-shadow\">…</div>"
-  },
-  {
-    "class": ".el-shadow-hover",
+    "class": ".shadow-hover-bs",
     "kind": "class",
     "parent": null,
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "",
-    "description": ".el-shadow-hover rule",
-    "example": "<div class=\"el-shadow-hover\">…</div>"
-  },
-  {
-    "class": ".el-shadow-hover[data-shadow=\"sm\"]",
-    "kind": "variant",
-    "parent": ".el-shadow-hover",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "box-shadow: var(--shadow-sm)",
-    "description": "box-shadow: var(--shadow-sm) — attribute variant of .el-shadow-hover",
-    "example": "<div class=\"el-shadow-hover\">…</div>"
-  },
-  {
-    "class": ".el-shadow-hover[data-shadow=\"bs\"]",
-    "kind": "variant",
-    "parent": ".el-shadow-hover",
-    "file": "_10_propped.sass",
-    "layer": "L6",
     "property": "box-shadow: var(--shadow-bs)",
-    "description": "box-shadow: var(--shadow-bs) — attribute variant of .el-shadow-hover",
-    "example": "<div class=\"el-shadow-hover\">…</div>"
+    "description": "box-shadow: var(--shadow-bs)",
+    "example": "<div class=\"shadow-hover-bs\">…</div>"
   },
   {
-    "class": ".el-shadow-hover[data-shadow=\"lg\"]",
-    "kind": "variant",
-    "parent": ".el-shadow-hover",
+    "class": ".shadow-hover-lg",
+    "kind": "class",
+    "parent": null,
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "box-shadow: var(--shadow-lg)",
-    "description": "box-shadow: var(--shadow-lg) — attribute variant of .el-shadow-hover",
-    "example": "<div class=\"el-shadow-hover\">…</div>"
+    "description": "box-shadow: var(--shadow-lg)",
+    "example": "<div class=\"shadow-hover-lg\">…</div>"
   },
   {
-    "class": ".el-shadow-hover[data-shadow=\"xl\"]",
-    "kind": "variant",
-    "parent": ".el-shadow-hover",
+    "class": ".shadow-hover-xl",
+    "kind": "class",
+    "parent": null,
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "box-shadow: var(--shadow-xl)",
-    "description": "box-shadow: var(--shadow-xl) — attribute variant of .el-shadow-hover",
-    "example": "<div class=\"el-shadow-hover\">…</div>"
+    "description": "box-shadow: var(--shadow-xl)",
+    "example": "<div class=\"shadow-hover-xl\">…</div>"
   },
   {
-    "class": ".el-shadow-hover[data-shadow=\"2xl\"]",
-    "kind": "variant",
-    "parent": ".el-shadow-hover",
+    "class": ".shadow-hover-2xl",
+    "kind": "class",
+    "parent": null,
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "box-shadow: var(--shadow-2xl)",
-    "description": "box-shadow: var(--shadow-2xl) — attribute variant of .el-shadow-hover",
-    "example": "<div class=\"el-shadow-hover\">…</div>"
+    "description": "box-shadow: var(--shadow-2xl)",
+    "example": "<div class=\"shadow-hover-2xl\">…</div>"
   },
   {
     "class": ".el-vss",
@@ -4467,203 +4387,263 @@
     "example": "<div class=\"el-vss\">…</div>"
   },
   {
-    "class": ".el-vss[data-variant=\"primary\"]",
-    "kind": "variant",
-    "parent": ".el-vss",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: var(--state-surface); border: 1px solid var(--border)",
-    "description": "background: var(--state-surface) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
-  },
-  {
-    "class": ".el-vss[data-variant=\"primary\"].selected",
+    "class": ".el-vss.primary",
     "kind": "modifier",
-    "parent": ".el-vss[data-variant=\"primary\"]",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: var(--state-selected); border: 1px solid var(--border-strong)",
-    "description": "background: var(--state-selected) — modifier of .el-vss[data-variant=\"primary\"]",
-    "example": "<div class=\"el-vss selected\">…</div>"
-  },
-  {
-    "class": ".el-vss[data-variant=\"secondary\"]",
-    "kind": "variant",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: var(--bg-panel); border: 1px solid var(--border-subtle)",
-    "description": "background: var(--bg-panel) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "background-color: var(--state-surface); border: 1px solid var(--border)",
+    "description": "background-color: var(--state-surface) — modifier of .el-vss",
+    "example": "<div class=\"el-vss primary\">…</div>"
   },
   {
-    "class": ".el-vss[data-variant=\"secondary\"].selected",
+    "class": ".el-vss.primary.selected",
     "kind": "modifier",
-    "parent": ".el-vss[data-variant=\"secondary\"]",
+    "parent": ".el-vss.primary",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: var(--state-selected); border: 1px solid var(--border)",
-    "description": "background: var(--state-selected) — modifier of .el-vss[data-variant=\"secondary\"]",
-    "example": "<div class=\"el-vss selected\">…</div>"
+    "property": "background-color: var(--state-selected); border: 1px solid var(--border-strong)",
+    "description": "background-color: var(--state-selected) — modifier of .el-vss.primary",
+    "example": "<div class=\"el-vss primary selected\">…</div>"
   },
   {
-    "class": ".el-vss[data-variant=\"themed\"]",
-    "kind": "variant",
-    "parent": ".el-vss",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: var(--theme-color); border: 1px solid var(--theme-color)",
-    "description": "background: var(--theme-color) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
-  },
-  {
-    "class": ".el-vss[data-variant=\"themed\"].selected",
+    "class": ".el-vss.secondary",
     "kind": "modifier",
-    "parent": ".el-vss[data-variant=\"themed\"]",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "background: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)",
-    "description": "background: var(--theme-color-alt) — modifier of .el-vss[data-variant=\"themed\"]",
-    "example": "<div class=\"el-vss selected\">…</div>"
-  },
-  {
-    "class": ".el-vss[data-variant=\"outline\"]",
-    "kind": "variant",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)",
-    "description": "background: transparent — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "background-color: var(--bg-panel); border: 1px solid var(--border-subtle)",
+    "description": "background-color: var(--bg-panel) — modifier of .el-vss",
+    "example": "<div class=\"el-vss secondary\">…</div>"
   },
   {
-    "class": ".el-vss[data-variant=\"outline\"].selected",
+    "class": ".el-vss.secondary.selected",
     "kind": "modifier",
-    "parent": ".el-vss[data-variant=\"outline\"]",
+    "parent": ".el-vss.secondary",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "color: var(--text-primary); background: var(--state-selected); border: 1px solid var(--border)",
-    "description": "color: var(--text-primary) — modifier of .el-vss[data-variant=\"outline\"]",
-    "example": "<div class=\"el-vss selected\">…</div>"
+    "property": "background-color: var(--state-selected); border: 1px solid var(--border)",
+    "description": "background-color: var(--state-selected) — modifier of .el-vss.secondary",
+    "example": "<div class=\"el-vss secondary selected\">…</div>"
   },
   {
-    "class": ".el-vss[data-variant=\"ghost\"]",
-    "kind": "variant",
+    "class": ".el-vss.themed",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: transparent; border: none",
-    "description": "background: transparent — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "background-color: var(--theme-color); border: 1px solid var(--theme-color)",
+    "description": "background-color: var(--theme-color) — modifier of .el-vss",
+    "example": "<div class=\"el-vss themed\">…</div>"
   },
   {
-    "class": ".el-vss[data-variant=\"link\"]",
-    "kind": "variant",
+    "class": ".el-vss.themed.selected",
+    "kind": "modifier",
+    "parent": ".el-vss.themed",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--theme-color-alt); border: 1px solid var(--theme-color-alt)",
+    "description": "background-color: var(--theme-color-alt) — modifier of .el-vss.themed",
+    "example": "<div class=\"el-vss themed selected\">…</div>"
+  },
+  {
+    "class": ".el-vss.outline",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "background: transparent; border: none; text-decoration: none",
-    "description": "background: transparent — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "background-color: transparent; color: var(--text-primary); border: 1px solid var(--text-primary)",
+    "description": "background-color: transparent — modifier of .el-vss",
+    "example": "<div class=\"el-vss outline\">…</div>"
   },
   {
-    "class": ".el-vss[data-shape=\"square\"]",
-    "kind": "variant",
+    "class": ".el-vss.outline.selected",
+    "kind": "modifier",
+    "parent": ".el-vss.outline",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "color: var(--text-primary); background-color: var(--state-selected); border: 1px solid var(--border)",
+    "description": "color: var(--text-primary) — modifier of .el-vss.outline",
+    "example": "<div class=\"el-vss outline selected\">…</div>"
+  },
+  {
+    "class": ".el-vss.ghost",
+    "kind": "modifier",
+    "parent": ".el-vss",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: transparent; border: none",
+    "description": "background-color: transparent — modifier of .el-vss",
+    "example": "<div class=\"el-vss ghost\">…</div>"
+  },
+  {
+    "class": ".el-vss.link",
+    "kind": "modifier",
+    "parent": ".el-vss",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: transparent; border: none; text-decoration: none",
+    "description": "background-color: transparent — modifier of .el-vss",
+    "example": "<div class=\"el-vss link\">…</div>"
+  },
+  {
+    "class": ".el-vss.icon",
+    "kind": "modifier",
+    "parent": ".el-vss",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--bg-extra); border: none; color: var(--text-primary)",
+    "description": "background-color: var(--bg-extra) — modifier of .el-vss",
+    "example": "<div class=\"el-vss icon\">…</div>"
+  },
+  {
+    "class": ".el-vss.icon.selected",
+    "kind": "modifier",
+    "parent": ".el-vss.icon",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--state-selected)",
+    "description": "background-color: var(--state-selected) — modifier of .el-vss.icon",
+    "example": "<div class=\"el-vss icon selected\">…</div>"
+  },
+  {
+    "class": ".el-vss.icon-ghost",
+    "kind": "modifier",
+    "parent": ".el-vss",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: none; border: none; color: var(--text-secondary)",
+    "description": "background-color: none — modifier of .el-vss",
+    "example": "<div class=\"el-vss icon-ghost\">…</div>"
+  },
+  {
+    "class": ".el-vss.icon-ghost.selected",
+    "kind": "modifier",
+    "parent": ".el-vss.icon-ghost",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "color: var(--text-primary); background-color: var(--state-selected)",
+    "description": "color: var(--text-primary) — modifier of .el-vss.icon-ghost",
+    "example": "<div class=\"el-vss icon-ghost selected\">…</div>"
+  },
+  {
+    "class": ".el-vss.danger",
+    "kind": "modifier",
+    "parent": ".el-vss",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "background-color: var(--danger); color: #FFFFFF; border: none",
+    "description": "background-color: var(--danger) — modifier of .el-vss",
+    "example": "<div class=\"el-vss danger\">…</div>"
+  },
+  {
+    "class": ".el-vss.icon-danger",
+    "kind": "modifier",
+    "parent": ".el-vss",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "color: var(--danger)",
+    "description": "color: var(--danger) — modifier of .el-vss",
+    "example": "<div class=\"el-vss icon-danger\">…</div>"
+  },
+  {
+    "class": ".el-vss.square",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: 0",
-    "description": "border-radius: 0 — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "description": "border-radius: 0 — modifier of .el-vss",
+    "example": "<div class=\"el-vss square\">…</div>"
   },
   {
-    "class": ".el-vss[data-shape=\"min\"]",
-    "kind": "variant",
-    "parent": ".el-vss",
-    "file": "_10_propped.sass",
-    "layer": "L6",
-    "property": "border-radius: var(--radius-xs)",
-    "description": "border-radius: var(--radius-xs) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
-  },
-  {
-    "class": ".el-vss[data-shape=\"modern\"]",
-    "kind": "variant",
+    "class": ".el-vss.min",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: var(--radius-sm)",
-    "description": "border-radius: var(--radius-sm) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "description": "border-radius: var(--radius-sm) — modifier of .el-vss",
+    "example": "<div class=\"el-vss min\">…</div>"
   },
   {
-    "class": ".el-vss[data-shape=\"curved\"]",
-    "kind": "variant",
+    "class": ".el-vss.modern",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: var(--radius-md)",
-    "description": "border-radius: var(--radius-md) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "description": "border-radius: var(--radius-md) — modifier of .el-vss",
+    "example": "<div class=\"el-vss modern\">…</div>"
   },
   {
-    "class": ".el-vss[data-shape=\"round\"]",
-    "kind": "variant",
+    "class": ".el-vss.curved",
+    "kind": "modifier",
+    "parent": ".el-vss",
+    "file": "_10_propped.sass",
+    "layer": "L6",
+    "property": "border-radius: var(--radius-bs)",
+    "description": "border-radius: var(--radius-bs) — modifier of .el-vss",
+    "example": "<div class=\"el-vss curved\">…</div>"
+  },
+  {
+    "class": ".el-vss.round",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
     "property": "border-radius: 9999px",
-    "description": "border-radius: 9999px — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "description": "border-radius: 9999px — modifier of .el-vss",
+    "example": "<div class=\"el-vss round\">…</div>"
   },
   {
-    "class": ".el-vss[data-size=\"sm\"]",
-    "kind": "variant",
+    "class": ".el-vss.h-sm",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-sm); font-size: var(--text-sm)",
-    "description": "height: var(--height-sm) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "height: var(--height-sm)",
+    "description": "height: var(--height-sm) — modifier of .el-vss",
+    "example": "<div class=\"el-vss h-sm\">…</div>"
   },
   {
-    "class": ".el-vss[data-size=\"md\"]",
-    "kind": "variant",
+    "class": ".el-vss.h-md",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-md); font-size: var(--text-md)",
-    "description": "height: var(--height-md) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "height: var(--height-md)",
+    "description": "height: var(--height-md) — modifier of .el-vss",
+    "example": "<div class=\"el-vss h-md\">…</div>"
   },
   {
-    "class": ".el-vss[data-size=\"bs\"]",
-    "kind": "variant",
+    "class": ".el-vss.h-bs",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-bs); font-size: var(--text-md)",
-    "description": "height: var(--height-bs) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "height: var(--height-bs)",
+    "description": "height: var(--height-bs) — modifier of .el-vss",
+    "example": "<div class=\"el-vss h-bs\">…</div>"
   },
   {
-    "class": ".el-vss[data-size=\"lg\"]",
-    "kind": "variant",
+    "class": ".el-vss.h-lg",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-lg); font-size: var(--text-bs)",
-    "description": "height: var(--height-lg) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "height: var(--height-lg)",
+    "description": "height: var(--height-lg) — modifier of .el-vss",
+    "example": "<div class=\"el-vss h-lg\">…</div>"
   },
   {
-    "class": ".el-vss[data-size=\"xl\"]",
-    "kind": "variant",
+    "class": ".el-vss.h-xl",
+    "kind": "modifier",
     "parent": ".el-vss",
     "file": "_10_propped.sass",
     "layer": "L6",
-    "property": "height: var(--height-xl); font-size: var(--text-bs)",
-    "description": "height: var(--height-xl) — attribute variant of .el-vss",
-    "example": "<div class=\"el-vss\">…</div>"
+    "property": "height: var(--height-xl)",
+    "description": "height: var(--height-xl) — modifier of .el-vss",
+    "example": "<div class=\"el-vss h-xl\">…</div>"
   }
 ]
