@@ -2,6 +2,7 @@
 	&.primary
 		background-color: var(--state-surface)
 		border: 1px solid var(--border)
+		padding-inline: 0.75rem
 		&:hover
 			background-color: var(--state-hover)
 		&.selected
@@ -27,7 +28,7 @@
 	&.outline
 		background-color: transparent
 		color: var(--text-primary)
-		border: 1px solid var(--text-primary)
+		border: 1px solid var(--border-subtle)
 		&:hover
 			color: var(--theme-color)
 			border: 1px solid var(--theme-color)
@@ -77,13 +78,13 @@
 	&.square
 		border-radius: 0
 	&.min
-		border-radius: var(--radius-sm)
+		border-radius: 2px
 	&.modern
-		border-radius: var(--radius-md)
+		border-radius: 4px
 	&.curved
-		border-radius: var(--radius-bs)
+		border-radius: 8px
 	&.round
-		border-radius: 9999px
+		border-radius: 16px
 
 .el-size
 	&.h-sm
@@ -94,7 +95,7 @@
 		height: var(--height-bs)
 	&.h-lg
 		height: var(--height-lg)
-	&.h-lg
+	&.h-xl
 		height: var(--height-xl)
 
 .shadow-sm
@@ -184,7 +185,7 @@
 		&.selected
 			background-color: var(--state-selected)
 	&.icon-ghost
-		background-color: none
+		background-color: transparent
 		border: none
 		color: var(--text-secondary)
 		&:hover
@@ -202,16 +203,17 @@
 		color: var(--danger)
 		&:hover
 			color: var(--danger-hover)
+.el-shape
 	&.square
 		border-radius: 0
 	&.min
-		border-radius: var(--radius-sm)
+		border-radius: 2px
 	&.modern
-		border-radius: var(--radius-md)
+		border-radius: 4px
 	&.curved
-		border-radius: var(--radius-bs)
+		border-radius: 8px
 	&.round
-		border-radius: 9999px
+		border-radius: 16px
 	&.h-sm
 		height: var(--height-sm)
 	&.h-md
