@@ -12,7 +12,7 @@ import {
 	type DataSize,
 	type DataVariant,
 	type DataPad
-} from '$lib/types.js';
+} from '#lib/types.js';
 
 const STORAGE_KEY = 'fractalstyler:presets';
 

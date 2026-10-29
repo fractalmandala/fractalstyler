@@ -1,16 +1,23 @@
+button
+	transition: background var(--motionin1), border-color var(--motionin1), color var(--motionin1), transform var(--motion1)
+	font-family: var(--font-sans)
+	&:active
+		transform: scale(1.04)
+
 .el-variant
 	&.primary
-		background-color: var(--state-surface)
-		border: 1px solid var(--border)
-		padding-inline: 0.75rem
+		background-color: var(--bg-button)
+		border: 1px solid var(--bg-button)
+		color: var(--white-fixed)
 		&:hover
 			background-color: var(--state-hover)
+			border: 1px solid var(--state-hover)
 		&.selected
 			background-color: var(--state-selected)
-			border: 1px solid var(--border-strong)
+			border: 1px solid var(--state-selected)
 	&.secondary
 		background-color: var(--bg-panel)
-		border: 1px solid var(--border-subtle)
+		border: 1px solid var(--border-strong)
 		&:hover
 			border: 1px solid var(--border)
 		&.selected
@@ -19,6 +26,7 @@
 	&.themed
 		background-color: var(--theme-color)
 		border: 1px solid var(--theme-color)
+		color: var(--white-fixed)
 		&:hover
 			background-color: var(--theme-color-sub)
 			border: 1px solid var(--theme-color-sub)
@@ -28,199 +36,255 @@
 	&.outline
 		background-color: transparent
 		color: var(--text-primary)
-		border: 1px solid var(--border-subtle)
+		border: 1px solid var(--border-strong)
 		&:hover
 			color: var(--theme-color)
 			border: 1px solid var(--theme-color)
 		&.selected
 			color: var(--text-primary)
 			background-color: var(--state-selected)
-			border: 1px solid var(--border)
+			border: 1px solid var(--border-strong)
 	&.ghost
 		background-color: transparent
 		border: none
+		&:hover
+			background-color: var(--state-hover)
+			color: var(--white-fixed)
+		&:selected
+			background-color: var(--state-selected)
+			color: var(--white-fixed)
 	&.link
 		background-color: transparent
 		border: none
 		text-decoration: none
+		text-decoration-color: var(--theme-color)
 		&:hover
-			border: 1px solid var(--theme-color)
-	&.icon
-		background-color: var(--bg-extra)
-		border: none
-		color: var(--text-primary)
-		&:hover
-			background-color: var(--state-hover)
-		&.selected
-			background-color: var(--state-selected)
-	&.icon-ghost
-		background-color: none
-		border: none
-		color: var(--text-secondary)
-		&:hover
-			color: var(--text-primary)
-		&.selected
-			color: var(--text-primary)
-			background-color: var(--state-selected)
+			text-decoration: underline
+			border: none
+	&.info
+		background-color: var(--info)
+		border: 1px solid var(--info)
+		color: var(--white-fixed)
+	&.success
+		background-color: var(--success)
+		border: 1px solid var(--success)
+		color: var(--white-fixed)
+	&.warning
+		background-color: var(--warning)
+		border: 1px solid var(--warning)
+		color: var(--white-fixed)
 	&.danger
 		background-color: var(--danger)
-		color: #FFFFFF
-		border: none
+		border: 1px solid var(--danger)
+		color: var(--white-fixed)
 		&:hover
 			background-color: var(--danger-hover)
-	&.icon-danger
-		color: var(--danger)
-		&:hover
-			color: var(--danger-hover)
-
+			border: 1px solid var(--danger-hover)
+	&.icon
+		&.primary
+			background-color: var(--bg-button)
+			border: 1px solid var(--bg-button)
+			padding-inline: 0
+			padding-block: 0
+			&:hover
+				background-color: var(--state-hover)
+				border: 1px solid var(--state-hover)
+			&.selected
+				background-color: var(--state-selected)
+				border: 1px solid var(--state-selected)
+		&.secondary
+			background-color: var(--bg-panel)
+			border: 1px solid var(--border-subtle)
+			&:hover
+				border: 1px solid var(--border)
+			&.selected
+				background-color: var(--state-selected)
+				border: 1px solid var(--border)
+		&.themed
+			background-color: var(--theme-color)
+			border: 1px solid var(--theme-color)
+			&:hover
+				background-color: var(--theme-color-sub)
+				border: 1px solid var(--theme-color-sub)
+			&.selected
+				background-color: var(--theme-color-alt)
+				border: 1px solid var(--theme-color-alt)
+		&.outline
+			background-color: transparent
+			color: var(--text-primary)
+			border: 1px solid var(--border-dark)
+			&:hover
+				color: var(--theme-color)
+				border: 1px solid var(--theme-color)
+			&.selected
+				color: var(--text-primary)
+				background-color: var(--state-selected)
+				border: 1px solid var(--border-dark)
+		&.ghost
+			background-color: transparent
+			border: none
+			&:hover
+				background-color: var(--state-hover)
+			&:selected
+				background-color: var(--state-selected)
+		&.link
+			background-color: transparent
+			border: none
+			text-decoration: none
+			text-decoration-color: var(--theme-color)
+			&:hover
+				text-decoration: underline
 		
+.btn-icon
+	// icon only: always a square, width = the h-* size
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	flex-shrink: 0
+	aspect-ratio: 1
+	&.el-size
+		padding: 0
+		&.h-sm
+			width: var(--height-sm)
+		&.h-md
+			width: var(--height-md)
+		&.h-bs
+			width: var(--height-bs)
+		&.h-lg
+			width: var(--height-lg)
+		&.h-xl
+			width: var(--height-xl)
+	&.primary
+		background-color: var(--bg-button)
+		border: 1px solid var(--bg-button)
+		color: var(--white-fixed)
+		&:hover
+			background-color: var(--state-hover)
+			border: 1px solid var(--state-hover)
+		&.selected
+			background-color: var(--state-selected)
+			border: 1px solid var(--state-selected)
+	&.secondary
+		background-color: var(--bg-panel)
+		border: 1px solid var(--border-strong)
+		&:hover
+			border: 1px solid var(--border)
+		&.selected
+			background-color: var(--state-selected)
+			border: 1px solid var(--border)
+	&.themed
+		background-color: var(--theme-color)
+		border: 1px solid var(--theme-color)
+		color: var(--white-fixed)
+		&:hover
+			background-color: var(--theme-color-sub)
+			border: 1px solid var(--theme-color-sub)
+		&.selected
+			background-color: var(--theme-color-alt)
+			border: 1px solid var(--theme-color-alt)
+	&.outline
+		background-color: transparent
+		color: var(--text-primary)
+		border: 1px solid var(--border-strong)
+		&:hover
+			color: var(--theme-color)
+			border: 1px solid var(--theme-color)
+		&.selected
+			color: var(--text-primary)
+			background-color: var(--state-selected)
+			border: 1px solid var(--border-strong)
+	&.ghost
+		background-color: transparent
+		border: none
+		&:hover
+			background-color: var(--state-hover)
+			color: var(--white-fixed)
+		&:selected
+			background-color: var(--state-selected)
+			color: var(--white-fixed)
+	&.link
+		background-color: transparent
+		border: none
+		text-decoration: none
+		text-decoration-color: var(--theme-color)
+		&:hover
+			text-decoration: underline
+			border: none
+
 .el-shape
 	&.square
 		border-radius: 0
 	&.min
-		border-radius: 2px
-	&.modern
 		border-radius: 4px
-	&.curved
+	&.modern
 		border-radius: 8px
-	&.round
+	&.curved
 		border-radius: 16px
+	&.round
+		border-radius: 9999px
 
 .el-size
 	&.h-sm
 		height: var(--height-sm)
+		font-size: var(--text-xs)
 	&.h-md
 		height: var(--height-md)
+		font-size: var(--text-sm)
 	&.h-bs
 		height: var(--height-bs)
+		font-size: var(--text-md)
 	&.h-lg
 		height: var(--height-lg)
+		font-size: var(--text-md)
+		padding-inline: var(--space-bs)
 	&.h-xl
 		height: var(--height-xl)
+		font-size: var(--text-bs)
+		padding-inline: var(--space-lg)
 
-.shadow-sm
+.tint
+	&.info
+		background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel))
+		border-color: color-mix(in srgb, var(--info) 35%, transparent)
+	&.success
+		background-color: color-mix(in srgb, var(--success) 10%, var(--bg-panel))
+		border-color: color-mix(in srgb, var(--success) 35%, transparent)
+	&.warning
+		background-color: color-mix(in srgb, var(--warning) 10%, var(--bg-panel))
+		border-color: color-mix(in srgb, var(--warning) 35%, transparent)
+	&.danger
+		background-color: color-mix(in srgb, var(--danger) 10%, var(--bg-panel))
+		border-color: color-mix(in srgb, var(--danger) 35%, transparent)
+		height: var(--height-xl)
+
+.shad-sm
 	box-shadow: var(--shadow-sm)
-.shadow-bs
+.shad-bs
 	box-shadow: var(--shadow-bs)
-.shadow-lg
+.shad-lg
 	box-shadow: var(--shadow-lg)
-.shadow-xl
+.shad-xl
 	box-shadow: var(--shadow-xl)
-.shadow-2xl
+.shad-2xl
 	box-shadow: var(--shadow-2xl)
 
-.shadow-hover-sm
+.shad-hover-sm
 	box-shadow: var(--shadow-sm)
 	&:hover
 		box-shadow: var(--shadow-xs)
-.shadow-hover-bs
+.shad-hover-bs
 	box-shadow: var(--shadow-bs)
 	&:hover
-		box-shadow: var(--shadow-md)
-.shadow-hover-lg
+		box-shadow: var(--shadow-xs)
+.shad-hover-lg
 	box-shadow: var(--shadow-lg)
 	&:hover
-		box-shadow: var(--shadow-bs)
-.shadow-hover-xl
+		box-shadow: var(--shadow-xs)
+.shad-hover-xl
 	box-shadow: var(--shadow-xl)
 	&:hover
-		box-shadow: var(--shadow-lg)
-.shadow-hover-2xl
+		box-shadow: var(--shadow-xs)
+.shad-hover-2xl
 	box-shadow: var(--shadow-2xl)
 	&:hover
-		box-shadow: var(--shadow-xl)
-
-.el-vss
-	&.primary
-		background-color: var(--state-surface)
-		border: 1px solid var(--border)
-		&:hover
-			background-color: var(--state-hover)
-		&.selected
-			background-color: var(--state-selected)
-			border: 1px solid var(--border-strong)
-	&.secondary
-		background-color: var(--bg-panel)
-		border: 1px solid var(--border-subtle)
-		&:hover
-			border: 1px solid var(--border)
-		&.selected
-			background-color: var(--state-selected)
-			border: 1px solid var(--border)
-	&.themed
-		background-color: var(--theme-color)
-		border: 1px solid var(--theme-color)
-		&:hover
-			background-color: var(--theme-color-sub)
-			border: 1px solid var(--theme-color-sub)
-		&.selected
-			background-color: var(--theme-color-alt)
-			border: 1px solid var(--theme-color-alt)
-	&.outline
-		background-color: transparent
-		color: var(--text-primary)
-		border: 1px solid var(--text-primary)
-		&:hover
-			color: var(--theme-color)
-			border: 1px solid var(--theme-color)
-		&.selected
-			color: var(--text-primary)
-			background-color: var(--state-selected)
-			border: 1px solid var(--border)
-	&.ghost
-		background-color: transparent
-		border: none
-	&.link
-		background-color: transparent
-		border: none
-		text-decoration: none
-		&:hover
-			border: 1px solid var(--theme-color)
-	&.icon
-		background-color: var(--bg-extra)
-		border: none
-		color: var(--text-primary)
-		&:hover
-			background-color: var(--state-hover)
-		&.selected
-			background-color: var(--state-selected)
-	&.icon-ghost
-		background-color: transparent
-		border: none
-		color: var(--text-secondary)
-		&:hover
-			color: var(--text-primary)
-		&.selected
-			color: var(--text-primary)
-			background-color: var(--state-selected)
-	&.danger
-		background-color: var(--danger)
-		color: #FFFFFF
-		border: none
-		&:hover
-			background-color: var(--danger-hover)
-	&.icon-danger
-		color: var(--danger)
-		&:hover
-			color: var(--danger-hover)
-.el-shape
-	&.square
-		border-radius: 0
-	&.min
-		border-radius: 2px
-	&.modern
-		border-radius: 4px
-	&.curved
-		border-radius: 8px
-	&.round
-		border-radius: 16px
-	&.h-sm
-		height: var(--height-sm)
-	&.h-md
-		height: var(--height-md)
-	&.h-bs
-		height: var(--height-bs)
-	&.h-lg
-		height: var(--height-lg)
-	&.h-xl
-		height: var(--height-xl)
+		box-shadow: var(--shadow-xs)

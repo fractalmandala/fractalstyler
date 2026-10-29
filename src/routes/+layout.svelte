@@ -1,6 +1,6 @@
 <script lang="ts">
 
-	import '$lib/styles/index.sass'
+	import '#lib/styles/index.sass'
 	let { children } = $props();
 
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { SHAPES, SIZES, PADS, VARIANTS } from '$lib/types.js';
-	import { presetState } from '$lib/presets.svelte.js';
+	import { SHAPES, SIZES, PADS, VARIANTS } from '#lib/types.js';
+	import { presetState } from '#lib/presets.svelte.js';
 
 	onMount(() => presetState.init());
 </script>
