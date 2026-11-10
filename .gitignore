@@ -12,13 +12,8 @@ fractalstyler-vscode/node_modules
 fractalstyler-vscode/.vscode
 fractalstyler-vscode/media
 
-# Compiled Node runtime — emitted next to the .mts/.ts sources by
-# `pnpm build:runtime` (tsconfig.runtime.json); shipped via package.json `files`
-/cli/*.mjs
-/lint/**/*.mjs
-/mcp/*.mjs
-/scripts/update-registry.js
-/scripts/class-vocab.js
+# There is no compiled runtime to ignore: the package ships TypeScript, and
+# the three .mjs files are the launchers the bins use to run it.
 
 # OS
 .DS_Store
@@ -40,3 +35,29 @@ vite.config.ts.timestamp-*
 .claude
 .vscode
 reserve
+.research/checkpoints/
+.research/cache/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.brf
+*.dvi
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*-SAVE-ERROR

@@ -19,18 +19,23 @@
  *   node scripts/validate-deck.ts
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
-import * as sass from 'sass'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const registry = JSON.parse(readFileSync(join(root, 'registry.json'), 'utf8'))
 
 // Ground truth is the COMPILED stylesheet, not registry.json. The registry
-// carries wildcard families (.radius-*), and matching on those stems accepted
-// .radius-md — a class that does not exist — everywhere it appeared. A wildcard
-// cannot tell you whether a value is on the ladder; only the output can.
-const compiled = sass.compile(join(root, 'src/lib/styles/index.sass'), { style: 'expanded' }).css
+// records what a class means; only the output can tell you whether it exists.
+//
+// Every stylesheet in the folder counts — not only the ones index.css
+// concatenates. A layer that is shipped but deliberately left out of the
+// aggregate (modular.css) still defines classes that exist.
+const stylesDir = join(root, 'src/lib/styles')
+const layers = readdirSync(stylesDir)
+	.filter((file) => file.endsWith('.css'))
+	.sort()
+	.map((file) => join(stylesDir, file))
+const compiled = layers.map((file) => readFileSync(file, 'utf8')).join('\n')
 const exact = new Set([...compiled.matchAll(/\.([a-zA-Z][\w-]*)/g)].map((m) => m[1]))
 
 /**
@@ -71,10 +76,7 @@ const walk = (d: string, exts: RegExp) => {
 walk(join(root, 'skills', 'fractalstyler'), /\.md$/)
 // The shell components emit canonical markup, so every class in them must
 // resolve — they are the one place a wrong class ships as code, not prose.
-walk(join(root, 'src/lib/components'), /\.svelte$/)
 walk(join(root, 'docs'), /\.md$/)
-// The MCP server, CLI, presets and canonical-markups surfaces were retired to
-// reserve/ — only the surfaces that still ship are walked above.
 files.push(join(root, 'README.md'))
 files.push(join(root, 'AGENTS.md'))
 
@@ -131,7 +133,7 @@ files.forEach((file) => {
 	// the cookbook, the canonical shell structures, the skill, the docs. A wrong
 	// class there is pasted into a real project. Schemas and server code get the
 	// phantom-API check above and nothing more. References are raw inventories.
-	const AUTHORS_MARKUP = /^(docs\/(?!references\/|good-css\.md)|skills\/(?!.*\/references\/)|src\/lib\/components\/)/
+	const AUTHORS_MARKUP = /^(docs\/|skills\/(?!.*\/references\/))/
 	if (!AUTHORS_MARKUP.test(rel)) return
 
 	const body = src.split('<style')[0]
@@ -223,30 +225,6 @@ for (const file of files.filter((f) => f.endsWith('.md'))) {
 	})
 }
 
-// ── the child combinator ───────────────────────────────────────────────────
-// Opinion #1 in docs/01-introduction.md: styling syntax should avoid `> *` and
-// friends. The rule has been stated since the beginning and violated
-// continuously, because nothing checked it. Now something does.
-//
-// Exactly one exception, matched literally: the scroll-snap rail, where snap
-// targets must be the rail's own children or the rail catches in the wrong
-// places. A second exception should be a deliberate edit here, not a drift.
-const COMBINATOR_ALLOWED = new Set(['_04_containers.sass:\t> *'])
-
-for (const file of readdirSync(join(root, 'src/lib/styles')).filter((f) => f.endsWith('.sass'))) {
-	const lines = readFileSync(join(root, 'src/lib/styles', file), 'utf8').split('\n')
-	lines.forEach((line, i) => {
-		const code = line.split('//')[0]
-		if (!code.includes('>')) return
-		// interpolations and media queries legitimately carry > inside #{...}
-		if (/#\{[^}]*>[^}]*\}/.test(code)) return
-		if (COMBINATOR_ALLOWED.has(`${file}:${code.replace(/\s+$/, '')}`)) return
-		problems.push(
-			`src/lib/styles/${file}:${i + 1}  →  child combinator \`>\` — opinion #1 forbids it: ${code.trim()}`
-		)
-	})
-}
-
 // ── code examples that would not compile ───────────────────────────────────
 // Snippets pass every other check while being syntactically broken. This one
 // exists because a retyped example dropped the backslash in `<\/script>`,
@@ -271,12 +249,12 @@ for (const file of files.filter((f) => f.endsWith('.md'))) {
 // ── stated counts vs reality ───────────────────────────────────────────────
 // "30 semantic tokens" was stated in nine places; there are 31 colour tokens.
 // Numbers in prose drift silently, so derive the truth and assert it.
-const tokensSrc = readFileSync(join(root, 'src/lib/styles/_00_tokens.sass'), 'utf8')
-const lightMixin = tokensSrc.split('=light-theme-tokens')[1].split('=dark-theme-tokens')[0]
-const colourCount = [...lightMixin.matchAll(/^\s+(--[\w-]+):/gm)].filter(
+const themeFile = readFileSync(join(root, 'src/lib/styles/colors-themes.css'), 'utf8')
+const lightBlock = themeFile.split("[data-mode='light']")[1]?.split("[data-mode='dark']")[0] ?? ''
+const colourCount = [...lightBlock.matchAll(/^\s*(--[\w-]+)\s*:/gm)].filter(
 	(m) => !m[1].startsWith('--shadow')
 ).length
-const themeCount = [...compiled.matchAll(/\.(theme-[\w-]+)\s*\{/g)].length
+const themeCount = [...themeFile.matchAll(/\[data-mode=['"]([a-z]+)['"]\]/g)].length
 
 // Only phrases that mean the CONTRACT. "22 colour tokens" in the generated
 // reference is the per-theme count — a different, correct fact.

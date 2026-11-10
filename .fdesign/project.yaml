@@ -1,0 +1,8 @@
+# instance of /wiki/types/project.type.yaml. Hand-written fields only (D010, D011).
+name: fractalstyler
+description: a lean css composition and styling system
+status: published
+category: [svelte]
+stack: [svelte, typescript, css]
+tool: [ide, explorer]
+gitUrl: https://github.com/fractalmandala/fractalstyler

@@ -1,41 +1,20 @@
-// Single source of truth for Fractalstyler and Fractalsvelte UI props and variants
+// DO NOT EDIT 
 
+import type { Snippet } from 'svelte';
+import type {
+	Axis,
+	Edge,
+	FloatingLayer,
+	LayoutDocument,
+	LayoutSpec,
+	Params,
+	PlacementRegion,
+	Rect
+} from './utils/document.js';
+import type { ViewApi, WorkspaceHandle } from './state/workspace-model.svelte';
 
-export const union = (values: readonly string[]): string =>
-	values.map((v) => `'${v}'`).join(' | ');
-
-// Used inline as `data-variant=`. The set is the one `_10_propped.sass` paints —
-// a variant with no rule is a dead option in every picker.
-export const VARIANTS = [
-	'primary',
-	'secondary',
-	'themed',
-	'outline',
-	'ghost',
-	'link',
-	'icon',
-] as const;
-export type Variant = (typeof VARIANTS)[number];
-
-// inline as `data-size=`
-export const SIZES = ['sm', 'md', 'bs', 'lg', 'xl'] as const;
-export type Size = (typeof SIZES)[number];
-
-// inline as `data-shape=`
-export const SHAPES = ['square', 'min', 'modern', 'curved', 'round'] as const;
-export type Shape = (typeof SHAPES)[number];
-
-// data-intent
-export const INTENTS = ['info', 'success', 'warning', 'danger'] as const;
-export type Intent = (typeof INTENTS)[number];
-
-// data-action
-export const ACTIONS = ['button', 'submit', 'reset'] as const;
-export type Action = (typeof ACTIONS)[number];
-
-// data-orientation
-export const ORIENTATIONS = ['horizontal', 'vertical'] as const;
-export type Orientation = (typeof ORIENTATIONS)[number];
+export type { ViewApi, WorkspaceHandle };
+export type { PlacementRegion };
 
 // data-placements
 export const PLACEMENTS = [
@@ -54,165 +33,329 @@ export const PLACEMENTS = [
 ] as const;
 export type Placement = (typeof PLACEMENTS)[number];
 
-// Alignment options
-export const ALIGNS = ['start', 'center', 'end', 'stretch', 'baseline'] as const;
-export type Align = (typeof ALIGNS)[number];
+export type DropZone = 'left' | 'right' | 'top' | 'bottom' | 'center';
 
-// Justify options
-export const JUSTIFIES = ['start', 'center', 'end', 'between', 'around', 'evenly'] as const;
-export type Justify = (typeof JUSTIFIES)[number];
-
-// Spacing token scale
-export const SPACES = ['none', '3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const;
-export type Space = (typeof SPACES)[number];
-
-// Animation speed presets
-export const SPEEDS = ['fast', 'normal', 'slow'] as const;
-export type Speed = (typeof SPEEDS)[number];
-
-// Shadow presets
-export const SHADOWS = [ 'sm', 'bs', 'lg', 'xl', '2xl' ];
-export type Shadow = (typeof SHADOWS)[number];
-
-// padding
-export const PADS = ["sm", 'md', 'bs', 'lg', 'xl'] as const;
-export type Pad = (typeof PADS)[number];
-
-// The `data-*` aliases the public API has always shipped under.
-export type DataVariant = Variant;
-export type DataSize = Size;
-export type DataShape = Shape;
-export type DataPad = Pad;
-
-// The axes are class-qualified: an element opts into an axis by carrying the
-// matching class from `_10_propped.sass`, and the preset runtime then writes
-// the `data-*` value onto it. The element itself is not the qualifier.
-export const VARIANT_TARGETS = '.el-variants';
-export const SHAPE_TARGETS = '.el-shape';
-export const SIZE_TARGETS = '.el-size';
-export const PAD_TARGETS = '.el-pad';
-
-export const presetApplication = [
-	VARIANT_TARGETS,
-	SHAPE_TARGETS,
-	SIZE_TARGETS,
-	PAD_TARGETS
-] as const;
-
-// Full theme tokens contract
-export interface DesignTokens {
-	// Backgrounds
-	'--bg': string;
-	'--bg-surface': string;
-	'--bg-panel': string;
-	'--bg-sunken': string;
-	'--bg-raised': string;
-	'--bg-extra': string;
-	'--bg-input': string;
-	'--bg-button': string;
-	'--state-surface': string;
-	'--state-hover': string;
-	'--state-selected': string;
-
-	// Typography
-	'--text-primary': string;
-	'--text-secondary': string;
-	'--text-muted': string;
-	'--text-inverse': string;
-
-	// Borders & Rings
-	'--border': string;
-	'--border-subtle': string;
-	'--border-strong': string;
-	'--ring': string;
-
-	// Brand / Primary
-	'--theme-color': string;
-	'--theme-color-alt': string;
-	'--theme-color-sub': string;
-
-	// Semantic Intents
-	'--success': string;
-	'--success-bg': string;
-	'--success-text': string;
-	'--warning': string;
-	'--warning-bg': string;
-	'--warning-text': string;
-	'--danger': string;
-	'--danger-bg': string;
-	'--danger-text': string;
-	'--info': string;
-	'--info-bg': string;
-	'--info-text': string;
-
-	// Corner Radii
-	'--radius-xs': string;
-	'--radius-sm': string;
-	'--radius-md': string;
-	'--radius-bs': string;
-	'--radius-lg': string;
-	'--radius-full': string;
-
-	// Shadows
-	'--shadow-xs': string;
-	'--shadow-sm': string;
-	'--shadow-md': string;
-	'--shadow-bs': string;
-	'--shadow-lg': string;
-	'--shadow-xl': string;
-	'--shadow-2xl': string;
-	'--shadow-3xl': string;
-
-	// Heights
-	'--height-xs': string;
-	'--height-sm': string;
-	'--height-md': string;
-	'--height-bs': string;
-	'--height-lg': string;
-	'--height-xl': string;
-
-	// Duration
-	'--duration-sm': string;
-	'--duration-md': string;
-	'--duration-bs': string;
-	'--duration-lg': string;
-
-	// Easing
-	'--transin1': string;
-	'--transin2': string;
-	'--transin3': string;
-	'--transout1': string;
-	'--transout2': string;
-	'--transout3': string;
-
-	// Dimensions
-	'--header-height': string;
-	'--footer-height': string;
-	'--sidebar-width-left': string;
-	'--sidebar-width-right': string;
-	'--prose-clamp': string;
-
-	'--text-xs': string;
-	'--text-sm': string;
-	'--text-md': string;
-	'--text-bs': string;
-	'--text-lg': string;
-	'--text-xl': string;
-	'--text-2xl': string;
-	'--text-3xl': string;
-	'--text-4xl': string;
-	'--text-5xl': string;
-
-	'--unit-space': string;
-	'--space-xs': string;
-	'--space-sm': string;
-	'--space-md': string;
-	'--space-bs': string;
-	'--space-lg': string;
-	'--space-xl': string;
-	'--space-2xl': string;
-	'--space-3xl': string;
+export interface DragViewData {
+	viewId: string;
+	sourcePanelId: string;
 }
 
-/** The token contract under the name the package has always exported. */
-export type FractalTokens = DesignTokens;
+// ------------------------------------------------------------------ popouts
+
+export interface PopoutWindowEntry {
+	viewId: string;
+	window: Window;
+	handleClose: () => void;
+}
+
+// ------------------------------------------------------------------ menus & keymap
+
+export interface MenuItem {
+	/** Identifies the item, e.g. to find or remove it in a `panelMenu` function. */
+	id?: string;
+	label: string;
+	/** A hint shown right-aligned, e.g. "⌘S". Display only: it doesn't bind the key. */
+	shortcut?: string;
+	disabled?: boolean;
+	checked?: boolean;
+	danger?: boolean;
+	run?(): void;
+	items?: MenuEntry[];
+}
+
+export type MenuEntry = MenuItem | 'separator';
+
+/** Ids of the built-in panel menu items. */
+export type BuiltInMenuId =
+	| 'float'
+	| 'dock'
+	| 'move'
+	| 'split-right'
+	| 'split-below'
+	| 'hide'
+	| 'close'
+	| 'close-others'
+	| 'maximize'
+	| 'popout';
+
+/** What a `panelMenu` function knows about the menu being opened. */
+export interface PanelMenuContext {
+	panelId: string;
+	/** The panel's selected view, whose `menu` items lead the menu. */
+	view: ViewApi;
+	region: 'stage' | 'side' | 'floating';
+}
+
+/** A menu for `renderMenu` to show in place of the built-in one. */
+export interface MenuRequest {
+	/** The final entries, with leading, trailing and repeated separators removed. */
+	entries: MenuEntry[];
+	/** Where to show it, in viewport (client) pixels. */
+	x: number;
+	y: number;
+	/** "end" when opened from the panel menu button: align the menu's right edge to `x`. */
+	align: 'start' | 'end';
+	/** The panel menu button, when the menu was opened from it. */
+	anchor: HTMLElement | null;
+	panelId: string;
+	/** Call when your menu closes. */
+	close(): void;
+}
+
+export type Command =
+	| 'panel.next'
+	| 'panel.previous'
+	| 'tab.next'
+	| 'tab.previous'
+	| 'tab.closeOthers'
+	| 'view.close'
+	| 'panel.float'
+	| 'panel.hide'
+	| 'panel.splitRight'
+	| 'panel.splitBelow'
+	| 'view.maximize'
+	| 'view.moveToStage'
+	| 'view.moveToFloating';
+
+export type Keymap = Partial<Record<Command, string | null>>;
+
+export const DEFAULT_KEYMAP: Record<Command, string | null> = {
+	'panel.next': 'F6',
+	'panel.previous': 'Shift+F6',
+	'tab.next': 'Mod+Alt+]',
+	'tab.previous': 'Mod+Alt+[',
+	'tab.closeOthers': null,
+	'view.close': 'Mod+Alt+W',
+	'panel.float': null,
+	'panel.hide': null,
+	'panel.splitRight': null,
+	'panel.splitBelow': null,
+	'view.maximize': 'Mod+Alt+M',
+	'view.moveToStage': null,
+	'view.moveToFloating': null
+};
+
+/** Physical key codes for keys whose `event.key` shifts under Alt on macOS. */
+const KEY_CODES: Record<string, string> = {
+	'[': 'BracketLeft',
+	']': 'BracketRight',
+	'-': 'Minus',
+	'=': 'Equal',
+	';': 'Semicolon',
+	"'": 'Quote',
+	',': 'Comma',
+	'.': 'Period',
+	'/': 'Slash',
+	'\\': 'Backslash',
+	'`': 'Backquote'
+};
+
+const isMac = (): boolean =>
+	typeof navigator !== 'undefined' &&
+	/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+
+/** Human-readable shortcut, e.g. "⌘⌥←" on macOS or "Ctrl+Alt+←" elsewhere. */
+export function formatCombo(combo: string): string {
+	const mac = isMac();
+	return combo
+		.split('+')
+		.map((part) => {
+			switch (part) {
+				case 'Mod':
+					return mac ? '⌘' : 'Ctrl';
+				case 'Alt':
+					return mac ? '⌥' : 'Alt';
+				case 'Shift':
+					return mac ? '⇧' : 'Shift';
+				case 'Ctrl':
+					return mac ? '⌃' : 'Ctrl';
+				default:
+					return part;
+			}
+		})
+		.join(mac ? '' : '+');
+}
+
+/** Does this keyboard event match a combo like "Mod+Alt+]"? `Mod` is ⌘ on macOS, Ctrl elsewhere. */
+export function matchesCombo(event: KeyboardEvent, combo: string): boolean {
+	const mac = isMac();
+	const parts = combo.split('+').map((p) => p.trim());
+	const key = parts.pop() ?? '';
+	const want = {
+		mod: parts.includes('Mod') ? (mac ? event.metaKey : event.ctrlKey) : undefined,
+		ctrl: parts.includes('Ctrl') ? event.ctrlKey : undefined,
+		meta: parts.includes('Meta') ? event.metaKey : undefined,
+		alt: parts.includes('Alt') ? event.altKey : undefined,
+		shift: parts.includes('Shift') ? event.shiftKey : undefined
+	};
+	if (want.mod === undefined && (mac ? event.metaKey : event.ctrlKey)) return false;
+	if (want.ctrl === undefined && event.ctrlKey && !want.mod) return false;
+	if (want.meta === undefined && event.metaKey && !want.mod) return false;
+	if (want.alt === undefined && event.altKey) return false;
+	if (want.mod !== undefined && want.mod !== (mac ? event.metaKey : event.ctrlKey)) return false;
+	if (want.ctrl !== undefined && want.ctrl !== event.ctrlKey) return false;
+	if (want.meta !== undefined && want.meta !== event.metaKey) return false;
+	if (want.alt !== undefined && want.alt !== event.altKey) return false;
+	if (want.shift !== undefined && want.shift !== event.shiftKey) return false;
+	if (key.length === 1) {
+		if (event.key.toLowerCase() === key.toLowerCase()) return true;
+		// Alt rewrites `event.key` on macOS ("[" becomes "{"), so match the physical key too.
+		const code = KEY_CODES[key];
+		return !!code && event.code === code;
+	}
+	return event.key === key || event.code === key;
+}
+
+// ------------------------------------------------------------------ view types & placement
+
+export type PlacementTwo =
+	| 'stage'
+	| 'float'
+	| 'side'
+	| 'tab'
+	| { beside: string; edge: Edge; share?: number }
+	| { into: string; index?: number }
+	| { float: Rect; layer?: FloatingLayer };
+
+export interface ViewRules {
+	/** Where `open()` puts a view of this type unless the caller says otherwise. */
+	placement?: PlacementTwo;
+	/** Where users may drop it. Every region is allowed by default. */
+	allow?: { stage?: boolean; side?: boolean; floating?: boolean };
+	/** At most one instance; `open()` focuses the existing one. */
+	singleton?: boolean;
+	closable?: boolean;
+	/**
+	 * Tab bar: "always" (default) sits above the content; "auto" hides it while the view is alone
+	 * in its panel; "never" always hides it.
+	 */
+	tabbar?: 'always' | 'auto' | 'never';
+	/**
+	 * Unmount the view while another tab of the same panel is selected. Stops timers
+	 * and effects of hidden views, at the cost of losing their state. Overrides the
+	 * workspace-level `unmountInactive` when set.
+	 */
+	unmountWhenHidden?: boolean;
+}
+
+export type Theme = 'light' | 'medium' | 'dark' | 'darker' | 'system';
+
+export interface OpenOptions {
+	params?: object;
+	id?: string;
+	title?: string;
+	placement?: PlacementTwo;
+	reuse?: 'none' | 'type' | 'params' | ((view: ViewInfo) => boolean);
+	focus?: boolean;
+}
+
+export interface ViewInfo {
+	id: string;
+	type: string;
+	params: Params;
+	title: string;
+	panelId: string;
+	placement: 'docked' | 'stage' | 'floating' | 'hidden' | 'popout';
+	selected: boolean;
+}
+
+// ------------------------------------------------------------------ component props
+
+export interface ViewTypeProps<P extends object = Params> extends ViewRules {
+	/** Unique type name. `<View type>` and `open(type)` refer to it. */
+	id: string;
+	title?: string | ((view: ViewApi<P>) => string);
+	/** Trusted SVG/HTML markup for the tab icon, or a snippet rendered into the tab. */
+	icon?: string | Snippet;
+	/** Content for each view. Use `useView()` inside it. */
+	children?: Snippet;
+	/** Alternative to children: content that receives the view's API. */
+	render?: Snippet<[ViewApi<P>]>;
+	/** Rendered in the tab bar while this view is selected. */
+	accessory?: Snippet;
+	/** Iframe content instead of a component. Its element survives tab switches within its panel. */
+	iframe?:
+		| string
+		| { src?: string; srcdoc?: string; sandbox?: string; allow?: string; title?: string }
+		| ((
+				view: ViewApi<P>
+		  ) =>
+				| string
+				| { src?: string; srcdoc?: string; sandbox?: string; allow?: string; title?: string });
+	/** Vanilla mount instead of content. */
+	mount?: (
+		element: HTMLElement,
+		view: ViewApi<P>,
+		parts: { icon: HTMLElement; accessory: HTMLElement }
+	) => void | (() => void);
+	menu?: MenuEntry[] | ((view: ViewApi<P>) => MenuEntry[]);
+	className?: string;
+}
+
+export interface SplitProps {
+	axis?: Axis;
+	weights?: number[];
+	id?: string;
+	children?: Snippet;
+}
+
+export interface PanelProps {
+	id?: string;
+	/** Index of the initially selected view. */
+	selected?: number;
+	children?: Snippet;
+}
+
+export interface ViewProps {
+	type: string;
+	id?: string;
+	params?: object;
+	title?: string;
+}
+
+export interface StageProps {
+	id?: string;
+	backdrop?: Snippet;
+	empty?: Snippet;
+	children?: Snippet;
+}
+
+export interface FloatingProps {
+	/** Position and size as fractions (0–1) of the layer. */
+	rect: Rect;
+	layer?: FloatingLayer;
+	children?: Snippet;
+}
+
+export interface WorkspaceProps {
+	children?: Snippet;
+	workspace?: WorkspaceHandle | null;
+	floating?: false | FloatingLayer;
+	theme?: Theme;
+	tokens?: Record<string, string>;
+	keymap?: Keymap;
+	panelMenu?: boolean | ((entries: MenuEntry[], context: PanelMenuContext) => MenuEntry[]);
+	renderMenu?(request: MenuRequest): void;
+	tabs?: { fill?: boolean; inset?: number };
+	label?: string;
+	storageKey?: string;
+	version?: string | number;
+	defaultLayout?: LayoutDocument | LayoutSpec | null;
+	document?: LayoutDocument;
+	showSplitRatio?: boolean;
+	disableDragAndDrop?: boolean;
+	/**
+	 * Unmount views that are not the selected tab of their panel. Views whose type
+	 * sets `unmountWhenHidden` keep their own setting.
+	 */
+	unmountInactive?: boolean;
+	onDocumentChange?(document: LayoutDocument): void;
+	onOpen?(view: ViewInfo): void;
+	onClose?(view: ViewInfo): void;
+	onFocus?(viewId: string | null): void;
+	onPopoutOpen?(viewId: string): void;
+	onPopoutClose?(viewId: string): void;
+	class?: string;
+}
+
+export type DropdownPlacement = (typeof PLACEMENTS)[number];

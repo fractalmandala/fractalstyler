@@ -1,1026 +1,840 @@
 #!/usr/bin/env node
-// ============================================================================
-// update-registry — regenerates every registry surface from the stylesheet.
+// =============================================================================
+// update-registry — the registry script.
 //
-// Ground truth is src/lib/styles/_00…_10 (colorpacks.sass and themeplates.sass
-// are raw Sass variable palettes and emit no classes — they are not indexed).
-// This script parses them structurally and emits:
-//   registry.json                                       (class inventory)
-//   skills/fractalstyler/references/fractals.md         (agent class reference)
-//   skills/fractalstyler/references/tokens.md           (agent token reference)
+// ONE script for the whole registry. Run it and the registry is up to date:
 //
-// Every entry is a CONCRETE class. The old wildcard families (.gap-*) are
-// gone: the eight steps (xs sm md bs lg xl 2xl 3xl) are expanded from the
-// $gap/$pad/$mar family maps in _00_config.sass, so the registry lists the
-// classes that actually compile.
+//   node scripts/update-registry.ts          → writes everything
+//   node scripts/update-registry.ts --report → prints what it found, writes nothing
 //
-//   node scripts/update-registry.ts
+// The same file ships compiled (update-registry.js) and, in an ejected
+// project, renamed to update-registry.mjs — the guard below accepts all three.
 //
-// Source is TypeScript; the package ships (and `eject` copies) the
-// scripts/update-registry.js that `pnpm build:runtime` emits next to it.
-// ============================================================================
+// It reads the stylesheets in src/lib/styles and writes:
+//   registry.json                                    (the machine API)
+//   registry.md                                      (the human index, at the root)
+//   skills/fractalstyler/references/fractals.md      (the agent class list)
+//   skills/fractalstyler/references/tokens.md        (the agent token list)
+//
+// Three parts, in order:
+//   1. the extractor — the facts: which classes exist, what declares them
+//   2. the vocabulary — what each class means
+//   3. the writers  — where the registry is published
+//
+// The parser it shares with the other scripts lives in scripts/css.ts.
+// =============================================================================
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+	classesIn,
+	collectGlobalTokens,
+	parseCss,
+	splitSelectorList,
+	type CssNode,
+	type Token
+} from './css.ts';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const stylesDir = path.join(rootDir, 'src', 'lib', 'styles');
+const PKG_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const STYLES_DIR = path.join(PKG_ROOT, 'src', 'lib', 'styles');
 
-// --- Types ------------------------------------------------------------------
+export type RegistryKind = 'class' | 'modifier' | 'child' | 'variant';
 
-/** A parsed Sass map/list literal: space lists become arrays, maps objects. */
-type SassValue = string[] | SassMap;
-interface SassMap {
-	[key: string]: string | SassValue;
-}
-
-/** Nodes of the indented-Sass rule tree (see parseSassTree). */
-type SassNode =
-	| { type: 'rule'; selectors: string[]; comments: string[]; trailing: string | null; children: SassNode[] }
-	| { type: 'media' | 'skip'; why: string; params: string; comments: string[]; children: SassNode[] }
-	| { type: 'mixin'; name: string; comments: string[]; children: SassNode[] }
-	| { type: 'decl'; text: string; trailing: string | null; comments: string[] };
-type RuleNode = Extract<SassNode, { type: 'rule' }>;
-
-type EntryKind = 'class' | 'modifier' | 'child' | 'variant' | 'compound' | 'element' | 'family';
-
-/** One registry.json row (object-literal order at each push site sets the JSON key order). */
-interface RegistryEntry {
+export interface RegistryRow {
+	/** '.gap-xs' — the class as it appears in a class attribute. */
 	class: string;
-	kind: EntryKind;
-	parent?: string | null;
-	layer: string;
+	kind: RegistryKind;
+	/** The class this one modifies or hangs off — '.box', '.avatar-group'. */
+	parent: string | null;
+	/** The selector the row was read from. */
+	selector: string;
+	/** The stylesheet that declares it. */
 	file: string;
-	property?: string;
-	description?: string;
-	example?: string;
-	trailing?: string;
+	/** Kept for the linter and the MCP filters: the file is the layer. */
+	layer: string;
+	/** The declarations, joined. */
+	property: string;
+	/** The media query the rule sits in, if any. */
+	media: string | null;
 }
 
-interface Decl {
-	text: string;
-	media: string[];
-}
-
-interface Token {
-	name: string;
-	value: string;
-	scope: string;
-}
-
-interface WalkContext {
-	selPath: string | null;
-	owner: string | null;
-	media: string[];
-}
-
-interface SassConfig {
-	steps: string[];
-	gapFamilies: Record<string, string>;
-	padFamilies: Record<string, string>;
-	marFamilies: Record<string, string>;
-	frameRatios: Record<string, string>;
-	breakpoints: SassValue;
-}
-
-// --- The system map ---------------------------------------------------------
-// Layer assignment mirrors AGENTS.md's progressive discovery index.
-const FILES = [
-	{ file: '_01_base.sass', layer: 'L0' },
-	{ file: '_02_dimensions.sass', layer: 'L1' },
-	{ file: '_03_typography.sass', layer: 'L5' },
-	{ file: '_04_containers.sass', layer: 'L2' },
-	{ file: '_05_layouts.sass', layer: 'L3' },
-	{ file: '_06_shells.sass', layer: 'L4' },
-	{ file: '_07_interactions.sass', layer: 'L5' },
-	{ file: '_08_visuals.sass', layer: 'L5' },
-	{ file: '_09_own.sass', layer: 'Custom' },
-	{ file: '_10_propped.sass', layer: 'L6' }
-];
-
-const LAYERS: [layer: string, title: string, blurb: string][] = [
-	['L0', 'Tokens & Base', 'Raw values and native resets. Never hardcode a literal a token covers.'],
-	['L1', 'Dimensions', 'Loop-generated space families (gap/rgap/cgap, pad/px/py/pt/pr/pb/pl, mar/mx/my/mt/mr/mb/ml × the eight steps), radius channels, full/zero sizing, viewport heights. All token-routed.'],
-	['L2', 'Containers', 'Flow and alignment. .box (flex column), .row (flex row), .grid — alignment modifiers nest under their base, never standalone. x* is ALWAYS the horizontal/inline axis, y* the vertical/block axis. Positioning, stacking order, scroll containers and the flex sizing helpers live here too.'],
-	['L3', 'Layouts', 'Responsive grids and page furniture. .grid-1..6 with divisor stepping, column spans, .card-grid, .prose, the aspect-ratio frames, the .reel rail, and the furniture partial: .card, .chip, .nav-section, .page-header, .inputs-wrapper, .checkbox-wrapper.'],
-	['L4', 'Shells', 'Application scaffolding: the .app-shell canon, header, role-bound rails, footer, content sections.'],
-	['L5', 'Visuals & Interactions', 'Typography roles, inputs, links, the button quartet, surface fills, ink, borders, elevation shadows, visibility.'],
-	['L6', 'Element Axes', 'The orthogonal attribute axes, authored once and applied by class: .el-variants (data-variant), .el-shape (data-shape), .el-size (data-size), .el-pad (data-pad), .el-shadow / .el-shadow-hover (data-shadow) and .el-vss (variant + shape + size in one class). An element opts into an axis by carrying its class; the element name is never the qualifier.'],
-	['Custom', 'Own', 'Sanctioned extension point (_09_own.sass). Project-specific additions that cannot be expressed via canonical layers.']
-];
-
-// ============================================================================
-// Sass value parsing — the $maps in _00_config.sass
-// ============================================================================
-
-/** Read a top-level `$name: value` from Sass source. Returns the raw value text. */
-function readSassVariable(content: string, name: string): string | null {
-	const re = new RegExp(`\\$${name}:\\s*`);
-	const m = re.exec(content);
-	if (!m) return null;
-	const rest = content.slice(m.index + m[0].length);
-	if (rest.startsWith('(')) {
-		// Map/list literal: read to the balanced closing paren.
-		let depth = 0;
-		let quote: string | null = null;
-		for (let i = 0; i < rest.length; i++) {
-			const ch = rest[i];
-			if (quote) {
-				if (ch === '\\') i++;
-				else if (ch === quote) quote = null;
-			} else if (ch === "'" || ch === '"') quote = ch;
-			else if (ch === '(') depth++;
-			else if (ch === ')') {
-				depth--;
-				if (depth === 0) return rest.slice(0, i + 1);
-			}
-		}
-		return null;
-	}
-	// Single-line value.
-	return rest.split(/\r?\n/)[0].trim();
-}
-
-/** Split a value string at top-level separators (sep = ',' or ' '). */
-function splitTop(value: string, sep: ',' | ' '): string[] {
-	const parts: string[] = [];
+/** Split a selector into its compounds on top-level combinators. */
+function splitCompounds(selector: string): string[] {
+	const out: string[] = [];
+	let current = '';
 	let depth = 0;
-	let quote: string | null = null;
-	let buf = '';
-	for (let i = 0; i < value.length; i++) {
-		const ch = value[i];
-		if (quote) {
-			buf += ch;
-			if (ch === '\\') {
-				buf += value[++i] ?? '';
-			} else if (ch === quote) quote = null;
+	for (const char of selector) {
+		if (char === '[' || char === '(') depth++;
+		else if (char === ']' || char === ')') depth--;
+		if (depth === 0 && (char === '>' || char === '+' || char === '~' || /\s/.test(char))) {
+			if (current.trim()) out.push(current.trim());
+			current = '';
 			continue;
 		}
-		if (ch === "'" || ch === '"') {
-			quote = ch;
-			buf += ch;
-			continue;
-		}
-		if (ch === '(') {
-			depth++;
-			buf += ch;
-			continue;
-		}
-		if (ch === ')') {
-			depth--;
-			buf += ch;
-			continue;
-		}
-		if (depth === 0 && (sep === ',' ? ch === ',' : /\s/.test(ch))) {
-			if (buf.trim()) parts.push(buf.trim());
-			buf = '';
-			if (sep === ' ') continue; // collapse whitespace runs
-			continue;
-		}
-		buf += ch;
+		current += char;
 	}
-	if (buf.trim()) parts.push(buf.trim());
-	return parts;
-}
-
-const unquote = (s: string) => s.replace(/^['"]|['"]$/g, '').trim();
-
-/** Parse a Sass map/list literal into JS (nested maps become objects). */
-function parseSassValue(raw: string | null): SassValue {
-	let text = String(raw).trim();
-	if (text.startsWith('(') && text.endsWith(')')) text = text.slice(1, -1).trim();
-	if (!text) return [];
-	const items = splitTop(text, ',');
-	if (items.length === 1 && !/^\s*['"]?[\w-]+['"]?\s*:/.test(items[0])) {
-		// Space-separated list (e.g. $steps).
-		return splitTop(items[0], ' ').map(unquote);
-	}
-	const map: SassMap = {};
-	for (const item of items) {
-		const m = /^(['"]?[\w-]+['"]?)\s*:\s*([\s\S]+)$/.exec(item);
-		if (!m) continue;
-		const key = unquote(m[1]);
-		const val = m[2].trim();
-		map[key] = val.startsWith('(') ? parseSassValue(val) : unquote(val);
-	}
-	return map;
-}
-
-// ============================================================================
-// Indented-Sass structural parser
-// ============================================================================
-
-const countIndent = (line: string) => (line.match(/^\t*/)?.[0] || '').length;
-
-/** Strip a trailing `// comment` — whitespace-guarded so http:// URLs survive. */
-function splitTrailingComment(text: string): [string, string | null] {
-	const m = /^(.*?)\s+\/\/\s*(.+)$/.exec(text);
-	return m ? [m[1].trim(), m[2].trim()] : [text.trim(), null];
-}
-
-const isAtRule = (t: string) => t.startsWith('@');
-const isMixin = (t: string) => t.startsWith('=') || t.startsWith('+');
-
-function isSelector(t: string): boolean {
-	if (isAtRule(t) || isMixin(t)) return false;
-	if (t.startsWith('//') || t.startsWith('/*')) return false;
-	// A declaration is `prop: value` (including custom props `--x: y`).
-	// Selectors here never have a bare `ident:` head (`:root`, `::view-*`,
-	// `*`, `.foo`, `&.bar`, `a.nav-link`, `p, li`, `[data-mode]`, `> *` …).
-	if (/^[-\w]+\s*:/.test(t) && !t.startsWith(':')) return false;
-	return true;
-}
-
-/**
- * Parse indented Sass into a rule tree.
- * Nodes: { type: 'rule', selectors, comments, trailing, children }
- *        { type: 'media', params, children }
- *        { type: 'skip', why, children }   — @each/@for/@keyframes/@font-face/mixins
- *        { type: 'decl', text, trailing }
- */
-function parseSassTree(content: string): SassNode[] {
-	let lines = content.split(/\r?\n/);
-	// A comment block at the very top of the file is a file banner (the
-	// `====`-framed layer headers), not a description of the first class
-	// below it — drop it before parsing, so e.g. `.box` falls through to its
-	// curated description instead of inheriting the _04 banner.
-	let top = 0;
-	while (top < lines.length && (!lines[top].trim() || lines[top].trim().startsWith('//'))) top++;
-	lines = lines.slice(top);
-	let idx = 0;
-	let pendingComments: string[] = [];
-
-	const takeComments = () => {
-		const comments = pendingComments;
-		pendingComments = [];
-		return comments;
-	};
-
-	function parseChildren(indent: number): SassNode[] {
-		const children: SassNode[] = [];
-		while (idx < lines.length) {
-			const raw = lines[idx];
-			if (!raw.trim()) {
-				idx++;
-				continue;
-			}
-			const lineIndent = countIndent(raw);
-			if (lineIndent < indent) break;
-			const [t, trailing] = splitTrailingComment(raw.trim());
-			if (!t) {
-				idx++;
-				continue;
-			}
-			if (t.startsWith('//')) {
-				pendingComments.push(trailing ?? t.replace(/^\/\/\s?/, ''));
-				idx++;
-				continue;
-			}
-			if (isAtRule(t)) {
-				const name = /^@([\w-]+)/.exec(t)![1];
-				const comments = takeComments();
-				idx++;
-				const bodyless = ['use', 'forward', 'import', 'include', 'warn', 'error', 'debug', 'charset'];
-				if (bodyless.includes(name)) {
-					children.push({ type: 'skip', why: name, params: t, comments, children: [] });
-					continue;
-				}
-				// @media frames carry a media context; everything else (@each, @for,
-				// @keyframes, @font-face) emits no registry classes — skip its body.
-				const type = name === 'media' ? 'media' : 'skip';
-				children.push({ type, why: name, params: t, comments, children: parseChildren(lineIndent + 1) });
-				continue;
-			}
-			if (isMixin(t)) {
-				const comments = takeComments();
-				idx++;
-				children.push({ type: 'mixin', name: t.slice(1).trim(), comments, children: parseChildren(lineIndent + 1) });
-				continue;
-			}
-			if (isSelector(t)) {
-				const comments = takeComments();
-				const selectors = [t];
-				idx++;
-				// Multi-line selector lists: `img,` / `video,` / `svg`.
-				while (idx < lines.length) {
-					const raw2 = lines[idx];
-					if (!raw2.trim()) {
-						idx++;
-						continue;
-					}
-					const t2 = splitTrailingComment(raw2.trim())[0];
-					if (countIndent(raw2) === lineIndent && t2 && isSelector(t2)) {
-						selectors.push(t2);
-						idx++;
-						continue;
-					}
-					break;
-				}
-				children.push({ type: 'rule', selectors, comments, trailing, children: parseChildren(lineIndent + 1) });
-				continue;
-			}
-			// Declaration (or stray line): record with its trailing comment.
-			children.push({ type: 'decl', text: t, trailing, comments: takeComments() });
-			idx++;
-		}
-		return children;
-	}
-
-	return parseChildren(0);
-}
-
-// ============================================================================
-// Entry extraction
-// ============================================================================
-
-const CLASS_RE = /\.(-?[_a-zA-Z][\w-]*)/g;
-const classesIn = (sel: string) => [...sel.matchAll(CLASS_RE)].map((m) => m[1]);
-
-/** Compact a media query for property strings: (min-width: 1025px) → @min-width:1025px */
-function compactMedia(params: string): string {
-	const m = /@media\s*\((.+)\)/.exec(params) || /^\((.+)\)$/.exec(params);
-	const body = (m ? m[1] : params).replace(/\s+/g, '');
-	return `@${body}`;
-}
-
-/** Shorten data: URLs and cap a declaration for table cells. */
-function cleanDecl(text: string): string {
-	let t = text.replace(/url\(\s*["']?data:[^)]*\)/gi, 'url(data:…)');
-	if (t.length > 72) t = `${t.slice(0, 69)}…`;
-	return t;
-}
-
-/**
- * Collect the declarations of a rule node. Direct declarations come first;
- * declarations inside nested @media blocks are kept with their media context.
- * Nested rule blocks are skipped (they become their own entries).
- */
-function collectDecls(node: RuleNode, media: string[] = []): Decl[] {
-	const out: Decl[] = [];
-	const walk = (children: SassNode[], ctx: string[]) => {
-		for (const child of children) {
-			if (child.type === 'decl') out.push({ text: cleanDecl(child.text), media: ctx });
-			else if (child.type === 'media') walk(child.children, [...ctx, compactMedia(child.params)]);
-		}
-	};
-	walk(node.children ?? [], media);
+	if (current.trim()) out.push(current.trim());
 	return out;
 }
 
-function propertyString(decls: Decl[]): string {
-	if (!decls.length) return '';
-	const base = decls.filter((d) => !d.media.length).map((d) => d.text);
-	const parts: string[] = [];
-	if (base.length) parts.push(base.slice(0, 3).join('; ') + (base.length > 3 ? '; …' : ''));
-	const mediaGroups = new Map<string, string[]>();
-	for (const d of decls.filter((x) => x.media.length)) {
-		const key = d.media.join(' ');
-		if (!mediaGroups.has(key)) mediaGroups.set(key, []);
-		mediaGroups.get(key)!.push(d.text);
-	}
-	for (const [key, texts] of mediaGroups) parts.push(`${key}: ${texts.slice(0, 2).join('; ')}`);
-	const property = parts.join(' · ');
+/** '@media (min-width: 1025px)' → 'min-width: 1025px'. */
+function compactMedia(params: string): string {
+	return params.replace(/^@media\s*/, '').replace(/^\(|\)$/g, '').trim();
+}
+
+function propertyString(nodes: CssNode[]): string {
+	const parts = nodes
+		.filter((node): node is Extract<CssNode, { type: 'decl' }> => node.type === 'decl')
+		.map((node) => node.text.replace(/\s+/g, ' ').trim())
+		// A custom property is a scoped variable, not a style: it says nothing
+		// about what the class looks like.
+		.filter((text) => !text.startsWith('--'));
+	const property = parts.join('; ');
 	return property.length > 168 ? `${property.slice(0, 165)}…` : property;
 }
 
-// Curated descriptions for classes whose source carries no comment and whose
-// declarations alone would not explain intent. Comments in the source still
-// win: this map only fills gaps.
-const CURATED: Record<string, string> = {
-	'.bdr': 'Debug outline — flags an element on screen with a red border',
-	'.mode-wipe': 'On <html>: disables view-transition animations while a color-mode wipe runs',
-	'.wfull': 'Full width (100%)',
-	'.hfull': 'Full height (100%)',
-	'.full': 'Full width and height (100% both axes)',
-	'.minw0': 'Zero min-width — lets a flex child shrink below its content',
-	'.minh0': 'Zero min-height — lets a flex child shrink below its content',
-	'.min0': 'Zero min-width and min-height — prevents flex blowouts',
-	'.h-sm': 'Control height step sm (var(--height-sm))',
-	'.h-md': 'Control height step md (var(--height-md))',
-	'.h-bs': 'Control height step bs (var(--height-bs))',
-	'.h-lg': 'Control height step lg (var(--height-lg))',
-	'.hfull-vh': 'Full viewport height (min-height: 100vh)',
-	'.hfull-vh-fitted': 'Viewport height fitted between header and footer (var(--fit-height))',
-	'.box': 'Flex column container — the vertical structural foundation',
-	'.row': 'Flex row container — the horizontal structural foundation',
-	'.grid': 'CSS grid container (columns composed via .grid-N / alignment below)',
-	'.wrap': 'Allow flex wrapping',
-	'.grow': 'Flex grow — take remaining space (flex: 1 1 0%)',
-	'.shrink-0': 'Never shrink below content size',
-	'.relative': 'position: relative (anchor for absolute children)',
-	'.absolute': 'position: absolute',
-	'.fixed': 'position: fixed',
-	'.sticky': 'position: sticky',
-	'.card': 'Panel card: padded, bordered, panel background; arrow svg and footer behaviors included',
-	'.chip': 'Small inline label — tag/badge duty (xs type, md radius)',
-	'.prose-section': 'Vertical prose section (flex column, lg gap)',
-	'.nav-section': 'Vertical nav section (flex column, xs gap)',
-	'.page-header': 'Page header block (flex column, sm gap, 2xl bottom pad)',
-	'.inputs-wrapper': 'Form field group (flex row, xs gap; labels at sm muted)',
-	'.checkbox-wrapper': 'Checkbox row (flex, centered, xs gap; span at sm weight 500)',
-	'.card-grid': 'Auto-fit card grid — column count negotiates, min track var(--card-min)',
-	'.prose': 'Reading measure — max-width var(--prose-clamp), centered, typographic rhythm',
-	'.grid-1': 'Single-column grid (no responsive steps)',
-	'.grid-2': 'Responsive 2-column grid: 1 → 2 columns at 1025px',
-	'.grid-3': 'Responsive 3-column grid: 1 → 3 columns at 1025px (3→1 golden rule)',
-	'.grid-4': 'Responsive 4-column grid: 1 → 2 → 4 columns (never 3+1)',
-	'.grid-6': 'Responsive 6-column grid: 1 → 3 → 6 columns (both golden rules hold)',
-	'.cspan-1': 'Span 1 grid column',
-	'.cspan-2': 'Span 2 grid columns',
-	'.cspan-3': 'Span 3 grid columns',
-	'.cspan-4': 'Span 4 grid columns',
-	'.cspan-5': 'Span 5 grid columns',
-	'.cspan-6': 'Span 6 grid columns',
-	'.cspan-7': 'Span 7 grid columns',
-	'.cspan-8': 'Span 8 grid columns',
-	'.app-shell': 'Application shell root — flex column, 100vh, hosts header/main/footer and the drawer state',
-	'.app-header': 'Sticky application header (var(--header-height))',
-	'.app-main': 'Main region between header and footer — flex row, fitted to 100dvh minus chrome',
-	'.main-section': 'Primary content column inside .app-main (flex: 1, min-width: 0)',
-	'.sidebar-left': 'Left rail — nav role; off-canvas drawer below 1025px via .open on .app-shell',
-	'.sidebar-right': 'Right rail — TOC role; hidden below 1281px',
-	'.app-footer': 'Application footer (var(--footer-height))',
-	'.content-section': 'Page content block — responsive padding and narrow width modes',
-	'.input': 'Text input — themed field with focus ring',
-	'.select': 'Select dropdown — themed field with chevron and focus ring',
-	'.link': 'Themed link — theme color, alt on hover',
-	'.link-plain': 'Plain link — inherits ink, theme color on hover',
-	'.link-parent': 'Link block — hovers color its .link-title child instead of itself',
-	'button': 'Element base for every button — the quartet root (align, height, focus, disabled states)',
-	'a.nav-link': 'Interactive form of .nav-link — padded, curved, hover fill',
-	'a.btn': 'Call-to-action anchor button — styled with data-variant, data-shape, and data-size axes',
-	'.text-body': 'Body copy at base size (line-height 1.5)',
-	'.text-body-lg': 'Body copy at large size (line-height 1.5)',
-	'.text-body-sm': 'Body copy at small size (line-height 1.5)',
-	'.page-title': 'Page title — 3xl, 700, tight tracking',
-	'.page-desc': 'Page description — lg, airy',
-	'.page-heading-xl': 'Page heading, xl rung — 600, tight tracking',
-	'.page-heading-lg': 'Page heading, lg rung — 600, tight tracking',
-	'.page-heading-bs': 'Page heading, base rung — 600, tight tracking',
-	'.card-title': 'Card title — lg, 600',
-	'.card-desc': 'Card description — md',
-	'.breadcrumb': 'Breadcrumb rail (flex, offset -0.5rem)',
-	'.breadcrumb-link': 'Breadcrumb link — muted, uppercased, theme color on hover',
-	'.breadcrumb-spacer': 'Breadcrumb spacer (non-link segment, same type treatment)',
-	'.nav-link': 'Nav link type — md, 1.2 rhythm',
-	'.nav-link-sm': 'Nav link type, small rung',
-	'.nav-header': 'Nav group header — sm, 500, padded',
-	'.header-nav': 'Header nav block — uppercased md links, theme color on hover',
-	'.mono': 'Monospace font stack (var(--font-mono))',
-	'.sans': 'Sans font stack (var(--font-sans))',
-	'.truncate': 'One-line ellipsis truncation',
-	'.bg-main': 'Bare background — page base fill (var(--bg))',
-	'.bg-surface': 'Bare background — surface fill (var(--bg-surface))',
-	'.bg-panel': 'Bare background — panel fill (var(--bg-panel))',
-	'.bg-sunken': 'Bare background — sunken fill (var(--bg-sunken))',
-	'.bg-raised': 'Bare background — raised fill (var(--bg-raised))',
-	'.bg-extra': 'Bare background — extra fill (var(--bg-extra))',
-	'.border': 'Full border, standard weight (var(--border))',
-	'.border-subtle': 'Full border, subtle weight (var(--border-subtle))',
-	'.border-strong': 'Full border, strong weight (var(--border-strong))',
-	'.hide-mobile': 'Display none at ≤1024px',
-	'.hide-desktop': 'Display none at ≥1025px',
-	'.site-logomotif': 'Site logo motif — 48px, scales 1.2 on hover',
-	'.logotype': 'Logotype — 28px wordmark',
-	'.project-circle': 'Project dot — 16px circle',
-	'.accordion': 'Accordion group — vertical stack of .accordion-item',
-	'.accordion-item': 'Accordion item — bordered, styled shell hosting trigger and content',
-	'.accordion-content': 'Collapsible region of an .accordion-item — 0fr→1fr grid transition',
-	'.accordion-panel': 'Collapsible panel inside .accordion-content (overflow: hidden, min-height: 0)',
-	'.accordion-trigger': 'Accordion trigger button — full-width, hover/focus states',
-	'.hero-name': 'Hero display name — text-5xl doubled, 800, tight tracking'
-};
-
-function describe(entry: RegistryEntry, node: RuleNode, decls: Decl[]): string {
-	const first = decls.find((d) => !d.media.length)?.text || decls[0]?.text || '';
-	if (entry.trailing) return entry.trailing;
-	if (node.trailing) return node.trailing;
-	// Leading comments describe their selector — but `--- section ---` divider
-	// banners are structure, not description.
-	const comment = node.comments?.find((c) => !/^[-=*]{2,}/.test(c));
-	if (comment) {
-		const text = comment.replace(/^[-=*]{2,}\s*|\s*[-=*]{2,}$/g, '').trim() || comment;
-		return text.length > 160 ? `${text.slice(0, 157)}…` : text;
-	}
-	if (CURATED[entry.class]) return CURATED[entry.class];
-	switch (entry.kind) {
-		case 'modifier':
-			return `${first} — modifier of ${entry.parent}`;
-		case 'child':
-			return `${first} — child of ${entry.parent}`;
-		case 'variant':
-			return `${first} — attribute variant of ${entry.parent}`;
-		case 'compound':
-			return `${first} — combination rule (${entry.class.replace(/\./g, '')})`;
-		default:
-			return first || `${entry.class} rule`;
-	}
-}
-
-function exampleFor(cls: string, kind: EntryKind): string {
-	const names = classesIn(cls);
-	if (kind === 'element' || /^(button)/.test(cls)) {
-		if (/\[data-/.test(cls)) return `<button ${cls.replace(/^button/, '')}>…</button>`;
-		if (cls === 'button') return '<button>…</button>';
-		return `<button class="${names.join(' ')}">…</button>`;
-	}
-	if (/^a[.\s[]/.test(cls)) return `<a class="${names.join(' ')}" href="…">…</a>`;
-	if (kind === 'compound') {
-		const segments = cls.split(/\s+/).map((seg) => {
-			const segNames = classesIn(seg);
-			return seg.replace(CLASS_RE, '').trim() || (segNames.length ? segNames.join(' ') : seg);
-		});
-		return segments.map((s) => `<div class="${s}">`).join('') + '…' + '</div>'.repeat(segments.length);
-	}
-	return `<div class="${names.join(' ')}">…</div>`;
-}
-
 /**
- * Bare element selectors that are API in their own right, and the partial that
- * authors them. `button` also appears in _01_base as a bare reset — the entry
- * belongs to the button quartet in _07, not to the reset.
+ * Read one stylesheet. Every class name that appears in any selector becomes a
+ * row — a class only reaches markup on its own, so `.box.xcenter` must make
+ * `xcenter` known on its own, with `.box` as its parent.
+ *
+ * Two passes: the first reads the rules whose subject carries a class (those
+ * carry the declarations); the second picks up the classes that only ever
+ * appear as ancestors — `.prose-content` in `.prose-content p` is a class a
+ * consumer writes, so it must be in the registry.
  */
-const ELEMENT_ENTRIES: Record<string, string> = { button: '_07_interactions.sass' };
+export function extractClasses(css: string, file: string, warnings: string[] = []): RegistryRow[] {
+	const rows: RegistryRow[] = [];
+	const seen = new Set<string>();
 
-/**
- * Classes that belong to a layer other than the one their file defaults to.
- * A partial can hold more than one layer's classes; the layer is a property of
- * the class, not of the file it happens to live in.
- */
-const LAYER_OVERRIDES: Record<string, Record<string, string>> = {
-	'_04_containers.sass': {
-		'grid-1': 'L3',
-		'grid-2': 'L3',
-		'grid-3': 'L3',
-		'grid-4': 'L3',
-		'grid-5': 'L3',
-		'grid-6': 'L3',
-		'cspan-1': 'L3',
-		'cspan-2': 'L3',
-		'cspan-3': 'L3',
-		'cspan-4': 'L3',
-		'cspan-5': 'L3',
-		'cspan-6': 'L3',
-		'cspan-7': 'L3',
-		'cspan-8': 'L3',
-		'card-grid': 'L3',
-		'prose': 'L3',
-		'prose-left': 'L3',
-		'reel': 'L3'
-	}
-};
+	const add = (row: RegistryRow): void => {
+		if (seen.has(row.class)) return;
+		seen.add(row.class);
+		rows.push(row);
+	};
 
-/** The layer an entry belongs to, honouring the per-class overrides. */
-function resolveLayer(entry: RegistryEntry): string {
-	const overrides = LAYER_OVERRIDES[entry.file];
-	if (!overrides) return entry.layer;
-	const first = classesIn(entry.class)[0];
-	return (first && overrides[first]) || entry.layer;
-}
-
-/**
- * Walk the rule tree and emit registry entries.
- * ctx: { selPath: string|null, owner: string|null, media: [] }
- */
-function walkRules(
-	children: SassNode[],
-	ctx: WalkContext,
-	file: string,
-	layer: string,
-	out: RegistryEntry[],
-	seen: Set<string>
-): void {
-	for (const node of children) {
-		if (node.type === 'mixin') continue; // token mixins handled separately
-		if (node.type === 'skip') continue; // @each/@for/@keyframes/@font-face bodies
-		if (node.type === 'media') {
-			walkRules(node.children, { ...ctx, media: [...ctx.media, compactMedia(node.params)] }, file, layer, out, seen);
-			continue;
-		}
-		if (node.type !== 'rule') continue;
-
-		// The frame path children qualify against.
-		let framePath: string | null = null;
-		let owner = ctx.owner;
-
-		// Flatten the selector group: multi-line lists and one-line comma lists.
-		const parts: string[] = [];
-		for (const rawSel of node.selectors) {
-			for (const part of splitTop(rawSel, ',')) {
-				const p = part.trim().replace(/,+$/, '').trim();
-				if (p) parts.push(p);
-			}
-		}
-
-		for (const sel of parts) {
-			const selClasses = classesIn(sel);
-			const qualified = sel.startsWith('&') && ctx.selPath ? ctx.selPath + sel.slice(1) : sel;
-
-			if (framePath === null) framePath = qualified;
-
-			if (!selClasses.length) {
-				if (sel.startsWith('&[')) {
-					// Attribute variant (`&[data-…]`) — no new class, still an entry.
-					push({ class: qualified, kind: 'variant', parent: ctx.selPath, file, layer }, node, out, seen);
-					owner = qualified;
-				} else if (ELEMENT_ENTRIES[sel] === file && !ctx.selPath) {
-					// Bare element frame authored here. `button` is the quartet root — an API entry.
-					push({ class: sel, kind: 'element', parent: null, file, layer }, node, out, seen);
-					owner = sel;
-				}
+	const walk = (
+		nodes: CssNode[],
+		media: string | null,
+		visit: (selector: string, compounds: string[], property: string, media: string | null) => void
+	): void => {
+		for (const node of nodes) {
+			if (node.type === 'at') {
+				walk(node.children, node.name === 'media' ? compactMedia(node.params) : media, visit);
 				continue;
 			}
+			if (node.type !== 'rule') continue;
 
-			if (sel.startsWith('&')) {
-				// Modifier / state / variant of the parent.
-				const rest = sel.slice(1);
-				const ownClasses = classesIn(rest.startsWith('.') ? rest : `.${rest}`);
-				// `&:hover` and friends introduce no new class — skip the entry,
-				// keep the frame for nested children (e.g. `&:hover .link-title`).
-				// An attribute test (`&[data-…]`) is always a variant — entry.
-				const isNew =
-					rest.trim().startsWith('[') ||
-					ownClasses.some((c) => !classesIn(ctx.selPath || '').includes(c));
-				if (!isNew) continue;
-				let kind: EntryKind = 'modifier';
-				if (rest.trim().startsWith('[')) kind = 'variant';
-				else if (/\s/.test(rest.trim())) kind = 'compound';
-				push({ class: qualified, kind, parent: ctx.selPath, file, layer }, node, out, seen);
-				owner = qualified;
-			} else if (ctx.selPath) {
-				// Plain descendant under a parent frame.
-				const topClasses = classesIn(ctx.selPath);
-				if (!selClasses.some((c) => !topClasses.includes(c))) continue;
-				if (/\s/.test(sel.trim())) {
-					// e.g. `.app-shell.open .sidebar-left` — a state/combination rule.
-					push({ class: qualified, kind: 'compound', parent: null, file, layer }, node, out, seen);
-				} else if (selClasses.length === 1 && sel.trim() === `.${selClasses[0]}`) {
-					push({ class: `.${selClasses[0]}`, kind: 'child', parent: ctx.selPath, file, layer }, node, out, seen);
-					owner = `.${selClasses[0]}`;
-				} else {
-					// Scoped child element with its own class (e.g. `svg.arrow` under .card).
-					const last = selClasses[selClasses.length - 1];
-					push({ class: `.${last}`, kind: 'child', parent: ctx.selPath, file, layer }, node, out, seen);
-					owner = `.${last}`;
+			const property = propertyString(node.children);
+			for (const selector of splitSelectorList(node.selector)) {
+				if (selector.includes('&')) {
+					// `&` is Sass nesting — invalid in plain CSS, so the browser
+					// drops the whole rule. Say so instead of indexing a class
+					// that never paints anything.
+					warnings.push(`${file}: Sass nesting in a plain CSS file — "${selector}"`);
+					continue;
 				}
-			} else {
-				// Top-level selector.
-				if (selClasses.length > 1) {
-					push({ class: qualified, kind: 'compound', parent: null, file, layer }, node, out, seen);
-				} else {
-					const cls = selClasses[0];
-					const el = /^([a-zA-Z][\w-]*)\.[\w-]+/.exec(sel);
-					// `a.nav-link` keeps its element prefix (distinct from the type
-					// class `.nav-link`); `html.mode-wipe` is a root utility — drop it.
-					const name = el ? (el[1] === 'html' ? `.${cls}` : `${el[1]}.${cls}`) : `.${cls}`;
-					push({ class: name, kind: 'class', parent: null, file, layer }, node, out, seen);
-					owner = name;
-				}
+				visit(selector, splitCompounds(selector), property, media);
 			}
 		}
+	};
 
-		walkRules(
-			node.children,
-			{ selPath: framePath ?? ctx.selPath, owner, media: ctx.media },
+	// Pass one — the subject carries a class.
+	walk(parseCss(css), null, (selector, compounds, property, media) => {
+		const subject = compounds[compounds.length - 1] ?? '';
+		const subjectClasses = classesIn(subject);
+		if (subjectClasses.length === 0) return;
+
+		const ancestor = compounds.length > 1 ? compounds[compounds.length - 2] : null;
+		const hasAttribute = /\[[^\]]+\]/.test(subject);
+		const [base, ...rest] = subjectClasses;
+		add({
+			class: `.${base}`,
+			kind: ancestor ? 'child' : hasAttribute ? 'variant' : 'class',
+			parent: ancestor,
+			selector,
 			file,
-			layer,
-			out,
-			seen
-		);
-	}
-}
-
-function push(entry: RegistryEntry, node: RuleNode, out: RegistryEntry[], seen: Set<string>): void {
-	if (seen.has(entry.class)) return;
-	seen.add(entry.class);
-	entry.layer = resolveLayer(entry);
-	const decls = collectDecls(node);
-	entry.property = propertyString(decls);
-	entry.description = describe(entry, node, decls);
-	entry.example = exampleFor(entry.class, entry.kind);
-	out.push(entry);
-}
-
-// ============================================================================
-// Loop-generated families from _00_config.sass
-// ============================================================================
-
-const FAMILY_DESC: Record<string, string> = {
-	gap: 'Gap on both axes (flex/grid)',
-	rgap: 'Row gap (block axis)',
-	cgap: 'Column gap (inline axis)',
-	pad: 'Padding, all four sides',
-	px: 'Inline (horizontal) padding',
-	py: 'Block (vertical) padding',
-	pt: 'Top padding',
-	pr: 'Right padding',
-	pb: 'Bottom padding',
-	pl: 'Left padding',
-	mar: 'Margin, all four sides',
-	mx: 'Inline (horizontal) margin',
-	my: 'Block (vertical) margin',
-	mt: 'Top margin',
-	mr: 'Right margin',
-	mb: 'Bottom margin',
-	ml: 'Left margin'
-};
-
-function familyEntries(config: SassConfig, out: RegistryEntry[], seen: Set<string>): void {
-	const groups: [string, Record<string, string>][] = [
-		['$gap-families', config.gapFamilies],
-		['$pad-families', config.padFamilies],
-		['$mar-families', config.marFamilies]
-	];
-	for (const [varName, families] of groups) {
-		if (!families) continue;
-		for (const [famName, cssProp] of Object.entries(families)) {
-			for (const step of config.steps) {
-				const cls = `.${famName}-${step}`;
-				if (seen.has(cls)) continue;
-				seen.add(cls);
-				out.push({
-					class: cls,
-					kind: 'family',
-					layer: 'L1',
-					file: '_02_dimensions.sass',
-					property: `${cssProp}: var(--space-${step})`,
-					description: `${FAMILY_DESC[famName] ?? `${famName} spacing`} at the ${step} step — rides var(--space-${step}) (generated from ${varName} × $steps in _00_config.sass)`,
-					example: `<div class="${famName}-${step}">`
+			layer: file,
+			property,
+			media
+		});
+		for (const extra of rest) {
+			add({
+				class: `.${extra}`,
+				kind: 'modifier',
+				parent: `.${base}`,
+				selector,
+				file,
+				layer: file,
+				property,
+				media
+			});
+		}
+		// The classes of the ancestor compound are classes too — `.avatar-group
+		// .circle` writes both of them in markup.
+		if (ancestor) {
+			for (const name of classesIn(ancestor)) {
+				add({
+					class: `.${name}`,
+					kind: 'class',
+					parent: null,
+					selector,
+					file,
+					layer: file,
+					property: '',
+					media
 				});
 			}
 		}
-	}
-	for (const [name, ratio] of Object.entries(config.frameRatios || {})) {
-		const cls = `.frame-${name}`;
-		if (seen.has(cls)) continue;
-		seen.add(cls);
-		out.push({
-			class: cls,
-			kind: 'family',
-			layer: 'L3',
-			file: '_04_containers.sass',
-			property: `aspect-ratio: ${ratio}; overflow: hidden`,
-			description: `Aspect-ratio media frame (${ratio.replace(/\s/g, '')}) — img/video/iframe/svg fill and cover (generated from $frame-ratios in _00_config.sass)`,
-			example: `<div class="frame-${name}"><img …></div>`
-		});
-	}
+	});
+
+	// Pass two — the subject is an element; the ancestor class still counts.
+	walk(parseCss(css), null, (selector, compounds, property, media) => {
+		const subject = compounds[compounds.length - 1] ?? '';
+		if (classesIn(subject).length > 0) return;
+		for (const name of classesIn(selector)) {
+			add({
+				class: `.${name}`,
+				kind: 'class',
+				parent: null,
+				selector,
+				file,
+				layer: file,
+				property: '',
+				media
+			});
+		}
+	});
+
+	return rows;
 }
 
-// ============================================================================
-// Token extraction from _00_tokens.sass (+ shade tokens from _00_config.sass)
-// ============================================================================
+/**
+ * The stylesheet order — the cascade, and the order the documentation reads in.
+ * A file that is not listed lands at the end, alphabetically.
+ */
+export const FILE_ORDER = [
+	'configurations.css',
+	'gaps-pads-margins.css',
+	'shapes-sizes.css',
+	'containers.css',
+	'typography.css',
+	'border-elevation-focus.css',
+	'layout-shell.css',
+	'colors-themes.css',
+	'motion-animation.css',
+	'components.css',
+	'component-props.css',
+	'responsive.css',
+	'custom.css',
+	'modular.css'
+];
 
-function collectTokens(): Token[] {
-	const content = fs.readFileSync(path.join(stylesDir, '_00_tokens.sass'), 'utf8');
-	const tree = parseSassTree(content);
+/** Every stylesheet in the styles folder, in cascade order. */
+export function styleFiles(): string[] {
+	if (!fs.existsSync(STYLES_DIR)) return [];
+	const present = fs
+		.readdirSync(STYLES_DIR)
+		.filter((file) => file.endsWith('.css'));
+	const ordered = FILE_ORDER.filter((file) => present.includes(file));
+	const extra = present.filter((file) => !FILE_ORDER.includes(file)).sort();
+	return [...ordered, ...extra];
+}
+
+export interface Extracted {
+	rows: RegistryRow[];
+	tokens: Token[];
+	warnings: string[];
+}
+
+/** Extract the classes and the tokens of the whole stylesheet. */
+export function extractRegistry(): Extracted {
+	const rows: RegistryRow[] = [];
 	const tokens: Token[] = [];
-	const seen = new Set<string>();
+	const warnings: string[] = [];
+	const seenTokens = new Set<string>();
+	// A class is one class, however many stylesheets mention it: the first
+	// mention wins, in cascade order.
+	const seenClasses = new Set<string>();
 
-	const add = (name: string, value: string, scope: string) => {
-		if (seen.has(name)) return; // first definition wins (light before dark)
-		seen.add(name);
-		tokens.push({ name, value, scope });
-	};
-
-	const walk = (children: SassNode[], scope: string | null) => {
-		for (const node of children) {
-			if (node.type === 'mixin') {
-				const inner = /^light-theme-tokens$/.test(node.name) ? 'light' : /^dark-theme-tokens$/.test(node.name) ? 'dark' : null;
-				if (inner) walk(node.children, inner);
-				continue;
-			}
-			if (node.type === 'rule') {
-				const isRoot = node.selectors.some((s) => s.trim() === ':root');
-				walk(node.children, isRoot && !scope ? 'root' : scope);
-				continue;
-			}
-			if (node.type === 'decl' && scope) {
-				const m = /^(--[\w-]+)\s*:\s*(.+)$/.exec(node.text);
-				if (m) add(m[1], m[2].trim(), scope);
-			}
+	for (const file of styleFiles()) {
+		const css = fs.readFileSync(path.join(STYLES_DIR, file), 'utf8');
+		for (const row of extractClasses(css, file, warnings)) {
+			if (seenClasses.has(row.class)) continue;
+			seenClasses.add(row.class);
+			rows.push(row);
 		}
-	};
-	walk(tree, null);
-
-	// --shade-* tokens are loop-generated in _00_config.sass from $shadow-specs.
-	const configSrc = fs.readFileSync(path.join(stylesDir, '_00_config.sass'), 'utf8');
-	const specs = parseSassValue(readSassVariable(configSrc, 'shadow-specs'));
-	if (specs && typeof specs === 'object') {
-		for (const [step, spec] of Object.entries(specs)) {
-			const v = (k: string) => (spec as Record<string, string>)[k];
-			const value = `var(--shadow-rim), 0 ${v('y1')} ${v('b1')} rgb(var(--shadow-color) / ${v('a1')}), 0 ${v('y2')} ${v('b2')} rgb(var(--shadow-color) / ${v('a2')})`;
-			add(`--shade-${step}`, value, 'root');
+		for (const token of collectGlobalTokens(css)) {
+			// First definition wins: the light theme precedes the dark one.
+			if (seenTokens.has(token.name)) continue;
+			seenTokens.add(token.name);
+			tokens.push(token);
 		}
 	}
-	return tokens;
+	return { rows, tokens, warnings };
 }
 
-// ============================================================================
-// Markdown surfaces
-// ============================================================================
+// -----------------------------------------------------------------------------
+// The vocabulary
+// -----------------------------------------------------------------------------
 
-function generateSkillReference(registry: RegistryEntry[], tokens: Token[]): string {
+const FILE_INTROS: Record<string, string> = {
+	'configurations.css':
+		'Global tokens and base resets — layout dimensions, z-index bands, font stacks, and the element resets every page starts from.',
+	'gaps-pads-margins.css':
+		'The space ladder. Every family runs the eight steps xs sm md bs lg xl 2xl 3xl and rides var(--space-*).',
+	'shapes-sizes.css':
+		'Radius and control-height ladders, plus the sizing utilities (full, min0, fitted).',
+	'containers.css':
+		'The structural foundations — .box, .row and .grid with their axis modifiers — plus positioning, scrolling, grid steps and frames.',
+	'typography.css':
+		'Type scale, semantic text roles, weight, line height, letter spacing and alignment.',
+	'border-elevation-focus.css':
+		'The partition-law border set (per side, three weights), elevation steps and the focus rings.',
+	'layout-shell.css':
+		'Application chrome — header, main, sidebars, footer and the content widths.',
+	'colors-themes.css':
+		'Colour roles. Name the role, never the value; the theme remaps the token.',
+	'motion-animation.css':
+		'Motion language — easings, durations and the keyframe animations.',
+	'components.css':
+		'Components — buttons, inputs, links, tags, avatars, switches, checkboxes.',
+	'component-props.css':
+		'Component props — the variant, shape and height classes Fractalsvelte UI consumes.',
+	'responsive.css':
+		'Visibility by breakpoint band. The bands are 769px, 1025px, 1281px, 1441px.',
+	'custom.css':
+		'The sanctioned extension layer — branding, the mascot, and anything a project owns.',
+	'modular.css': 'The sveltemodular workspace chrome.'
+};
+
+/** The steps a family ladder runs. */
+const STEPS = new Set(['xs', 'sm', 'md', 'bs', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', 'full', '0']);
+
+/** The family prefixes and what they mean. A family is a prefix plus a step. */
+const FAMILY_PHRASES: Record<string, string> = {
+	gap: 'Gap on both axes (flex/grid) at the {step} step',
+	rgap: 'Row gap (block axis) at the {step} step',
+	cgap: 'Column gap (inline axis) at the {step} step',
+	pad: 'Padding on all four sides at the {step} step',
+	px: 'Inline (horizontal) padding at the {step} step',
+	py: 'Block (vertical) padding at the {step} step',
+	pt: 'Top padding at the {step} step',
+	pr: 'Right padding at the {step} step',
+	pb: 'Bottom padding at the {step} step',
+	pl: 'Left padding at the {step} step',
+	mar: 'Margin on all four sides at the {step} step',
+	mx: 'Inline (horizontal) margin at the {step} step',
+	my: 'Block (vertical) margin at the {step} step',
+	mt: 'Top margin at the {step} step',
+	mr: 'Right margin at the {step} step',
+	mb: 'Bottom margin at the {step} step',
+	ml: 'Left margin at the {step} step',
+	text: 'Text size at the {step} step',
+	'text-static': 'Fixed text size at the {step} step',
+	'text-fluid': 'Fluid (clamped) text size at the {step} step',
+	radius: 'Corner radius at the {step} step',
+	h: 'Control height at the {step} step',
+	shad: 'Elevation at the {step} step',
+	'shad-hover': 'Elevation on hover at the {step} step',
+	weight: 'Font weight {n}',
+	lh: 'Line height {n}',
+	'ls-tight': 'Tight letter spacing at the {step} step',
+	'ls-wide': 'Wide letter spacing at the {step} step',
+	grid: 'Grid with {n} columns',
+	cspan: 'Span {n} grid columns',
+	z: 'Z-index band {n}'
+};
+
+/**
+ * Descriptions for the classes whose declarations alone do not explain the
+ * intent. Everything else is described by its family, or by its declarations.
+ */
+const CURATED: Record<string, string> = {
+	// containers
+	'.box': 'Flex column container — the vertical structural foundation',
+	'.column': 'Flex column container — the vertical structural foundation',
+	'.row': 'Flex row container — the horizontal structural foundation',
+	'.grid': 'CSS grid container — the third structural foundation',
+	'.wrap': 'Allow flex wrapping',
+	'.grow': 'Flex grow — take the remaining space (flex: 1 1 0%)',
+	'.shrink-0': 'Never shrink below the content size',
+	'.relative': 'position: relative — the anchor for absolute children',
+	'.absolute': 'position: absolute',
+	'.fixed': 'position: fixed',
+	'.sticky': 'position: sticky',
+	'.isolate': 'Create a stacking context',
+	'.scroll-y': 'Scroll vertically',
+	'.scroll-x': 'Scroll horizontally',
+	'.overflow-hidden': 'Clip the overflow',
+	'.overflow-visible': 'Let the overflow show',
+	'.inline': 'display: inline',
+	'.block': 'display: block',
+	'.inline-block': 'display: inline-block',
+	'.inline-flex': 'display: inline-flex',
+	'.inline-grid': 'display: inline-grid',
+	'.contents': 'display: contents — the box disappears, the children remain',
+	'.table': 'display: table',
+	'.display-none': 'display: none',
+	'.prose': 'Reading measure — a clamped content width',
+	'.prose-left': 'Reading measure, aligned to the start edge',
+	'.reel': 'Scroll-snap rail — the children snap to the rail',
+	'.card-grid': 'Auto-fit card grid — the column count negotiates the width',
+	'.bdr': 'Debug outline — flags an element on screen with a border',
+
+	// shells
+	'.app-shell': 'Application shell root — flex column, full height, hosts the header, main and footer',
+	'.app-header': 'Sticky application header',
+	'.app-main': 'Main region between header and footer — flex row, fitted to the viewport',
+	'.main-section': 'Primary content column inside .app-main',
+	'.sidebar-left': 'Left rail — nav role; off-canvas drawer on narrow screens',
+	'.sidebar-right': 'Right rail — table of contents',
+	'.app-footer': 'Application footer',
+	'.content-section': 'Page content block — responsive padding and narrow width modes',
+	'.clamped': 'Clamp to the content width and centre',
+	'.solo': 'The main section is the only column',
+	'.null': 'No width constraint',
+	'.narrow-half': 'Half the content width',
+	'.narrow-wide': 'Wide content width',
+	'.narrow-full': 'Full content width',
+
+	// components
+	'.button': 'The button — variant, shape and size come from the prop classes',
+	'.btn': 'Call-to-action button',
+	'.button-group': 'Buttons joined into one control',
+	'.split-button': 'A button with a separate action area',
+	'.input': 'Text input — themed field with a focus ring',
+	'.select': 'Select dropdown — themed field with a chevron',
+	'.select-wrap': 'The frame around a select and its chevron',
+	'.select-chevron': 'The chevron inside a select frame',
+	'.link': 'Themed link — theme colour, alternative on hover',
+	'.link-plain': 'Plain link — inherits the ink, theme colour on hover',
+	'.link-parent': 'Link block — hovers the colour of its .link-title child',
+	'.link-title': 'The title inside a .link-parent',
+	'.nav-link': 'Nav link — padded, curved, filled on hover',
+	'.tag': 'Small inline label',
+	'.tag-remove': 'The remove control inside a tag',
+	'.badge': 'Count badge',
+	'.ink-auto': 'Let the tag pick its ink from its own background',
+	'.text-only': 'A tag with no fill — text only',
+	'.avatar-group': 'A group of avatars — stacked or in a row',
+	'.avatar-more': 'The overflow avatar in an avatar group',
+	'.gap-overlap': 'Overlap the avatars in the group',
+	'.circle': 'Round avatars',
+	'.rounded': 'Rounded-square avatars',
+	'.switch-box': 'The switch track and thumb',
+	'.checkbox-box': 'The checkbox box',
+	'.slide-unlock': 'Slide-to-unlock control',
+	'.card-clickable': 'A card that responds to clicks',
+	'.disabled': 'Disabled state',
+	'.is-invalid': 'Invalid state — the field failed validation',
+	'.fitted': 'The input is fitted to its container',
+	'.variant': 'Variant marker',
+	'.vertical': 'Stack the group vertically',
+
+	// component props
+	'.primary': 'Primary variant — the default fill',
+	'.secondary': 'Secondary variant — a quieter fill',
+	'.themed': 'Themed variant — filled with the theme colour',
+	'.outline': 'Outline variant — border only',
+	'.ghost': 'Ghost variant — no fill until hover',
+	'.info': 'Status variant — the info colour',
+	'.success': 'Status variant — the success colour',
+	'.warning': 'Status variant — the warning colour',
+	'.danger': 'Status variant — the danger colour',
+	'.selected': 'Selected state — the current item in a set',
+	'.active': 'Active state',
+	'.rect': 'Shape prop — square corners',
+	'.min': 'Shape prop — the smallest radius',
+	'.mincurved': 'Shape prop — a small radius',
+	'.modern': 'Shape prop — the default radius',
+	'.curved': 'Shape prop — a large radius',
+	'.round': 'Shape prop — fully round',
+
+	// colours
+	'.bg': 'The page background',
+	'.bg-main': 'The page background',
+	'.bg-surface': 'Surface fill — cards, panels, inputs',
+	'.bg-panel': 'Panel fill — one step below the surface',
+	'.bg-input': 'Input fill',
+	'.bg-button': 'Button fill',
+	'.bg-button-secondary': 'Secondary button fill',
+	'.state-hover': 'The hover fill',
+	'.state-selected': 'The selected fill',
+	'.text-primary': 'Primary ink',
+	'.text-secondary': 'Secondary ink',
+	'.text-muted': 'Muted ink',
+	'.text-inverse': 'Ink for a filled surface',
+	'.text-white': 'Fixed white ink',
+	'.text-black': 'Fixed black ink',
+	'.text-theme': 'Theme colour ink',
+	'.text-theme-up': 'Theme colour, one step up',
+	'.text-theme-down': 'Theme colour, one step down',
+	'.text-success': 'Success ink',
+	'.text-warning': 'Warning ink',
+	'.text-danger': 'Danger ink',
+	'.text-info': 'Info ink',
+	'.bg-success': 'Success fill',
+	'.bg-warning': 'Warning fill',
+	'.bg-danger': 'Danger fill',
+	'.bg-info': 'Info fill',
+
+	// borders and elevation
+	'.border': 'Full border at the standard weight',
+	'.border-subtle': 'Full border at the subtle weight',
+	'.border-strong': 'Full border at the strong weight',
+	'.focus-ring': 'The default focus ring',
+	'.focus-theme': 'A focus ring in the theme colour',
+	'.focus-none': 'No focus ring',
+
+	// motion
+	'.mode-wipe': 'On <html> — disables view transitions while a colour-mode wipe runs',
+	'.anim-spin': 'Spin — a continuous rotation',
+	'.anim-fade-out': 'Fade out',
+
+	// responsive
+	'.md-only': 'Visible from the md band up (1025px)',
+	'.lg-only': 'Visible from the lg band up (1281px)',
+	'.xl-only': 'Visible from the xl band up (1441px)',
+	'.md-hide': 'Hidden from the md band up (1025px)',
+	'.lg-hide': 'Hidden from the lg band up (1281px)',
+	'.xl-hide': 'Hidden from the xl band up (1441px)',
+	'.anim-pulse': 'Pulse — a fade in and out',
+	'.anim-fade-in': 'Fade in',
+
+	// typography roles
+	'.text-body': 'Body copy at the base size',
+	'.text-body-lg': 'Body copy at the large size',
+	'.text-body-sm': 'Body copy at the small size',
+	'.page-title': 'Page title — the largest type on the page',
+	'.page-desc': 'Page description — large and airy',
+	'.page-heading-xl': 'Page heading, xl rung',
+	'.page-heading-lg': 'Page heading, lg rung',
+	'.page-heading-bs': 'Page heading, base rung',
+	'.card-title': 'Card title',
+	'.card-desc': 'Card description',
+	'.nav-header': 'Nav group header',
+	'.tt-u': 'Text transform — uppercase',
+	'.tt-c': 'Text transform — capitalize',
+	'.ta-c': 'Text align — centre',
+	'.ta-l': 'Text align — left',
+	'.ta-r': 'Text align — right',
+	'.mleft': 'Keep the reading measure on the left when the text is centred',
+	'.truncate': 'One-line ellipsis truncation',
+	'.font-sans': 'The sans font stack',
+	'.font-mono': 'The monospace font stack',
+	'.prose-content': 'Prose content — the reading measure of a long text',
+	'.doc-element': 'An element inside prose content',
+
+	// sizing
+	'.wfull': 'Full width',
+	'.hfull': 'Full height',
+	'.wmax': 'Max width',
+	'.hmax': 'Max height',
+	'.full': 'Full width and height',
+	'.wmin0': 'Zero min-width',
+	'.hmin0': 'Zero min-height',
+	'.min0': 'Zero min-width and min-height',
+	'.hfull-dvh': 'Full viewport height',
+	'.hfull-fitted': 'Full viewport height, fitted between the header and the footer',
+
+	// custom layer
+	'.site-logomotif': 'Site logo motif — scales on hover',
+	'.logotype': 'Logotype — the wordmark',
+	'.project-circle': 'Project dot',
+	'.mascot': 'The mascot — the site character',
+	'.mascot-bob': 'The mascot bobs',
+	'.mascot-tilt': 'The mascot tilts',
+	'.mascot-base': 'The mascot body',
+	'.mascot-overlay': 'The mascot overlay',
+	'.mascot-mask': 'The mascot mask',
+	'.mascot-pupil-l': 'The mascot left pupil',
+	'.mascot-pupil-r': 'The mascot right pupil',
+	'.mascot-gloss': 'The mascot gloss',
+	'.mascot-shade': 'The mascot shade',
+	'.mascot-lid': 'The mascot eyelid'
+};
+
+/** The family a class belongs to, if it is one. */
+function familyOf(name: string): { prefix: string; step: string } | null {
+	const lineHeight = name.match(/^lh(\d+(?:\.\d+)?)$/);
+	if (lineHeight) return { prefix: 'lh', step: lineHeight[1] };
+	const dash = name.lastIndexOf('-');
+	if (dash <= 0) return null;
+	const prefix = name.slice(0, dash);
+	const step = name.slice(dash + 1);
+	if (!FAMILY_PHRASES[prefix]) return null;
+	if (!STEPS.has(step) && !/^\d+(\.\d+)?$/.test(step)) return null;
+	return { prefix, step };
+}
+
+/** The token a class rides, if it rides one. */
+function ridesToken(property: string): string | null {
+	const match = property.match(/var\((--[\w-]+)/);
+	return match ? match[1] : null;
+}
+
+export interface VocabEntry {
+	class: string;
+	kind: string;
+	parent: string | null;
+	file: string;
+	property: string;
+	description: string;
+	example: string;
+	media: string | null;
+}
+
+/** The description of one class. */
+export function describe(row: RegistryRow): string {
+	const name = row.class.replace(/^\./, '');
+	const curated = CURATED[row.class];
+	if (curated) return curated;
+
+	const family = familyOf(name);
+	if (family) {
+		// `.lh13` is line-height 1.3 — the class name carries tenths.
+		const step =
+			family.prefix === 'lh' && /^\d+$/.test(family.step)
+				? (Number(family.step) / 10).toFixed(1)
+				: family.step === 'full'
+					? 'full'
+					: family.step;
+		const phrase = FAMILY_PHRASES[family.prefix]
+			.replace('{n}', step)
+			.replace('{step}', step);
+		const token = ridesToken(row.property);
+		return token ? `${phrase} — rides ${token}` : phrase;
+	}
+
+	const first = row.property.split(';')[0]?.trim();
+	switch (row.kind) {
+		case 'modifier':
+			return `${first || row.class} — modifier of ${row.parent}`;
+		case 'child':
+			return `${first || row.class} — child of ${row.parent}`;
+		case 'variant':
+			return `${first || row.class} — attribute variant`;
+		default:
+			return first || `${row.class} rule`;
+	}
+}
+
+/** Example markup for one class. */
+export function exampleFor(row: RegistryRow): string {
+	const name = row.class.replace(/^\./, '');
+	if (row.kind === 'child' && row.parent) {
+		return `<div class="${row.parent.replace(/^\./, '')}"><span class="${name}">…</span></div>`;
+	}
+	if (row.parent) return `<div class="${row.parent.replace(/^\./, '')} ${name}">…</div>`;
+	return `<div class="${name}">…</div>`;
+}
+
+// -----------------------------------------------------------------------------
+// The writers
+// -----------------------------------------------------------------------------
+
+function orderedFiles(rows: VocabEntry[]): string[] {
+	const present = new Set(rows.map((row) => row.file));
+	const ordered = FILE_ORDER.filter((file) => present.has(file));
+	const extra = [...present].filter((file) => !FILE_ORDER.includes(file)).sort();
+	return [...ordered, ...extra];
+}
+
+function renderRegistryMarkdown(rows: VocabEntry[], tokenCount: number): string {
+	const lines: string[] = [
+		'# Fractalstyler — Class Registry',
+		'',
+		'> GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts` from the',
+		'> stylesheets in `src/lib/styles`.',
+		'',
+		`**${rows.length} classes** across **${new Set(rows.map((r) => r.file)).size} stylesheets**, riding **${tokenCount} tokens**.`,
+		'',
+		'These classes are the entire public API. There is no authoring mixin and no',
+		'styling function — `+stack`, `+surface`, `space()` and their friends do not',
+		'exist. Compose in markup.',
+		'',
+		'Every class is concrete: the space families (`.gap` `.rgap` `.cgap` `.pad`',
+		'`.px` `.py` `.pt` `.pr` `.pb` `.pl` `.mar` `.mx` `.my` `.mt` `.mr` `.mb` `.ml`)',
+		'each run the eight steps `xs sm md bs lg xl 2xl 3xl`, token-routed through',
+		'`var(--space-*)`. A modifier rides its base (`.box.xcenter`); a child carries',
+		'its own name and names its parent (`.avatar-more` inside `.avatar-group`).',
+		''
+	];
+
+	for (const file of orderedFiles(rows)) {
+		const items = rows.filter((row) => row.file === file);
+		if (items.length === 0) continue;
+		lines.push('', `---`, '', `## ${file}`, '');
+		if (FILE_INTROS[file]) lines.push(FILE_INTROS[file], '');
+		lines.push('| Class | Property | Description |', '|:---|:---|:---|');
+		for (const item of items) {
+			const property = item.property ? `\`${item.property.replace(/\|/g, '\\|')}\`` : '—';
+			lines.push(
+				`| \`${item.class}\` | ${property} | ${item.description.replace(/\|/g, '\\|')} |`
+			);
+		}
+	}
+
+	lines.push('');
+	return lines.join('\n');
+}
+
+function renderSkillReference(rows: VocabEntry[], tokenCount: number): string {
 	let md = `# Fractalstyler — Class Reference\n\n`;
 	md += `GENERATED FILE — do not edit. Emitted by \`scripts/update-registry.ts\` from the\n`;
-	md += `parsed stylesheet. ${registry.length} classes across ${tokens.length} tokens.\n\n`;
+	md += `stylesheets in \`src/lib/styles\`. ${rows.length} classes across ${tokenCount} tokens.\n\n`;
 	md += `**The classes below are the entire public API.** The system defines no\n`;
-	md += `authoring mixins and no SASS functions — \`+stack\`, \`+surface\`, \`space()\` and\n`;
+	md += `authoring mixins and no styling functions — \`+stack\`, \`+surface\`, \`space()\` and\n`;
 	md += `friends do not exist. Compose in markup.\n\n`;
 	md += `Every class is concrete. Space families (\`.gap\` \`.rgap\` \`.cgap\` \`.pad\` \`.px\` \`.py\`\n`;
 	md += `\`.pt\` \`.pr\` \`.pb\` \`.pl\` \`.mar\` \`.mx\` \`.my\` \`.mt\` \`.mr\` \`.mb\` \`.ml\`) each ride the\n`;
 	md += `eight steps: \`xs sm md bs lg xl 2xl 3xl\`, token-routed through \`var(--space-*)\`.\n`;
-	md += `Modifiers nest under their base (\`.box.xcenter\`), children carry their own\n`;
-	md += `name (\`.accordion-content\`), and \`Parent.Child\` notation marks scoped children.\n\n`;
+	md += `Modifiers nest under their base (\`.box\` \`.xcenter\`), children carry their own\n`;
+	md += `name (\`.avatar-more\`).\n\n`;
 
-	for (const [layer, title, blurb] of LAYERS) {
-		const items = registry.filter((r) => r.layer === layer);
-		if (!items.length) continue;
-		md += `\n---\n\n## ${layer} — ${title}\n\n${blurb}\n\n`;
+	for (const file of orderedFiles(rows)) {
+		const items = rows.filter((row) => row.file === file);
+		if (items.length === 0) continue;
+		md += `\n---\n\n## ${file}\n\n`;
+		if (FILE_INTROS[file]) md += `${FILE_INTROS[file]}\n\n`;
 		md += `| Class | Applies | Source |\n|:---|:---|:---|\n`;
-		for (const i of items) {
-			const applies = (i.description || i.property || '').replace(/\|/g, '\\|');
-			md += `| \`${i.class}\` | ${applies} | \`${i.file}\` |\n`;
+		for (const item of items) {
+			const applies = (item.description || item.property).replace(/\|/g, '\\|');
+			md += `| \`${item.class}\` | ${applies} | \`${item.file}\` |\n`;
 		}
 	}
 
 	md += `\n---\n\n## Semantic Tokens\n\n\`\`\`css\n`;
-	for (const t of tokens) md += `  ${t.name}: ${t.value}; /* ${t.scope} */\n`;
+	for (const token of TOKEN_REFERENCE.tokens) md += `  ${token.name}: ${token.value};\n`;
 	md += `\`\`\`\n`;
 	return md;
 }
 
-function generateTokenReference(tokens: Token[]): string {
-	const find = (name: string) => tokens.find((t) => t.name === name);
-	const group = (prefix: string) => tokens.filter((t) => t.name.startsWith(prefix));
-	const TYPE_TOKENS = /^--text-(xs|sm|md|bs|lg|xl|2xl|3xl|4xl|5xl)$/;
-	// Curated token -> class mappings where the class name is not a prefix twin.
-	const TOKEN_CLASS: Record<string, string> = {
-		'--white-fixed': '`.text-white`',
-		'--black-fixed': '`.text-black`',
-		'--theme-color': '`.text-theme`',
-		'--theme-color-alt': '`.text-theme-alt`',
-		'--theme-color-sub': '`.text-theme-sub`',
-		'--bg': '`.bg-main`',
-		'--bg-surface': '`.bg-surface`',
-		'--bg-panel': '`.bg-panel`',
-		'--bg-sunken': '`.bg-sunken`',
-		'--bg-raised': '`.bg-raised`',
-		'--bg-extra': '`.bg-extra`',
-		'--success': '`.text-success` `.bg-success`',
-		'--warning': '`.text-warning` `.bg-warning`',
-		'--danger': '`.text-danger` `.bg-danger`',
-		'--info': '`.text-info` `.bg-info`',
-		'--greenpop1': '`.green1`',
-		'--greenpop2': '`.green2`',
-		'--greenpop3': '`.green3`',
-		'--greenpop4': '`.green4`',
-		'--orangepop1': '`.orange1`',
-		'--orangepop2': '`.orange2`',
-		'--orangepop3': '`.orange3`',
-		'--orangepop4': '`.orange4`',
-		'--orangepop5': '`.orange5`',
-		'--orangepop6': '`.orange6`',
-		'--yellowpop1': '`.yellow1`',
-		'--yellowpop2': '`.yellow2`',
-		'--yellowpop3': '`.yellow3`',
-		'--yellowpop4': '`.yellow4`'
-	};
-	const table = (rows: Token[], valueOf?: (t: Token) => string) => {
-		let out = `| Token | Class | Value |\n|:---|:---|:---|\n`;
-		for (const t of rows) {
-			let cls;
-			if (t.name.startsWith('--space-')) cls = `\`.gap${t.name.slice(7)}\` \`.pad${t.name.slice(7)}\` \`.mar${t.name.slice(7)}\` + sides`;
-			else if (TYPE_TOKENS.test(t.name)) cls = `\`.text${t.name.slice(6)}\``;
-			else if (/^--text-(primary|secondary|muted|inverse)$/.test(t.name)) cls = `.${t.name.slice(2)}`;
-			else if (t.name.startsWith('--radius-')) cls = `\`.radius${t.name.slice(8)}\``;
-			else if (t.name.startsWith('--height-')) cls = `\`.h${t.name.slice(8)}\``;
-			else if (t.name.startsWith('--z-')) cls = `\`.z${t.name.slice(3)}\``;
-			else if (/^--shadow-(xs|sm|md|bs|lg|xl|2xl|3xl)$/.test(t.name)) cls = `\`.shadow${t.name.slice(8)}\``;
-			else cls = TOKEN_CLASS[t.name] ?? '\u2014';
-			out += `| \`${t.name}\` | ${cls} | \`${(valueOf ? valueOf(t) : t.value).replace(/\|/g, '\\|')}\` |\n`;
-		}
-		return out;
-	};
+const TOKEN_GROUPS: { title: string; blurb: string; match: (name: string) => boolean }[] = [
+	{
+		title: 'Space Scale',
+		blurb: 'Every step feeds the gap, pad and margin families.',
+		match: (name) => name.startsWith('--space-')
+	},
+	{
+		title: 'Type Scale',
+		blurb: 'Fixed sizes up to base, then fluid (clamped) sizes above it.',
+		match: (name) => name.startsWith('--text-')
+	},
+	{
+		title: 'Radius',
+		blurb: 'Six channels. Compositions read the tokens, never a literal radius.',
+		match: (name) => name.startsWith('--radius-')
+	},
+	{
+		title: 'Control Heights',
+		blurb: 'Heights for inputs, selects and buttons.',
+		match: (name) => name.startsWith('--h-')
+	},
+	{
+		title: 'Motion Language',
+		blurb: 'Durations, easings and the composed channels every transition reads.',
+		match: (name) => /^--(speed|trans|motion|ease)/.test(name)
+	},
+	{
+		title: 'Colour Roles',
+		blurb: 'Name the role, never the value. Values shown are the light default; `[data-mode=\'dark\']` remaps them.',
+		match: (name) =>
+			/^--(white-fixed|black-fixed|bg|state|border|theme|success|warning|danger|info|ring)/.test(name)
+	},
+	{
+		title: 'Elevation',
+		blurb: 'The shadow channels the `.shad-*` classes read.',
+		match: (name) => name.startsWith('--shadow-')
+	},
+	{
+		title: 'Breakpoints',
+		blurb: 'Reference values — CSS media queries cannot consume custom properties, so the bands are written as literals to match.',
+		match: (name) => name.startsWith('--bp-')
+	},
+	{
+		title: 'Layout & Chrome',
+		blurb: 'Font stacks plus the page geometry the shells read.',
+		match: (name) =>
+			/^--(font|header-height|footer-height|fit-height|prose-clamp|content-clamp|app-inline|card-min|sidebar-width|z-|avatar|switch)/.test(
+				name
+			)
+	}
+];
 
-	let md = `# Fractalstyler \u2014 Token Reference\n\n`;
-	md += `GENERATED FILE \u2014 do not edit. Emitted by \`scripts/update-registry.ts\`\n`;
-	md += `from \`_00_tokens.sass\` (light/dark mixins + \`:root\`) and the shadow specs in\n`;
-	md += `\`_00_config.sass\`.\n\n`;
+function renderTokenReference(
+	tokens: { name: string; value: string }[]
+): string {
+	let md = `# Fractalstyler — Token Reference\n\n`;
+	md += `GENERATED FILE — do not edit. Emitted by \`scripts/update-registry.ts\` from the\n`;
+	md += `custom properties declared in a global scope in \`src/lib/styles/*.css\`.\n\n`;
 	md += `Every \`--space-*\` step is a class family: if \`--space-md\` exists, so do\n`;
-	md += `\`.gap-md\`, \`.pad-md\` and \`.mar-md\` (plus the \`.px\`/\`.py\`/\`.pt\`\u2026 sides).\n`;
+	md += `\`.gap-md\`, \`.pad-md\` and \`.mar-md\` (plus the \`.px\`/\`.py\`/\`.pt\` sides).\n`;
 	md += `There is no second vocabulary to learn.\n\n`;
 
-	md += `## Type Scale\n\nFixed rem rungs up to base, then compounded by \`--text-scaling\` (1.25).\n\n`;
-	md += table(group('--text-').filter((t) => TYPE_TOKENS.test(t.name)));
-	md += '\n' + table([find('--text-scaling')].filter((t) => t !== undefined));
+	for (const group of TOKEN_GROUPS) {
+		const items = tokens.filter((token) => group.match(token.name));
+		if (items.length === 0) continue;
+		md += `\n## ${group.title}\n\n${group.blurb}\n\n`;
+		md += `| Token | Value |\n|:---|:---|\n`;
+		for (const token of items) md += `| \`${token.name}\` | \`${token.value.replace(/\|/g, '\\|')}\` |\n`;
+	}
 
-	md += `\n## Space Scale\n\n\`--unit-space\` (0.25rem) times a step multiplier. Every step feeds the\n`;
-	md += `gap/pad/mar families in L1.\n\n`;
-	md += table([find('--unit-space')].filter((t) => t !== undefined));
-	md += '\n' + table(group('--space-'));
-
-	md += `\n## Radius\n\nSix channels. Compositions read the tokens, never a literal radius.\n\n`;
-	md += table(group('--radius-'));
-
-	md += `\n## Control & Component Metrics\n\nHeights for inputs, selects and buttons; avatar and switch channels.\n\n`;
-	md += table(tokens.filter((t) => /^--(height|control|avatar|switch)/.test(t.name)));
-
-	md += `\n## Motion Language\n\nDurations, easings and the composed \`--motion*\` channels every transition reads.\n\n`;
-	md += table(tokens.filter((t) => /^--(speed|trans|motion)/.test(t.name)));
-
-	md += `\n## Colour Roles\n\nName the role, never the hex. Values shown are the light default;\n`;
-	md += `\`[data-mode='dark']\` remaps them via \`=dark-theme-tokens\`.\n\n`;
-	md += table(
-		tokens.filter(
-			(t) =>
-				/^--(white-fixed|black-fixed|bg|state|border|theme|accent|success|warning|danger|info|ring)/.test(t.name) ||
-				/^--text-(primary|secondary|muted|inverse)$/.test(t.name)
-		)
-	);
-
-	md += `\n## Elevation\n\n\`--shadow-*\` channels are what the \`.shadow-*\` classes read; \`--shade-*\` are\n`;
-	md += `loop-generated from \`$shadow-specs\` in \`_00_config.sass\` (rim + key + ambient).\n\n`;
-	md += table(
-		group('--shadow-')
-			.concat(group('--shade-'), [find('--shadow-color'), find('--shadow-rim')].filter((t) => t !== undefined))
-	);
-
-	md += `\n## Fonts, Layout Constants & Page Chrome\n\nFont stacks plus the page geometry the shells and viewport classes read.\n\n`;
-	md += table(
-		tokens.filter((t) =>
-			/^--(font|timeless|header-height|footer-height|fit-height|prose-clamp|content-clamp|app-inline|card-min|sidebar-width|z-)/.test(
-				t.name
-			)
-		)
-	);
-
-	md += `\n## Pop Colors\n\nNamed accent literals. The \`.green1\`\u2026\`.green4\`, \`.orange1\`\u2026\`.orange6\`, and \`.yellow1\`\u2026\`.yellow4\` ink classes read them.\n\n`;
-	md += table(group('--greenpop').concat(group('--orangepop'), group('--yellowpop')));
-
-	md += `\n## Modes & Attribute Axes\n\n\`data-mode\` on the root selects the token mixin: \`light\` (default) or \`dark\`.\n\nThe other axes are classes: an element opts into an axis by carrying the\nclass that answers it, and the element name is never the qualifier. A bare\n\`<button class="el-variant">\` paints nothing. It must carry a paint - \`<button class="el-variant primary">\` \n\n`;
-	md += `| Axis class | Attribute | Values | Effect |\n|:---|:---|:---|\n`;
-	md += `| \`data-mode\` | \`<html>\` | \`light\` \\| \`dark\` | Swaps \`=light-theme-tokens\` / \`=dark-theme-tokens\` |\n`;
-	md += `| \`.el-variant\` | \`primary\` \\| \`secondary\` \\| \`themed\` \\| \`outline\` \\| \`ghost\` \\| \`link\` \\| \`icon\` \\| \`icon-danger\` \\| \`danger\` \\| Visual paint variant |\n`;
-	md += `| \`.el-shape\` | \`square\` \\| \`min\` \\| \`modern\` \\| \`curved\` \\| \`round\` | Corner treatment of the component |\n`;
-	md += `| \`.el-size\` | \`h-sm\` \\| \`h-md\` \\| \`h-bs\` \\| \`h-lg\` \\| \`h-xl\` | Metrics / scale variant (height + type) |\n`;
-	md += `| \`.pad-*\` | \`*-sm\` \\| \`*-md\` \\| \`*-bs\` \\| \`*-lg\` \\| \`*-xl\` | Padding from \`--space-*\` |\n`;
-	md += `| \`.shadow\` / \`.shadow-hover\` | \`sm\` \\| \`bs\` \\| \`lg\` \\| \`xl\` \\| \`2xl\` | Elevation from \`--shadow-*\` |\n`;
 	return md;
 }
 
-// ============================================================================
-// Execute
-// ============================================================================
+// -----------------------------------------------------------------------------
+// Run
+// -----------------------------------------------------------------------------
 
-const configSrc = fs.readFileSync(path.join(stylesDir, '_00_config.sass'), 'utf8');
-const config: SassConfig = {
-	steps: parseSassValue(readSassVariable(configSrc, 'steps')) as string[],
-	gapFamilies: parseSassValue(readSassVariable(configSrc, 'gap-families')) as Record<string, string>,
-	padFamilies: parseSassValue(readSassVariable(configSrc, 'pad-families')) as Record<string, string>,
-	marFamilies: parseSassValue(readSassVariable(configSrc, 'mar-families')) as Record<string, string>,
-	frameRatios: parseSassValue(readSassVariable(configSrc, 'frame-ratios')) as Record<string, string>,
-	breakpoints: parseSassValue(readSassVariable(configSrc, 'breakpoints'))
-};
+/** The tokens of the stylesheet, in the order the registry records them. */
+const TOKEN_REFERENCE = { tokens: [] as { name: string; value: string }[] };
 
-const registry: RegistryEntry[] = [];
-const seen = new Set<string>();
-
-// 1. Loop-generated families first (they own the L1 space ladder and L3 frames).
-familyEntries(config, registry, seen);
-
-// 2. Explicit classes from every partial, in layer order.
-for (const { file, layer } of FILES) {
-	const partial = path.join(stylesDir, file);
-	// An ejected tree is the user's to edit — a layer they deleted is not an error.
-	if (!fs.existsSync(partial)) continue;
-	const content = fs.readFileSync(partial, 'utf8');
-	const tree = parseSassTree(content);
-	walkRules(tree, { selPath: null, owner: null, media: [] }, file, layer, registry, seen);
+export function buildRegistry(): { rows: VocabEntry[]; tokens: { name: string; value: string }[] } {
+	const { rows, tokens, warnings } = extractRegistry();
+	const entries: VocabEntry[] = rows.map((row) => ({
+		class: row.class,
+		kind: row.kind,
+		parent: row.parent,
+		file: row.file,
+		property: row.property,
+		description: describe(row),
+		example: exampleFor(row),
+		media: row.media
+	}));
+	TOKEN_REFERENCE.tokens = tokens.map((token) => ({ name: token.name, value: token.value }));
+	for (const warning of warnings) console.warn(`  ⚠ ${warning}`);
+	return { rows: entries, tokens: TOKEN_REFERENCE.tokens };
 }
 
-const tokens = collectTokens();
+export function writeRegistry(): { rows: VocabEntry[]; tokens: { name: string; value: string }[] } {
+	const { rows, tokens } = buildRegistry();
 
-fs.writeFileSync(path.join(rootDir, 'registry.json'), JSON.stringify(registry, null, 2), 'utf8');
+	fs.writeFileSync(path.join(PKG_ROOT, 'registry.json'), `${JSON.stringify(rows, null, 2)}\n`, 'utf8');
+	fs.writeFileSync(path.join(PKG_ROOT, 'registry.md'), renderRegistryMarkdown(rows, tokens.length), 'utf8');
 
-fs.mkdirSync(path.join(rootDir, 'skills', 'fractalstyler', 'references'), { recursive: true });
-fs.writeFileSync(
-	path.join(rootDir, 'skills', 'fractalstyler', 'references', 'fractals.md'),
-	generateSkillReference(registry, tokens),
-	'utf8'
-);
-fs.writeFileSync(
-	path.join(rootDir, 'skills', 'fractalstyler', 'references', 'tokens.md'),
-	generateTokenReference(tokens),
-	'utf8'
-);
+	const references = path.join(PKG_ROOT, 'skills', 'fractalstyler', 'references');
+	fs.mkdirSync(references, { recursive: true });
+	fs.writeFileSync(path.join(references, 'fractals.md'), renderSkillReference(rows, tokens.length), 'utf8');
+	fs.writeFileSync(path.join(references, 'tokens.md'), renderTokenReference(tokens), 'utf8');
 
-const byLayer: Record<string, number> = {};
-for (const e of registry) byLayer[e.layer] = (byLayer[e.layer] || 0) + 1;
-const layerSummary = Object.entries(byLayer)
-	.map(([l, n]) => `${l}: ${n}`)
-	.join(', ');
-console.log(`✔ Registry updated: ${registry.length} classes (${layerSummary}) across ${tokens.length} tokens.`);
-console.log(`  Emit: registry.json, skills/fractalstyler/references/{fractals,tokens}.md`);
+	return { rows, tokens };
+}
 
+if (process.argv[1] && /update-registry\.(ts|js|mjs)$/.test(process.argv[1])) {
+	if (process.argv.includes('--report')) {
+		// Report what the extractor sees, and write nothing.
+		const { rows, tokens, warnings } = extractRegistry();
+		const byFile = new Map<string, number>();
+		for (const row of rows) byFile.set(row.file, (byFile.get(row.file) ?? 0) + 1);
+		console.log(`✔ Extracted ${rows.length} classes and ${tokens.length} tokens.`);
+		for (const [file, count] of byFile) console.log(`  ${file.padEnd(30)} ${count}`);
+		for (const warning of warnings) console.log(`  ⚠ ${warning}`);
+	} else {
+		const { rows, tokens } = writeRegistry();
+		console.log(`✔ Registry written: ${rows.length} classes, ${tokens.length} tokens.`);
+		console.log('  Emit: registry.json, registry.md, skills/fractalstyler/references/{fractals,tokens}.md');
+	}
+}

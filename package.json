@@ -1,48 +1,51 @@
 {
 	"name": "@fractaldesign/fractalstyler",
-	"version": "1.5.0",
+	"version": "1.6.0",
 	"license": "MIT",
-	"description": "A composition styling system, shipped as plain CSS and as editable SASS. The class registry is the public API: compose in markup, write no stylesheet.",
+	"description": "A lean CSS composition, styling, and design system designed for minimal classes, maximal customizability.",
 	"homepage": "https://fractalsvelte.dev/fractalstyler",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fractalmandala/fractalstyler.git"
+	},
+	"bugs": {
+		"url": "https://github.com/fractalmandala/fractalstyler/issues"
+	},
+	"author": "fractalmandala",
 	"bin": {
 		"fractalstyler": "cli/main.mjs",
 		"fractalstyler-lint": "lint/cli.mjs",
 		"fractalstyler-mcp": "mcp/server.mjs"
 	},
 	"scripts": {
-		"registry": "node scripts/update-registry.ts && node scripts/class-vocab.ts",
-		"vocab": "node scripts/class-vocab.ts",
-		"lint": "node lint/cli.mts",
-		"browser": "node lint/browser.mts",
-		"mcp": "node mcp/server.mts",
+		"registry": "node scripts/update-registry.ts",
+		"tokens": "node scripts/build-tokens-registry.ts",
+		"lint": "node lint/cli.ts",
+		"browser": "node lint/browser.ts",
+		"mcp": "node mcp/server.ts",
 		"dev": "vite dev",
 		"preview": "vite preview",
-		"build": "npm run registry && npm run prepack",
-		"build:runtime": "tsc -p tsconfig.runtime.json",
+		"build": "npm run registry && npm run tokens && npm run prepack",
 		"prepare": "svelte-kit sync || echo ''",
-		"prepack": "npm run registry && svelte-kit sync && svelte-package && npm run css && npm run build:runtime && chmod +x cli/main.mjs lint/cli.mjs mcp/server.mjs && publint",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.runtime.json --noEmit && node scripts/validate-deck.ts && node lint/cli.mts",
+		"prepack": "svelte-kit sync && svelte-package && publint",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && node scripts/validate-deck.ts && node lint/cli.ts",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"validate:deck": "node scripts/validate-deck.ts",
-		"css": "node scripts/build-css.ts",
-		"css:registry": "node scripts/build-registry-css.ts",
-		"version": "npm run registry && git add -A",
-		"pair": "node scripts/generate-pairs.mjs && node scripts/update-registry.ts"
+		"version": "npm run registry && npm run tokens && git add -A"
 	},
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*",
 		"registry.json",
+		"registry.md",
 		"skills",
-		"lint/**/*.mjs",
-		"mcp/*.mjs",
-		"data",
-		"cli/*.mjs",
-		"docs/REGISTRY.api.md",
-		"docs/references",
-		"scripts/update-registry.js",
-		"scripts/class-vocab.js"
+		"lint",
+		"mcp",
+		"cli",
+		"runtime",
+		"docs",
+		"scripts"
 	],
 	"sideEffects": [
 		"**/*.css"
@@ -57,49 +60,32 @@
 			"default": "./dist/index.js"
 		},
 		"./types": {
-  		"types": "./dist/types.d.ts",
-  		"default": "./dist/types.js"
+			"types": "./dist/types.d.ts",
+			"default": "./dist/types.js"
+		},
+		"./layout": {
+			"types": "./dist/layout/index.d.ts",
+			"svelte": "./dist/layout/index.js",
+			"default": "./dist/layout/index.js"
 		},
 		"./styles": {
 			"types": "./dist/asset.d.ts",
-			"default": "./dist/styles/index.sass"
+			"default": "./dist/styles/index.css"
 		},
 		"./styles/*": "./dist/styles/*",
-		"./tokens": {
-			"types": "./dist/asset.d.ts",
-			"default": "./dist/styles/_00_tokens.sass"
-		},
-		"./css": {
-			"types": "./dist/asset.d.ts",
-			"default": "./dist/css/fractalstyler.css"
-		},
-		"./css/min": {
-			"types": "./dist/asset.d.ts",
-			"default": "./dist/css/fractalstyler.min.css"
-		},
-		"./recipes": "./data/recipes.json",
-		"./presets": {
-			"types": "./dist/presets.svelte.d.ts",
-			"svelte": "./dist/presets.svelte.js",
-			"default": "./dist/presets.svelte.js"
-		},
-		"./PresetControls": {
-			"types": "./dist/ui/PresetControls.svelte.d.ts",
-			"svelte": "./dist/ui/PresetControls.svelte",
-			"default": "./dist/ui/PresetControls.svelte"
-		},
+		"./registry.json": "./registry.json",
+		"./registry.md": "./registry.md",
 		"./package.json": "./package.json"
 	},
 	"peerDependencies": {
-		"svelte": "^5.0.0",
-		"sass": "^1.102.0"
+		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/package": "^2.5.8",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
-		"@types/node": "^26.2.0",
+		"@types/node": "^26.0.0",
 		"publint": "^0.3.21",
 		"sass": "^1.102.0",
 		"svelte": "^5.56.1",
@@ -109,7 +95,6 @@
 	},
 	"keywords": [
 		"css",
-		"sass",
 		"design-system",
 		"styling",
 		"svelte",
@@ -122,11 +107,6 @@
 		"@modelcontextprotocol/sdk": "^1.30.0"
 	},
 	"engines": {
-		"node": ">=18"
-	},
-	"peerDependenciesMeta": {
-		"sass": {
-			"optional": true
-		}
+		"node": ">=22.18"
 	}
 }

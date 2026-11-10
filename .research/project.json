@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "projectId": "c7624e6a-cb55-43ba-a87b-32e45f4a6a10",
+  "name": "fractalstyler",
+  "rootDocuments": [],
+  "primaryBibliography": "references.bib",
+  "trusted": false,
+  "engine": "pdf",
+  "venue": "neurips",
+  "wordBudget": null,
+  "pageBudget": 9,
+  "spellingWords": []
+}

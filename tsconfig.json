@@ -11,14 +11,18 @@
 		"strict": true,
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
+		// The runtime (cli/, lint/, mcp/, scripts/) is TypeScript that Node
+		// executes directly: the types are erased, never compiled away. Only
+		// erasable syntax is allowed there, and type-only imports must say so.
+		"erasableSyntaxOnly": true,
+		"verbatimModuleSyntax": true,
 		"types": [
-      "node"
-    ]
+			"node"
+		]
 	},
-	// SvelteKit's own list, plus the repo's TypeScript scripts (run on Node's type stripping)
-	// and the shipped Node runtime sources (cli/, lint/, mcp/ .mts; scripts/update-registry.ts,
-	// scripts/class-vocab.ts). The runtime runs from node_modules on Node >=18, where type
-	// stripping is unavailable, so tsconfig.runtime.json compiles it to the JS that ships.
+	// SvelteKit's own list, plus the repo's TypeScript scripts and the shipped
+	// Node runtime sources (cli/, lint/, mcp/, scripts/) — all of which run on
+	// Node's type stripping, not through a compile step.
 	"include": [
 		".svelte-kit/ambient.d.ts",
 		".svelte-kit/env.d.ts",
@@ -29,10 +33,8 @@
 		"src/**/*.ts",
 		"src/**/*.svelte",
 		"scripts/**/*.ts",
-		"cli/**/*.mts",
-		"lint/**/*.mts",
-		"mcp/**/*.mts",
-		"fractalstyler-vscode/esbuild.mts",
-		"fractalstyler-vscode/scripts/**/*.mts"
+		"cli/**/*.ts",
+		"lint/**/*.ts",
+		"mcp/**/*.ts"
 	]
 }

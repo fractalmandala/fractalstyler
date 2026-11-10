@@ -1,204 +1,181 @@
 # Fractalstyler
 
-A composition styling system — the class registry is the public API: compose
-in markup, write no stylesheet. Ships as editable SASS and as plain compiled
-CSS. MIT © [Fractal Mandala](https://github.com/fractalmandala)
+<img style="height: 400px; width: 100%; object-fit: cover; margin-bottom: 1.5rem;" src="static/fractalstyler.png" alt="fractalstyler"/>
 
-**This library is a work in constant progress and breaking changes each bump.**
+Fractalstyler is a lean styling system based on the idea of minimal classes, maximal customizability. It defines a tight set of dimensions, variables, containers, interactions, colors, typography, and layouts designed for consistent app and site designs, easy components, and custom themes. 
 
-- Registry: [`docs/REGISTRY.api.md`](https://github.com/fractalmandala/fractalstyler/blob/main/docs/REGISTRY.api.md)
-- Configuration: [`docs/references/configurations-api.md`](https://github.com/fractalmandala/fractalstyler/blob/main/docs/references/configurations-api.md)
-- Agent skill: [`skills/fractalstyler/SKILL.md`](https://github.com/fractalmandala/fractalstyler/blob/main/skills/fractalstyler/SKILL.md)
-- [VS Code Intellisense Extension](https://github.com/fractalmandala/fractalstyler/blob/main/fractalstyler-vscode/fractalstyler-0.4.1.vsix)
-- [NPM](https://www.npmjs.com/package/@fractaldesign/fractalstyler)
+You can install and use Fractalstyler in the following ways:
+
+1. Just copy the css files into your project - now they're yours, no dependency.
+2. Install via a package manager 
+	- 2.1 - install with registry and docs
+	- 2.2 - install with registry, docs, and select css files
+	- 2.3 - install registry, docs, css files
+	- 2.4 - full install - registry, docs, css files, lint, mcp, scripts
+3. Use Agent
+	- Point your agent to the [Fractalstyler skill](./skills/fractalstyler/SKILL.md) and instruct 'use fractalstyler skill, setup the system and guide in my project.'
+
+Read [documentation](./docs/introduction.md).
+Read [developer's guide](./docs/14-development.md)
+
 
 ## Using it in a project
 
-Two ways to hold the styles, and an IDE layer you can add to either.
+The system is plain CSS — the layers, imported in cascade order. There are
+three ways to hold it, and they differ in who owns the file afterwards.
 
-### 1. Install and use — track the package; upgrades come from npm
+### Track the package (advised)
 
 ```sh
 pnpm add -D @fractaldesign/fractalstyler
 ```
 
-```sass
-@use '@fractaldesign/fractalstyler/styles' as *
+```js
+// one import — your bundler inlines the layers, in cascade order
+import '@fractaldesign/fractalstyler/styles';
 ```
 
-Plain CSS consumers need no SASS toolchain:
+Or a single layer, when you only want part of the system:
 
 ```js
-import '@fractaldesign/fractalstyler/css'; // dist/css/fractalstyler.css
+import '@fractaldesign/fractalstyler/styles/typography.css';
 ```
 
-The classes are active once the import is in place. To keep the registry and
-the configuration docs greppable inside your project, run:
+The styles stay in `node_modules`; upgrades come from npm.
 
-```sh
-npx @fractaldesign/fractalstyler init --track --docs
-```
-
-which places `REGISTRY.api.md` and
-`references/configurations-api.md` into a `fractalstyler/` folder at your
-project root (`--docs-dir` to choose another). Docs are snapshots — re-run
-`init` after upgrading to refresh them.
-
-### 2. Eject — the files become yours
-
-Copies every styles layer, the palette modules and the registry builder into
-your project, where you may edit them freely (including the `$`-variables in
-`_00_config.sass`, in place):
+### Eject — the files become yours
 
 ```sh
 npx @fractaldesign/fractalstyler eject
 ```
 
-That leaves you `src/lib/styles/` (11 layers + a seeded `_09_own.sass`),
-`src/lib/palette/`, and `scripts/build-registry.mjs`. Import your local tree,
-regenerate your own registry after edits (`node scripts/build-registry.mjs`,
-Node only), and the linter keeps enforcing the contract against your copy:
+Copies the layers into `src/lib/styles/`, seeds `custom.css` as your
+extension point, and copies the registry builder into `scripts/`. Nothing is
+ever overwritten — a file you already have is kept, and reported.
+
+After any edit to your copy, regenerate its registry:
 
 ```sh
-npx @fractaldesign/fractalstyler lint src/
+node scripts/build-registry.mjs
 ```
 
-Nothing existing is ever overwritten — on a name conflict your file is kept
-and reported. Delete a kept file and re-run `eject` to re-place it.
+An ejected copy no longer tracks the package. You own the drift.
 
-> **Drift warning**: an ejected copy no longer tracks the package — upgrades
-> stop coming from npm. This is the less advisable mode; it exists so a
-> project that must own its styles can still start from the whole system.
+### Copy by hand
 
-### 3. Either mode, with or without the IDE extension
+The same layers, copied wherever you like. No CLI, no dependency.
 
-Both `init` and `eject` accept `--intellisense` / `--no-intellisense`. With it
-on, the CLI writes `fractalstyler.stylesDirectory` to `.vscode/settings.json`
-for the **Fractalstyler** VS Code extension (`fractaldesign.fractalstyler`) —
-class completions and hovers inside `class="…"`, plus the sidebar/panel editor
-for the styles files — pointing at wherever your styles now live
-(`node_modules/…/dist/styles` in track mode, your local folder in eject mode).
-It also checks the extension is installed and prints how to get it if not.
+### The registry and the docs
 
-The setting is only a hint: the extension auto-detects the same folders and
-works with no configuration at all. It picks the first of `src/lib/styles`,
-`node_modules/@fractaldesign/fractalstyler/dist/styles`, `src/styles` or
-`styles` that exists, so fractalstyler itself, an ejected copy, and an app
-consuming the package from npm are all covered. Run **Fractalstyler: Pick
-Styles Folder** to override it.
+[`registry.md`](./registry.md) is the index of every class: what it does,
+which stylesheet declares it, and a piece of markup to copy.
+[`registry.json`](./registry.json) is the same thing for machines — the linter
+and the MCP server validate against it.
 
-`npx @fractaldesign/fractalstyler init` with no flags asks the three questions
-interactively; `--yes` takes the defaults (track + docs + intellisense).
+In a project that tracks the package, the registry and the documentation are a
+snapshot you can pull in:
 
-Canonical props are defined at `/lib/types.ts`. Shared definition with Fractalsvelte UI components library.
+```sh
+npx @fractaldesign/fractalstyler init --docs
+```
 
-#### Notes
+### The vocabulary, in one screen
 
-- Everything is browser-only. The setters no-op during SSR, so calling them at
-  module scope in a shared file is safe.
-- A preset never overwrites an attribute your markup already declares — it only
-  fills in what is missing. If an element says `data-pad="sm"`, the pad control
-  will not touch it, and reading that element's attribute returns `sm`, not the
-  selected preset.
-- Every axis is class-qualified, so the sweep targets the axis classes:
-  `data-variant` → `.el-variants`, `data-shape` → `.el-shape`, `data-size` →
-  `.el-size`, `data-pad` → `.el-pad`. An element that carries none of them is
-  never touched.
-- Four axes, four setters. `presetState.variant` starts at `primary` and reads
-  back `primary` until the variant preset is changed.
+| | |
+|:---|:---|
+| Containers | `.box` (column), `.row` (horizontal), `.grid` — and their modifiers `.xcenter`, `.ycenter`, `.xbetween` |
+| Spacing | `.gap-*`, `.pad-*`, `.px-*`, `.py-*`, `.mar-*` — eight steps: `xs sm md bs lg xl 2xl 3xl` |
+| Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate` |
+| Colour | `.bg`, `.bg-surface`, `.text-primary`, `.text-muted`, `.border` — roles, never values |
+| Variants | `.primary`, `.secondary`, `.themed`, `.outline`, `.ghost`, `.link` |
+| Shape & height | `.rect`, `.min`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` |
 
-## Presets
+The full list is in [`registry.md`](./registry.md); the reasoning behind it is
+in [the documentation](./docs/introduction.md).
 
-The optional runtime layer. Presets are plain `data-*` attributes written onto
-the page — no build step, no stylesheet of its own, safe to leave out entirely.
+### The shell components
 
-| Axis | Class | Attribute | Values |
-|---|---|---|---|
-| Size | `.el-size` | `data-size` | `sm` `md` `bs` `lg` `xl` |
-| Shape | `.el-shape` | `data-shape` | `square` `min` `modern` `curved` `round` |
-| Variant | `.el-variants` | `data-variant` | `primary` `secondary` `themed` `outline` `ghost` `link` `icon` |
-| Padding | `.el-pad` | `data-pad` | `sm` `md` `bs` `lg` `xl` |
+The application shell — header, main, sidebars, footer — is published as
+Svelte components, so you do not have to remember the markup:
 
-`setPresetSize`, `setPresetShape`, `setPresetPad`, `setPresetVariant` and
-`resetPresets` are importable from the package root, and `PresetControls.svelte`
-ships as a ready-made picker with one control per axis. Both paths are also
-available as the subpath exports `./presets` and `./PresetControls`.
-`presetState` is exported for reading current values — call `initPresets()`
-first or you read the defaults, not the stored choice.
+```svelte
+<script>
+	import { AppShell } from '@fractaldesign/fractalstyler/layout';
+</script>
 
-Choices persist to `localStorage` under `fractalstyler:presets`, and a
-`MutationObserver` re-applies them to nodes added later.
+<AppShell clamped>
+	{#snippet header()}
+		<strong>My app</strong>
+	{/snippet}
 
-## before release
+	<h1>Hello</h1>
+</AppShell>
+```
 
-- regenerate classes list and registry, to shake off tree and remove deprecated classes + add new few.
-- all three files inside `packages/fractalstyler/skills/fractalstyler` to be modified to drop old class references.
-- updated [configurations](docs/references/configurations-api.md) and [registry](docs/REGISTRY.api.md)
-- re-audit mcp to ensure it is not out of date and is using current classes and status
-- **update the VS Code extension** — `/Users/amrit/fractaldesign/vsix-and-zed-ext/fractalstyler-vscode` carries a bundled copy of the registry so completions work with no project set up. After any class change, refresh it and rebuild:
-  ```sh
-  npm --prefix fractalstyler-vscode run sync:registry   # copies registry.json into the extension
-  npm --prefix fractalstyler-vscode run package        # rebuilds fractalstyler-<version>.vsix
-  ```
-- update AGENTS.md where needed, update README.md where needed
-
-## 26 Oct changelog
-Dropped `[data-variant]`, `[data-shape]` and all such catchers. Now it's just class definitions - `el-variant primary`, `el-size h-md`, `el-shape modern` etc.
-Removed clamping from --text-* scale. Because those don't work in GPUI. 
-
-## 21st Oct changelog
-
-Complete standardization and type definition of all props, shared surface with Fractalsvelte UI components library. Now no need to keep record of what props are for what styles and/or components. `_10_propped.sass` extends the classes `.el-variants`, `.el-shape`, `.el-size`, `.el-pad`, `.el-shadow`. Use these on buttons, inputs, cards - you decide. Canonical definitions will be set at the Fractalsvelte UI componenents level.
-
-## 1.4.0 changelog
-
-- **the attribute axes are class-qualified.** `_10_propped.sass` (layer L6) owns the axes: `.el-variants` answers `data-variant`, `.el-shape` answers `data-shape`, `.el-size` answers `data-size`, `.el-pad` answers `data-pad`, `.el-shadow` / `.el-shadow-hover` answer `data-shadow`, and `.el-vss` carries variant + shape + size in one class. The element name is never the qualifier — a bare `<button data-variant="primary">` paints nothing.
-- the element-scoped rules are gone: `button[data-variant=…]`, `a.btn[data-variant=…]`, `.input[data-*]`, `.select[data-*]`, `.card[data-*]` and `.accordion-item[data-*]` no longer exist. 91 classes left the registry; 64 axis classes entered it. The registry holds **481** classes.
-- the variant set is now `primary` `secondary` `themed` `outline` `ghost` `link` `icon` — `soft`, `destructive` and `iconbox` are gone, and `themed` (the `--theme-color` fill) is new. The shape set gained `min` and lost nothing; the size set gained `xl`.
-- `.icon` is gone as a class. An icon-only button is `<button class="button el-variants el-size" data-variant="icon" data-size="sm">`.
-- the presets runtime now sweeps the axis classes instead of element selectors, so the same four setters drive any element that opts in.
-- `src/lib/libTypes.ts` is now `src/lib/types.ts`; the canonical unions (`VARIANTS`, `SIZES`, `SHAPES`, `PADS`, `SHADOWS`) live there and are shared with the Fractalsvelte UI components library.
-- the layout partials were reorganised: `.grid-1`…`.grid-6`, `.cspan-*`, `.card-grid`, `.prose`, `.prose-left`, `.frame-*` and `.reel` now live in `_04_containers.sass`; `.card`, `.chip`, `.nav-section`, `.page-header`, `.inputs-wrapper` and `.checkbox-wrapper` in `_05_layouts.sass`. The layer map follows the classes, not the file.
-- `_00_fonts.sass` is gone. The library still assigns `font-family: var(--font-sans)` to `body, html` — the token is the consumer's to define.
-
-## 11th Oct changelog
-- removed width 100% on input and select
-- added data-size to button data-variant = iconbox
-- added global presets for size, padding, height, variant, shape, and controls for it.
+See [Layout](./docs/16-layout.md) for every component and the layout state
+that fills them.
 
 ## CLI reference
 
 ```sh
-npx @fractaldesign/fractalstyler init     # scaffold: mode, docs, intellisense
-npx @fractaldesign/fractalstyler eject    # copy styles + palettes + builder
-npx @fractaldesign/fractalstyler lint     # contract linter (self or <dir>)
-npx @fractaldesign/fractalstyler help     # all options
+npx @fractaldesign/fractalstyler <command>
 ```
 
-| Option | Default | Meaning |
-|---|---|---|
-| `--track` / `--eject` | track | How the styles are held |
-| `--docs` / `--no-docs` | docs | Copy registry + configuration docs |
-| `--docs-dir <dir>` | `fractalstyler/` | Where docs land |
-| `--styles-dir <dir>` | `src/lib/styles` | Eject target for the layers |
-| `--palette-dir <dir>` | `src/lib/palette` | Eject target for the palettes |
-| `--scripts-dir <dir>` | `scripts` | Eject target for the registry builder |
-| `--intellisense` / `--no-intellisense` | ask | VS Code extension settings + check |
-| `--yes` / `-y` | — | Non-interactive, take the defaults |
+| Command | What it does |
+|:---|:---|
+| `init` | Scaffold a project — track the package or eject the styles, and copy the documentation |
+| `eject` | Copy the style layers and the registry builder into the current project |
+| `lint [dir]` | Check a project against the styling contract |
+| `mcp` | Start the MCP server on stdio |
+| `help` | The usage text |
 
-`lint` needs the Sass compiler (an optional peer of this package):
-`pnpm add -D sass`. Its own flags (`--json`, `--own <file>`, `--registry <f>`)
-pass through unchanged.
+### init and eject
+
+| Flag | |
+|:---|:---|
+| `--track` | Keep the styles in `node_modules`; upgrades from npm (default) |
+| `--eject` | Copy the styles into the project |
+| `--docs` / `--no-docs` | Copy the documentation into the project (default: yes) |
+| `--docs-dir <dir>` | Where the documentation lands (default: `fractalstyler/`) |
+| `--yes`, `-y` | Non-interactive — take the defaults |
+| `--styles-dir <dir>` | eject: where the layers land (default: `src/lib/styles`) |
+| `--scripts-dir <dir>` | eject: where the registry builder lands (default: `scripts`) |
+
+`init` with no flags asks the questions; `--yes` takes the defaults.
+
+### lint
+
+```sh
+npx @fractaldesign/fractalstyler lint          # audit this project
+npx @fractaldesign/fractalstyler lint src/     # audit a directory
+```
+
+| Flag | |
+|:---|:---|
+| `--json` | Machine-readable diagnostics, for CI and agents |
+| `--own <file>` | The consumer's extension stylesheet (default: `src/lib/styles/custom.css`) |
+| `--registry <file>` | A different `registry.json` |
+
+What it enforces:
+
+- no scoped `<style>` block and no inline `style="…"` — components are markup
+  and logic only;
+- every class in the markup exists in the registry;
+- no raw hex, and no pixel value outside the 1–2px hairline budget;
+- every `var(--token)` resolves to a real token;
+- corners route through the radius ladder, so the shape axis can reach them.
 
 ## MCP Server (Agent Co-pilot)
 
-The package ships with a Model Context Protocol (MCP) server to guide AI coding agents:
+An agent that knows the system does not have to guess a class name. The MCP
+server exposes the registry, the tokens and the contract as tools — so an agent
+can look up what exists, and can check its own markup before you read it.
 
 ```sh
 npx @fractaldesign/fractalstyler mcp
 ```
 
-Or configure in your MCP settings (Claude Desktop, Cursor, Antigravity):
+Point your client at it:
 
 ```json
 {
@@ -211,58 +188,122 @@ Or configure in your MCP settings (Claude Desktop, Cursor, Antigravity):
 }
 ```
 
-Exposes 8 agent tools:
-- `guide_styling`: Intent-driven design advisor (gap, typography, layout, cards, buttons).
-- `search_classes`: Fast search and filter over the 481 canonical classes.
-- `get_tokens`: Inspect space, typography, radius, shadow, and surface tokens.
-- `snap_to_tokens`: Snaps raw pixel values to nearest canonical token utility classes.
-- `get_recipes`: Verified copy-paste recipes (segmented controls, metrics grids, dialogs, etc.).
-- `css_to_classes`: Translates raw CSS declarations into pure Fractalstyler markup.
-- `lint_markup`: Validates markup against closed-world styling contracts.
-- `get_system_rules`: Returns system constraints and architecture primer.
+### Tools
 
-## Developing this package
+| Tool | What it does |
+|:---|:---|
+| `guide_styling` | The styling guidance for a stated intent — spacing, layout, type, colour |
+| `search_classes` | Search the registry by name, description or CSS property |
+| `get_tokens` | The token scales — space, type, radius, shadow, surfaces |
+| `snap_to_tokens` | Snap a raw pixel value to the nearest canonical token and class |
+| `css_to_classes` | The classes that produce a given piece of CSS |
+| `lint_markup` | Check markup against the contract — unknown classes, inline styles, `<style>` blocks, raw hex |
+| `get_system_rules` | The closed-world rules the system is built on |
 
-```sh
-pnpm registry   # regenerate registry.json, docs/REGISTRY.api.md, skill references
-pnpm vocab      # regenerate docs/REGISTRY.api.md
-pnpm browser    # regenerate docs/browser.html
-pnpm lint       # contract linter (self mode)
-pnpm check      # validate-deck + svelte-check
-pnpm css        # rebuild dist/css
+### Prompts
+
+| Prompt | |
+|:---|:---|
+| `design_component` | Plan and author a component from canonical classes only |
+| `audit_markup` | Audit existing markup for contract compliance |
+
+### Resources
+
+`fractalstyler://registry` · `fractalstyler://tokens` · `fractalstyler://rules`
+
+
+## Updating Package
+
+The order matters: the registry is generated from the stylesheets, the
+documentation is checked against the stylesheets, and the version is bumped
+last — because the version is what the generated files get stamped with.
+
+### 1. Make the change
+
+| You are changing | Where |
+|:---|:---|
+| a class or a token | `src/lib/styles/*.css` |
+| a whole new layer | a new file in `src/lib/styles/` — and two more places, below |
+| the documentation | `docs/*.md` |
+| the agent skill | `skills/fractalstyler/SKILL.md` |
+
+A new stylesheet has to be registered in two places, and they must agree:
+
+1. `src/lib/styles/index.css` — the cascade: the order the layers are
+   concatenated in, and the order a consumer inherits;
+2. `FILE_ORDER` in `scripts/update-registry.ts` — the order the registry reads
+   them, so the class table and the cascade tell the same story.
+
+A layer that is in one and not the other still works, but the registry and the
+cascade disagree about what comes first.
+
+### 2. Regenerate the derived files
+
+```bash
+npm run registry   # registry.json, registry.md, skills/fractalstyler/references/{fractals,tokens}.md
+npm run tokens     # src/lib/tokensRegistry.ts
 ```
 
-Architecture: **L0 (Tokens) → L1 (Dimensions) → L2 (Containers) → L3
-(Layouts) → L4 (Shells) → L5 (Visuals & Interactions) → L6 (Element Axes)** — the
-layer map and the definitions are in
-[`docs/references/configurations-api.md`](docs/references/configurations-api.md).
+Never edit those by hand — each carries a "Generated" banner, and the next run
+overwrites it.
 
-## 9th Oct changelog
-- removed heavy `.card` stylings, removed `_10_*`.sass file.
-- also removed classes - width additional styling imposed by `_10_*.sass` like hardcoded padding.
-- **the library no longer imports any font family at all. It ships a blank `_00_fonts.sass` file for user to fill and use**
-- **library does not declare or set values for `--font-sans` and `--font-mono`. It assigns to body and html font-family: `var(--font-sans)`. Users have to suppply**
+### 3. Check
 
-- data variant, data shape, and data size are now a typed canonical set applied to multiple classes- button, a.btn, .input, .select, and more. 
-- factory agents should be given `packages/fractalstyler/src/lib/libTypes.ts` for the full map. 
-- the raw forms of these classes (button, .input, ..) without `[data-variant="default"]` have been given minimal styling, left unstyled. Styling begins at variant primary. 
-- text color has not been defined in any variant, to leave that choice at frontend side. `--text-primary`, `--text-secondary`, `--text-muted`
- remain the prime 3, along with accents.
+```bash
+npm run check
+```
 
-- Accordion group has been styled with prefix `fsx-` in the names `packages/fractalstyler/src/lib/styles/_09_own.sass`.
-- This is to leave the original `.accordion`, `.accordion-item` and other classes open for styling for now. 
+Type-checks the package, validates the documentation and lints the components.
+The documentation validator is the one that matters here: it catches a class
+name in a doc that the stylesheet does not define — the failure mode that
+ships a broken class into a consumer's project.
 
-- ** data-variant= `icon` condenses sizes also in its own definition, data-variants `icon-sm`, `icon-md`, `icon-bs`, and `icon-lg`.
+### 4. Bump the version
 
-## 1.1.0 changelog
-- **global component presets are now a public export.** `setPresetSize`, `setPresetShape`, `setPresetPad`, `setPresetVariant` and `resetPresets` are importable from the package root, and `PresetControls.svelte` ships as a ready-made picker with one control per axis. Both paths live under [Presets](#presets); new subpath exports `./presets` and `./PresetControls` are available for consumers who prefer not to import from the root. `presetState` is exported for reading current values — call `initPresets()` first or you read the defaults, not the stored choice.
-- **variant is a real preset axis now.** It starts at `primary`, is persisted, has a setter, and gets a picker. It is class-qualified: `data-variant` reaches only `input.input`, `select.select`, `button.button` and `a.btn`, so bare form controls are never stamped.
-- **`.button` is now a real class.** `_07_interactions.sass` styles buttons as `button, .button`, so `<button class="button">` and a bare `<button>` are identical and answer the same axes. It is `(0,1,0)`, so ink utilities like `.text-danger` still win on it.
-- `.card` padding moved from `data-size` to a dedicated **`data-pad`** axis (`sm` `md` `bs` `lg` `xl`), so card padding no longer collides with the size ladder used by buttons and inputs.
-- `data-pad` is scoped to `.card` only — it is never written onto buttons, inputs or selects, which have no rule answering it.
-- new tokens `--accent-orange`, `--accent-green`, `--yellowpop1..4`; `--theme-color` is now yellow.
-- `data-variant` gained `iconbox` alongside `icon`.
-- `.grid` shares its `display: grid` base with `.grid-2` … `.grid-6`.
-- dropped the blanket `input, textarea, select { font-size: max(16px, 1rem) }` and the forced 100% width on inputs/selects — size is yours to set via `data-size`.
-- **`data/recipes.json` was rewritten against real classes.** It shipped `.kbd`, `.dialog`, `.popover`, `.avatar`, `.active`, `.switch-track`, `.pad-x-*`, `.border-top`, `.pad-0` and `.square-6`, none of which exist — and `get_recipes` served it verbatim. `validate-deck.js` now checks every recipe class against the compiled stylesheet, so this cannot drift again silently.
-- `docs/browser.html` regenerated; it still carried the pre-rename bare `.surface` / `.panel` / `.raised` background classes.
+```bash
+npm version patch     # or minor, or major
+```
+
+`npm version` runs the `version` script — `npm run registry && npm run tokens
+&& git add -A` — so the generated files are regenerated and staged with the
+commit. It then commits and tags.
+
+Then update the version constant in `src/lib/index.ts` to match
+`package.json`. It is hand-written, and `npm version` does not touch it.
+
+| Bump | When |
+|:---|:---|
+| `patch` | a class or a token was added, a doc was fixed — nothing was removed or renamed |
+| `minor` | a new stylesheet, a new feature in the CLI, the linter or the MCP |
+| `major` | a class or a token was renamed or removed — consumer markup breaks |
+
+### 5. Publish
+
+```bash
+npm publish --dry-run     # read the tarball first
+npm publish
+```
+
+`prepack` runs `svelte-kit sync → svelte-package → publint`, so the package is
+built and validated as it is published. If publint finds a problem, the publish
+is aborted before anything leaves the machine.
+
+### 6. After publishing
+
+- Consumers who track the package get the new styles with
+  `pnpm add -D @fractaldesign/fractalstyler`.
+- Consumers who ejected keep their own copy — they do not get your change.
+  They diff their `src/lib/styles/` against a fresh eject.
+- The docs and the registry inside a consumer project are snapshots. They
+  refresh with `npx fractalstyler init --docs`.
+
+### Files that must stay in step
+
+| File | Kept in step by |
+|:---|:---|
+| `package.json` — the version | `npm version` |
+| `src/lib/index.ts` — the version constant | your hand |
+| `registry.json`, `registry.md`, `skills/…/fractals.md`, `skills/…/tokens.md` | `npm run registry` |
+| `src/lib/tokensRegistry.ts` | `npm run tokens` |
+| `src/lib/styles/index.css` and `FILE_ORDER` | your hand — both, together |
+| `docs/*.md` | your hand — checked by `npm run validate:deck` |
