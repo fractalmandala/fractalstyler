@@ -34,7 +34,7 @@ button, a, [role="button"] { touch-action: manipulation; }
 button, [role="button"] { user-select: none; -webkit-user-select: none; }
 img, video, svg { display: block; max-width: 100%; height: auto; }
 button, input, select, textarea { font-family: inherit; color: inherit; }
-p, li, h6, h5, h4, h3, h2, h1 { margin: 0; }
+p, li, h6, h5, h4, h3, h2, h1, figure, blockquote, dl, dd { margin: 0; }
 p, li { text-wrap: pretty; }
 h1, h2, h3, h4, h5 { text-wrap: balance; }
 a { color: inherit; text-decoration: none; }

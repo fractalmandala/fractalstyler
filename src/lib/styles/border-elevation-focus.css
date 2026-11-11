@@ -10,6 +10,14 @@
   border: 1px solid var(--border-strong);
 }
 
+.border-dashed {
+  border: 1px dashed var(--border);
+}
+
+.border-none {
+  border: none;
+}
+
 .bt {
   border-top: 1px solid var(--border);
 }
@@ -58,6 +66,7 @@
   border-left: 1px solid var(--border-subtle);
 }
 
+.shad-none { box-shadow: none; }
 .shad-xs { box-shadow: var(--shadow-xs); }
 .shad-sm { box-shadow: var(--shadow-sm); }
 .shad-md { box-shadow: var(--shadow-md); }

@@ -11,7 +11,7 @@ This document explains `component-props.css`, which holds the variant/prop class
 ```css
 .primary   /* bg-button + matching border, white text; hover/selected use bg-button-hover/active */
 .secondary /* same pattern with bg-button-secondary-* */
-themed    /* theme-color background; hover uses --theme-color-sub, selected --theme-color-alt */
+themed    /* theme-color background; hover and selected use --theme-color-down */
 .outline   /* transparent, text-primary, border-strong; hover goes theme colored */
 .ghost      /* transparent, borderless; hover/selected use state-hover/state-selected */
 .link       /* looks like a theme-colored text link, underline on hover */

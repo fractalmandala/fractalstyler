@@ -1,7 +1,15 @@
+/* Ink on filled variants.
+ * Each fill picks its own text colour: white on a dark fill, near-black on a
+ * light one, computed from the fill token, so a theme only has to set the fill.
+ * To force a colour instead, set the matching override token in the theme:
+ *   --on-button, --on-button-secondary, --on-theme,
+ *   --on-info, --on-success, --on-warning, --on-danger
+ * Browsers without relative colour syntax use the fixed fallback in each rule.
+ */
 .primary {
   background-color: var(--bg-button);
   border: 1px solid var(--bg-button);
-  color: var(--white-fixed);
+  color: var(--on-button, var(--white-fixed));
 }
 .primary:hover {
   background-color: var(--bg-button-hover);
@@ -15,7 +23,7 @@
 .secondary {
   background-color: var(--bg-button-secondary);
   border: 1px solid var(--bg-button-secondary);
-  color: var(--white-fixed);
+  color: var(--on-button-secondary, var(--white-fixed));
 }
 .secondary:hover {
   background-color: var(--bg-button-secondary-hover);
@@ -24,18 +32,20 @@
 .secondary.selected {
   background-color: var(--bg-button-secondary-active);
   border: 1px solid var(--bg-button-secondary-active);
-}.themed {
+}
+
+.themed {
   background-color: var(--theme-color);
   border: 1px solid var(--theme-color);
-  color: var(--white-fixed);
+  color: var(--on-theme, var(--white-fixed));
 }
 .themed:hover {
-  background-color: var(--theme-color-sub);
-  border: 1px solid var(--theme-color-sub);
+  background-color: var(--theme-color-down);
+  border: 1px solid var(--theme-color-down);
 }
 .themed.selected {
-  background-color: var(--theme-color-alt);
-  border: 1px solid var(--theme-color-alt);
+  background-color: var(--theme-color-down);
+  border: 1px solid var(--theme-color-down);
 }
 
 .outline {
@@ -55,69 +65,77 @@
 
 .ghost {
   background-color: transparent;
-  border: none;
+  border: 1px solid transparent;
   color: var(--text-primary);
 }
 .ghost:hover {
   background-color: var(--state-hover);
-  color: var(--white-fixed);
 }
 .ghost.selected {
   background-color: var(--state-selected);
-  color: var(--white-fixed);
 }
 
 .link {
   background-color: transparent;
-  border: none;
+  border: 1px solid transparent;
   text-decoration: none;
   text-decoration-color: var(--theme-color);
   color: var(--theme-color);
 }
 .link:hover {
   text-decoration: underline;
-  border: none;
+  color: var(--theme-color);
 }
 
 
 .info, .variant-info {
   background-color: var(--info);
   border: 1px solid var(--info);
-  color: var(--white-fixed);
+  color: var(--on-info, var(--white-fixed));
 }
 
 .success, .variant-success {
   background-color: var(--success);
   border: 1px solid var(--success);
-  color: var(--white-fixed);
+  color: var(--on-success, var(--white-fixed));
 }
 
 .warning, .variant-warning {
   background-color: var(--warning);
   border: 1px solid var(--warning);
-  color: var(--white-fixed);
+  color: var(--on-warning, var(--white-fixed));
 }
 
 .danger, .variant-danger {
   background-color: var(--danger);
   border: 1px solid var(--danger);
-  color: var(--white-fixed);
+  color: var(--on-danger, var(--white-fixed));
 }
 .danger:hover, .variant-danger:hover {
   background-color: var(--danger-hover);
   border: 1px solid var(--danger-hover);
 }
 
+@supports (color: oklch(from red l c h)) {
+  .primary { color: var(--on-button, oklch(from var(--bg-button) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .secondary { color: var(--on-button-secondary, oklch(from var(--bg-button-secondary) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .themed { color: var(--on-theme, oklch(from var(--theme-color) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .info, .variant-info { color: var(--on-info, oklch(from var(--info) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .success, .variant-success { color: var(--on-success, oklch(from var(--success) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .warning, .variant-warning { color: var(--on-warning, oklch(from var(--warning) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .danger, .variant-danger { color: var(--on-danger, oklch(from var(--danger) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+}
+
 .rect {
   border-radius: 0;
 }
 
-.min {
-  border-radius: var(--radius-xs, 2px);
+.mincurved {
+  border-radius: var(--radius-sm, 3px);
 }
 
 .modern {
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-md, 6px);
 }
 
 .curved {
@@ -158,3 +176,11 @@
   min-block-size: var(--h-xl);
   padding-inline: var(--space-lg);
 }
+
+/* With a size, the control keeps that size as its minimum height and grows with its content. */
+.hgrow.h-xs { height: auto; min-height: var(--h-xs); }
+.hgrow.h-sm { height: auto; min-height: var(--h-sm); }
+.hgrow.h-md { height: auto; min-height: var(--h-md); }
+.hgrow.h-bs { height: auto; min-height: var(--h-bs); }
+.hgrow.h-lg { height: auto; min-height: var(--h-lg); }
+.hgrow.h-xl { height: auto; min-height: var(--h-xl); }

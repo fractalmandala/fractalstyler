@@ -16,7 +16,7 @@ The bare `button` element (and `.button`) is styled globally: flex-centered, no 
 
 ## Links
 
-- `.link` - theme colored, underline-free, hovers to `--theme-color-alt`
+- `.link` - theme colored, underline-free, hovers to `--theme-color-down`
 - `.link-plain` - text-primary color, hovers to theme color
 - `.link-parent` - container class; its `.link-title` child takes the theme color on hover
 - `a.nav-link` - padded, rounded nav links, hover background `var(--bg-raised)`

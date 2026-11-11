@@ -6,6 +6,7 @@
     --bg: oklch(1.00 0.000 148);
     --bg-surface: oklch(0.96 0.000 148);
     --bg-panel: oklch(0.94 0.000 148);
+    --bg-overlay: oklch(1.00 0.000 148);
     --bg-button: oklch(0.20 0.002 148);
     --bg-button-hover: oklch(0.28 0.002 148);
     --bg-button-active: oklch(0.15 0.002 148);
@@ -53,6 +54,7 @@
     --bg: oklch(0.16 0.003 140);
     --bg-surface: oklch(0.2 0.002 140);
     --bg-panel: oklch(0.22 0.003 140);
+    --bg-overlay: oklch(0.25 0.003 140);
     --bg-button: oklch(0.94 0.003 140);
     --bg-button-hover: oklch(0.88 0.003 140);
     --bg-button-active: oklch(0.80 0.003 140);
@@ -97,6 +99,9 @@
 .bg-main, .bg { background-color: var(--bg); }
 .bg-surface { background-color: var(--bg-surface); }
 .bg-panel { background-color: var(--bg-panel); }
+.bg-overlay { background-color: var(--bg-overlay); }
+.bg-none { background: transparent; }
+.bg-black { background-color: var(--black-fixed); }
 .state-hover { background-color: var(--state-hover); }
 .state-selected { background-color: var(--state-selected); }
 .bg-input { background-color: var(--bg-input); }

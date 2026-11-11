@@ -73,6 +73,21 @@
 
 .scroll-y { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
 .scroll-x { overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain; }
+.scroll-menu { max-height: 16rem; overflow-y: auto; overscroll-behavior: contain; }
+.pointer { cursor: pointer; }
+.touch-none { touch-action: none; }
+.fit-cover { object-fit: cover; }
+.fit-contain { object-fit: contain; }
+.fit-fill { object-fit: fill; }
+.fit-scale-down { object-fit: scale-down; }
+/* pinned to a corner of the nearest positioned parent */
+.pin-tl, .pin-tr, .pin-bl, .pin-br { position: absolute; z-index: var(--z-raised); }
+.pin-tl { top: var(--space-sm); left: var(--space-sm); }
+.pin-tr { top: var(--space-sm); right: var(--space-sm); }
+.pin-bl { bottom: var(--space-sm); left: var(--space-sm); }
+.pin-br { bottom: var(--space-sm); right: var(--space-sm); }
+/* hidden from sight, still focusable and read by screen readers */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 .prose { max-width: var(--prose-clamp); margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-sm); }
 .prose h1:first-child, .prose h2:first-child, .prose h3:first-child, .prose h4:first-child { margin-top: 0; }

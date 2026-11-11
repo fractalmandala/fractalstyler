@@ -102,8 +102,6 @@ As with other variables, the backgrounds and text colors ship as classes using t
 
 Components that use Fractalstyler do not ship colors for their text content, letting users use the text classes they want. And all components use these background variables.
 
-The theme also aliases a few convenience tokens for interactive states: `--theme-color-sub` and `--theme-color-alt` (both `--theme-color-up`, used by `.themed` hover/selected and `.link:hover`) and `--bg-raised` (`--bg-surface`, used by `a.nav-link:hover`).
-
 ## Colorpacks
 
 `colorpacks.css` is the palette library: it ships no classes, only the raw

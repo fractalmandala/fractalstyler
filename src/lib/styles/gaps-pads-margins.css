@@ -44,6 +44,7 @@
 .pad-xl { padding: var(--space-xl); }
 .pad-2xl { padding: var(--space-2xl); }
 .pad-3xl { padding: var(--space-3xl); }
+.pad-none { padding: 0; }
 
 .px-xs { padding-inline: var(--space-xs); }
 .px-sm { padding-inline: var(--space-sm); }

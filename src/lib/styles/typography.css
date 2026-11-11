@@ -232,3 +232,5 @@
 	text-decoration: underline;
   text-decoration-color: var(--theme-color);
 }
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
