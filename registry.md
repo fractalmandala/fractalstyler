@@ -3,7 +3,7 @@
 > GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts` from the
 > stylesheets in `src/lib/styles`.
 
-**532 classes** across **14 stylesheets**, riding **442 tokens**.
+**637 classes** across **14 stylesheets**, riding **487 tokens**.
 
 These classes are the entire public API. There is no authoring mixin and no
 styling function — `+stack`, `+surface`, `space()` and their friends do not
@@ -209,6 +209,22 @@ Radius and control-height ladders, plus the sizing utilities (full, min0, fitted
 | `.min0` | `min-width: 0; min-height: 0` | Zero min-width and min-height |
 | `.hfull-dvh` | `min-height: 100dvh` | Full viewport height |
 | `.hfull-fitted` | `min-height: calc(100dvh - var(--header-height) - var(--footer-height))` | Full viewport height, fitted between the header and the footer |
+| `.measure-xs` | `width: 100%; max-width: var(--measure-xs)` | width: 100% |
+| `.measure-sm` | `width: 100%; max-width: var(--measure-sm)` | width: 100% |
+| `.measure-md` | `width: 100%; max-width: var(--measure-md)` | width: 100% |
+| `.measure-lg` | `width: 100%; max-width: var(--measure-lg)` | width: 100% |
+| `.measure-xl` | `width: 100%; max-width: var(--measure-xl)` | width: 100% |
+| `.measure-2xl` | `width: 100%; max-width: var(--measure-2xl)` | width: 100% |
+| `.measure-3xl` | `width: 100%; max-width: var(--measure-3xl)` | width: 100% |
+| `.measure-4xl` | `width: 100%; max-width: var(--measure-4xl)` | width: 100% |
+| `.max-h-xs` | `max-height: var(--measure-xs)` | max-height: var(--measure-xs) |
+| `.max-h-sm` | `max-height: var(--measure-sm)` | max-height: var(--measure-sm) |
+| `.max-h-md` | `max-height: var(--measure-md)` | max-height: var(--measure-md) |
+| `.max-h-lg` | `max-height: var(--measure-lg)` | max-height: var(--measure-lg) |
+| `.max-h-xl` | `max-height: var(--measure-xl)` | max-height: var(--measure-xl) |
+| `.max-h-2xl` | `max-height: var(--measure-2xl)` | max-height: var(--measure-2xl) |
+| `.max-h-3xl` | `max-height: var(--measure-3xl)` | max-height: var(--measure-3xl) |
+| `.max-h-4xl` | `max-height: var(--measure-4xl)` | max-height: var(--measure-4xl) |
 
 ---
 
@@ -241,6 +257,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.grid-4` | `display: grid` | Grid with 4 columns |
 | `.grid-5` | `display: grid` | Grid with 5 columns |
 | `.grid-6` | `display: grid` | Grid with 6 columns |
+| `.grid-7` | `display: grid` | Grid with 7 columns |
 | `.center` | `place-items: center` | place-items: center — modifier of .grid |
 | `.xstretch` | `justify-items: stretch` | justify-items: stretch — modifier of .grid |
 | `.ystretch` | `align-items: stretch` | align-items: stretch — modifier of .grid |
@@ -259,6 +276,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.shrink-0` | `flex-shrink: 0` | Never shrink below the content size |
 | `.relative` | `position: relative` | position: relative — the anchor for absolute children |
 | `.absolute` | `position: absolute` | position: absolute |
+| `.cover` | `position: absolute; inset: 0` | Fill the containing block |
 | `.fixed` | `position: fixed` | position: fixed |
 | `.sticky` | `position: sticky` | position: sticky |
 | `.z-sticky` | `z-index: var(--z-sticky)` | z-index: var(--z-sticky) |
@@ -268,7 +286,14 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.scroll-y` | `overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain` | Scroll vertically |
 | `.scroll-x` | `overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain` | Scroll horizontally |
 | `.scroll-menu` | `max-height: 16rem; overflow-y: auto; overscroll-behavior: contain` | A list that scrolls past 16rem — dropdown and option lists |
+| `.scroll-thin` | `scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent` | A thin scrollbar in the border colour |
+| `.scroll-hidden` | `scrollbar-width: none` | Hide the scrollbar |
 | `.pointer` | `cursor: pointer` | Pointer cursor for clickable rows and labels that are not buttons |
+| `.pointer-none` | `pointer-events: none` | Ignore pointer events |
+| `.pointer-auto` | `pointer-events: auto` | Restore pointer events |
+| `.select-none` | `user-select: none; -webkit-user-select: none` | Disable text selection |
+| `.square` | `aspect-ratio: 1` | A 1:1 box — unlike .frame-1-1, it does not crop or position |
+| `.dim` | `opacity: 0.5` | Fade the surface to half opacity |
 | `.touch-none` | `touch-action: none` | No touch scrolling — for drag surfaces like sliders and pads |
 | `.fit-cover` | `object-fit: cover` | object-fit: cover — media fills and crops |
 | `.fit-contain` | `object-fit: contain` | object-fit: contain — media fits whole, letterboxed |
@@ -358,6 +383,8 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.ta-r` | `text-align: right` | Text align — right |
 | `.mleft` | `text-align: left` | Keep the reading measure on the left when the text is centred |
 | `.truncate` | `overflow: hidden; white-space: nowrap; text-overflow: ellipsis` | One-line ellipsis truncation |
+| `.clamp-2` | `display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden` | display: -webkit-box |
+| `.clamp-3` | `display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden` | display: -webkit-box |
 | `.font-sans` | `font-family: var(--font-sans)` | The sans font stack |
 | `.font-mono` | `font-family: var(--font-mono)` | The monospace font stack |
 | `.doc-element` | `margin-bottom: 1.5rem` | An element inside prose content |
@@ -415,6 +442,9 @@ The partition-law border set (per side, three weights), elevation steps and the 
 | `.focus-ring` | `outline: 2px solid var(--ring); outline-offset: 1px` | The default focus ring |
 | `.focus-theme` | `outline: 2px solid var(--theme-color); outline-offset: 2px` | A focus ring in the theme colour |
 | `.focus-none` | `outline: none` | No focus ring |
+| `.glass` | `background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-fi…` | background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent) |
+| `.rim` | `box-shadow: var(--shadow-rim)` | box-shadow: var(--shadow-rim) |
+| `.glow` | `box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-color) 45%, transparent), 0 0 2rem -0.5rem var(--theme-color)` | box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-color) 45%, transparent), 0 0 2rem -0.5rem var(--theme-color) |
 
 ---
 
@@ -436,13 +466,33 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.app-footer` | `display: flex; flex-direction: row; align-items: center; padding-inline: var(--app-inline); min-height: var(--footer-height)` | Application footer |
 | `.content-section` | `width: 100%; display: flex; flex-direction: column` | Page content block — responsive padding and narrow width modes |
 | `.null` | `padding-inline: 0 var(--space-bs)` | No width constraint |
-| `.narrow-half` | `width: 640px; margin-inline: auto` | Half the content width |
-| `.narrow-wide` | `width: 720px; margin-inline: auto` | Wide content width |
-| `.narrow-full` | `width: 640px; margin-inline: auto` | Full content width |
+| `.narrow-half` | `width: var(--measure-lg); margin-inline: auto` | Half the content width |
+| `.narrow-wide` | `width: var(--measure-xl); margin-inline: auto` | Wide content width |
+| `.narrow-full` | `width: var(--measure-lg); margin-inline: auto` | Full content width |
 | `.nav-section` | `display: flex; flex-direction: column` | display: flex |
 | `.logo-link` | `display: inline-flex; align-items: center; text-decoration: none; color: inherit` | display: inline-flex |
 | `.toc-section` | `display: flex; flex-direction: column` | display: flex |
 | `.toc-link` | `display: block; font-size: var(--text-sm); color: var(--text-secondary); text-decoration: none` | display: block |
+| `.floating` | `border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible` | border: none |
+| `.dialog` | `border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible` | border: none — modifier of .floating |
+| `.layer` | `border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible` | border: none — modifier of .floating |
+| `.anchor` | `anchor-name: var(--anchor)` | anchor-name: var(--anchor) |
+| `.at-top` | `position-area: top; margin-bottom: var(--offset); transform-origin: bottom` | position-area: top — modifier of .floating |
+| `.at-top-start` | `position-area: top span-right; margin-bottom: var(--offset); transform-origin: bottom left` | position-area: top span-right — modifier of .floating |
+| `.at-top-end` | `position-area: top span-left; margin-bottom: var(--offset); transform-origin: bottom right` | position-area: top span-left — modifier of .floating |
+| `.at-bottom` | `position-area: bottom; margin-top: var(--offset); transform-origin: top` | position-area: bottom — modifier of .floating |
+| `.at-bottom-start` | `position-area: bottom span-right; margin-top: var(--offset); transform-origin: top left` | position-area: bottom span-right — modifier of .floating |
+| `.at-bottom-end` | `position-area: bottom span-left; margin-top: var(--offset); transform-origin: top right` | position-area: bottom span-left — modifier of .floating |
+| `.at-left` | `position-area: left; margin-right: var(--offset); transform-origin: right` | position-area: left — modifier of .floating |
+| `.at-right` | `position-area: right; margin-left: var(--offset); transform-origin: left` | position-area: right — modifier of .floating |
+| `.at-right-start` | `position-area: right span-bottom; margin-left: var(--offset); transform-origin: top left` | position-area: right span-bottom — modifier of .floating |
+| `.at-left-start` | `position-area: left span-bottom; margin-right: var(--offset); transform-origin: top right` | position-area: left span-bottom — modifier of .floating |
+| `.match-anchor` | `min-width: anchor-size(width)` | min-width: anchor-size(width) — modifier of .floating |
+| `.at-pointer` | `position: fixed; left: calc(var(--px, 0) * 1px); top: calc(var(--py, 0) * 1px); width: 0; height: 0; pointer-events: none; anchor-name: var(--anchor)` | position: fixed |
+| `.sheet` | `margin: 0; max-width: 100vw; max-height: 100dvh` | margin: 0 — modifier of .dialog |
+| `.fullscreen` | `width: 100%; height: 100%; max-width: none; max-height: none` | width: 100% — modifier of .dialog |
+| `.open-column` | `display: flex; flex-direction: column` | display: flex — attribute variant |
+| `.sized` | `width: var(--size, auto)` | width: var(--size, auto) |
 
 ---
 
@@ -495,6 +545,43 @@ Motion language — easings, durations and the keyframe animations.
 | `.anim-pulse` | `animation: pulse 2s ease-in-out infinite` | Pulse — a fade in and out |
 | `.anim-fade-in` | `animation: fade-in var(--speed3) var(--transout3)` | Fade in |
 | `.anim-fade-out` | `animation: fade-out var(--speed3) var(--transout3)` | Fade out |
+| `.anim-in` | `animation: none` | animation: none |
+| `.anim-ping` | `animation: none` | animation: none |
+| `.anim-blink` | `animation: none` | animation: none |
+| `.anim-shimmer` | `animation: none` | animation: none |
+| `.anim-wave` | `animation: none` | animation: none |
+| `.anim-stretch` | `animation: none` | animation: none |
+| `.anim-slide` | `animation: none` | animation: none |
+| `.spring` | `transition-property: translate, scale, rotate, transform, opacity, background-color, border-color, color, box-shadow, filter, width, height, grid-template-rows, grid…` | transition-property: translate, scale, rotate, transform, opacity, background-color, border-color, color, box-shadow, filter, width, height, grid-template-rows, grid… |
+| `.spring-gentle` | — | .spring-gentle rule |
+| `.spring-snappy` | — | .spring-snappy rule |
+| `.spring-bouncy` | — | .spring-bouncy rule |
+| `.spring-stiff` | — | .spring-stiff rule |
+| `.spring-slow` | — | .spring-slow rule |
+| `.motion` | `translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px); scale: var(--ms, 1); rotate: calc(var(--mr, 0) * 1deg); opacity: var(--mo, 1)` | translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px) |
+| `.tilt` | `transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)); transform-style: preserve-3d` | transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)) |
+| `.pop` | `opacity: 0; scale: var(--enter-scale, 0.96); translate: var(--enter-x, 0) var(--enter-y, 0); filter: blur(var(--enter-blur, 0)); transition: opacity calc(var(--speed…` | opacity: 0 |
+| `.enter-scale` | — | .enter-scale rule |
+| `.enter-fade` | — | .enter-fade rule |
+| `.enter-up` | — | .enter-up rule |
+| `.enter-down` | — | .enter-down rule |
+| `.enter-left` | — | .enter-left rule |
+| `.enter-right` | — | .enter-right rule |
+| `.enter-blur` | — | .enter-blur rule |
+| `.enter-edge-top` | — | .enter-edge-top rule |
+| `.enter-edge-right` | — | .enter-edge-right rule |
+| `.enter-edge-bottom` | — | .enter-edge-bottom rule |
+| `.enter-edge-left` | — | .enter-edge-left rule |
+| `.reveal` | `opacity: 0; translate: var(--enter-x, 0) var(--enter-y, var(--space-bs)); scale: var(--enter-scale, 1); transition: opacity calc(var(--speed3) * 2 * var(--motion-sca…` | opacity: 0 |
+| `.in` | `opacity: 1; translate: 0 0; scale: 1` | opacity: 1 — modifier of .reveal |
+| `.lift` | `transition: translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring), box-shadow var(--motionout3)` | Hover lifts the surface a hair and raises its shadow |
+| `.press` | `transition: scale calc(var(--spring-ms) * var(--motion-scale)) var(--spring)` | Active press scales the surface in, spring-timed |
+| `.vt-name` | `view-transition-name: var(--vt-name)` | view-transition-name: var(--vt-name) |
+| `.vt-fade` | `animation: fade-out calc(var(--speed3) * var(--motion-scale)) var(--transout2) both` | animation: fade-out calc(var(--speed3) * var(--motion-scale)) var(--transout2) both |
+| `.vt-slide` | `animation: vt-out-left calc(var(--speed3) * var(--motion-scale)) var(--transin1) both` | animation: vt-out-left calc(var(--speed3) * var(--motion-scale)) var(--transin1) both |
+| `.vt-slide-back` | `animation: vt-out-right calc(var(--speed3) * var(--motion-scale)) var(--transin1) both` | animation: vt-out-right calc(var(--speed3) * var(--motion-scale)) var(--transin1) both |
+| `.vt-scale` | `animation: vt-out-scale calc(var(--speed3) * var(--motion-scale)) var(--transin1) both` | animation: vt-out-scale calc(var(--speed3) * var(--motion-scale)) var(--transin1) both |
+| `.vt-reveal` | `animation: none; z-index: 0` | animation: none |
 
 ---
 
@@ -542,11 +629,6 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.card-label` | `font-size: 1em` | font-size: 1em — child of .card-sized |
 | `.card-sub` | `font-size: 0.95em` | font-size: 0.95em — child of .card-sized |
 | `.banner` | `height: auto` | A banner — its size class sets padding and text size, height follows content |
-| `.tint` | `background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--info) 35%, transparent); color: var(--text-primary)` | Soft status fill — the status colour mixed into the panel fill |
-| `.info` | `background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--info) 35%, transparent); color: var(--text-primary)` | Status variant — the info colour |
-| `.success` | `background-color: color-mix(in srgb, var(--success) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--success) 35%, transparent); color: var(--text-primary)` | Status variant — the success colour |
-| `.warning` | `background-color: color-mix(in srgb, var(--warning) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--warning) 35%, transparent); color: var(--text-primary)` | Status variant — the warning colour |
-| `.danger` | `background-color: color-mix(in srgb, var(--danger) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--danger) 35%, transparent); color: var(--text-primary)` | Status variant — the danger colour |
 | `.field` | `transition: border-color var(--motionin1), box-shadow var(--motionin1)` | A framed control — the frame shows focus for the input inside it |
 | `.collapse` | `display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--motionout3)` | Opens and closes by height — add .open to open |
 | `.data-table` | `width: 100%; border-collapse: collapse; font-size: var(--text-md); color: var(--text-primary)` | A table of records — collapsed borders, quiet header row, row hover |
@@ -558,6 +640,7 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.is-dragging` | `cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto` | A drag in progress — no snapping, no pointer events inside |
 | `.track-min` | `min-width: 14em` | Minimum width of a horizontal slider track |
 | `.track-v` | `height: 10em` | An upright slider track — its .h-* class sets the thickness |
+| `.kbd` | `display: inline-flex; align-items: center; justify-content: center; min-width: 1.75em; padding-inline: var(--space-xs); border: 1px solid var(--border-strong); borde…` | display: inline-flex |
 | `.radio` | — | .radio rule |
 | `.striped` | — | Shade every other row |
 | `.selected` | — | Selected state — the current item in a set |
@@ -575,9 +658,31 @@ Component props — the variant, shape and height classes Fractalsvelte UI consu
 | `.themed` | `background-color: var(--theme-color); border: 1px solid var(--theme-color); color: var(--on-theme, var(--white-fixed))` | Themed variant — filled with the theme colour |
 | `.outline` | `background-color: transparent; color: var(--text-primary); border: 1px solid var(--border-strong)` | Outline variant — border only |
 | `.ghost` | `background-color: transparent; border: 1px solid transparent; color: var(--text-primary)` | Ghost variant — no fill until hover |
+| `.info` | `background-color: var(--info); border: 1px solid var(--info); color: var(--on-info, var(--white-fixed))` | Status variant — the info colour |
+| `.success` | `background-color: var(--success); border: 1px solid var(--success); color: var(--on-success, var(--white-fixed))` | Status variant — the success colour |
+| `.warning` | `background-color: var(--warning); border: 1px solid var(--warning); color: var(--on-warning, var(--white-fixed))` | Status variant — the warning colour |
+| `.danger` | `background-color: var(--danger); border: 1px solid var(--danger); color: var(--on-danger, var(--white-fixed))` | Status variant — the danger colour |
 | `.msg` | `background-color: var(--info-00); border: 1px solid var(--info-25); color: var(--info-100)` | Message fill — the status scale's soft fill, border and ink (with .info, .success, .warning, .danger or .neutral) |
 | `.neutral` | `background-color: var(--neutral-00); border: 1px solid var(--neutral-25); color: var(--neutral-100)` | Status — the neutral tone |
 | `.hgrow` | `height: auto; min-height: var(--h-xs)` | The size class becomes a minimum height; the control grows with its content |
+| `.bare` | `appearance: none; -webkit-appearance: none; background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; outline: none; min-width: 0` | appearance: none |
+| `.item` | `display: flex; align-items: center; justify-content: flex-start; gap: var(--space-sm); width: 100%; min-height: var(--h-lg); padding: var(--space-xs) var(--space-sm)…` | display: flex |
+| `.highlighted` | `background-color: var(--state-hover)` | background-color: var(--state-hover) — modifier of .item |
+| `.track` | `position: relative; flex: none; background-color: var(--state-selected); border-radius: var(--radius-full)` | position: relative |
+| `.fill` | `position: absolute; inset-block: 0; left: calc(var(--from, 0) * 100%); width: calc((var(--value, 0) - var(--from, 0)) * 100%); border-radius: inherit; background-col…` | position: absolute |
+| `.thumb` | `position: absolute; top: 50%; left: calc(var(--value, 0) * 100%); translate: -50% -50%; aspect-ratio: 1; border-radius: var(--radius-full); border: 1px solid var(--b…` | position: absolute |
+| `.ring` | `flex: none; aspect-ratio: 1; border-radius: var(--radius-full); background: conic-gradient(var(--theme-color) calc(var(--value, 0) * 360deg), var(--state-selected) 0…` | flex: none |
+| `.indicator` | `position: absolute; top: 0; left: 0; width: calc(var(--iw, 0) * 1px); height: calc(var(--ih, 0) * 1px); translate: calc(var(--ix, 0) * 1px) calc(var(--iy, 0) * 1px);…` | position: absolute |
+| `.caret` | `flex: none; transition: rotate calc(var(--spring-ms) * var(--motion-scale)) var(--spring)` | flex: none |
+| `.quarter` | `rotate: 90deg` | rotate: 90deg — modifier of .caret |
+| `.tone-neutral` | — | .tone-neutral rule |
+| `.tone-info` | — | .tone-info rule |
+| `.tone-success` | — | .tone-success rule |
+| `.tone-warning` | — | .tone-warning rule |
+| `.tone-danger` | — | .tone-danger rule |
+| `.soft` | `background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent); border: 1px solid transparent; color: color-mix(in oklab, var(--soft-ink) 72%, var(--text-pr…` | background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent) |
+| `.tint` | `background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent); border: 1px solid transparent; color: color-mix(in oklab, var(--soft-ink) 72%, var(--text-pr…` | Soft status fill — the status colour mixed into the panel fill |
+| `.dot` | `flex: none; width: 0.5em; height: 0.5em; border-radius: var(--radius-full); background-color: currentColor` | A current-colour status dot |
 
 ---
 

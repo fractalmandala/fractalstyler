@@ -182,9 +182,7 @@ const TOKEN_CATALOG = {
 			'.bg-main': 'Base page background (var(--bg))',
 			'.bg-surface': 'Standard content card / surface background (var(--bg-surface))',
 			'.bg-panel': 'Container panel background (var(--bg-panel))',
-			'.bg-sunken': 'Sunken container background (var(--bg-sunken))',
-			'.bg-raised': 'Elevated surface background (var(--bg-raised))',
-			'.bg-extra': 'Extra layered surface background (var(--bg-extra))',
+			'.bg-overlay': 'Floating layer — menus, popovers, dialogs (var(--bg-overlay))',
 			'.bg-success': 'Positive status fill (var(--success))',
 			'.bg-warning': 'Caution status fill (var(--warning))',
 			'.bg-danger': 'Destructive status fill (var(--danger))',
@@ -199,7 +197,7 @@ const TOKEN_CATALOG = {
 			'.bt-str / .br-str / .bb-str / .bl-str': 'Per-side border at var(--border-strong)',
 			'.bt-sub / .br-sub / .bb-sub / .bl-sub': 'Per-side border at var(--border-subtle)'
 		},
-		note: 'There are no .border-top / .border-bottom classes — use .bt / .bb. There are no bare .surface / .raised / .panel classes — use .bg-surface / .bg-raised / .bg-panel.'
+		note: 'There are no .border-top / .border-bottom classes — use .bt / .bb. There are no bare .surface / .raised / .panel classes — use .bg-surface / .bg-overlay / .bg-panel.'
 	}
 };
 
@@ -365,9 +363,7 @@ Example:
   - .bg-main: Base page fill (var(--bg))
   - .bg-surface: Content surface (var(--bg-surface))
   - .bg-panel: Panel / card fill (var(--bg-panel))
-  - .bg-sunken: Sunken surface (var(--bg-sunken))
-  - .bg-raised: Elevated surface (var(--bg-raised))
-  - .bg-extra: Extra layered surface (var(--bg-extra))
+  - .bg-overlay: Floating layer (var(--bg-overlay))
 
 • Borders:
   - .border: 1px border on all sides (var(--border))
@@ -485,10 +481,9 @@ function cssToFractalClasses(css: string) {
 			case 'background':
 			case 'background-color':
 				if (/surface/i.test(val)) classes.push('bg-surface');
-				else if (/raised/i.test(val)) classes.push('bg-raised');
+				else if (/overlay|raised|extra/i.test(val)) classes.push('bg-overlay');
 				else if (/panel/i.test(val)) classes.push('bg-panel');
-				else if (/sunken/i.test(val)) classes.push('bg-sunken');
-				else if (/extra/i.test(val)) classes.push('bg-extra');
+				else if (/sunken/i.test(val)) classes.push('bg-main');
 				else if (/--bg\b|--bg\)/.test(val)) classes.push('bg-main');
 				else unmapped.push(`${prop}: ${val}`);
 				break;
@@ -566,6 +561,18 @@ function cssToFractalClasses(css: string) {
 		const isX = container === 'row' ? m[1].toLowerCase() === 'justify-content' : m[1].toLowerCase() === 'align-items';
 		classes.push(`${isX ? 'x' : 'y'}${word === 'left' && !isX ? 'top' : word === 'right' && !isX ? 'bot' : word}`);
 		unmapped.splice(unmapped.indexOf(u), 1);
+	}
+
+	// Drop anything not in the registry so this tool never suggests a class
+	// that does not exist. Unknown names go into unmappedDeclarations.
+	if (REGISTRY_LOADED) {
+		const valid: string[] = [];
+		for (const cls of classes) {
+			if (VALID_CLASSES.has(cls)) valid.push(cls);
+			else unmapped.push(`no registry class for "${cls}"`);
+		}
+		classes.length = 0;
+		classes.push(...valid);
 	}
 
 	return {
@@ -1184,7 +1191,7 @@ Constraints:
 1. Closed-World: Use ONLY Fractalstyler registry classes. Do NOT write any <style> block or inline style="..." attributes.
 2. Structure: Use .box (column), .row (horizontal), or .grid container bases. Apply physical modifiers (.xcenter, .ycenter, .xbetween).
 3. Spacing: Use canonical step ladders (.gap-*, .pad-*, .px-*, .py-*).
-4. Visuals: Surface styling rides .bg-surface, .bg-raised, .border, .bb, .radius-*, .shadow-*.
+4. Visuals: Surface styling rides .bg-surface, .bg-panel, .bg-overlay, .border, .bb, .radius-*, .shadow-*.
 5. Typography: Sizing rides .text-xs .. .text-5xl, weights ride .weight-*.
 6. State: Interactive elements carry their variant classes directly — \`<button class="button primary h-md">\`.
 

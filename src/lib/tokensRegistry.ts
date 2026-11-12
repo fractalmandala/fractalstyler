@@ -10,9 +10,11 @@ export interface FractalstylerTokens {
 	'content-clamp': string;
 	'app-inline': string;
 	'card-min': string;
+	'content-aside': string;
 	'sidebar-width': string;
 	'sidebar-width-left': string;
 	'sidebar-width-right': string;
+	'sidebar-width-collapsed': string;
 	'z-sticky': number;
 	'z-raised': number;
 	'z-modal': number;
@@ -29,6 +31,48 @@ export interface FractalstylerTokens {
 	'z-999': number;
 	'font-sans': string;
 	'font-mono': string;
+	'spring': string;
+	'spring-ms': string;
+	'motion-scale': number;
+	'stagger': string;
+	'value': number;
+	'from': number;
+	'i': number;
+	'px': number;
+	'py': number;
+	'ix': number;
+	'iy': number;
+	'iw': number;
+	'ih': number;
+	'anchor': string;
+	'offset': string;
+	'scrim': string;
+	'glass-blur': string;
+	'glass-alpha': string;
+	'vt-name': string;
+	'vt-x': string;
+	'vt-y': string;
+	'vt-r': string;
+	'measure-xs': string;
+	'measure-sm': string;
+	'measure-md': string;
+	'measure-lg': string;
+	'measure-xl': string;
+	'measure-2xl': string;
+	'measure-3xl': string;
+	'measure-4xl': string;
+
+	// ── springs.css ─────────────────────────────────────────────────
+	'spring-gentle': string;
+	'spring-gentle-ms': string;
+	'spring-snappy': string;
+	'spring-snappy-ms': string;
+	'spring-bouncy': string;
+	'spring-bouncy-ms': string;
+	'spring-stiff': string;
+	'spring-stiff-ms': string;
+	'spring-slow': string;
+	'spring-slow-ms': string;
 
 	// ── gaps-pads-margins.css ───────────────────────────────────────
 	'space-xs': string;
@@ -88,6 +132,9 @@ export interface FractalstylerTokens {
 	'text-5xl': string;
 
 	// ── colors-themes.css ───────────────────────────────────────────
+	'hue': number;
+	'chroma': number;
+	'tint': number;
 	'white-fixed': string;
 	'black-fixed': string;
 	'bg': string;

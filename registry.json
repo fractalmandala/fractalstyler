@@ -1670,6 +1670,166 @@
     "media": null
   },
   {
+    "class": ".measure-xs",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-xs)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-xs\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".measure-sm",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-sm)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-sm\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".measure-md",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-md)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-md\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".measure-lg",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-lg)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-lg\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".measure-xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-xl)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-xl\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".measure-2xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-2xl)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-2xl\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".measure-3xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-3xl)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-3xl\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".measure-4xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "width: 100%; max-width: var(--measure-4xl)",
+    "description": "width: 100%",
+    "example": "<div class=\"measure-4xl\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-xs",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-xs)",
+    "description": "max-height: var(--measure-xs)",
+    "example": "<div class=\"max-h-xs\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-sm",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-sm)",
+    "description": "max-height: var(--measure-sm)",
+    "example": "<div class=\"max-h-sm\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-md",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-md)",
+    "description": "max-height: var(--measure-md)",
+    "example": "<div class=\"max-h-md\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-lg",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-lg)",
+    "description": "max-height: var(--measure-lg)",
+    "example": "<div class=\"max-h-lg\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-xl)",
+    "description": "max-height: var(--measure-xl)",
+    "example": "<div class=\"max-h-xl\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-2xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-2xl)",
+    "description": "max-height: var(--measure-2xl)",
+    "example": "<div class=\"max-h-2xl\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-3xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-3xl)",
+    "description": "max-height: var(--measure-3xl)",
+    "example": "<div class=\"max-h-3xl\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".max-h-4xl",
+    "kind": "class",
+    "parent": null,
+    "file": "shapes-sizes.css",
+    "property": "max-height: var(--measure-4xl)",
+    "description": "max-height: var(--measure-4xl)",
+    "example": "<div class=\"max-h-4xl\">…</div>",
+    "media": null
+  },
+  {
     "class": ".box",
     "kind": "class",
     "parent": null,
@@ -1900,6 +2060,16 @@
     "media": null
   },
   {
+    "class": ".grid-7",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "display: grid",
+    "description": "Grid with 7 columns",
+    "example": "<div class=\"grid-7\">…</div>",
+    "media": null
+  },
+  {
     "class": ".center",
     "kind": "modifier",
     "parent": ".grid",
@@ -2080,6 +2250,16 @@
     "media": null
   },
   {
+    "class": ".cover",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "position: absolute; inset: 0",
+    "description": "Fill the containing block",
+    "example": "<div class=\"cover\">…</div>",
+    "media": null
+  },
+  {
     "class": ".fixed",
     "kind": "class",
     "parent": null,
@@ -2170,6 +2350,26 @@
     "media": null
   },
   {
+    "class": ".scroll-thin",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent",
+    "description": "A thin scrollbar in the border colour",
+    "example": "<div class=\"scroll-thin\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".scroll-hidden",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "scrollbar-width: none",
+    "description": "Hide the scrollbar",
+    "example": "<div class=\"scroll-hidden\">…</div>",
+    "media": null
+  },
+  {
     "class": ".pointer",
     "kind": "class",
     "parent": null,
@@ -2177,6 +2377,56 @@
     "property": "cursor: pointer",
     "description": "Pointer cursor for clickable rows and labels that are not buttons",
     "example": "<div class=\"pointer\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".pointer-none",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "pointer-events: none",
+    "description": "Ignore pointer events",
+    "example": "<div class=\"pointer-none\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".pointer-auto",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "pointer-events: auto",
+    "description": "Restore pointer events",
+    "example": "<div class=\"pointer-auto\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".select-none",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "user-select: none; -webkit-user-select: none",
+    "description": "Disable text selection",
+    "example": "<div class=\"select-none\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".square",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "aspect-ratio: 1",
+    "description": "A 1:1 box — unlike .frame-1-1, it does not crop or position",
+    "example": "<div class=\"square\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".dim",
+    "kind": "class",
+    "parent": null,
+    "file": "containers.css",
+    "property": "opacity: 0.5",
+    "description": "Fade the surface to half opacity",
+    "example": "<div class=\"dim\">…</div>",
     "media": null
   },
   {
@@ -2980,6 +3230,26 @@
     "media": null
   },
   {
+    "class": ".clamp-2",
+    "kind": "class",
+    "parent": null,
+    "file": "typography.css",
+    "property": "display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden",
+    "description": "display: -webkit-box",
+    "example": "<div class=\"clamp-2\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".clamp-3",
+    "kind": "class",
+    "parent": null,
+    "file": "typography.css",
+    "property": "display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden",
+    "description": "display: -webkit-box",
+    "example": "<div class=\"clamp-3\">…</div>",
+    "media": null
+  },
+  {
     "class": ".font-sans",
     "kind": "class",
     "parent": null,
@@ -3460,6 +3730,36 @@
     "media": null
   },
   {
+    "class": ".glass",
+    "kind": "class",
+    "parent": null,
+    "file": "border-elevation-focus.css",
+    "property": "background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-fi…",
+    "description": "background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent)",
+    "example": "<div class=\"glass\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".rim",
+    "kind": "class",
+    "parent": null,
+    "file": "border-elevation-focus.css",
+    "property": "box-shadow: var(--shadow-rim)",
+    "description": "box-shadow: var(--shadow-rim)",
+    "example": "<div class=\"rim\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".glow",
+    "kind": "class",
+    "parent": null,
+    "file": "border-elevation-focus.css",
+    "property": "box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-color) 45%, transparent), 0 0 2rem -0.5rem var(--theme-color)",
+    "description": "box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-color) 45%, transparent), 0 0 2rem -0.5rem var(--theme-color)",
+    "example": "<div class=\"glow\">…</div>",
+    "media": null
+  },
+  {
     "class": ".app-shell",
     "kind": "class",
     "parent": null,
@@ -3584,7 +3884,7 @@
     "kind": "modifier",
     "parent": ".content-section",
     "file": "layout-shell.css",
-    "property": "width: 640px; margin-inline: auto",
+    "property": "width: var(--measure-lg); margin-inline: auto",
     "description": "Half the content width",
     "example": "<div class=\"content-section narrow-half\">…</div>",
     "media": "min-width: 769px"
@@ -3594,7 +3894,7 @@
     "kind": "modifier",
     "parent": ".content-section",
     "file": "layout-shell.css",
-    "property": "width: 720px; margin-inline: auto",
+    "property": "width: var(--measure-xl); margin-inline: auto",
     "description": "Wide content width",
     "example": "<div class=\"content-section narrow-wide\">…</div>",
     "media": "min-width: 769px"
@@ -3604,7 +3904,7 @@
     "kind": "modifier",
     "parent": ".content-section",
     "file": "layout-shell.css",
-    "property": "width: 640px; margin-inline: auto",
+    "property": "width: var(--measure-lg); margin-inline: auto",
     "description": "Full content width",
     "example": "<div class=\"content-section narrow-full\">…</div>",
     "media": "min-width: 1025px"
@@ -3647,6 +3947,206 @@
     "property": "display: block; font-size: var(--text-sm); color: var(--text-secondary); text-decoration: none",
     "description": "display: block",
     "example": "<div class=\"toc-link\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".floating",
+    "kind": "class",
+    "parent": null,
+    "file": "layout-shell.css",
+    "property": "border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible",
+    "description": "border: none",
+    "example": "<div class=\"floating\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".dialog",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible",
+    "description": "border: none — modifier of .floating",
+    "example": "<div class=\"floating dialog\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".layer",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible",
+    "description": "border: none — modifier of .floating",
+    "example": "<div class=\"floating layer\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".anchor",
+    "kind": "class",
+    "parent": null,
+    "file": "layout-shell.css",
+    "property": "anchor-name: var(--anchor)",
+    "description": "anchor-name: var(--anchor)",
+    "example": "<div class=\"anchor\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-top",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: top; margin-bottom: var(--offset); transform-origin: bottom",
+    "description": "position-area: top — modifier of .floating",
+    "example": "<div class=\"floating at-top\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-top-start",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: top span-right; margin-bottom: var(--offset); transform-origin: bottom left",
+    "description": "position-area: top span-right — modifier of .floating",
+    "example": "<div class=\"floating at-top-start\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-top-end",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: top span-left; margin-bottom: var(--offset); transform-origin: bottom right",
+    "description": "position-area: top span-left — modifier of .floating",
+    "example": "<div class=\"floating at-top-end\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-bottom",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: bottom; margin-top: var(--offset); transform-origin: top",
+    "description": "position-area: bottom — modifier of .floating",
+    "example": "<div class=\"floating at-bottom\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-bottom-start",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: bottom span-right; margin-top: var(--offset); transform-origin: top left",
+    "description": "position-area: bottom span-right — modifier of .floating",
+    "example": "<div class=\"floating at-bottom-start\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-bottom-end",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: bottom span-left; margin-top: var(--offset); transform-origin: top right",
+    "description": "position-area: bottom span-left — modifier of .floating",
+    "example": "<div class=\"floating at-bottom-end\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-left",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: left; margin-right: var(--offset); transform-origin: right",
+    "description": "position-area: left — modifier of .floating",
+    "example": "<div class=\"floating at-left\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-right",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: right; margin-left: var(--offset); transform-origin: left",
+    "description": "position-area: right — modifier of .floating",
+    "example": "<div class=\"floating at-right\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-right-start",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: right span-bottom; margin-left: var(--offset); transform-origin: top left",
+    "description": "position-area: right span-bottom — modifier of .floating",
+    "example": "<div class=\"floating at-right-start\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-left-start",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "position-area: left span-bottom; margin-right: var(--offset); transform-origin: top right",
+    "description": "position-area: left span-bottom — modifier of .floating",
+    "example": "<div class=\"floating at-left-start\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".match-anchor",
+    "kind": "modifier",
+    "parent": ".floating",
+    "file": "layout-shell.css",
+    "property": "min-width: anchor-size(width)",
+    "description": "min-width: anchor-size(width) — modifier of .floating",
+    "example": "<div class=\"floating match-anchor\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".at-pointer",
+    "kind": "class",
+    "parent": null,
+    "file": "layout-shell.css",
+    "property": "position: fixed; left: calc(var(--px, 0) * 1px); top: calc(var(--py, 0) * 1px); width: 0; height: 0; pointer-events: none; anchor-name: var(--anchor)",
+    "description": "position: fixed",
+    "example": "<div class=\"at-pointer\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".sheet",
+    "kind": "modifier",
+    "parent": ".dialog",
+    "file": "layout-shell.css",
+    "property": "margin: 0; max-width: 100vw; max-height: 100dvh",
+    "description": "margin: 0 — modifier of .dialog",
+    "example": "<div class=\"dialog sheet\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".fullscreen",
+    "kind": "modifier",
+    "parent": ".dialog",
+    "file": "layout-shell.css",
+    "property": "width: 100%; height: 100%; max-width: none; max-height: none",
+    "description": "width: 100% — modifier of .dialog",
+    "example": "<div class=\"dialog fullscreen\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".open-column",
+    "kind": "variant",
+    "parent": null,
+    "file": "layout-shell.css",
+    "property": "display: flex; flex-direction: column",
+    "description": "display: flex — attribute variant",
+    "example": "<div class=\"open-column\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".sized",
+    "kind": "class",
+    "parent": null,
+    "file": "layout-shell.css",
+    "property": "width: var(--size, auto)",
+    "description": "width: var(--size, auto)",
+    "example": "<div class=\"sized\">…</div>",
     "media": null
   },
   {
@@ -3987,6 +4487,376 @@
     "property": "animation: fade-out var(--speed3) var(--transout3)",
     "description": "Fade out",
     "example": "<div class=\"anim-fade-out\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".anim-in",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none",
+    "description": "animation: none",
+    "example": "<div class=\"anim-in\">…</div>",
+    "media": "prefers-reduced-motion: reduce"
+  },
+  {
+    "class": ".anim-ping",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none",
+    "description": "animation: none",
+    "example": "<div class=\"anim-ping\">…</div>",
+    "media": "prefers-reduced-motion: reduce"
+  },
+  {
+    "class": ".anim-blink",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none",
+    "description": "animation: none",
+    "example": "<div class=\"anim-blink\">…</div>",
+    "media": "prefers-reduced-motion: reduce"
+  },
+  {
+    "class": ".anim-shimmer",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none",
+    "description": "animation: none",
+    "example": "<div class=\"anim-shimmer\">…</div>",
+    "media": "prefers-reduced-motion: reduce"
+  },
+  {
+    "class": ".anim-wave",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none",
+    "description": "animation: none",
+    "example": "<div class=\"anim-wave\">…</div>",
+    "media": "prefers-reduced-motion: reduce"
+  },
+  {
+    "class": ".anim-stretch",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none",
+    "description": "animation: none",
+    "example": "<div class=\"anim-stretch\">…</div>",
+    "media": "prefers-reduced-motion: reduce"
+  },
+  {
+    "class": ".anim-slide",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none",
+    "description": "animation: none",
+    "example": "<div class=\"anim-slide\">…</div>",
+    "media": "prefers-reduced-motion: reduce"
+  },
+  {
+    "class": ".spring",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "transition-property: translate, scale, rotate, transform, opacity, background-color, border-color, color, box-shadow, filter, width, height, grid-template-rows, grid…",
+    "description": "transition-property: translate, scale, rotate, transform, opacity, background-color, border-color, color, box-shadow, filter, width, height, grid-template-rows, grid…",
+    "example": "<div class=\"spring\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".spring-gentle",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".spring-gentle rule",
+    "example": "<div class=\"spring-gentle\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".spring-snappy",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".spring-snappy rule",
+    "example": "<div class=\"spring-snappy\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".spring-bouncy",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".spring-bouncy rule",
+    "example": "<div class=\"spring-bouncy\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".spring-stiff",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".spring-stiff rule",
+    "example": "<div class=\"spring-stiff\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".spring-slow",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".spring-slow rule",
+    "example": "<div class=\"spring-slow\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".motion",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px); scale: var(--ms, 1); rotate: calc(var(--mr, 0) * 1deg); opacity: var(--mo, 1)",
+    "description": "translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px)",
+    "example": "<div class=\"motion\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".tilt",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)); transform-style: preserve-3d",
+    "description": "transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg))",
+    "example": "<div class=\"tilt\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".pop",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "opacity: 0; scale: var(--enter-scale, 0.96); translate: var(--enter-x, 0) var(--enter-y, 0); filter: blur(var(--enter-blur, 0)); transition: opacity calc(var(--speed…",
+    "description": "opacity: 0",
+    "example": "<div class=\"pop\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-scale",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-scale rule",
+    "example": "<div class=\"enter-scale\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-fade",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-fade rule",
+    "example": "<div class=\"enter-fade\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-up",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-up rule",
+    "example": "<div class=\"enter-up\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-down",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-down rule",
+    "example": "<div class=\"enter-down\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-left",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-left rule",
+    "example": "<div class=\"enter-left\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-right",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-right rule",
+    "example": "<div class=\"enter-right\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-blur",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-blur rule",
+    "example": "<div class=\"enter-blur\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-edge-top",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-edge-top rule",
+    "example": "<div class=\"enter-edge-top\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-edge-right",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-edge-right rule",
+    "example": "<div class=\"enter-edge-right\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-edge-bottom",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-edge-bottom rule",
+    "example": "<div class=\"enter-edge-bottom\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".enter-edge-left",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "",
+    "description": ".enter-edge-left rule",
+    "example": "<div class=\"enter-edge-left\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".reveal",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "opacity: 0; translate: var(--enter-x, 0) var(--enter-y, var(--space-bs)); scale: var(--enter-scale, 1); transition: opacity calc(var(--speed3) * 2 * var(--motion-sca…",
+    "description": "opacity: 0",
+    "example": "<div class=\"reveal\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".in",
+    "kind": "modifier",
+    "parent": ".reveal",
+    "file": "motion-animation.css",
+    "property": "opacity: 1; translate: 0 0; scale: 1",
+    "description": "opacity: 1 — modifier of .reveal",
+    "example": "<div class=\"reveal in\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".lift",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "transition: translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring), box-shadow var(--motionout3)",
+    "description": "Hover lifts the surface a hair and raises its shadow",
+    "example": "<div class=\"lift\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".press",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "transition: scale calc(var(--spring-ms) * var(--motion-scale)) var(--spring)",
+    "description": "Active press scales the surface in, spring-timed",
+    "example": "<div class=\"press\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".vt-name",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "view-transition-name: var(--vt-name)",
+    "description": "view-transition-name: var(--vt-name)",
+    "example": "<div class=\"vt-name\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".vt-fade",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: fade-out calc(var(--speed3) * var(--motion-scale)) var(--transout2) both",
+    "description": "animation: fade-out calc(var(--speed3) * var(--motion-scale)) var(--transout2) both",
+    "example": "<div class=\"vt-fade\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".vt-slide",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: vt-out-left calc(var(--speed3) * var(--motion-scale)) var(--transin1) both",
+    "description": "animation: vt-out-left calc(var(--speed3) * var(--motion-scale)) var(--transin1) both",
+    "example": "<div class=\"vt-slide\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".vt-slide-back",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: vt-out-right calc(var(--speed3) * var(--motion-scale)) var(--transin1) both",
+    "description": "animation: vt-out-right calc(var(--speed3) * var(--motion-scale)) var(--transin1) both",
+    "example": "<div class=\"vt-slide-back\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".vt-scale",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: vt-out-scale calc(var(--speed3) * var(--motion-scale)) var(--transin1) both",
+    "description": "animation: vt-out-scale calc(var(--speed3) * var(--motion-scale)) var(--transin1) both",
+    "example": "<div class=\"vt-scale\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".vt-reveal",
+    "kind": "class",
+    "parent": null,
+    "file": "motion-animation.css",
+    "property": "animation: none; z-index: 0",
+    "description": "animation: none",
+    "example": "<div class=\"vt-reveal\">…</div>",
     "media": null
   },
   {
@@ -4370,56 +5240,6 @@
     "media": null
   },
   {
-    "class": ".tint",
-    "kind": "class",
-    "parent": null,
-    "file": "components.css",
-    "property": "background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--info) 35%, transparent); color: var(--text-primary)",
-    "description": "Soft status fill — the status colour mixed into the panel fill",
-    "example": "<div class=\"tint\">…</div>",
-    "media": null
-  },
-  {
-    "class": ".info",
-    "kind": "modifier",
-    "parent": ".tint",
-    "file": "components.css",
-    "property": "background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--info) 35%, transparent); color: var(--text-primary)",
-    "description": "Status variant — the info colour",
-    "example": "<div class=\"tint info\">…</div>",
-    "media": null
-  },
-  {
-    "class": ".success",
-    "kind": "modifier",
-    "parent": ".tint",
-    "file": "components.css",
-    "property": "background-color: color-mix(in srgb, var(--success) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--success) 35%, transparent); color: var(--text-primary)",
-    "description": "Status variant — the success colour",
-    "example": "<div class=\"tint success\">…</div>",
-    "media": null
-  },
-  {
-    "class": ".warning",
-    "kind": "modifier",
-    "parent": ".tint",
-    "file": "components.css",
-    "property": "background-color: color-mix(in srgb, var(--warning) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--warning) 35%, transparent); color: var(--text-primary)",
-    "description": "Status variant — the warning colour",
-    "example": "<div class=\"tint warning\">…</div>",
-    "media": null
-  },
-  {
-    "class": ".danger",
-    "kind": "modifier",
-    "parent": ".tint",
-    "file": "components.css",
-    "property": "background-color: color-mix(in srgb, var(--danger) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--danger) 35%, transparent); color: var(--text-primary)",
-    "description": "Status variant — the danger colour",
-    "example": "<div class=\"tint danger\">…</div>",
-    "media": null
-  },
-  {
     "class": ".field",
     "kind": "class",
     "parent": null,
@@ -4530,6 +5350,16 @@
     "media": null
   },
   {
+    "class": ".kbd",
+    "kind": "class",
+    "parent": null,
+    "file": "components.css",
+    "property": "display: inline-flex; align-items: center; justify-content: center; min-width: 1.75em; padding-inline: var(--space-xs); border: 1px solid var(--border-strong); borde…",
+    "description": "display: inline-flex",
+    "example": "<div class=\"kbd\">…</div>",
+    "media": null
+  },
+  {
     "class": ".radio",
     "kind": "class",
     "parent": null,
@@ -4610,6 +5440,46 @@
     "media": null
   },
   {
+    "class": ".info",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "background-color: var(--info); border: 1px solid var(--info); color: var(--on-info, var(--white-fixed))",
+    "description": "Status variant — the info colour",
+    "example": "<div class=\"info\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".success",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "background-color: var(--success); border: 1px solid var(--success); color: var(--on-success, var(--white-fixed))",
+    "description": "Status variant — the success colour",
+    "example": "<div class=\"success\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".warning",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "background-color: var(--warning); border: 1px solid var(--warning); color: var(--on-warning, var(--white-fixed))",
+    "description": "Status variant — the warning colour",
+    "example": "<div class=\"warning\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".danger",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "background-color: var(--danger); border: 1px solid var(--danger); color: var(--on-danger, var(--white-fixed))",
+    "description": "Status variant — the danger colour",
+    "example": "<div class=\"danger\">…</div>",
+    "media": null
+  },
+  {
     "class": ".msg",
     "kind": "class",
     "parent": null,
@@ -4637,6 +5507,186 @@
     "property": "height: auto; min-height: var(--h-xs)",
     "description": "The size class becomes a minimum height; the control grows with its content",
     "example": "<div class=\"hgrow\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".bare",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "appearance: none; -webkit-appearance: none; background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; outline: none; min-width: 0",
+    "description": "appearance: none",
+    "example": "<div class=\"bare\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".item",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "display: flex; align-items: center; justify-content: flex-start; gap: var(--space-sm); width: 100%; min-height: var(--h-lg); padding: var(--space-xs) var(--space-sm)…",
+    "description": "display: flex",
+    "example": "<div class=\"item\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".highlighted",
+    "kind": "modifier",
+    "parent": ".item",
+    "file": "component-props.css",
+    "property": "background-color: var(--state-hover)",
+    "description": "background-color: var(--state-hover) — modifier of .item",
+    "example": "<div class=\"item highlighted\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".track",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "position: relative; flex: none; background-color: var(--state-selected); border-radius: var(--radius-full)",
+    "description": "position: relative",
+    "example": "<div class=\"track\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".fill",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "position: absolute; inset-block: 0; left: calc(var(--from, 0) * 100%); width: calc((var(--value, 0) - var(--from, 0)) * 100%); border-radius: inherit; background-col…",
+    "description": "position: absolute",
+    "example": "<div class=\"fill\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".thumb",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "position: absolute; top: 50%; left: calc(var(--value, 0) * 100%); translate: -50% -50%; aspect-ratio: 1; border-radius: var(--radius-full); border: 1px solid var(--b…",
+    "description": "position: absolute",
+    "example": "<div class=\"thumb\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".ring",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "flex: none; aspect-ratio: 1; border-radius: var(--radius-full); background: conic-gradient(var(--theme-color) calc(var(--value, 0) * 360deg), var(--state-selected) 0…",
+    "description": "flex: none",
+    "example": "<div class=\"ring\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".indicator",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "position: absolute; top: 0; left: 0; width: calc(var(--iw, 0) * 1px); height: calc(var(--ih, 0) * 1px); translate: calc(var(--ix, 0) * 1px) calc(var(--iy, 0) * 1px);…",
+    "description": "position: absolute",
+    "example": "<div class=\"indicator\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".caret",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "flex: none; transition: rotate calc(var(--spring-ms) * var(--motion-scale)) var(--spring)",
+    "description": "flex: none",
+    "example": "<div class=\"caret\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".quarter",
+    "kind": "modifier",
+    "parent": ".caret",
+    "file": "component-props.css",
+    "property": "rotate: 90deg",
+    "description": "rotate: 90deg — modifier of .caret",
+    "example": "<div class=\"caret quarter\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".tone-neutral",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "",
+    "description": ".tone-neutral rule",
+    "example": "<div class=\"tone-neutral\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".tone-info",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "",
+    "description": ".tone-info rule",
+    "example": "<div class=\"tone-info\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".tone-success",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "",
+    "description": ".tone-success rule",
+    "example": "<div class=\"tone-success\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".tone-warning",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "",
+    "description": ".tone-warning rule",
+    "example": "<div class=\"tone-warning\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".tone-danger",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "",
+    "description": ".tone-danger rule",
+    "example": "<div class=\"tone-danger\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".soft",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent); border: 1px solid transparent; color: color-mix(in oklab, var(--soft-ink) 72%, var(--text-pr…",
+    "description": "background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent)",
+    "example": "<div class=\"soft\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".tint",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent); border: 1px solid transparent; color: color-mix(in oklab, var(--soft-ink) 72%, var(--text-pr…",
+    "description": "Soft status fill — the status colour mixed into the panel fill",
+    "example": "<div class=\"tint\">…</div>",
+    "media": null
+  },
+  {
+    "class": ".dot",
+    "kind": "class",
+    "parent": null,
+    "file": "component-props.css",
+    "property": "flex: none; width: 0.5em; height: 0.5em; border-radius: var(--radius-full); background-color: currentColor",
+    "description": "A current-colour status dot",
+    "example": "<div class=\"dot\">…</div>",
     "media": null
   },
   {

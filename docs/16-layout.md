@@ -97,13 +97,13 @@ text may get.
 |:---|:---|:---|:---|
 | `variant` | `'narrow-full' \| 'narrow-wide' \| 'narrow-half' \| 'null'` | `'narrow-full'` | the measure |
 
-The measure is responsive, and it tightens as the viewport narrows:
+The measure is responsive, and it tightens as the viewport narrows. Widths are measure-ladder tokens:
 
 | Variant | from 769px | from 1025px | from 1281px | from 1441px |
 |:---|:---|:---|:---|:---|
-| `narrow-full` | 640px | 640px | 680px | 680px |
-| `narrow-wide` | 720px | 750px | 1024px | 1280px |
-| `narrow-half` | 640px | 750px | 800px | 1024px |
+| `narrow-full` | — | `--measure-lg` (36rem) | `--measure-xl` (48rem) | `--measure-xl` (48rem) |
+| `narrow-wide` | `--measure-xl` (48rem) | `--measure-xl` (48rem) | `--measure-2xl` (64rem) | `--measure-3xl` (80rem) |
+| `narrow-half` | `--measure-lg` (36rem) | `--measure-xl` (48rem) | `--measure-xl` (48rem) | `--measure-2xl` (64rem) |
 | `null` | no left padding — the content goes edge to edge | | | |
 
 ### `NavSection`

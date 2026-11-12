@@ -1,31 +1,55 @@
 @layer tokens {
-  [data-mode='light'] {
+  /* The parametric theme. One recipe, three numbers:
+   *   --hue     the accent hue (and the faint tint of the neutrals)
+   *   --chroma  how vivid the accent is
+   *   --tint    how much of the hue the neutrals carry
+   * A named theme is just those numbers. Set data-theme on <html> (with
+   * data-mode="light|dark"); override the numbers anywhere to re-theme a subtree.
+   * Light/dark stays on data-mode; the recipe lives inside this layer so a
+   * consumer's custom.css can still override it.
+   */
+  :root {
+    --hue: 38;
+    --chroma: 0.2;
+    --tint: 0.012;
+  }
+  [data-theme='fractalsvelte'] { --hue: 38; --chroma: 0.2; --tint: 0.012; }
+  [data-theme='aurora'] { --hue: 168; --chroma: 0.15; --tint: 0.01; }
+  [data-theme='ocean'] { --hue: 238; --chroma: 0.17; --tint: 0.014; }
+  [data-theme='ember'] { --hue: 42; --chroma: 0.19; --tint: 0.01; }
+  [data-theme='rose'] { --hue: 8; --chroma: 0.2; --tint: 0.01; }
+  [data-theme='lime'] { --hue: 128; --chroma: 0.2; --tint: 0.008; }
+  [data-theme='amber'] { --hue: 78; --chroma: 0.17; --tint: 0.01; }
+  [data-theme='mono'] { --hue: 268; --chroma: 0; --tint: 0; }
+
+  [data-mode='light'],
+  [data-mode='light'] [data-theme] {
     color-scheme: light;
-    --white-fixed: #FFFFFF;
-    --black-fixed: #18181B;
-    --bg: oklch(1.00 0.000 148);
-    --bg-surface: oklch(0.96 0.000 148);
-    --bg-panel: oklch(0.94 0.000 148);
-    --bg-overlay: oklch(1.00 0.000 148);
-    --bg-button: oklch(0.20 0.002 148);
-    --bg-button-hover: oklch(0.28 0.002 148);
-    --bg-button-active: oklch(0.15 0.002 148);
-    --bg-button-secondary: oklch(0.50 0.002 148);
-    --bg-button-secondary-hover: oklch(0.58 0.002 148);
-    --bg-button-secondary-active: oklch(0.44 0.002 148);
-    --bg-input: oklch(0.96 0.000 148);
-    --state-hover: oklch(0 0 0 / .15);
-    --state-selected: oklch(0 0 0 / .3);
-    --border: oklch(0.90 0.000 148);
-    --border-strong: oklch(0.75 0.000 148);
-    --border-subtle: oklch(0.95 0.000 148);
-    --text-primary: oklch(0.15 0.003 148);
-    --text-secondary: oklch(0.40 0.003 148);
-    --text-muted: oklch(0.60 0.005 148);
-    --text-inverse: oklch(1.00 0.000 148);
-    --theme-color: oklch(0.50 0.750 130);
-    --theme-color-up: oklch(0.75 0.750 130);
-    --theme-color-down: oklch(0.40 0.750 130);
+    --white-fixed: oklch(1 0 0);
+    --black-fixed: oklch(0.210 0.006 285.9);
+    --bg: oklch(0.995 calc(var(--tint) * 0.3) var(--hue));
+    --bg-surface: oklch(0.975 calc(var(--tint) * 0.5) var(--hue));
+    --bg-panel: oklch(0.96 calc(var(--tint) * 0.6) var(--hue));
+    --bg-overlay: oklch(1 0 0);
+    --bg-button: oklch(0.2 var(--tint) var(--hue));
+    --bg-button-hover: oklch(0.29 var(--tint) var(--hue));
+    --bg-button-active: oklch(0.14 var(--tint) var(--hue));
+    --bg-button-secondary: oklch(0.93 calc(var(--tint) * 0.6) var(--hue));
+    --bg-button-secondary-hover: oklch(0.9 calc(var(--tint) * 0.6) var(--hue));
+    --bg-button-secondary-active: oklch(0.87 calc(var(--tint) * 0.6) var(--hue));
+    --bg-input: oklch(0.985 calc(var(--tint) * 0.4) var(--hue));
+    --state-hover: oklch(0 0 0 / 0.045);
+    --state-selected: oklch(0 0 0 / 0.08);
+    --border: oklch(0.91 calc(var(--tint) * 0.6) var(--hue));
+    --border-strong: oklch(0.82 calc(var(--tint) * 0.8) var(--hue));
+    --border-subtle: oklch(0.945 calc(var(--tint) * 0.5) var(--hue));
+    --text-primary: oklch(0.18 var(--tint) var(--hue));
+    --text-secondary: oklch(0.42 var(--tint) var(--hue));
+    --text-muted: oklch(0.58 var(--tint) var(--hue));
+    --text-inverse: oklch(0.99 0 0);
+    --theme-color: oklch(0.34 var(--chroma) var(--hue));
+    --theme-color-up: oklch(0.66 var(--chroma) var(--hue));
+    --theme-color-down: oklch(0.47 var(--chroma) var(--hue));
     --success: oklch(0.65 0.200 138);
     --success-hover: oklch(0.55 0.200 138);
     --warning: oklch(0.85 0.180 92);
@@ -34,7 +58,8 @@
     --danger-hover: oklch(0.50 0.250 25);
     --info: oklch(0.50 0.220 260);
     --info-hover: oklch(0.40 0.220 260);
-    --ring: rgba(255, 208, 0, 0.4);
+    --ring: oklch(0.55 var(--chroma) var(--hue) / 0.4);
+    --scrim: oklch(0.2 var(--tint) var(--hue) / 0.35);
     --shadow-color: 0 0 0;
     --shadow-rim: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.05);
@@ -77,42 +102,44 @@
 		--neutral-100: oklch(0.30 0.010 140);
   }
 
-  [data-mode='dark'] {
+  [data-mode='dark'],
+  [data-mode='dark'] [data-theme] {
     color-scheme: dark;
-    --white-fixed: #FFFFFF;
-    --black-fixed: #18181B;
-    --bg: oklch(0.16 0.003 140);
-    --bg-surface: oklch(0.2 0.002 140);
-    --bg-panel: oklch(0.22 0.003 140);
-    --bg-overlay: oklch(0.25 0.003 140);
-    --bg-button: oklch(0.94 0.003 140);
-    --bg-button-hover: oklch(0.88 0.003 140);
-    --bg-button-active: oklch(0.80 0.003 140);
-    --bg-button-secondary: oklch(0.54 0.01 140);
-    --bg-button-secondary-hover: oklch(0.60 0.01 140);
-    --bg-button-secondary-active: oklch(0.48 0.01 140);
-    --bg-input: oklch(0.20 0.002 140);
-    --state-hover: oklch(0 0 0 / .15);
-    --state-selected: oklch(0 0 0 / .3);
-    --border: oklch(0.4 0.002 140);
-    --border-strong: oklch(0.5 0.002 140);
-    --border-subtle: oklch(0.3 0.002 140);
-    --text-primary: oklch(0.98 0 140);
-    --text-secondary: oklch(0.55 0 140);
-    --text-muted: oklch(0.35 0 140);
-    --text-inverse: oklch(0.16 0.003 140);
-    --theme-color: oklch(0.50 0.750 130);
-    --theme-color-up: oklch(0.75 0.750 130);
-    --theme-color-down: oklch(0.40 0.750 130);
-    --success: #22C55E;
-    --success-hover: #34D399;
-    --warning: #FFD000;
-    --warning-hover: #FCD34D;
-    --danger: #EF4444;
-    --danger-hover: #F87171;
-    --info: #60A5FA;
-    --info-hover: #93C5FD;
-    --ring: rgba(255, 208, 0, 0.45);
+    --white-fixed: oklch(1 0 0);
+    --black-fixed: oklch(0.210 0.006 285.9);
+    --bg: oklch(0.145 var(--tint) var(--hue));
+    --bg-surface: oklch(0.175 var(--tint) var(--hue));
+    --bg-panel: oklch(0.2 var(--tint) var(--hue));
+    --bg-overlay: oklch(0.225 var(--tint) var(--hue));
+    --bg-input: oklch(0.185 var(--tint) var(--hue));
+    --bg-button: oklch(0.96 var(--tint) var(--hue));
+    --bg-button-hover: oklch(0.88 var(--tint) var(--hue));
+    --bg-button-active: oklch(0.8 var(--tint) var(--hue));
+    --bg-button-secondary: oklch(0.27 var(--tint) var(--hue));
+    --bg-button-secondary-hover: oklch(0.31 var(--tint) var(--hue));
+    --bg-button-secondary-active: oklch(0.24 var(--tint) var(--hue));
+    --state-hover: oklch(1 0 0 / 0.06);
+    --state-selected: oklch(1 0 0 / 0.1);
+    --border: oklch(0.27 var(--tint) var(--hue));
+    --border-strong: oklch(0.35 var(--tint) var(--hue));
+    --border-subtle: oklch(0.225 var(--tint) var(--hue));
+    --text-primary: oklch(0.97 var(--tint) var(--hue));
+    --text-secondary: oklch(0.74 var(--tint) var(--hue));
+    --text-muted: oklch(0.56 var(--tint) var(--hue));
+    --text-inverse: oklch(0.145 var(--tint) var(--hue));
+    --theme-color: oklch(0.38 var(--chroma) var(--hue));
+    --theme-color-up: oklch(0.78 var(--chroma) var(--hue));
+    --theme-color-down: oklch(0.6 var(--chroma) var(--hue));
+    --success: oklch(0.723 0.192 149.6);
+    --success-hover: oklch(0.773 0.153 163.2);
+    --warning: oklch(0.873 0.179 92.2);
+    --warning-hover: oklch(0.879 0.153 91.6);
+    --danger: oklch(0.637 0.208 25.3);
+    --danger-hover: oklch(0.711 0.166 22.2);
+    --info: oklch(0.714 0.143 254.6);
+    --info-hover: oklch(0.809 0.096 251.8);
+    --ring: oklch(0.68 var(--chroma) var(--hue) / 0.5);
+    --scrim: oklch(0 0 0 / 0.6);
     --shadow-color: 0 0 0;
     --shadow-rim: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.3);
@@ -154,6 +181,20 @@
 		--neutral-75: oklch(0.78 0.006 140);
 		--neutral-100: oklch(0.92 0.004 140);
   }
+}
+
+/* A named theme paints the element with the recipe. */
+[data-theme='fractalsvelte'],
+[data-theme='aurora'],
+[data-theme='ocean'],
+[data-theme='ember'],
+[data-theme='rose'],
+[data-theme='lime'],
+[data-theme='amber'],
+[data-theme='mono'] {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  accent-color: var(--theme-color);
 }
 
 .bg-main, .bg { background-color: var(--bg); }

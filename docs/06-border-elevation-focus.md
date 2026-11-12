@@ -33,7 +33,11 @@ Box-shadow is defined by the `--shadow-*` variables with steps from `xs` to `3xl
 
 The `.shad-hover-*` classes are for use when we want shadow to lower on hover. `.shad-hover-xs` drops to no shadow on hover; every other `.shad-hover-*` class steps down to `box-shadow: var(--shadow-xs)` on hover. For example, use `.shad-hover-bs` for a `box-shadow: var(--shadow-bs)` that goes to `box-shadow: var(--shadow-xs)` on hover.
 
-There is also a `--shadow-rim` token per mode (an inset highlight on the top edge) — currently token-only, no class consumes it. Use it directly: `box-shadow: var(--shadow-rim);`.
+`.rim` applies `--shadow-rim` (an inset highlight on the top edge, defined per mode). Combine it with the elevation ladder — `.rim.shad-sm` through `.rim.shad-2xl` stack the rim on top of that shadow. There is no `.rim.shad-xs` or `.rim.shad-3xl`.
+
+`.glow` is a theme-coloured halo: a 1px mixed ring plus a soft spread of `--theme-color`.
+
+`.glass` frosts a surface: it fills with `--bg-overlay` at `--glass-alpha` (72%) and blurs by `--glass-blur` (1rem), both set in [Configurations](./01-configurations.md).
 
 ## Focus
 
@@ -45,7 +49,7 @@ The focus-visible ring classes, so everything drawn *around* an element — bord
 .focus-none:focus, .focus-none:focus-visible { outline: none; }
 ```
 
-- `.focus-ring` - the default ring, using the per-mode `--ring` token (same look as native buttons and inputs get in [Components](./10-components.md))
+- `.focus-ring` - the default ring, using the per-mode `--ring` token (an accent-tinted `oklch` of `--chroma` and `--hue`, same look as native buttons and inputs get in [Components](./10-components.md))
 - `.focus-theme` - theme-colored ring with a 2px offset (used by checkboxes, switches and card-clickable in `components.css`)
 - `.focus-none` - removes focus outlines entirely; use only when a custom focus style is provided another way
 

@@ -294,10 +294,7 @@ a.btn:disabled, a.button:disabled { opacity: 0.5; cursor: not-allowed; pointer-e
 .banner.h-lg { padding: var(--space-md) var(--space-bs); font-size: var(--text-lg); }
 .banner.h-xl { padding: var(--space-md) var(--space-lg); font-size: var(--text-xl); }
 
-.tint.info { background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--info) 35%, transparent); color: var(--text-primary); }
-.tint.success { background-color: color-mix(in srgb, var(--success) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--success) 35%, transparent); color: var(--text-primary); }
-.tint.warning { background-color: color-mix(in srgb, var(--warning) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--warning) 35%, transparent); color: var(--text-primary); }
-.tint.danger { background-color: color-mix(in srgb, var(--danger) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--danger) 35%, transparent); color: var(--text-primary); }
+/* fsui-unify: C09 — .tint recipe moved to component-props.css and merged with .soft */
 
 /* A framed control: the frame shows focus for whatever is focused inside it,
    so the input or trigger it wraps draws no ring of its own. */
@@ -346,3 +343,7 @@ a.btn:disabled, a.button:disabled { opacity: 0.5; cursor: not-allowed; pointer-e
 .track-v.h-bs { width: var(--h-bs); height: 10em; }
 .track-v.h-lg { width: var(--h-lg); height: 10em; }
 .track-v.h-xl { width: var(--h-xl); height: 10em; }
+
+/* fsui-unify: C22 */
+/* A key cap: a hairline box with a heavier floor, like a physical key. */
+.kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 1.75em; padding-inline: var(--space-xs); border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: var(--radius-sm); background-color: var(--bg-surface); color: var(--text-primary); font-family: var(--font-mono); font-weight: 500; line-height: 1; white-space: nowrap; }

@@ -1,6 +1,6 @@
 ---
 title: Component Props
-description: Explains the component variant classes in component-props.css - button colors, shape names, and control heights.
+description: Explains the component variant classes in component-props.css - button colors, message fills, control parts, tones, and control heights.
 id: 11
 ---
 
@@ -46,17 +46,7 @@ The scale tokens are defined per mode in [Colors and Themes](./08-colors-themes.
 
 ## Shape props
 
-The radius prop names for components:
-
-```css
-.rect { border-radius: 0 }
-.mincurved { border-radius: var(--radius-sm, 3px) }
-.modern { border-radius: var(--radius-md, 6px) }
-.curved { border-radius: var(--radius-bs, 12px) }
-.round { border-radius: var(--radius-full, 9999px) }
-```
-
-The same names as in [Shapes and Sizes](./03-shapes-sizes.md), with fallback values so components render sensibly even without the full token set.
+The radius prop names for components are the shape classes in [Shapes and Sizes](./03-shapes-sizes.md): `.rect`, `.mincurved`, `.modern`, `.curved`, `.round`. They are defined once, there.
 
 ## Height props
 
@@ -65,3 +55,22 @@ The `.h-xs` to `.h-xl` classes from [Shapes and Sizes](./03-shapes-sizes.md) set
 ```css
 .hgrow.h-lg { height: auto; min-height: var(--h-lg); }
 ```
+
+## Unstyled controls and parts
+
+`.bare` is an unstyled native control — appearance, background, border, padding and outline all none, font and colour inherited. It is the starting point for composed controls.
+
+Control parts, composed in markup:
+
+- `.item` - a row in a menu, list, listbox, tree or command palette. Hover, `:focus-visible` and `.highlighted` use `--state-hover`; `.selected` and the `aria-selected` / `aria-current` states use `--state-selected`; disabled fades out
+- `.track`, `.fill`, `.thumb` - a slider, a progress bar, a meter. The control sets `--value` (and `--from` for a range) between 0 and 1. `.track.vertical` flips the fill and thumb to the block axis. Distinct from `.track-v` in [Components](./10-components.md)
+- `.ring` - a progress or countdown ring that fills with `--value`; its thickness follows the text size
+- `.indicator` - the sliding highlight behind the active tab or segment. JavaScript springs `--ix` `--iy` `--iw` `--ih` (CSS pixels, unitless) to the active item's box
+- `.caret` - a chevron that rotates 180deg when `.open` is on; `.caret.quarter.open` rotates 90deg instead, spring-timed
+- `.dot` - a current-colour status dot (0.5em, fully rounded)
+
+## Tones and the soft variant
+
+`.tone-neutral`, `.tone-info`, `.tone-success`, `.tone-warning` and `.tone-danger` re-point `--theme-color`, so `.fill`, `.ring` and `.text-theme` follow. They are not the same as the filled `.danger` / `.info` variants above.
+
+`.soft` and `.tint` are the same recipe: a 14% oklab mix of `--soft-ink` (the theme colour, or a status when paired with one) with a matching ink, darkening a little on hover and `.selected`. `.tint` keeps its name so existing markup continues to work.

@@ -142,9 +142,13 @@ Transform and Align:
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.clamp-2 { line-clamp: 2; overflow: hidden; /* -webkit-box, 2 lines */ }
+.clamp-3 { line-clamp: 3; overflow: hidden; /* -webkit-box, 3 lines */ }
 ```
 
 The `mleft` companion class forces left alignment on `.ta-c`/`.ta-r` elements below 1024px.
+
+`.clamp-2` and `.clamp-3` clamp a block to two or three lines (the `-webkit-line-clamp` box). Use `.truncate` for a single-line ellipsis.
 
 Font families:
 

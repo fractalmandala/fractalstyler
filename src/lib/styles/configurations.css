@@ -1,12 +1,26 @@
+/* fsui-unify: T02 @property */
+/* Motion channels. Registered and non-inheriting, so a moving parent never
+ * leaks its offset into a moving child. JavaScript writes these; .motion reads them. */
+@property --mx { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --my { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --ms { syntax: '<number>'; inherits: false; initial-value: 1; }
+@property --mr { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --mo { syntax: '<number>'; inherits: false; initial-value: 1; }
+@property --rx { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --ry { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
 :root {
 	--prose-clamp: 65ch;
-	--content-clamp: 1600px;
+	--content-clamp: var(--measure-4xl);
 	--app-inline: var(--space-lg);
-	--card-min: 240px;
+	--card-min: 15rem;
+	--content-aside: 7.5rem;
 
-	--sidebar-width: 280px;
-	--sidebar-width-left: 280px;
-	--sidebar-width-right: 280px;
+	--sidebar-width: 16rem;
+	--sidebar-width-left: 16rem;
+	--sidebar-width-right: 16rem;
+	--sidebar-width-collapsed: 3.5rem;
 	--z-sticky: 100;
 	--z-raised: 200;
 	--z-modal: 300;
@@ -42,3 +56,84 @@ ul, ol { list-style-type: none; padding-inline-start: 0; }
 
 /* debugging class */
 .bdr { border: 1px solid red; }
+
+/* fsui-unify: T03 T04 T07 tokens */
+:root {
+	/* the current spring — .spring-* classes and [data-motion] re-point it */
+	--spring: var(--spring-snappy);
+	--spring-ms: var(--spring-snappy-ms);
+	/* 1 = full motion, 0 = none. Durations multiply by it. */
+	--motion-scale: 1;
+	--stagger: 60ms;
+
+	/* value channels (inheriting): a control sets them, its parts read them */
+	--value: 0;
+	--from: 0;
+	--i: 0;
+	--px: 0.5;
+	--py: 0.5;
+	--ix: 0;
+	--iy: 0;
+	--iw: 0;
+	--ih: 0;
+
+	/* floating */
+	--anchor: --none;
+	--offset: var(--space-sm);
+	--scrim: oklch(0 0 0 / 0.55);
+	--glass-blur: 1rem;
+	--glass-alpha: 72%;
+
+	/* view transitions */
+	--vt-name: none;
+	--vt-x: 50vw;
+	--vt-y: 50vh;
+	--vt-r: 150vmax;
+
+	/* the measure ladder — widths for panels, dialogs, popovers and the shell */
+	--measure-xs: 14rem;
+	--measure-sm: 20rem;
+	--measure-md: 28rem;
+	--measure-lg: 36rem;
+	--measure-xl: 48rem;
+	--measure-2xl: 64rem;
+	--measure-3xl: 80rem;
+	--measure-4xl: 100rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root { --motion-scale: 0; }
+}
+
+/* fsui-unify: T05 T06 T07 axes */
+/* Shape, density and motion axes rewrite the ladders. :root[attr] beats a later
+ * :root token so these win regardless of source order; the unprefixed attribute
+ * selector still lets a subtree opt in.
+ *
+ * T06 decision: [data-radius=soft] equals the current radius ladder
+ * (xs 2px, sm 3px, md 6px, bs 12px, lg 16px), so ThemeProvider's default
+ * radius no longer silently rewrites corners versus vanilla fractalstyler.
+ * sharp and round remain optional rewrites. */
+:root[data-radius='sharp'], [data-radius='sharp'] { --radius-xs: 0; --radius-sm: 0; --radius-md: 2px; --radius-bs: 2px; --radius-lg: 2px; }
+:root[data-radius='soft'], [data-radius='soft'] { --radius-xs: 2px; --radius-sm: 3px; --radius-md: 6px; --radius-bs: 12px; --radius-lg: 16px; }
+:root[data-radius='round'], [data-radius='round'] { --radius-xs: 0.25rem; --radius-sm: 0.5rem; --radius-md: 0.75rem; --radius-bs: 1.25rem; --radius-lg: 1.75rem; }
+
+/* Density rewrites space, height and type. cozy is the default and has no rule,
+ * so it stays on the vanilla ladders. compact / comfortable now also complete
+ * --h-xs / --h-sm / --h-3xl and the type scale (T05). */
+:root[data-density='compact'], [data-density='compact'] {
+	--space-xs: 0.1875rem; --space-sm: 0.375rem; --space-md: 0.5rem; --space-bs: 0.75rem; --space-lg: 1.125rem; --space-xl: 1.5rem; --space-2xl: 2.25rem; --space-3xl: 3rem;
+	--h-xs: 0.65625rem; --h-sm: 0.875rem; --h-md: 1.125rem; --h-bs: 1.5rem; --h-lg: 1.75rem; --h-xl: 2.125rem; --h-2xl: 2.625rem; --h-3xl: 3.5rem;
+	--text-xs: 0.6rem; --text-sm: 0.675rem;
+	--text-md: calc(var(--text-static-md) * 0.9); --text-bs: calc(var(--text-static-bs) * 0.9); --text-lg: calc(var(--text-static-lg) * 0.9); --text-xl: calc(var(--text-static-xl) * 0.9); --text-2xl: calc(var(--text-static-2xl) * 0.9); --text-3xl: calc(var(--text-static-3xl) * 0.9); --text-4xl: calc(var(--text-static-4xl) * 0.9); --text-5xl: calc(var(--text-static-5xl) * 0.9);
+}
+:root[data-density='comfortable'], [data-density='comfortable'] {
+	--space-xs: 0.3125rem; --space-sm: 0.625rem; --space-md: 0.875rem; --space-bs: 1.125rem; --space-lg: 1.75rem; --space-xl: 2.25rem; --space-2xl: 3.5rem; --space-3xl: 4.5rem;
+	--h-xs: 0.825rem; --h-sm: 1.1rem; --h-md: 1.375rem; --h-bs: 1.875rem; --h-lg: 2.25rem; --h-xl: 2.75rem; --h-2xl: 3.25rem; --h-3xl: 4.375rem;
+	--text-xs: 0.74rem; --text-sm: 0.825rem;
+	--text-md: calc(var(--text-static-md) * 1.1); --text-bs: calc(var(--text-static-bs) * 1.1); --text-lg: calc(var(--text-static-lg) * 1.1); --text-xl: calc(var(--text-static-xl) * 1.1); --text-2xl: calc(var(--text-static-2xl) * 1.1); --text-3xl: calc(var(--text-static-3xl) * 1.1); --text-4xl: calc(var(--text-static-4xl) * 1.1); --text-5xl: calc(var(--text-static-5xl) * 1.1);
+}
+
+:root[data-motion='off'], [data-motion='off'] { --motion-scale: 0; }
+:root[data-motion='calm'], [data-motion='calm'] { --spring: var(--spring-gentle); --spring-ms: var(--spring-gentle-ms); }
+:root[data-motion='playful'], [data-motion='playful'] { --spring: var(--spring-bouncy); --spring-ms: var(--spring-bouncy-ms); }

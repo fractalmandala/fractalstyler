@@ -79,6 +79,12 @@ own with `data-theme`:
 The dark block redefines the `--modular-*` values only — the system tokens
 underneath are untouched, so the rest of the page keeps its theme.
 
+This is a different meaning of `data-theme` from the system's named palettes
+(`fractalsvelte`, `aurora`, and the rest in [Colors and Themes](./08-colors-themes.md)).
+`.modular[data-theme='dark']` is the workspace's own light/dark switch. Do not
+put `data-theme="dark"` on `<html>` expecting a named palette, and do not put
+a palette name on `.modular` expecting the workspace chrome to change.
+
 ## Why it is not in `index.css`
 
 `modular.css` is not part of the aggregate stylesheet. It is app chrome, not

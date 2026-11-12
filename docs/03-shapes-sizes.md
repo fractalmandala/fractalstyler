@@ -37,7 +37,7 @@ In both cases, the token scales to a class of the same name, styling only that p
 .round { border-radius: var(--radius-full); }
 ```
 
-`component-props.css` defines the same five names again, with fallback values for when the radius tokens are missing — see [Component Props](./11-component-props.md). Both sets resolve to the same radii.
+These five names are defined only here — not again in `component-props.css`.
 
 The `.h-*` classes set `height` only. A control that should grow past its size class with its content (a field of wrapping tags, say) adds `.hgrow`, which turns the size into a minimum height — see [Component Props](./11-component-props.md).
 
@@ -65,4 +65,19 @@ A typical app shell or site layout can have a central area with a header on top 
 .hfull-fitted { min-height: calc(100dvh - var(--header-height) - var(--footer-height)); }
 ```
 
-For configurations that have only a header, set `--footer-height` to 0. For configurations without header and footer, set even `--header-height` to 0. This way the `hfull-fitted` class always fits perfectly. Both tokens ship with default values in [Configurations](./01-configurations.md).
+For configurations that have only a header, set `--footer-height` to 0. For configurations without header and footer, set even `--header-height` to 0. This way the `hfull-fitted` class always fits perfectly.
+
+`--header-height` (4rem), `--footer-height` (2rem) and `--fit-height` (`calc(var(--header-height) + var(--footer-height))`) are declared in this file, with the height ladder.
+
+## Measure and max-height
+
+The measure ladder is declared in [Configurations](./01-configurations.md): `--measure-xs` … `--measure-4xl` (14rem, 20rem, 28rem, 36rem, 48rem, 64rem, 80rem, 100rem). This file turns those tokens into width and max-height classes.
+
+```css
+.measure-xs { width: 100%; max-width: var(--measure-xs); }
+/* … through .measure-4xl */
+.max-h-xs { max-height: var(--measure-xs); }
+/* … through .max-h-4xl */
+```
+
+`.measure-*` is a width that fills up to a readable limit — panels, dialogs, popovers, and the shell's narrow presets. `.max-h-*` is the same cap as a max-height, for scrolling regions.

@@ -1,5 +1,3 @@
-/* Please refer to `docs/canonicals.md` to see the correct usage for these classes. */
-
 .app-shell { display: flex; flex-direction: column; position: relative; min-height: 100vh; }
 .app-header { display: flex; flex-direction: row; align-items: center; position: sticky; top: 0; z-index: var(--z-sticky); height: var(--header-height); padding-inline: var(--app-inline); }
 .app-header.clamped { width: var(--content-clamp); margin-inline: auto; }
@@ -24,13 +22,17 @@
 .sidebar-left { width: var(--sidebar-width-left); }
 .sidebar-right { width: var(--sidebar-width-right); }
 
-@media (max-width: 1024px) { 
-	.app-shell.open .sidebar-left { 
-		display: block; 
-		position: fixed; 
-		left: 0; 
-		z-index: var(--z-modal); 
-		height: var(--fit-height); } 
+@media (max-width: 1024px) {
+	.app-shell.open .sidebar-left {
+		display: block;
+		position: fixed;
+		left: 0;
+		top: var(--header-height);
+		z-index: var(--z-modal);
+		height: calc(100dvh - var(--header-height));
+		background-color: var(--bg);
+		border-right: 1px solid var(--border);
+	}
 }
 
 @media (min-width: 1025px) { .sidebar-left { display: block; } }
@@ -42,27 +44,29 @@
 .content-section.null { padding-inline: 0 var(--space-bs); }
 .page-header { display: flex; flex-direction: column; }
 
-@media (min-width: 769px) { 
-	.content-section { padding-inline: var(--space-bs); } 
-	.content-section.narrow-half { width: 640px; margin-inline: auto; } 
-	.content-section.narrow-wide { width: 720px; margin-inline: auto; } 
+/* B08: widths ride the measure ladder; padding-right on narrow-half
+ * reserves space for a right aside (space-xl, then --content-aside). */
+@media (min-width: 769px) {
+	.content-section { padding-inline: var(--space-bs); }
+	.content-section.narrow-half { width: var(--measure-lg); margin-inline: auto; }
+	.content-section.narrow-wide { width: var(--measure-xl); margin-inline: auto; }
 }
 
-@media (min-width: 1025px) { 
-	.content-section.narrow-full { width: 640px; margin-inline: auto; } 
-	.content-section.narrow-half { width: 750px; padding-right: 25px; } 
-	.content-section.narrow-wide { width: 750px; } 
+@media (min-width: 1025px) {
+	.content-section.narrow-full { width: var(--measure-lg); margin-inline: auto; }
+	.content-section.narrow-half { width: var(--measure-xl); padding-right: var(--space-xl); }
+	.content-section.narrow-wide { width: var(--measure-xl); }
 }
 
-@media (min-width: 1281px) { 
-	.content-section.narrow-full { width: 720px; } 
-	.content-section.narrow-half { width: 800px; padding-right: 120px; } 
-	.content-section.narrow-wide { width: 1024px; } 
+@media (min-width: 1281px) {
+	.content-section.narrow-full { width: var(--measure-xl); }
+	.content-section.narrow-half { width: var(--measure-xl); padding-right: var(--content-aside); }
+	.content-section.narrow-wide { width: var(--measure-2xl); }
 }
 
-@media (min-width: 1441px) { 
-	.content-section.narrow-wide { width: 1280px; } 
-	.content-section.narrow-half { width: 1024px; } 
+@media (min-width: 1441px) {
+	.content-section.narrow-wide { width: var(--measure-3xl); }
+	.content-section.narrow-half { width: var(--measure-2xl); }
 }
 
 .nav-section { display: flex; flex-direction: column; }
@@ -77,3 +81,57 @@
   background-color: rgba(255, 255, 255, 0.22);
   border-radius: 999px;
 }
+
+/* fsui-unify: C20 */
+/* Overlays: the top layer, anchored. Native <dialog> and the Popover API do
+ * the stacking, focus and dismissal; CSS anchor positioning does the placement. */
+:where(.floating, .dialog, .layer) { border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible; }
+
+/* The anchor names itself through --anchor; the floating element points at it. */
+.anchor { anchor-name: var(--anchor); }
+[data-anchor] { anchor-name: var(--anchor); }
+.floating { position: fixed; position-anchor: var(--anchor); inset: auto; max-height: calc(100dvh - var(--space-lg)); position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline; }
+.floating.at-top { position-area: top; margin-bottom: var(--offset); transform-origin: bottom; }
+.floating.at-top-start { position-area: top span-right; margin-bottom: var(--offset); transform-origin: bottom left; }
+.floating.at-top-end { position-area: top span-left; margin-bottom: var(--offset); transform-origin: bottom right; }
+.floating.at-bottom { position-area: bottom; margin-top: var(--offset); transform-origin: top; }
+.floating.at-bottom-start { position-area: bottom span-right; margin-top: var(--offset); transform-origin: top left; }
+.floating.at-bottom-end { position-area: bottom span-left; margin-top: var(--offset); transform-origin: top right; }
+.floating.at-left { position-area: left; margin-right: var(--offset); transform-origin: right; }
+.floating.at-right { position-area: right; margin-left: var(--offset); transform-origin: left; }
+.floating.at-right-start { position-area: right span-bottom; margin-left: var(--offset); transform-origin: top left; }
+.floating.at-left-start { position-area: left span-bottom; margin-right: var(--offset); transform-origin: top right; }
+.floating.match-anchor { min-width: anchor-size(width); }
+
+/* A zero-size anchor fixed at the pointer (--px / --py, unitless px): context menus. */
+.at-pointer { position: fixed; left: calc(var(--px, 0) * 1px); top: calc(var(--py, 0) * 1px); width: 0; height: 0; pointer-events: none; anchor-name: var(--anchor); }
+
+/* A modal surface: <dialog class="dialog pop …">. */
+.dialog { margin: auto; max-width: calc(100vw - var(--space-xl)); max-height: calc(100dvh - var(--space-xl)); }
+.dialog::backdrop { background-color: var(--scrim); backdrop-filter: blur(0.25rem); opacity: 0; transition: opacity calc(var(--speed3) * var(--motion-scale)) var(--transout2), overlay calc(var(--speed3) * var(--motion-scale)) allow-discrete, display calc(var(--speed3) * var(--motion-scale)) allow-discrete; }
+.dialog[open]::backdrop { opacity: 1; }
+@starting-style { .dialog[open]::backdrop { opacity: 0; } }
+
+/* An edge-docked dialog: <dialog class="dialog sheet at-right pop enter-edge-right">. */
+.dialog.sheet { margin: 0; max-width: 100vw; max-height: 100dvh; }
+.dialog.sheet.at-right { inset: 0 0 0 auto; height: 100dvh; }
+.dialog.sheet.at-left { inset: 0 auto 0 0; height: 100dvh; }
+.dialog.sheet.at-top { inset: 0 0 auto 0; width: 100vw; }
+.dialog.sheet.at-bottom { inset: auto 0 0 0; width: 100vw; }
+.dialog.fullscreen { width: 100%; height: 100%; max-width: none; max-height: none; }
+
+/* A top-layer surface that lays out as a column only while open. */
+.open-column:is([open], :popover-open) { display: flex; flex-direction: column; }
+
+/* A surface whose width (or, on a top / bottom sheet, height) comes from --size. */
+.sized { width: var(--size, auto); }
+.dialog.sheet.sized:is(.at-top, .at-bottom) { width: 100vw; height: var(--size, auto); }
+
+/* A free top-layer region (toasts): <div popover="manual" class="layer …">. */
+.layer { position: fixed; inset: auto; }
+.layer.at-top { top: var(--space-bs); left: 50%; translate: -50% 0; }
+.layer.at-top-start { top: var(--space-bs); left: var(--space-bs); }
+.layer.at-top-end { top: var(--space-bs); right: var(--space-bs); }
+.layer.at-bottom { bottom: var(--space-bs); left: 50%; translate: -50% 0; }
+.layer.at-bottom-start { bottom: var(--space-bs); left: var(--space-bs); }
+.layer.at-bottom-end { bottom: var(--space-bs); right: var(--space-bs); }

@@ -50,3 +50,15 @@
 .focus-ring:focus-visible { outline: 2px solid var(--ring); outline-offset: 1px; }
 .focus-theme:focus-visible { outline: 2px solid var(--theme-color); outline-offset: 2px; }
 .focus-none:focus, .focus-none:focus-visible { outline: none; }	
+
+/* fsui-unify: C23 */
+.glass { background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6); }
+
+/* The lit top edge of a raised surface. Combines with the elevation ladder. */
+.rim { box-shadow: var(--shadow-rim); }
+.rim.shad-sm { box-shadow: var(--shadow-rim), var(--shadow-sm); }
+.rim.shad-md { box-shadow: var(--shadow-rim), var(--shadow-md); }
+.rim.shad-lg { box-shadow: var(--shadow-rim), var(--shadow-lg); }
+.rim.shad-xl { box-shadow: var(--shadow-rim), var(--shadow-xl); }
+.rim.shad-2xl { box-shadow: var(--shadow-rim), var(--shadow-2xl); }
+.glow { box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-color) 45%, transparent), 0 0 2rem -0.5rem var(--theme-color); }

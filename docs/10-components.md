@@ -38,9 +38,10 @@ At the small heights (`.h-xs`, `.h-sm`, `.h-md`) a button's inline padding drops
 
 ## Avatars
 
-`.avatar-group` support classes, sized by `--avatar-size` (see [Configurations](./01-configurations.md)):
+`.avatar-group` support classes, sized by `--avatar-size` (set by the consumer — the system does not declare a default):
 
-- `.circle` / `.rounded` - shape of the `+N` avatar-more chip
+- `.avatar-more` - the overflow `+N` chip; its width, height and font-size follow `--avatar-size`
+- `.circle` / `.rounded` - shape of that chip
 - `.gap-overlap` - overlapping stack; `.row` / `.box` pick the axis; the ring color uses `--bg-panel`
 
 ## Badges and Tags
@@ -69,7 +70,7 @@ Both handle focus-visible rings, disabled state, and `[aria-invalid=true]` dange
 
 ## Messages and banners
 
-- `.tint.info`, `.tint.success`, `.tint.warning`, `.tint.danger` - a soft fill of the status color mixed into `--bg-panel`, with a matching border and text-primary text. For the token-based message fills see `.msg` in [Component Props](./11-component-props.md).
+- Soft status fills now live in [Component Props](./11-component-props.md): `.soft` and `.tint` are the same recipe (a tint of the theme colour, or of a status when paired with `.info` / `.success` / `.warning` / `.danger`). For the token-based message fills see `.msg` there too.
 - `.banner.h-*` - a banner's size class sets its padding and text size (`.h-sm` to `.h-xl`), and its height follows content
 
 ## Tables
@@ -99,4 +100,5 @@ Both handle focus-visible rings, disabled state, and `[aria-invalid=true]` dange
 ## Misc
 
 - `.slide-unlock` - min-width 16rem, no text selection/touch scrolling, for drag-to-unlock widgets
+- `.kbd` - a keyboard-key glyph: inline-flex, mono, a strong border with a thicker bottom edge, `--bg-surface` fill
 - `.vibrating` keyframe - scale pop used for feedback animations

@@ -1,6 +1,6 @@
 {
 	"name": "@fractaldesign/fractalstyler",
-	"version": "1.6.0",
+	"version": "2.0.0",
 	"license": "MIT",
 	"description": "A lean CSS composition, styling, and design system designed for minimal classes, maximal customizability.",
 	"homepage": "https://fractalsvelte.dev/fractalstyler",
@@ -19,7 +19,7 @@
 	},
 	"scripts": {
 		"registry": "node scripts/update-registry.ts",
-		"tokens": "node scripts/build-tokens-registry.ts",
+		"tokens": "node scripts/gen-springs.ts && node scripts/build-tokens-registry.ts",
 		"lint": "node lint/cli.ts",
 		"browser": "node lint/browser.ts",
 		"mcp": "node mcp/server.ts",
@@ -31,7 +31,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && node scripts/validate-deck.ts && node lint/cli.ts",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"validate:deck": "node scripts/validate-deck.ts",
-		"version": "npm run registry && npm run tokens && git add -A"
+		"version": "npm run registry && npm run tokens && git add -A",
+		"gen:springs": "node scripts/gen-springs.ts"
 	},
 	"files": [
 		"dist",

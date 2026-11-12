@@ -1,7 +1,7 @@
 # Fractalstyler — Class Reference
 
 GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts` from the
-stylesheets in `src/lib/styles`. 532 classes across 442 tokens.
+stylesheets in `src/lib/styles`. 637 classes across 487 tokens.
 
 **The classes below are the entire public API.** The system defines no
 authoring mixins and no styling functions — `+stack`, `+surface`, `space()` and
@@ -207,6 +207,22 @@ Radius and control-height ladders, plus the sizing utilities (full, min0, fitted
 | `.min0` | Zero min-width and min-height | `shapes-sizes.css` |
 | `.hfull-dvh` | Full viewport height | `shapes-sizes.css` |
 | `.hfull-fitted` | Full viewport height, fitted between the header and the footer | `shapes-sizes.css` |
+| `.measure-xs` | width: 100% | `shapes-sizes.css` |
+| `.measure-sm` | width: 100% | `shapes-sizes.css` |
+| `.measure-md` | width: 100% | `shapes-sizes.css` |
+| `.measure-lg` | width: 100% | `shapes-sizes.css` |
+| `.measure-xl` | width: 100% | `shapes-sizes.css` |
+| `.measure-2xl` | width: 100% | `shapes-sizes.css` |
+| `.measure-3xl` | width: 100% | `shapes-sizes.css` |
+| `.measure-4xl` | width: 100% | `shapes-sizes.css` |
+| `.max-h-xs` | max-height: var(--measure-xs) | `shapes-sizes.css` |
+| `.max-h-sm` | max-height: var(--measure-sm) | `shapes-sizes.css` |
+| `.max-h-md` | max-height: var(--measure-md) | `shapes-sizes.css` |
+| `.max-h-lg` | max-height: var(--measure-lg) | `shapes-sizes.css` |
+| `.max-h-xl` | max-height: var(--measure-xl) | `shapes-sizes.css` |
+| `.max-h-2xl` | max-height: var(--measure-2xl) | `shapes-sizes.css` |
+| `.max-h-3xl` | max-height: var(--measure-3xl) | `shapes-sizes.css` |
+| `.max-h-4xl` | max-height: var(--measure-4xl) | `shapes-sizes.css` |
 
 ---
 
@@ -239,6 +255,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.grid-4` | Grid with 4 columns | `containers.css` |
 | `.grid-5` | Grid with 5 columns | `containers.css` |
 | `.grid-6` | Grid with 6 columns | `containers.css` |
+| `.grid-7` | Grid with 7 columns | `containers.css` |
 | `.center` | place-items: center — modifier of .grid | `containers.css` |
 | `.xstretch` | justify-items: stretch — modifier of .grid | `containers.css` |
 | `.ystretch` | align-items: stretch — modifier of .grid | `containers.css` |
@@ -257,6 +274,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.shrink-0` | Never shrink below the content size | `containers.css` |
 | `.relative` | position: relative — the anchor for absolute children | `containers.css` |
 | `.absolute` | position: absolute | `containers.css` |
+| `.cover` | Fill the containing block | `containers.css` |
 | `.fixed` | position: fixed | `containers.css` |
 | `.sticky` | position: sticky | `containers.css` |
 | `.z-sticky` | z-index: var(--z-sticky) | `containers.css` |
@@ -266,7 +284,14 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.scroll-y` | Scroll vertically | `containers.css` |
 | `.scroll-x` | Scroll horizontally | `containers.css` |
 | `.scroll-menu` | A list that scrolls past 16rem — dropdown and option lists | `containers.css` |
+| `.scroll-thin` | A thin scrollbar in the border colour | `containers.css` |
+| `.scroll-hidden` | Hide the scrollbar | `containers.css` |
 | `.pointer` | Pointer cursor for clickable rows and labels that are not buttons | `containers.css` |
+| `.pointer-none` | Ignore pointer events | `containers.css` |
+| `.pointer-auto` | Restore pointer events | `containers.css` |
+| `.select-none` | Disable text selection | `containers.css` |
+| `.square` | A 1:1 box — unlike .frame-1-1, it does not crop or position | `containers.css` |
+| `.dim` | Fade the surface to half opacity | `containers.css` |
 | `.touch-none` | No touch scrolling — for drag surfaces like sliders and pads | `containers.css` |
 | `.fit-cover` | object-fit: cover — media fills and crops | `containers.css` |
 | `.fit-contain` | object-fit: contain — media fits whole, letterboxed | `containers.css` |
@@ -356,6 +381,8 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.ta-r` | Text align — right | `typography.css` |
 | `.mleft` | Keep the reading measure on the left when the text is centred | `typography.css` |
 | `.truncate` | One-line ellipsis truncation | `typography.css` |
+| `.clamp-2` | display: -webkit-box | `typography.css` |
+| `.clamp-3` | display: -webkit-box | `typography.css` |
 | `.font-sans` | The sans font stack | `typography.css` |
 | `.font-mono` | The monospace font stack | `typography.css` |
 | `.doc-element` | An element inside prose content | `typography.css` |
@@ -413,6 +440,9 @@ The partition-law border set (per side, three weights), elevation steps and the 
 | `.focus-ring` | The default focus ring | `border-elevation-focus.css` |
 | `.focus-theme` | A focus ring in the theme colour | `border-elevation-focus.css` |
 | `.focus-none` | No focus ring | `border-elevation-focus.css` |
+| `.glass` | background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent) | `border-elevation-focus.css` |
+| `.rim` | box-shadow: var(--shadow-rim) | `border-elevation-focus.css` |
+| `.glow` | box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-color) 45%, transparent), 0 0 2rem -0.5rem var(--theme-color) | `border-elevation-focus.css` |
 
 ---
 
@@ -441,6 +471,26 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.logo-link` | display: inline-flex | `layout-shell.css` |
 | `.toc-section` | display: flex | `layout-shell.css` |
 | `.toc-link` | display: block | `layout-shell.css` |
+| `.floating` | border: none | `layout-shell.css` |
+| `.dialog` | border: none — modifier of .floating | `layout-shell.css` |
+| `.layer` | border: none — modifier of .floating | `layout-shell.css` |
+| `.anchor` | anchor-name: var(--anchor) | `layout-shell.css` |
+| `.at-top` | position-area: top — modifier of .floating | `layout-shell.css` |
+| `.at-top-start` | position-area: top span-right — modifier of .floating | `layout-shell.css` |
+| `.at-top-end` | position-area: top span-left — modifier of .floating | `layout-shell.css` |
+| `.at-bottom` | position-area: bottom — modifier of .floating | `layout-shell.css` |
+| `.at-bottom-start` | position-area: bottom span-right — modifier of .floating | `layout-shell.css` |
+| `.at-bottom-end` | position-area: bottom span-left — modifier of .floating | `layout-shell.css` |
+| `.at-left` | position-area: left — modifier of .floating | `layout-shell.css` |
+| `.at-right` | position-area: right — modifier of .floating | `layout-shell.css` |
+| `.at-right-start` | position-area: right span-bottom — modifier of .floating | `layout-shell.css` |
+| `.at-left-start` | position-area: left span-bottom — modifier of .floating | `layout-shell.css` |
+| `.match-anchor` | min-width: anchor-size(width) — modifier of .floating | `layout-shell.css` |
+| `.at-pointer` | position: fixed | `layout-shell.css` |
+| `.sheet` | margin: 0 — modifier of .dialog | `layout-shell.css` |
+| `.fullscreen` | width: 100% — modifier of .dialog | `layout-shell.css` |
+| `.open-column` | display: flex — attribute variant | `layout-shell.css` |
+| `.sized` | width: var(--size, auto) | `layout-shell.css` |
 
 ---
 
@@ -493,6 +543,43 @@ Motion language — easings, durations and the keyframe animations.
 | `.anim-pulse` | Pulse — a fade in and out | `motion-animation.css` |
 | `.anim-fade-in` | Fade in | `motion-animation.css` |
 | `.anim-fade-out` | Fade out | `motion-animation.css` |
+| `.anim-in` | animation: none | `motion-animation.css` |
+| `.anim-ping` | animation: none | `motion-animation.css` |
+| `.anim-blink` | animation: none | `motion-animation.css` |
+| `.anim-shimmer` | animation: none | `motion-animation.css` |
+| `.anim-wave` | animation: none | `motion-animation.css` |
+| `.anim-stretch` | animation: none | `motion-animation.css` |
+| `.anim-slide` | animation: none | `motion-animation.css` |
+| `.spring` | transition-property: translate, scale, rotate, transform, opacity, background-color, border-color, color, box-shadow, filter, width, height, grid-template-rows, grid… | `motion-animation.css` |
+| `.spring-gentle` | .spring-gentle rule | `motion-animation.css` |
+| `.spring-snappy` | .spring-snappy rule | `motion-animation.css` |
+| `.spring-bouncy` | .spring-bouncy rule | `motion-animation.css` |
+| `.spring-stiff` | .spring-stiff rule | `motion-animation.css` |
+| `.spring-slow` | .spring-slow rule | `motion-animation.css` |
+| `.motion` | translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px) | `motion-animation.css` |
+| `.tilt` | transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)) | `motion-animation.css` |
+| `.pop` | opacity: 0 | `motion-animation.css` |
+| `.enter-scale` | .enter-scale rule | `motion-animation.css` |
+| `.enter-fade` | .enter-fade rule | `motion-animation.css` |
+| `.enter-up` | .enter-up rule | `motion-animation.css` |
+| `.enter-down` | .enter-down rule | `motion-animation.css` |
+| `.enter-left` | .enter-left rule | `motion-animation.css` |
+| `.enter-right` | .enter-right rule | `motion-animation.css` |
+| `.enter-blur` | .enter-blur rule | `motion-animation.css` |
+| `.enter-edge-top` | .enter-edge-top rule | `motion-animation.css` |
+| `.enter-edge-right` | .enter-edge-right rule | `motion-animation.css` |
+| `.enter-edge-bottom` | .enter-edge-bottom rule | `motion-animation.css` |
+| `.enter-edge-left` | .enter-edge-left rule | `motion-animation.css` |
+| `.reveal` | opacity: 0 | `motion-animation.css` |
+| `.in` | opacity: 1 — modifier of .reveal | `motion-animation.css` |
+| `.lift` | Hover lifts the surface a hair and raises its shadow | `motion-animation.css` |
+| `.press` | Active press scales the surface in, spring-timed | `motion-animation.css` |
+| `.vt-name` | view-transition-name: var(--vt-name) | `motion-animation.css` |
+| `.vt-fade` | animation: fade-out calc(var(--speed3) * var(--motion-scale)) var(--transout2) both | `motion-animation.css` |
+| `.vt-slide` | animation: vt-out-left calc(var(--speed3) * var(--motion-scale)) var(--transin1) both | `motion-animation.css` |
+| `.vt-slide-back` | animation: vt-out-right calc(var(--speed3) * var(--motion-scale)) var(--transin1) both | `motion-animation.css` |
+| `.vt-scale` | animation: vt-out-scale calc(var(--speed3) * var(--motion-scale)) var(--transin1) both | `motion-animation.css` |
+| `.vt-reveal` | animation: none | `motion-animation.css` |
 
 ---
 
@@ -540,11 +627,6 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.card-label` | font-size: 1em — child of .card-sized | `components.css` |
 | `.card-sub` | font-size: 0.95em — child of .card-sized | `components.css` |
 | `.banner` | A banner — its size class sets padding and text size, height follows content | `components.css` |
-| `.tint` | Soft status fill — the status colour mixed into the panel fill | `components.css` |
-| `.info` | Status variant — the info colour | `components.css` |
-| `.success` | Status variant — the success colour | `components.css` |
-| `.warning` | Status variant — the warning colour | `components.css` |
-| `.danger` | Status variant — the danger colour | `components.css` |
 | `.field` | A framed control — the frame shows focus for the input inside it | `components.css` |
 | `.collapse` | Opens and closes by height — add .open to open | `components.css` |
 | `.data-table` | A table of records — collapsed borders, quiet header row, row hover | `components.css` |
@@ -556,6 +638,7 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.is-dragging` | A drag in progress — no snapping, no pointer events inside | `components.css` |
 | `.track-min` | Minimum width of a horizontal slider track | `components.css` |
 | `.track-v` | An upright slider track — its .h-* class sets the thickness | `components.css` |
+| `.kbd` | display: inline-flex | `components.css` |
 | `.radio` | .radio rule | `components.css` |
 | `.striped` | Shade every other row | `components.css` |
 | `.selected` | Selected state — the current item in a set | `components.css` |
@@ -573,9 +656,31 @@ Component props — the variant, shape and height classes Fractalsvelte UI consu
 | `.themed` | Themed variant — filled with the theme colour | `component-props.css` |
 | `.outline` | Outline variant — border only | `component-props.css` |
 | `.ghost` | Ghost variant — no fill until hover | `component-props.css` |
+| `.info` | Status variant — the info colour | `component-props.css` |
+| `.success` | Status variant — the success colour | `component-props.css` |
+| `.warning` | Status variant — the warning colour | `component-props.css` |
+| `.danger` | Status variant — the danger colour | `component-props.css` |
 | `.msg` | Message fill — the status scale's soft fill, border and ink (with .info, .success, .warning, .danger or .neutral) | `component-props.css` |
 | `.neutral` | Status — the neutral tone | `component-props.css` |
 | `.hgrow` | The size class becomes a minimum height; the control grows with its content | `component-props.css` |
+| `.bare` | appearance: none | `component-props.css` |
+| `.item` | display: flex | `component-props.css` |
+| `.highlighted` | background-color: var(--state-hover) — modifier of .item | `component-props.css` |
+| `.track` | position: relative | `component-props.css` |
+| `.fill` | position: absolute | `component-props.css` |
+| `.thumb` | position: absolute | `component-props.css` |
+| `.ring` | flex: none | `component-props.css` |
+| `.indicator` | position: absolute | `component-props.css` |
+| `.caret` | flex: none | `component-props.css` |
+| `.quarter` | rotate: 90deg — modifier of .caret | `component-props.css` |
+| `.tone-neutral` | .tone-neutral rule | `component-props.css` |
+| `.tone-info` | .tone-info rule | `component-props.css` |
+| `.tone-success` | .tone-success rule | `component-props.css` |
+| `.tone-warning` | .tone-warning rule | `component-props.css` |
+| `.tone-danger` | .tone-danger rule | `component-props.css` |
+| `.soft` | background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent) | `component-props.css` |
+| `.tint` | Soft status fill — the status colour mixed into the panel fill | `component-props.css` |
+| `.dot` | A current-colour status dot | `component-props.css` |
 
 ---
 
@@ -678,12 +783,14 @@ The sveltemodular workspace chrome.
 
 ```css
   --prose-clamp: 65ch;
-  --content-clamp: 1600px;
+  --content-clamp: var(--measure-4xl);
   --app-inline: var(--space-lg);
-  --card-min: 240px;
-  --sidebar-width: 280px;
-  --sidebar-width-left: 280px;
-  --sidebar-width-right: 280px;
+  --card-min: 15rem;
+  --content-aside: 7.5rem;
+  --sidebar-width: 16rem;
+  --sidebar-width-left: 16rem;
+  --sidebar-width-right: 16rem;
+  --sidebar-width-collapsed: 3.5rem;
   --z-sticky: 100;
   --z-raised: 200;
   --z-modal: 300;
@@ -700,6 +807,46 @@ The sveltemodular workspace chrome.
   --z-999: 999;
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --spring: var(--spring-snappy);
+  --spring-ms: var(--spring-snappy-ms);
+  --motion-scale: 1;
+  --stagger: 60ms;
+  --value: 0;
+  --from: 0;
+  --i: 0;
+  --px: 0.5;
+  --py: 0.5;
+  --ix: 0;
+  --iy: 0;
+  --iw: 0;
+  --ih: 0;
+  --anchor: --none;
+  --offset: var(--space-sm);
+  --scrim: oklch(0 0 0 / 0.55);
+  --glass-blur: 1rem;
+  --glass-alpha: 72%;
+  --vt-name: none;
+  --vt-x: 50vw;
+  --vt-y: 50vh;
+  --vt-r: 150vmax;
+  --measure-xs: 14rem;
+  --measure-sm: 20rem;
+  --measure-md: 28rem;
+  --measure-lg: 36rem;
+  --measure-xl: 48rem;
+  --measure-2xl: 64rem;
+  --measure-3xl: 80rem;
+  --measure-4xl: 100rem;
+  --spring-gentle: linear(0, 0.021 2.5%, 0.074 5%, 0.147 7.5%, 0.493 17.5%, 0.643 22.5%, 0.707 25%, 0.763 27.5%, 0.811 30%, 0.852 32.5%, 0.886 35%, 0.914 37.5%, 0.937 40%, 0.956 42.5%, 0.97 45%, 0.99 50%, 1.001 55%, 1.006 60%, 1.008 67.5%, 1);
+  --spring-gentle-ms: 560ms;
+  --spring-snappy: linear(0, 0.023 2.5%, 0.082 5%, 0.161 7.5%, 0.525 17.5%, 0.675 22.5%, 0.737 25%, 0.791 27.5%, 0.836 30%, 0.874 32.5%, 0.905 35%, 0.93 37.5%, 0.95 40%, 0.966 42.5%, 0.978 45%, 0.994 50%, 1.002 55%, 1.006 65%, 1);
+  --spring-snappy-ms: 356ms;
+  --spring-bouncy: linear(0, 0.05 2.5%, 0.176 5%, 0.696 12.5%, 0.847 15%, 0.969 17.5%, 1.058 20%, 1.116 22.5%, 1.146 25%, 1.153 27.5%, 1.144 30%, 1.123 32.5%, 1.044 40%, 1.021 42.5%, 1.003 45%, 0.99 47.5%, 0.982 50%, 0.977 52.5%, 0.978 57.5%, 0.997 70%, 1.003 77.5%, 1);
+  --spring-bouncy-ms: 690ms;
+  --spring-stiff: linear(0, 0.028 2.5%, 0.093 5%, 0.452 15%, 0.604 20%, 0.667 22.5%, 0.722 25%, 0.769 27.5%, 0.809 30%, 0.842 32.5%, 0.87 35%, 0.894 37.5%, 0.913 40%, 0.942 45%, 0.962 50%, 0.975 55%, 0.987 62.5%, 0.993 70%, 0.997 80%, 1);
+  --spring-stiff-ms: 223ms;
+  --spring-slow: linear(0, 0.02 2.5%, 0.068 5%, 0.135 7.5%, 0.438 17.5%, 0.57 22.5%, 0.627 25%, 0.678 27.5%, 0.762 32.5%, 0.797 35%, 0.853 40%, 0.895 45%, 0.925 50%, 0.947 55%, 0.963 60%, 0.978 67.5%, 0.987 75%, 0.993 82.5%, 1);
+  --spring-slow-ms: 897ms;
   --space-xs: 0.25rem;
   --space-sm: 0.50rem;
   --space-md: 0.75rem;
@@ -722,8 +869,8 @@ The sveltemodular workspace chrome.
   --h-xl: 40px;
   --h-2xl: 48px;
   --h-3xl: 64px;
-  --header-height: 64px;
-  --footer-height: 32px;
+  --header-height: 4rem;
+  --footer-height: 2rem;
   --fit-height: calc(var(--header-height) + var(--footer-height));
   --text-static-md: 0.80rem;
   --text-static-bs: 0.95rem;
@@ -751,31 +898,34 @@ The sveltemodular workspace chrome.
   --text-3xl: var(--text-static-3xl);
   --text-4xl: var(--text-static-4xl);
   --text-5xl: var(--text-static-5xl);
-  --white-fixed: #FFFFFF;
-  --black-fixed: #18181B;
-  --bg: oklch(1.00 0.000 148);
-  --bg-surface: oklch(0.96 0.000 148);
-  --bg-panel: oklch(0.94 0.000 148);
-  --bg-overlay: oklch(1.00 0.000 148);
-  --bg-button: oklch(0.20 0.002 148);
-  --bg-button-hover: oklch(0.28 0.002 148);
-  --bg-button-active: oklch(0.15 0.002 148);
-  --bg-button-secondary: oklch(0.50 0.002 148);
-  --bg-button-secondary-hover: oklch(0.58 0.002 148);
-  --bg-button-secondary-active: oklch(0.44 0.002 148);
-  --bg-input: oklch(0.96 0.000 148);
-  --state-hover: oklch(0 0 0 / .15);
-  --state-selected: oklch(0 0 0 / .3);
-  --border: oklch(0.90 0.000 148);
-  --border-strong: oklch(0.75 0.000 148);
-  --border-subtle: oklch(0.95 0.000 148);
-  --text-primary: oklch(0.15 0.003 148);
-  --text-secondary: oklch(0.40 0.003 148);
-  --text-muted: oklch(0.60 0.005 148);
-  --text-inverse: oklch(1.00 0.000 148);
-  --theme-color: oklch(0.50 0.750 130);
-  --theme-color-up: oklch(0.75 0.750 130);
-  --theme-color-down: oklch(0.40 0.750 130);
+  --hue: 38;
+  --chroma: 0.2;
+  --tint: 0.012;
+  --white-fixed: oklch(1 0 0);
+  --black-fixed: oklch(0.210 0.006 285.9);
+  --bg: oklch(0.995 calc(var(--tint) * 0.3) var(--hue));
+  --bg-surface: oklch(0.975 calc(var(--tint) * 0.5) var(--hue));
+  --bg-panel: oklch(0.96 calc(var(--tint) * 0.6) var(--hue));
+  --bg-overlay: oklch(1 0 0);
+  --bg-button: oklch(0.2 var(--tint) var(--hue));
+  --bg-button-hover: oklch(0.29 var(--tint) var(--hue));
+  --bg-button-active: oklch(0.14 var(--tint) var(--hue));
+  --bg-button-secondary: oklch(0.93 calc(var(--tint) * 0.6) var(--hue));
+  --bg-button-secondary-hover: oklch(0.9 calc(var(--tint) * 0.6) var(--hue));
+  --bg-button-secondary-active: oklch(0.87 calc(var(--tint) * 0.6) var(--hue));
+  --bg-input: oklch(0.985 calc(var(--tint) * 0.4) var(--hue));
+  --state-hover: oklch(0 0 0 / 0.045);
+  --state-selected: oklch(0 0 0 / 0.08);
+  --border: oklch(0.91 calc(var(--tint) * 0.6) var(--hue));
+  --border-strong: oklch(0.82 calc(var(--tint) * 0.8) var(--hue));
+  --border-subtle: oklch(0.945 calc(var(--tint) * 0.5) var(--hue));
+  --text-primary: oklch(0.18 var(--tint) var(--hue));
+  --text-secondary: oklch(0.42 var(--tint) var(--hue));
+  --text-muted: oklch(0.58 var(--tint) var(--hue));
+  --text-inverse: oklch(0.99 0 0);
+  --theme-color: oklch(0.34 var(--chroma) var(--hue));
+  --theme-color-up: oklch(0.66 var(--chroma) var(--hue));
+  --theme-color-down: oklch(0.47 var(--chroma) var(--hue));
   --success: oklch(0.65 0.200 138);
   --success-hover: oklch(0.55 0.200 138);
   --warning: oklch(0.85 0.180 92);
@@ -784,7 +934,7 @@ The sveltemodular workspace chrome.
   --danger-hover: oklch(0.50 0.250 25);
   --info: oklch(0.50 0.220 260);
   --info-hover: oklch(0.40 0.220 260);
-  --ring: rgba(255, 208, 0, 0.4);
+  --ring: oklch(0.55 var(--chroma) var(--hue) / 0.4);
   --shadow-color: 0 0 0;
   --shadow-rim: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.05);

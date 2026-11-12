@@ -216,6 +216,7 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
  */
 export const FILE_ORDER = [
 	'configurations.css',
+	'springs.css',
 	'gaps-pads-margins.css',
 	'shapes-sizes.css',
 	'containers.css',
@@ -282,6 +283,8 @@ export function extractRegistry(): Extracted {
 const FILE_INTROS: Record<string, string> = {
 	'configurations.css':
 		'Global tokens and base resets — layout dimensions, z-index bands, font stacks, and the element resets every page starts from.',
+	'springs.css':
+		'Spring easing tokens — a linear() curve and settle time for each of gentle, snappy, bouncy, stiff and slow.',
 	'gaps-pads-margins.css':
 		'The space ladder. Every family runs the eight steps xs sm md bs lg xl 2xl 3xl and rides var(--space-*).',
 	'shapes-sizes.css':
@@ -387,6 +390,17 @@ const CURATED: Record<string, string> = {
 	'.yinherit': 'Take the parent container\'s alignment on the y axis',
 	'.scroll-menu': 'A list that scrolls past 16rem — dropdown and option lists',
 	'.pointer': 'Pointer cursor for clickable rows and labels that are not buttons',
+	'.pointer-none': 'Ignore pointer events',
+	'.pointer-auto': 'Restore pointer events',
+	'.select-none': 'Disable text selection',
+	'.square': 'A 1:1 box — unlike .frame-1-1, it does not crop or position',
+	'.cover': 'Fill the containing block',
+	'.dim': 'Fade the surface to half opacity',
+	'.scroll-thin': 'A thin scrollbar in the border colour',
+	'.scroll-hidden': 'Hide the scrollbar',
+	'.dot': 'A current-colour status dot',
+	'.lift': 'Hover lifts the surface a hair and raises its shadow',
+	'.press': 'Active press scales the surface in, spring-timed',
 	'.touch-none': 'No touch scrolling — for drag surfaces like sliders and pads',
 	'.sr-only': 'Visually hidden, still focusable and read by screen readers',
 	'.fit-cover': 'object-fit: cover — media fills and crops',
@@ -797,10 +811,15 @@ const TOKEN_GROUPS: { title: string; blurb: string; match: (name: string) => boo
 		match: (name) => name.startsWith('--bp-')
 	},
 	{
+		title: 'Measure',
+		blurb: 'The width (and max-height) ladder for panels, dialogs, popovers and the shell.',
+		match: (name) => name.startsWith('--measure-')
+	},
+	{
 		title: 'Layout & Chrome',
 		blurb: 'Font stacks plus the page geometry the shells read.',
 		match: (name) =>
-			/^--(font|header-height|footer-height|fit-height|prose-clamp|content-clamp|app-inline|card-min|sidebar-width|z-|avatar|switch)/.test(
+			/^--(font|header-height|footer-height|fit-height|prose-clamp|content-clamp|content-aside|app-inline|card-min|sidebar-width|z-|avatar|switch)/.test(
 				name
 			)
 	}

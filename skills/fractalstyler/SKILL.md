@@ -14,10 +14,10 @@ Operate within the `fractalstyler` registry as a **closed world**. Never invent 
 2. **Compose Only from Verified Classes**:
    - Containers: `.box` (column), `.row` (horizontal), `.grid` (CSS grid).
    - Physical Alignment: **modifiers, never standalone** — they only resolve on a container: `.row.xcenter`, `.box.ycenter`, `.grid.xbetween`. There is no bare `.xcenter`.
-   - Dimensions & Spacing: `.gap-*`/`.rgap-*`/`.cgap-*`, `.pad-*`, `.px-*` (inline) / `.py-*` (block) / `.pt-*` `.pr-*` `.pb-*` `.pl-*`, `.mar-*`/`.mx-*`/`.my-*`, `.wfull`/`.hfull`, `.h-xs`…`.h-xl`. **There is no `.pad-x-*`, `.pad-y-*` or `.w-*`.**
+   - Dimensions & Spacing: `.gap-*`/`.rgap-*`/`.cgap-*`, `.pad-*`, `.px-*` (inline) / `.py-*` (block) / `.pt-*` `.pr-*` `.pb-*` `.pl-*`, `.mar-*`/`.mx-*`/`.my-*`, `.wfull`/`.hfull`, `.h-xs`…`.h-xl`, `.measure-*` / `.max-h-*`. **There is no `.pad-x-*`, `.pad-y-*` or `.w-*`.**
    - Visuals: `.bg`, `.bg-surface`, `.bg-panel`, `.bg-input`, `.bg-button`, `.bg-success`/`.bg-warning`/`.bg-danger`/`.bg-info`, `.border` (+`-subtle`/`-strong`), per-side `.bt`/`.br`/`.bb`/`.bl` (+`-str`/`-sub`), `.radius-*`, `.shad-*`. **There is no `.border-top`/`.border-bottom`.**
    - Typography: `.text-xs` .. `.text-5xl`, `.weight-300`…`.weight-800`, `.truncate`.
-   - Layouts: `.grid-1`…`.grid-6`, `.cspan-1`…`.cspan-8`, `.card-grid`, `.prose`, `.prose-left`, `.frame-16-9`…, `.reel`.
+   - Layouts: `.grid-1`…`.grid-7` (`.grid-7` is always seven columns), `.cspan-1`…`.cspan-8`, `.card-grid`, `.prose`, `.prose-left`, `.frame-16-9`…, `.reel`.
    - Interactions: `button` (or the equivalent `.button` class), `a.btn`, `.input`, `.select`, `.button-group`, `.split-button`, `.tag`, `.badge`, `.avatar-group`.
 3. **Variants are direct classes** — there is no attribute axis and no `data-variant`:
    - The variant, the shape and the height are classes on the element itself:
@@ -47,17 +47,18 @@ Operate within the `fractalstyler` registry as a **closed world**. Never invent 
 | Styling Task | File to Inspect | Responsibility |
 |:---|:---|:---|
 | Active files and cascade order | `src/lib/styles/index.css` | Master composition contract. |
-| Global tokens, z-index, fonts, base resets | `src/lib/styles/configurations.css` | Layout dimensions and element defaults. |
+| Global tokens, z-index, fonts, motion channels, `data-radius` / `data-density` / `data-motion` axes, base resets | `src/lib/styles/configurations.css` | Layout dimensions, registered properties and element defaults. |
+| Spring easings and settle times | `src/lib/styles/springs.css` | Generated `linear()` presets. Regenerate with `npm run gen:springs`. |
 | Spacing, gaps, padding, margins | `src/lib/styles/gaps-pads-margins.css` | The space ladder. |
-| Radius, control heights, sizing | `src/lib/styles/shapes-sizes.css` | Shape channels and sizing helpers. |
+| Radius, control heights, sizing, measure / max-height | `src/lib/styles/shapes-sizes.css` | Shape channels and sizing helpers. |
 | Flex/grid containers, axis alignment, responsive grids | `src/lib/styles/containers.css` | Structural containers plus grid, frame and reel helpers. |
-| Text sizes, roles, weights, tracking | `src/lib/styles/typography.css` | Typography primitives, roles, and modifiers. |
-| Borders, elevation, focus rings | `src/lib/styles/border-elevation-focus.css` | The partition-law border set and the shadow ladder. |
-| Page frames, headers, sidebars, rails | `src/lib/styles/layout-shell.css` | Application shell hierarchy. |
-| Colors, semantic tokens, dark mode | `src/lib/styles/colors-themes.css` | Design token source of truth. |
-| Motion, keyframes | `src/lib/styles/motion-animation.css` | Easings, durations and animations. |
-| Buttons, links, tags, avatars, switches | `src/lib/styles/components.css` | The interactive elements. |
-| The variant, shape and height props | `src/lib/styles/component-props.css` | The classes Fractalsvelte UI consumes. |
+| Text sizes, roles, weights, tracking, line clamp | `src/lib/styles/typography.css` | Typography primitives, roles, and modifiers. |
+| Borders, elevation, focus rings, glass, rim, glow | `src/lib/styles/border-elevation-focus.css` | The partition-law border set and the shadow ladder. |
+| Page frames, headers, sidebars, rails, overlays | `src/lib/styles/layout-shell.css` | Application shell hierarchy, plus `.floating` / `.dialog` / `.layer`. |
+| Colors, semantic tokens, dark mode, `data-theme` palettes | `src/lib/styles/colors-themes.css` | Parametric `--hue` / `--chroma` / `--tint` recipe; light/dark via `data-mode`. |
+| Motion, springs, enter/pop, keyframes, view transitions | `src/lib/styles/motion-animation.css` | Easings, durations, `.spring-*`, `.enter-*`, `.pop`. |
+| Buttons, links, tags, avatars, switches, `.kbd` | `src/lib/styles/components.css` | The interactive elements. |
+| Variants, control parts, tones, soft/tint | `src/lib/styles/component-props.css` | The classes Fractalsvelte UI consumes. |
 | Visibility by breakpoint band | `src/lib/styles/responsive.css` | `.md-only`, `.lg-only`, `.xl-only` and their `-hide` counterparts. |
 | Project-specific third-party overrides | `src/lib/styles/custom.css` | Sanctioned extension point. |
 

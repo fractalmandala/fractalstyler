@@ -59,10 +59,11 @@ The vocabulary, in one screen:
 |:---|:---|
 | Containers | `.box` (column), `.row` (horizontal), `.grid` — and their modifiers `.xcenter`, `.ycenter`, `.xbetween` |
 | Spacing | `.gap-*`, `.pad-*`, `.px-*`, `.py-*`, `.mar-*` — eight steps: `xs sm md bs lg xl 2xl 3xl` |
-| Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate` |
+| Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate`, `.clamp-2` / `.clamp-3` |
 | Colour | `.bg`, `.bg-surface`, `.text-primary`, `.text-muted`, `.border` — roles, never values |
 | Variants | `.primary`, `.secondary`, `.themed`, `.outline`, `.ghost`, `.link` |
-| Shape & height | `.rect`, `.mincurved`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` |
+| Shape & height | `.rect`, `.mincurved`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` · `.measure-*` / `.max-h-*` |
+| Motion | `.spring`, `.spring-*`, `.enter-*`, `.pop`, `.lift`, `.press` |
 
 **Modifiers are never standalone.** `.xcenter` resolves only on a container —
 `.row.xcenter`, not a bare `.xcenter`.
@@ -77,6 +78,8 @@ pnpm add -D @fractaldesign/fractalstyler
 // one import — the bundler inlines the layers in cascade order
 import '@fractaldesign/fractalstyler/styles';
 ```
+
+**Theming.** Light and dark use `data-mode` on `<html>`. A named palette is `data-theme` — a preset of `--hue`, `--chroma`, and `--tint`. `data-radius`, `data-density`, and `data-motion` are optional axes that rewrite those token ladders. Don't invent further theme attributes.
 
 Or a single layer, when only part of the system is wanted:
 
@@ -197,7 +200,7 @@ npm run build          # the publishable package
 | You changed… | Run |
 |:---|:---|
 | a class in `src/lib/styles/*.css` | `npm run registry` |
-| a token in `src/lib/styles/*.css` | `npm run tokens` |
+| a token in `src/lib/styles/*.css` | `npm run tokens` (runs `gen:springs` first, then the token registry) |
 | the docs, the skill, the README | `npm run validate:deck` |
 | anything, before you commit | `npm run check` |
 | a new stylesheet | `npm run registry` — and add it to `src/lib/styles/index.css` **and** to `FILE_ORDER` in `scripts/update-registry.ts`; the two must agree |
@@ -211,8 +214,8 @@ file is ever edited by hand — they carry a "Generated" banner.
 
 | | |
 |:---|:---|
-| `src/lib/styles/` | the layers — the system itself. Plain CSS, one file per concern |
-| `src/lib/styles/index.css` | the cascade: the order the layers are concatenated in |
+| `src/lib/styles/` | the layers — the system itself. Plain CSS, one file per concern. `springs.css` is generated (`npm run gen:springs`) |
+| `src/lib/styles/index.css` | the cascade: the order the layers are imported in |
 | `src/lib/styles/custom.css` | the sanctioned extension layer |
 | `src/lib/layout/` | the shell components |
 | `src/lib/components/` | the sveltemodular workspace app — **in progress, not part of the contract yet** |

@@ -254,7 +254,7 @@ const lightBlock = themeFile.split("[data-mode='light']")[1]?.split("[data-mode=
 const colourCount = [...lightBlock.matchAll(/^\s*(--[\w-]+)\s*:/gm)].filter(
 	(m) => !m[1].startsWith('--shadow')
 ).length
-const themeCount = [...themeFile.matchAll(/\[data-mode=['"]([a-z]+)['"]\]/g)].length
+const themeCount = new Set([...themeFile.matchAll(/\[data-mode=['"]([a-z]+)['"]\]/g)].map((m) => m[1])).size
 
 // Only phrases that mean the CONTRACT. "22 colour tokens" in the generated
 // reference is the per-theme count — a different, correct fact.

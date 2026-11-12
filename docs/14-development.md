@@ -8,13 +8,16 @@ description: The support files — the scripts, the CLI, the linter and the MCP 
 The canonical file for all tokens is `tokensRegistry.ts`. This is generated via script file `scripts/build-tokens-registry.ts` and should never be created/edited by hand. 
 
 ```bash
-node scripts/build-tokens-registry.ts
-# or
 npm run tokens
+# which runs, in order:
+#   node scripts/gen-springs.ts
+#   node scripts/build-tokens-registry.ts
 # also wired into npm run build, so the shipped file is never stale
 ```
 
-The build script applies the rule that a **custom property is a system token only when it is declared in a global scope**. The generator walks every `.css` file, tracks the selector stack, and keeps declarations from `:root`, `html`, `body` and `[data-mode='light'|'dark']`.
+`gen:springs` (`npm run gen:springs`) rewrites `src/lib/styles/springs.css` — the `linear()` easings and settle times. Do not edit that file by hand. See [Springs](./01b-springs.md).
+
+The token-registry build script applies the rule that a **custom property is a system token only when it is declared in a global scope**. The generator walks every `.css` file, tracks the selector stack, and keeps declarations from `:root`, `html`, `body` and `[data-mode='light'|'dark']`. `[data-theme]`, `[data-radius]`, `[data-density]` and `[data-motion]` rewrite those tokens but are not a first declaration, so the registry describes the defaults. There are currently 487 system tokens.
 
 Types are inferred: a bare number is `number` (z-sticky, z-100…z-999), everything else is `string` (bp-sm: 769px is a string, --fit-height: calc(…) is a string).
 
@@ -42,7 +45,7 @@ node scripts/update-registry.ts
 ```
 
 ```
-✔ Registry written: 482 classes, 137 tokens.
+✔ Registry written: 637 classes, 487 tokens.
   Emit: registry.json, registry.md, skills/fractalstyler/references/{fractals,tokens}.md
 ```
 
@@ -77,7 +80,7 @@ node scripts/update-registry.ts --report
 ```
 
 ```
-✔ Extracted 532 classes and 442 tokens.
+✔ Extracted 637 classes and 487 tokens.
   configurations.css             1
   gaps-pads-margins.css          137
   ...
@@ -151,7 +154,7 @@ What `eject` copies:
 
 | From | To |
 |:---|:---|
-| `src/lib/styles/*.css` (14 layers + `index.css`) | `src/lib/styles/` |
+| `src/lib/styles/*.css` except `custom.css` (the 15 cascade layers, `modular.css`, and `index.css`) | `src/lib/styles/` |
 | a seeded `custom.css` — the sanctioned extension point | `src/lib/styles/custom.css` |
 | `scripts/update-registry.ts`, `scripts/css.ts` | `scripts/` |
 | `runtime/run.mjs` — the launcher that loads the TypeScript | `scripts/run.mjs` |
@@ -372,7 +375,8 @@ renders and how to use them.
 | a class and a token | `npm run registry && npm run tokens` |
 | the docs, the skill, the README | `npm run validate:deck` |
 | anything, before you commit | `npm run check` |
-| a new stylesheet | `npm run registry` — and add it to `FILE_ORDER` in `update-registry.ts` so it lands in the right cascade position |
+| a new stylesheet | `npm run registry` — and add it to `src/lib/styles/index.css` **and** to `FILE_ORDER` in `update-registry.ts`; the two must agree on cascade order |
+| a token in `springs.css` | `npm run gen:springs` (already the first step of `npm run tokens`) |
 | nothing, publishing | `npm run build` — runs registry, tokens and the package build |
 
 `npm run check` is the one that matters: it type-checks, validates the
@@ -397,12 +401,23 @@ last — because the version is what the generated files get stamped with.
 A new stylesheet has to be registered in two places, and they must agree:
 
 1. `src/lib/styles/index.css` — the cascade: the order the layers are
-   concatenated in, and the order a consumer inherits;
+   imported in, and the order a consumer inherits;
 2. `FILE_ORDER` in `scripts/update-registry.ts` — the order the registry reads
    them, so the class table and the cascade tell the same story.
 
+The current cascade in `index.css` is: `configurations`, `springs`,
+`gaps-pads-margins`, `shapes-sizes`, `containers`, `typography`,
+`border-elevation-focus`, `layout-shell`, `colors-themes`, `motion-animation`,
+`components`, `component-props`, `responsive`, `custom`, `colorpacks`.
+`FILE_ORDER` lists the same files through `custom.css`, then `modular.css`
+instead of `colorpacks.css`. `styleFiles()` appends any stylesheet not in
+`FILE_ORDER` (today, `colorpacks.css`) after that list, so both still get
+read. `modular.css` is shipped and indexed, but is not in the aggregate —
+import it on purpose, see [Modular](./15-modular.md).
+
 A layer that is in one and not the other still works, but the registry and the
-cascade disagree about what comes first.
+cascade can disagree about what comes first. Put a class-bearing layer in both,
+in the same order.
 
 ### 2. Regenerate the derived files
 

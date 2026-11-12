@@ -131,9 +131,16 @@ export function classesIn(selector: string): string[] {
 	return [...selector.matchAll(/\.([A-Za-z_][\w-]*)/g)].map((m) => m[1]);
 }
 
-/** A selector that scopes to the whole document rather than to a component. */
-export function isGlobalSelector(selector: string): boolean {
+/** A single simple selector that scopes to the whole document, not a component. */
+function isSimpleGlobalSelector(selector: string): boolean {
 	return /^(:root|html|body|\[data-mode=['"]?(light|dark)['"]?\])$/.test(selector.trim());
+}
+
+/** True if any part of a selector list is a global scope.
+ *  `[data-mode='light'], [data-mode='light'] [data-theme]` is global because
+ *  the first part is; the rest only re-applies the same tokens on a themed subtree. */
+export function isGlobalSelector(selector: string): boolean {
+	return splitSelectorList(selector).some(isSimpleGlobalSelector);
 }
 
 /** The custom properties declared in global scopes, in source order. */

@@ -132,26 +132,6 @@
   .danger { color: var(--on-danger, oklch(from var(--danger) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
 }
 
-.rect {
-  border-radius: 0;
-}
-
-.mincurved {
-  border-radius: var(--radius-sm, 3px);
-}
-
-.modern {
-  border-radius: var(--radius-md, 6px);
-}
-
-.curved {
-  border-radius: var(--radius-bs, 12px);
-}
-
-.round {
-  border-radius: var(--radius-full, 9999px);
-}
-
 /* With a size, the control keeps that size as its minimum height and grows with its content. */
 .hgrow.h-xs { height: auto; min-height: var(--h-xs); }
 .hgrow.h-sm { height: auto; min-height: var(--h-sm); }
@@ -159,3 +139,56 @@
 .hgrow.h-bs { height: auto; min-height: var(--h-bs); }
 .hgrow.h-lg { height: auto; min-height: var(--h-lg); }
 .hgrow.h-xl { height: auto; min-height: var(--h-xl); }
+
+/* fsui-unify: C21 C03 C09 */
+/* An unstyled native control — the starting point for composed ones. */
+.bare { appearance: none; -webkit-appearance: none; background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; outline: none; min-width: 0; }
+
+/* A row in a menu, list, listbox, tree or command palette. */
+.item { display: flex; align-items: center; justify-content: flex-start; gap: var(--space-sm); width: 100%; min-height: var(--h-lg); padding: var(--space-xs) var(--space-sm); border: none; border-radius: var(--radius-md); background-color: transparent; color: var(--text-primary); font-size: var(--text-md); text-align: left; cursor: pointer; user-select: none; outline: none; transition: background-color var(--motionin1), color var(--motionin1); }
+.item:hover, .item:focus-visible, .item.highlighted { background-color: var(--state-hover); }
+.item.selected, .item[aria-selected='true'], .item[aria-current='page'], .item[aria-current='true'] { background-color: var(--state-selected); }
+.item.disabled, .item:disabled, .item[aria-disabled='true'] { opacity: 0.5; pointer-events: none; }
+
+/* Track, fill, thumb: a slider, a progress bar, a meter. The control sets
+ * --value (and --from for a range) between 0 and 1. Distinct from .track-v. */
+.track { position: relative; flex: none; background-color: var(--state-selected); border-radius: var(--radius-full); }
+.fill { position: absolute; inset-block: 0; left: calc(var(--from, 0) * 100%); width: calc((var(--value, 0) - var(--from, 0)) * 100%); border-radius: inherit; background-color: var(--theme-color); }
+.thumb { position: absolute; top: 50%; left: calc(var(--value, 0) * 100%); translate: -50% -50%; aspect-ratio: 1; border-radius: var(--radius-full); border: 1px solid var(--border-strong); background-color: var(--white-fixed); box-shadow: var(--shadow-sm); }
+.track.vertical .fill { inset-block: auto; inset-inline: 0; left: 0; width: auto; bottom: calc(var(--from, 0) * 100%); height: calc((var(--value, 0) - var(--from, 0)) * 100%); }
+.track.vertical .thumb { top: auto; left: 50%; bottom: calc(var(--value, 0) * 100%); translate: -50% 50%; }
+
+/* A ring that fills with --value: progress rings, countdowns. Its thickness follows the text size. */
+.ring { flex: none; aspect-ratio: 1; border-radius: var(--radius-full); background: conic-gradient(var(--theme-color) calc(var(--value, 0) * 360deg), var(--state-selected) 0); mask: radial-gradient(farthest-side, transparent calc(100% - 0.3em), black calc(100% - 0.3em + 1px)); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 0.3em), black calc(100% - 0.3em + 1px)); }
+
+/* The sliding highlight behind the active tab or segment. JavaScript springs
+ * --ix --iy --iw --ih (pixels, unitless) to the active item's box. */
+.indicator { position: absolute; top: 0; left: 0; width: calc(var(--iw, 0) * 1px); height: calc(var(--ih, 0) * 1px); translate: calc(var(--ix, 0) * 1px) calc(var(--iy, 0) * 1px); pointer-events: none; }
+
+/* A chevron that turns when its owner opens. */
+.caret { flex: none; transition: rotate calc(var(--spring-ms) * var(--motion-scale)) var(--spring); }
+.caret.open { rotate: 180deg; }
+.caret.quarter.open { rotate: 90deg; }
+
+/* Tones re-point the accent, so .fill, .ring and .text-theme follow.
+ * Not the same as the filled .danger / .info variants. */
+.tone-neutral { --theme-color: var(--text-secondary); }
+.tone-info { --theme-color: var(--info); }
+.tone-success { --theme-color: var(--success); }
+.tone-warning { --theme-color: var(--warning); }
+.tone-danger { --theme-color: var(--danger); }
+
+/* The soft (and tint, aliased) variant: a tint of the theme colour, or of a
+ * status when paired with one. One recipe, oklab + token, in the system's voice.
+ * .tint keeps its name so existing markup continues to work. */
+.soft, .soft.info, .soft.success, .soft.warning, .soft.danger,
+.tint, .tint.info, .tint.success, .tint.warning, .tint.danger { background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent); border: 1px solid transparent; color: color-mix(in oklab, var(--soft-ink) 72%, var(--text-primary)); }
+.soft:hover, .soft.selected, .tint:hover, .tint.selected { background-color: color-mix(in oklab, var(--soft-ink) 22%, transparent); }
+.soft, .tint { --soft-ink: var(--theme-color); }
+.soft.info, .tint.info { --soft-ink: var(--info); }
+.soft.success, .tint.success { --soft-ink: var(--success); }
+.soft.warning, .tint.warning { --soft-ink: var(--warning); }
+.soft.danger, .tint.danger { --soft-ink: var(--danger); }
+
+/* A current-colour status dot — badges, pulses, wave indicators. */
+.dot { flex: none; width: 0.5em; height: 0.5em; border-radius: var(--radius-full); background-color: currentColor; }

@@ -24,22 +24,22 @@
 .row.xinherit { justify-content: inherit; }
 .row.yinherit { align-items: inherit; }
 
-.grid, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6 { display: grid; }
-.grid.center, .grid-2.center, .grid-3.center, .grid-4.center, .grid-5.center, .grid-6.center { place-items: center; }
-.grid.xcenter, .grid-2.xcenter, .grid-3.xcenter, .grid-4.xcenter, .grid-5.xcenter, .grid-6.xcenter { justify-items: center; text-align: center; }
-.grid.xleft, .grid-2.xleft, .grid-3.xleft, .grid-4.xleft, .grid-5.xleft, .grid-6.xleft { justify-items: start; text-align: left; }
-.grid.xright, .grid-2.xright, .grid-3.xright, .grid-4.xright, .grid-5.xright, .grid-6.xright { justify-items: end; text-align: right; }
-.grid.xstretch, .grid-2.xstretch, .grid-3.xstretch, .grid-4.xstretch, .grid-5.xstretch, .grid-6.xstretch { justify-items: stretch; }
-.grid.ycenter, .grid-2.ycenter, .grid-3.ycenter, .grid-4.ycenter, .grid-5.ycenter, .grid-6.ycenter { align-items: center; }
-.grid.ytop, .grid-2.ytop, .grid-3.ytop, .grid-4.ytop, .grid-5.ytop, .grid-6.ytop { align-items: start; }
-.grid.ybot, .grid-2.ybot, .grid-3.ybot, .grid-4.ybot, .grid-5.ybot, .grid-6.ybot { align-items: end; }
-.grid.ystretch, .grid-2.ystretch, .grid-3.ystretch, .grid-4.ystretch, .grid-5.ystretch, .grid-6.ystretch { align-items: stretch; }
-.grid.xbetween, .grid-2.xbetween, .grid-3.xbetween, .grid-4.xbetween, .grid-5.xbetween, .grid-6.xbetween { justify-content: space-between; }
-.grid.xevenly, .grid-2.xevenly, .grid-3.xevenly, .grid-4.xevenly, .grid-5.xevenly, .grid-6.xevenly { justify-content: space-evenly; }
-.grid.xaround, .grid-2.xaround, .grid-3.xaround, .grid-4.xaround, .grid-5.xaround, .grid-6.xaround { justify-content: space-around; }
-.grid.ybetween, .grid-2.ybetween, .grid-3.ybetween, .grid-4.ybetween, .grid-5.ybetween, .grid-6.ybetween { align-content: space-between; }
-.grid.yevenly, .grid-2.yevenly, .grid-3.yevenly, .grid-4.yevenly, .grid-5.yevenly, .grid-6.yevenly { align-content: space-evenly; }
-.grid.yaround, .grid-2.yaround, .grid-3.yaround, .grid-4.yaround, .grid-5.yaround, .grid-6.yaround { align-content: space-around; }
+.grid, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7 { display: grid; }
+.grid.center, .grid-2.center, .grid-3.center, .grid-4.center, .grid-5.center, .grid-6.center, .grid-7.center { place-items: center; }
+.grid.xcenter, .grid-2.xcenter, .grid-3.xcenter, .grid-4.xcenter, .grid-5.xcenter, .grid-6.xcenter, .grid-7.xcenter { justify-items: center; text-align: center; }
+.grid.xleft, .grid-2.xleft, .grid-3.xleft, .grid-4.xleft, .grid-5.xleft, .grid-6.xleft, .grid-7.xleft { justify-items: start; text-align: left; }
+.grid.xright, .grid-2.xright, .grid-3.xright, .grid-4.xright, .grid-5.xright, .grid-6.xright, .grid-7.xright { justify-items: end; text-align: right; }
+.grid.xstretch, .grid-2.xstretch, .grid-3.xstretch, .grid-4.xstretch, .grid-5.xstretch, .grid-6.xstretch, .grid-7.xstretch { justify-items: stretch; }
+.grid.ycenter, .grid-2.ycenter, .grid-3.ycenter, .grid-4.ycenter, .grid-5.ycenter, .grid-6.ycenter, .grid-7.ycenter { align-items: center; }
+.grid.ytop, .grid-2.ytop, .grid-3.ytop, .grid-4.ytop, .grid-5.ytop, .grid-6.ytop, .grid-7.ytop { align-items: start; }
+.grid.ybot, .grid-2.ybot, .grid-3.ybot, .grid-4.ybot, .grid-5.ybot, .grid-6.ybot, .grid-7.ybot { align-items: end; }
+.grid.ystretch, .grid-2.ystretch, .grid-3.ystretch, .grid-4.ystretch, .grid-5.ystretch, .grid-6.ystretch, .grid-7.ystretch { align-items: stretch; }
+.grid.xbetween, .grid-2.xbetween, .grid-3.xbetween, .grid-4.xbetween, .grid-5.xbetween, .grid-6.xbetween, .grid-7.xbetween { justify-content: space-between; }
+.grid.xevenly, .grid-2.xevenly, .grid-3.xevenly, .grid-4.xevenly, .grid-5.xevenly, .grid-6.xevenly, .grid-7.xevenly { justify-content: space-evenly; }
+.grid.xaround, .grid-2.xaround, .grid-3.xaround, .grid-4.xaround, .grid-5.xaround, .grid-6.xaround, .grid-7.xaround { justify-content: space-around; }
+.grid.ybetween, .grid-2.ybetween, .grid-3.ybetween, .grid-4.ybetween, .grid-5.ybetween, .grid-6.ybetween, .grid-7.ybetween { align-content: space-between; }
+.grid.yevenly, .grid-2.yevenly, .grid-3.yevenly, .grid-4.yevenly, .grid-5.yevenly, .grid-6.yevenly, .grid-7.yevenly { align-content: space-evenly; }
+.grid.yaround, .grid-2.yaround, .grid-3.yaround, .grid-4.yaround, .grid-5.yaround, .grid-6.yaround, .grid-7.yaround { align-content: space-around; }
 
 .grid-1 { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); }
 .grid-2 { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); }
@@ -49,9 +49,16 @@
 .grid-4 { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); }
 @media (min-width: 1025px) { .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1281px) { .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.grid-5 { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); }
+@media (min-width: 1025px) { .grid-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1281px) { .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .grid-6 { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); }
 @media (min-width: 1025px) { .grid-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1281px) { .grid-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+/* fsui-unify: C12 */
+/* Always seven columns — a week row must not collapse at the shared breakpoints. */
+.grid-7 { display: grid; grid-template-columns: repeat(7, minmax(var(--h-lg), 1fr)); }
 
 .cspan-1 { grid-column: span 1; }
 .cspan-2 { grid-column: span 2; }
@@ -68,6 +75,7 @@
 .shrink-0 { flex-shrink: 0; }
 .relative { position: relative; }
 .absolute { position: absolute; }
+.cover { position: absolute; inset: 0; }
 .fixed { position: fixed; }
 .sticky { position: sticky; }
 .z-sticky { z-index: var(--z-sticky); }
@@ -78,7 +86,14 @@
 .scroll-y { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
 .scroll-x { overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain; }
 .scroll-menu { max-height: 16rem; overflow-y: auto; overscroll-behavior: contain; }
+.scroll-thin { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+.scroll-hidden { scrollbar-width: none; }
 .pointer { cursor: pointer; }
+.pointer-none { pointer-events: none; }
+.pointer-auto { pointer-events: auto; }
+.select-none { user-select: none; -webkit-user-select: none; }
+.square { aspect-ratio: 1; }
+.dim { opacity: 0.5; }
 .touch-none { touch-action: none; }
 .fit-cover { object-fit: cover; }
 .fit-contain { object-fit: contain; }

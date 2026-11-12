@@ -9,7 +9,7 @@ This document explains `custom.css`, the site-specific layer of the Fractalstyle
 ## Logo
 
 - `.site-logomotif` - 48px tall, scales to 1.2 on hover with a `--transin2` ease
-- `.logotype` - 28px tall wordmark
+- `.logotype` - 20px tall wordmark
 - `.project-circle` - 16px circle swatch with 24px radius
 
 ## Mascot
@@ -30,7 +30,7 @@ Both animations stop under `prefers-reduced-motion: reduce`, and tilt is reset t
 
 ## Mascot GL
 
-`.mascotgl` is the WebGL-rendered variant: a canvas sized to 160% of the stage (130% with `.mascotgl-compact`), absolutely centered, faded in via `.mascotgl-ready`.
+`.mascotgl` is the WebGL-rendered variant. `.mascotgl-spacer` holds the stage size; `.mascotgl-canvas` is the canvas, absolutely centered at 160% of the stage (130% with `.mascotgl-compact`), and faded in via `.mascotgl-ready`.
 
 ## Replacing this file
 

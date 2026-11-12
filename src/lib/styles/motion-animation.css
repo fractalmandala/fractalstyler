@@ -38,5 +38,85 @@ html.mode-wipe::view-transition-old(root), html.mode-wipe::view-transition-new(r
 .anim-fade-out { animation: fade-out var(--speed3) var(--transout3); }
 
 @media (prefers-reduced-motion: reduce) {
-	.anim-spin, .anim-pulse { animation: none; }
+	.anim-spin, .anim-pulse, .anim-in, .anim-ping, .anim-blink, .anim-shimmer, .anim-wave, .anim-stretch, .anim-slide { animation: none; }
 }
+
+/* fsui-unify: C01 C02 C26 */
+/* Spring-timed transitions for state changes. .spring-* picks the spring. */
+.spring { transition-property: translate, scale, rotate, transform, opacity, background-color, border-color, color, box-shadow, filter, width, height, grid-template-rows, grid-template-columns; transition-duration: calc(var(--spring-ms) * var(--motion-scale)); transition-timing-function: var(--spring); }
+.spring-gentle { --spring: var(--spring-gentle); --spring-ms: var(--spring-gentle-ms); }
+.spring-snappy { --spring: var(--spring-snappy); --spring-ms: var(--spring-snappy-ms); }
+.spring-bouncy { --spring: var(--spring-bouncy); --spring-ms: var(--spring-bouncy-ms); }
+.spring-stiff { --spring: var(--spring-stiff); --spring-ms: var(--spring-stiff-ms); }
+.spring-slow { --spring: var(--spring-slow); --spring-ms: var(--spring-slow-ms); }
+
+/* Motion channels. JavaScript writes the custom properties; these classes own the CSS properties. */
+.motion { translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px); scale: var(--ms, 1); rotate: calc(var(--mr, 0) * 1deg); opacity: var(--mo, 1); }
+.tilt { transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)); transform-style: preserve-3d; }
+
+/* Enter / exit for anything that opens: a popover, a dialog, or an element
+ * toggling .open. .enter-* sets where it comes from; .pop consumes the tokens. */
+.pop { opacity: 0; scale: var(--enter-scale, 0.96); translate: var(--enter-x, 0) var(--enter-y, 0); filter: blur(var(--enter-blur, 0)); transition: opacity calc(var(--speed3) * var(--motion-scale)) var(--transout2), scale calc(var(--spring-ms) * var(--motion-scale)) var(--spring), translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring), filter calc(var(--speed3) * var(--motion-scale)) var(--transout2), overlay calc(var(--speed3) * var(--motion-scale)) allow-discrete, display calc(var(--speed3) * var(--motion-scale)) allow-discrete; }
+.pop:popover-open, .pop[open], .pop.open { opacity: 1; scale: 1; translate: 0 0; filter: none; }
+@starting-style {
+	.pop:popover-open, .pop[open], .pop.open { opacity: 0; scale: var(--enter-scale, 0.96); translate: var(--enter-x, 0) var(--enter-y, 0); filter: blur(var(--enter-blur, 0)); }
+}
+.enter-scale { --enter-scale: 0.96; --enter-x: 0; --enter-y: 0; }
+.enter-fade { --enter-scale: 1; --enter-x: 0; --enter-y: 0; }
+.enter-up { --enter-scale: 1; --enter-y: var(--space-md); }
+.enter-down { --enter-scale: 1; --enter-y: calc(var(--space-md) * -1); }
+.enter-left { --enter-scale: 1; --enter-x: var(--space-md); }
+.enter-right { --enter-scale: 1; --enter-x: calc(var(--space-md) * -1); }
+.enter-blur { --enter-blur: 0.5rem; }
+.enter-edge-top { --enter-scale: 1; --enter-y: -100%; }
+.enter-edge-right { --enter-scale: 1; --enter-x: 100%; }
+.enter-edge-bottom { --enter-scale: 1; --enter-y: 100%; }
+.enter-edge-left { --enter-scale: 1; --enter-x: -100%; }
+
+/* Keyframed entrance, staggered by --i. Reads the same .enter-* vars. */
+@keyframes anim-in { from { opacity: 0; scale: var(--enter-scale, 1); translate: var(--enter-x, 0) var(--enter-y, var(--space-bs)); filter: blur(var(--enter-blur, 0)); } }
+@keyframes ping { 75%, 100% { scale: 2; opacity: 0; } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes wave { 0%, 80%, 100% { scale: 0.55; opacity: 0.35; } 40% { scale: 1; opacity: 1; } }
+@keyframes stretch { 0%, 80%, 100% { scale: 1 0.4; opacity: 0.45; } 40% { scale: 1 1; opacity: 1; } }
+@keyframes slide { from { translate: -100% 0; } to { translate: 250% 0; } }
+.anim-in { animation: anim-in calc(var(--spring-ms) * var(--motion-scale)) var(--spring) both; animation-delay: calc(var(--i, 0) * var(--stagger) * var(--motion-scale)); }
+.anim-ping { animation: ping 1.4s var(--transout2) infinite; }
+.anim-blink { animation: blink 1s steps(1) infinite; }
+.anim-shimmer { background-image: linear-gradient(100deg, transparent 30%, var(--state-hover) 50%, transparent 70%); background-size: 200% 100%; animation: shimmer 1.6s linear infinite; }
+.anim-wave { animation: wave 1.2s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.15s); }
+.anim-stretch { animation: stretch 1.2s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.15s); }
+.anim-slide { animation: slide 1.4s var(--transout2) infinite; }
+
+/* Class-driven reveal: an in-view helper adds .in. */
+.reveal { opacity: 0; translate: var(--enter-x, 0) var(--enter-y, var(--space-bs)); scale: var(--enter-scale, 1); transition: opacity calc(var(--speed3) * 2 * var(--motion-scale)) var(--transout2), translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring), scale calc(var(--spring-ms) * var(--motion-scale)) var(--spring); transition-delay: calc(var(--i, 0) * var(--stagger) * var(--motion-scale)); }
+.reveal.in { opacity: 1; translate: 0 0; scale: 1; }
+
+/* Hover-lift and press-in, spring-timed, for any surface. Distinct from the
+ * built-in :is(button, .button):not(.no-scaling):active scale (C25 still open). */
+.lift { transition: translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring), box-shadow var(--motionout3); }
+.lift:hover { translate: 0 -2px; box-shadow: var(--shadow-lg); }
+.press { transition: scale calc(var(--spring-ms) * var(--motion-scale)) var(--spring); }
+.press:active { scale: 0.97; }
+
+/* View transitions. A helper tags html with .vt-<type>. */
+.vt-name { view-transition-name: var(--vt-name); }
+::view-transition-group(*) { animation-duration: calc(var(--spring-gentle-ms) * var(--motion-scale)); animation-timing-function: var(--spring-gentle); }
+@keyframes vt-out-left { to { translate: calc(var(--space-xl) * -1) 0; opacity: 0; } }
+@keyframes vt-in-right { from { translate: var(--space-xl) 0; opacity: 0; } }
+@keyframes vt-out-right { to { translate: var(--space-xl) 0; opacity: 0; } }
+@keyframes vt-in-left { from { translate: calc(var(--space-xl) * -1) 0; opacity: 0; } }
+@keyframes vt-out-scale { to { scale: 0.97; opacity: 0; } }
+@keyframes vt-in-scale { from { scale: 1.03; opacity: 0; } }
+@keyframes vt-reveal { from { clip-path: circle(0 at var(--vt-x) var(--vt-y)); } to { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); } }
+html.vt-fade::view-transition-old(root) { animation: fade-out calc(var(--speed3) * var(--motion-scale)) var(--transout2) both; }
+html.vt-fade::view-transition-new(root) { animation: fade-in calc(var(--speed3) * var(--motion-scale)) var(--transout2) both; }
+html.vt-slide::view-transition-old(root) { animation: vt-out-left calc(var(--speed3) * var(--motion-scale)) var(--transin1) both; }
+html.vt-slide::view-transition-new(root) { animation: vt-in-right calc(var(--spring-gentle-ms) * var(--motion-scale)) var(--spring-gentle) both; }
+html.vt-slide-back::view-transition-old(root) { animation: vt-out-right calc(var(--speed3) * var(--motion-scale)) var(--transin1) both; }
+html.vt-slide-back::view-transition-new(root) { animation: vt-in-left calc(var(--spring-gentle-ms) * var(--motion-scale)) var(--spring-gentle) both; }
+html.vt-scale::view-transition-old(root) { animation: vt-out-scale calc(var(--speed3) * var(--motion-scale)) var(--transin1) both; }
+html.vt-scale::view-transition-new(root) { animation: vt-in-scale calc(var(--spring-gentle-ms) * var(--motion-scale)) var(--spring-gentle) both; }
+html.vt-reveal::view-transition-old(root) { animation: none; z-index: 0; }
+html.vt-reveal::view-transition-new(root) { animation: vt-reveal calc(var(--speed3) * 3 * var(--motion-scale)) var(--transout2) both; z-index: 1; }

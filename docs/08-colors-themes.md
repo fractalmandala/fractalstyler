@@ -4,7 +4,32 @@ description: Explains how to set backgrounds, text colors, borders, light/dark t
 id: 8
 ---
 
-This document explains the `colors-themes.css` file, which defines the backgrounds, text colors, theme colors, shadows, and classes to use them. Fractalstyler ships with a default light and dark theme, selected via the `data-mode` attribute: all tokens are defined in `@layer tokens` under `[data-mode='light']` and `[data-mode='dark']`, each also setting `color-scheme` so native controls match. Set `data-mode="light"` or `data-mode="dark"` on `<html>` (or any ancestor) to switch the entire theme.
+This document explains the `colors-themes.css` file, which defines the backgrounds, text colors, theme colors, shadows, and classes to use them.
+
+Colour is a recipe of three numbers, declared on `:root` inside `@layer tokens` so a consumer's `custom.css` can still override it:
+
+- `--hue` — the accent hue, and the faint tint of the neutrals
+- `--chroma` — how vivid the accent is
+- `--tint` — how much of the hue the neutrals carry
+
+The default recipe, on `:root`, is `--hue: 38`, `--chroma: 0.2`, `--tint: 0.012`. Every role (`--bg`, `--theme-color`, `--ring`, and the rest) is an `oklch()` of those numbers. Light and dark stay on `data-mode`: set `data-mode="light"` or `data-mode="dark"` on `<html>` (or any ancestor) to switch the recipe's light or dark steps. Each mode block also sets `color-scheme` so native controls match. A named `data-theme` is only a preset of the three numbers; override the numbers anywhere to re-theme a subtree.
+
+Hue 38 belongs only to the default (`:root`) and to `data-theme="fractalsvelte"`. The other named presets keep their own hues:
+
+| `data-theme` | `--hue` | `--chroma` | `--tint` |
+|:--|--:|--:|--:|
+| *(default / `fractalsvelte`)* | 38 | 0.2 | 0.012 |
+| `aurora` | 168 | 0.15 | 0.01 |
+| `ocean` | 238 | 0.17 | 0.014 |
+| `ember` | 42 | 0.19 | 0.01 |
+| `rose` | 8 | 0.2 | 0.01 |
+| `lime` | 128 | 0.2 | 0.008 |
+| `amber` | 78 | 0.17 | 0.01 |
+| `mono` | 268 | 0 | 0 |
+
+Optional `data-radius`, `data-density` and `data-motion` axes rewrite the radius, space, height, type and spring ladders — they live in [Configurations](./01-configurations.md), not in this file.
+
+Status colours (`--success`, `--warning`, `--danger`, `--info` and their ramps) keep stable hues in `oklch()` — they do not follow `--hue`. `--white-fixed` and `--black-fixed` are likewise fixed. `--ring` follows the accent (`oklch` of `--chroma` and `--hue`) so focus rings stay on-theme.
 
 The core theme color tokens are:
 
@@ -75,7 +100,7 @@ Each status, plus a `neutral` one, also has a five-step scale for softer surface
 --neutral-00 … --neutral-100
 ```
 
-Two more tokens live here: `--ring` (focus ring color, consumed by the focus-visible outlines in [Borders, Elevation and Focus](./06-border-elevation-focus.md)) and the `--shadow-*` elevation tokens, including `--shadow-rim`. See that doc for the class-level usage.
+Also declared per mode: `--ring` (the accent-tinted focus ring, an `oklch` of `--chroma` and `--hue`, consumed by the focus-visible outlines in [Borders, Elevation and Focus](./06-border-elevation-focus.md)), `--scrim` (the dimming wash behind overlays), and the `--shadow-*` elevation tokens, including `--shadow-rim`. See that doc for the class-level usage.
 
 As with other variables, the backgrounds and text colors ship as classes using their own variables:
 
@@ -146,7 +171,7 @@ by name:
 ```css
 :root {
 	--theme-color: var(--fs-green50);
-	--bg: var(--fs-surface-whitea);
+	--bg: var(--fs-surface-whitea1);
 }
 ```
 

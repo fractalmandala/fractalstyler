@@ -3,7 +3,7 @@ title: Introduction to Fractalstyler
 description: A guide to the Fractalstyler system, its mental model, the rules of use, and how to keep the system lean.
 ---
 
-Fractalstyler is a composition styling system - a small set of CSS custom properties (tokens) and the classes that consume them. You style by composing classes in markup — you almost never write a stylesheet. The full system is ~1,400 lines of plain CSS. The idea is to keep a lean, modular system that allows maximum styling freedom with minimal class bloat, and structured variables sets. This guide is an introduction on how to think about it and how to use it.
+Fractalstyler is a composition styling system - a small set of CSS custom properties (tokens) and the classes that consume them. You style by composing classes in markup — you almost never write a stylesheet. The cascade is about 2,200 lines of plain CSS, 637 classes and 487 tokens. The idea is to keep a lean, modular system that allows maximum styling freedom with minimal class bloat, and structured variables sets. This guide is an introduction on how to think about it and how to use it.
 
 ## The Mental Model
 
@@ -19,9 +19,11 @@ Under the hood there are only a handful of scales, each with a fixed step vocabu
 | `--text-*` | xs sm md bs lg xl 2xl–5xl | font sizes |
 | `--radius-*` | xs sm md bs lg full | corner rounding |
 | `--h-*` | xs sm md bs lg xl 2xl 3xl | fixed heights |
+| `--measure-*` | xs sm md lg xl 2xl 3xl 4xl | widths, and max-heights |
 | `--shadow-*` | xs sm md bs lg xl 2xl 3xl | elevation |
+| `--spring-*` | gentle snappy bouncy stiff slow | spring easings and settle times |
 
-Classes are mechanical expansions of these scales — `.gap-bs` is `gap: var(--space-bs)`, `.pad-xl` is `padding: var(--space-xl)`, and so on for 400+ classes.
+Classes are mechanical expansions of these scales — `.gap-bs` is `gap: var(--space-bs)`, `.pad-xl` is `padding: var(--space-xl)`, and so on for the 637 classes.
 
 > What this means is that you learn the step names once, and immediately know every class for padding, margin, gap, border, border-radius, height, box-shadow and more. 
 
@@ -29,18 +31,19 @@ Classes are mechanical expansions of these scales — `.gap-bs` is `gap: var(--s
 
 Each CSS file owns one concern, and an accompanying doc explaining usage:
 
-- [Configurations](./01-configurations.md) — global tokens and base resets
-- [Colors and Themes](./08-colors-themes.md) — all colors, light/dark via `data-mode`
-- [Typography](./05-typography.md) — text sizes, semantic text classes, prose
-- [Shapes and Sizes](./03-shapes-sizes.md) — radii, heights, fitment
+- [Configurations](./01-configurations.md) — global tokens, theme axes, registered motion properties, base resets
+- [Springs](./01b-springs.md) — the generated spring easing tokens
 - [Gaps, Pads, Margins](./02-gaps-pads-margins.md) — the `--space-*` class families
-- [Borders, Elevation and Focus](./06-border-elevation-focus.md) — borders, shadows, focus rings
+- [Shapes and Sizes](./03-shapes-sizes.md) — radii, heights, fitment, the measure ladder
 - [Containers](./04-containers.md) — flex/grid/positioning/scrolling
-- [Layout Shell](./07-layout-shell.md) — app chrome: header, sidebars, footer
-- [Responsive](./12-responsive.md) — breakpoint visibility escape hatch
+- [Typography](./05-typography.md) — text sizes, semantic text classes, prose
+- [Borders, Elevation and Focus](./06-border-elevation-focus.md) — borders, shadows, focus rings, glass, rim, glow
+- [Layout Shell](./07-layout-shell.md) — app chrome: header, sidebars, footer, overlays
+- [Colors and Themes](./08-colors-themes.md) — parametric colour recipe, light/dark via `data-mode`, named palettes via `data-theme`
+- [Motion and Animation](./09-motion-animation.md) — easings, springs, enter/pop, view transitions
 - [Components](./10-components.md) — buttons, inputs, links, tags, switches…
-- [Component Props](./11-component-props.md) — variant classes for UI libraries
-- [Motion and Animation](./09-motion-animation.md) — easings, speeds, keyframes
+- [Component Props](./11-component-props.md) — variant classes, control parts, tones
+- [Responsive](./12-responsive.md) — breakpoint visibility escape hatch
 - [Custom](./13-custom.md) — your site's own layer (the example slot)
 
 ### 3. Compose in markup, don't write CSS
@@ -68,12 +71,13 @@ Start from the [layout shell](./07-layout-shell.md): `.app-shell` → `.app-head
 
 ### 2. Theme
 
-All colors live in `colors-themes.css`, selected by `data-mode="light|dark"` on `<html>`. To re-skin the whole app, override tokens — never hardcode hex values:
+Colour is a recipe of three numbers in `colors-themes.css`: `--hue`, `--chroma`, and `--tint`. Light and dark roles are `oklch()` of those numbers, selected by `data-mode="light|dark"` on `<html>`. A named `data-theme` is just a preset of the three numbers. To re-skin, change the numbers — never hardcode hex values:
 
 ```css
 :root {
-  --theme-color: oklch(0.55 0.2 260);
-  --bg: oklch(0.99 0 0);
+  --hue: 38;
+  --chroma: 0.2;
+  --tint: 0.012;
 }
 ```
 
@@ -85,7 +89,7 @@ Prefer `page-title`, `card-desc`, `text-body-sm`, `nav-link` over assembling `te
 
 ### 4. Containers
 
-`row`/`box` + alignment companions (`xcenter`, `ybetween`…), responsive grids (`grid-2`…`grid-6`), `.card-grid`, `.reel`, `.prose` — these cover the vast majority of layout needs without a single line of custom CSS.
+`row`/`box` + alignment companions (`xcenter`, `ybetween`…), responsive grids (`grid-2`…`grid-6`), `.grid-7` (always seven columns), `.card-grid`, `.reel`, `.prose` — these cover the vast majority of layout needs without a single line of custom CSS.
 
 ## Rules to Follow
 
@@ -93,9 +97,9 @@ Prefer `page-title`, `card-desc`, `text-body-sm`, `nav-link` over assembling `te
 2. One scale, no new vocabularies. New spacing/size needs must slot into the existing `xs–3xl` steps. Don't invent `--space-lg-plus` or `.gap-18px`.
 3. Classes consume tokens, tokens only. A utility class should be one line: `property: var(--token)`. The moment a class grows logic, it belongs in `components.css` or your `custom.css`.
 4. Keep `custom.css` as the pressure valve. All site-specific styling goes there, never into the system files. That quarantines your branding from system upgrades.
-5. `data-mode` is the only theme hook. Toggle it on `<html>` (add `.mode-wipe` while switching to kill the cross-fade flash). Don't invent parallel theme attributes.
+5. Light and dark stay on `data-mode`. Toggle it on `<html>` (add `.mode-wipe` while switching to kill the cross-fade flash). Named palettes use `data-theme` — a preset of `--hue`, `--chroma`, and `--tint`. `data-radius`, `data-density`, and `data-motion` are optional axes that rewrite those token ladders. Don't invent further theme attributes.
 6. Respect the breakpoints. The bands 769/1025/1281/1441 are shared by grids, shell, typography and [responsive](./12-responsive.md) classes. New responsive rules use the same bands — never a fifth, private breakpoint.
-7. Motion comes from tokens. `transition: color var(--motionin1)` — not hand-written `0.2s ease`. The speed/easing pairs exist so the whole app moves consistently.
+7. Motion comes from tokens. `transition: color var(--motionin1)` — not hand-written `0.2s ease`. Spring-timed motion uses `var(--spring)` and `calc(var(--spring-ms) * var(--motion-scale))`, so reduced motion can silence it.
 
 ## Dos and Don'ts
 
@@ -126,13 +130,13 @@ Before proposing any addition, ask: does it reuse an existing token scale? Does 
 
 ## Best Practices
 
-- Read the registry. `REGISTRY.md` is the generated index of every class. Search it before writing CSS — it's the "does this already exist?" check.
-- Set the two heights. Configure `--header-height`/`--footer-height` early; the fitted viewport math and sticky sidebars depend on them being truthful.
+- Read the registry. `registry.md` is the generated index of every class. Search it before writing CSS — it's the "does this already exist?" check.
+- Set the two heights. Configure `--header-height`/`--footer-height` early (they are declared in [Shapes and Sizes](./03-shapes-sizes.md)); the fitted viewport math and sticky sidebars depend on them being truthful.
 - Design in both modes. Toggle `data-mode` while building — the shadow, border and state tokens differ per mode, and what works in light often doesn't in dark.
 - Test keyboard focus. The system wires `:focus-visible` rings everywhere; if your custom interactive element has none, add `.focus-ring`.
-- Respect reduced motion. `.anim-spin`/`.anim-pulse` and mascot animations already stop under `prefers-reduced-motion`; keep any custom animation equally polite.
+- Respect reduced motion. `--motion-scale` drops to 0, `.anim-spin`/`.anim-pulse` and the looping animations stop, and mascot animations already stop under `prefers-reduced-motion`; keep any custom animation equally polite.
 - Document new classes the day they land. Every file has a matching doc in `docs/` — keep them in lockstep. Undocumented classes rot.
 
 ## Next
 
-Start reading in this order: [Configurations](./01-configurations.md) → [Colors and Themes](./08-colors-themes.md) → [Containers](./04-containers.md) → [Layout Shell](./07-layout-shell.md). The rest you can look up as needed.
+Start reading in this order: [Configurations](./01-configurations.md) → [Colors and Themes](./08-colors-themes.md) → [Containers](./04-containers.md) → [Layout Shell](./07-layout-shell.md). The rest you can look up as needed. The class API itself is [`registry.md`](../registry.md).

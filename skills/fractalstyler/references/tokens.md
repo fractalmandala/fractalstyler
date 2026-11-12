@@ -55,10 +55,10 @@ Fixed sizes up to base, then fluid (clamped) sizes above it.
 | `--text-3xl` | `var(--text-static-3xl)` |
 | `--text-4xl` | `var(--text-static-4xl)` |
 | `--text-5xl` | `var(--text-static-5xl)` |
-| `--text-primary` | `oklch(0.15 0.003 148)` |
-| `--text-secondary` | `oklch(0.40 0.003 148)` |
-| `--text-muted` | `oklch(0.60 0.005 148)` |
-| `--text-inverse` | `oklch(1.00 0.000 148)` |
+| `--text-primary` | `oklch(0.18 var(--tint) var(--hue))` |
+| `--text-secondary` | `oklch(0.42 var(--tint) var(--hue))` |
+| `--text-muted` | `oklch(0.58 var(--tint) var(--hue))` |
+| `--text-inverse` | `oklch(0.99 0 0)` |
 
 ## Radius
 
@@ -94,6 +94,7 @@ Durations, easings and the composed channels every transition reads.
 
 | Token | Value |
 |:---|:---|
+| `--motion-scale` | `1` |
 | `--transin1` | `cubic-bezier(0.470, 0.000, 0.745, 0.715)` |
 | `--transin2` | `cubic-bezier(0.550, 0.055, 0.675, 0.190)` |
 | `--transin3` | `cubic-bezier(0.755, 0.050, 0.855, 0.060)` |
@@ -117,27 +118,27 @@ Name the role, never the value. Values shown are the light default; `[data-mode=
 
 | Token | Value |
 |:---|:---|
-| `--white-fixed` | `#FFFFFF` |
-| `--black-fixed` | `#18181B` |
-| `--bg` | `oklch(1.00 0.000 148)` |
-| `--bg-surface` | `oklch(0.96 0.000 148)` |
-| `--bg-panel` | `oklch(0.94 0.000 148)` |
-| `--bg-overlay` | `oklch(1.00 0.000 148)` |
-| `--bg-button` | `oklch(0.20 0.002 148)` |
-| `--bg-button-hover` | `oklch(0.28 0.002 148)` |
-| `--bg-button-active` | `oklch(0.15 0.002 148)` |
-| `--bg-button-secondary` | `oklch(0.50 0.002 148)` |
-| `--bg-button-secondary-hover` | `oklch(0.58 0.002 148)` |
-| `--bg-button-secondary-active` | `oklch(0.44 0.002 148)` |
-| `--bg-input` | `oklch(0.96 0.000 148)` |
-| `--state-hover` | `oklch(0 0 0 / .15)` |
-| `--state-selected` | `oklch(0 0 0 / .3)` |
-| `--border` | `oklch(0.90 0.000 148)` |
-| `--border-strong` | `oklch(0.75 0.000 148)` |
-| `--border-subtle` | `oklch(0.95 0.000 148)` |
-| `--theme-color` | `oklch(0.50 0.750 130)` |
-| `--theme-color-up` | `oklch(0.75 0.750 130)` |
-| `--theme-color-down` | `oklch(0.40 0.750 130)` |
+| `--white-fixed` | `oklch(1 0 0)` |
+| `--black-fixed` | `oklch(0.210 0.006 285.9)` |
+| `--bg` | `oklch(0.995 calc(var(--tint) * 0.3) var(--hue))` |
+| `--bg-surface` | `oklch(0.975 calc(var(--tint) * 0.5) var(--hue))` |
+| `--bg-panel` | `oklch(0.96 calc(var(--tint) * 0.6) var(--hue))` |
+| `--bg-overlay` | `oklch(1 0 0)` |
+| `--bg-button` | `oklch(0.2 var(--tint) var(--hue))` |
+| `--bg-button-hover` | `oklch(0.29 var(--tint) var(--hue))` |
+| `--bg-button-active` | `oklch(0.14 var(--tint) var(--hue))` |
+| `--bg-button-secondary` | `oklch(0.93 calc(var(--tint) * 0.6) var(--hue))` |
+| `--bg-button-secondary-hover` | `oklch(0.9 calc(var(--tint) * 0.6) var(--hue))` |
+| `--bg-button-secondary-active` | `oklch(0.87 calc(var(--tint) * 0.6) var(--hue))` |
+| `--bg-input` | `oklch(0.985 calc(var(--tint) * 0.4) var(--hue))` |
+| `--state-hover` | `oklch(0 0 0 / 0.045)` |
+| `--state-selected` | `oklch(0 0 0 / 0.08)` |
+| `--border` | `oklch(0.91 calc(var(--tint) * 0.6) var(--hue))` |
+| `--border-strong` | `oklch(0.82 calc(var(--tint) * 0.8) var(--hue))` |
+| `--border-subtle` | `oklch(0.945 calc(var(--tint) * 0.5) var(--hue))` |
+| `--theme-color` | `oklch(0.34 var(--chroma) var(--hue))` |
+| `--theme-color-up` | `oklch(0.66 var(--chroma) var(--hue))` |
+| `--theme-color-down` | `oklch(0.47 var(--chroma) var(--hue))` |
 | `--success` | `oklch(0.65 0.200 138)` |
 | `--success-hover` | `oklch(0.55 0.200 138)` |
 | `--warning` | `oklch(0.85 0.180 92)` |
@@ -146,7 +147,7 @@ Name the role, never the value. Values shown are the light default; `[data-mode=
 | `--danger-hover` | `oklch(0.50 0.250 25)` |
 | `--info` | `oklch(0.50 0.220 260)` |
 | `--info-hover` | `oklch(0.40 0.220 260)` |
-| `--ring` | `rgba(255, 208, 0, 0.4)` |
+| `--ring` | `oklch(0.55 var(--chroma) var(--hue) / 0.4)` |
 | `--success-00` | `oklch(0.98 0.070 138)` |
 | `--success-25` | `oklch(0.82 0.150 138)` |
 | `--success-50` | `oklch(0.65 0.200 138)` |
@@ -196,6 +197,21 @@ Reference values — CSS media queries cannot consume custom properties, so the 
 | `--bp-lg` | `1281px` |
 | `--bp-xl` | `1441px` |
 
+## Measure
+
+The width (and max-height) ladder for panels, dialogs, popovers and the shell.
+
+| Token | Value |
+|:---|:---|
+| `--measure-xs` | `14rem` |
+| `--measure-sm` | `20rem` |
+| `--measure-md` | `28rem` |
+| `--measure-lg` | `36rem` |
+| `--measure-xl` | `48rem` |
+| `--measure-2xl` | `64rem` |
+| `--measure-3xl` | `80rem` |
+| `--measure-4xl` | `100rem` |
+
 ## Layout & Chrome
 
 Font stacks plus the page geometry the shells read.
@@ -203,12 +219,14 @@ Font stacks plus the page geometry the shells read.
 | Token | Value |
 |:---|:---|
 | `--prose-clamp` | `65ch` |
-| `--content-clamp` | `1600px` |
+| `--content-clamp` | `var(--measure-4xl)` |
 | `--app-inline` | `var(--space-lg)` |
-| `--card-min` | `240px` |
-| `--sidebar-width` | `280px` |
-| `--sidebar-width-left` | `280px` |
-| `--sidebar-width-right` | `280px` |
+| `--card-min` | `15rem` |
+| `--content-aside` | `7.5rem` |
+| `--sidebar-width` | `16rem` |
+| `--sidebar-width-left` | `16rem` |
+| `--sidebar-width-right` | `16rem` |
+| `--sidebar-width-collapsed` | `3.5rem` |
 | `--z-sticky` | `100` |
 | `--z-raised` | `200` |
 | `--z-modal` | `300` |
@@ -225,6 +243,6 @@ Font stacks plus the page geometry the shells read.
 | `--z-999` | `999` |
 | `--font-sans` | `ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif` |
 | `--font-mono` | `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace` |
-| `--header-height` | `64px` |
-| `--footer-height` | `32px` |
+| `--header-height` | `4rem` |
+| `--footer-height` | `2rem` |
 | `--fit-height` | `calc(var(--header-height) + var(--footer-height))` |

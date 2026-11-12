@@ -41,6 +41,8 @@ Or a single layer, when you only want part of the system:
 import '@fractaldesign/fractalstyler/styles/typography.css';
 ```
 
+**Theming.** Light and dark use `data-mode` on `<html>`. A named palette is `data-theme` — a preset of `--hue`, `--chroma`, and `--tint`. The default recipe, and `data-theme="fractalsvelte"`, is hue 38 / chroma 0.2 / tint 0.012; the other named presets (`aurora`, `ocean`, `ember`, `rose`, `lime`, `amber`, `mono`) keep their own hues. `data-radius`, `data-density`, and `data-motion` are optional axes that rewrite those token ladders. Don't invent further theme attributes.
+
 The styles stay in `node_modules`; upgrades come from npm.
 
 ### Eject — the files become yours
@@ -85,10 +87,11 @@ npx @fractaldesign/fractalstyler init --docs
 |:---|:---|
 | Containers | `.box` (column), `.row` (horizontal), `.grid` — and their modifiers `.xcenter`, `.ycenter`, `.xbetween` |
 | Spacing | `.gap-*`, `.pad-*`, `.px-*`, `.py-*`, `.mar-*` — eight steps: `xs sm md bs lg xl 2xl 3xl` |
-| Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate` |
+| Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate`, `.clamp-2` / `.clamp-3` |
 | Colour | `.bg`, `.bg-surface`, `.text-primary`, `.text-muted`, `.border` — roles, never values |
 | Variants | `.primary`, `.secondary`, `.themed`, `.outline`, `.ghost`, `.link` |
-| Shape & height | `.rect`, `.mincurved`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` |
+| Shape & height | `.rect`, `.mincurved`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` · `.measure-*` / `.max-h-*` |
+| Motion | `.spring`, `.spring-*`, `.enter-*`, `.pop`, `.lift`, `.press` |
 
 The full list is in [`registry.md`](./registry.md); the reasoning behind it is
 in [the documentation](./docs/introduction.md).
@@ -241,7 +244,7 @@ cascade disagree about what comes first.
 
 ```bash
 npm run registry   # registry.json, registry.md, skills/fractalstyler/references/{fractals,tokens}.md
-npm run tokens     # src/lib/tokensRegistry.ts
+npm run tokens     # gen:springs, then src/lib/tokensRegistry.ts
 ```
 
 Never edit those by hand — each carries a "Generated" banner, and the next run
