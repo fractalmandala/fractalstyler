@@ -93,6 +93,7 @@ export interface FractalstylerTokens {
 	'bg': string;
 	'bg-surface': string;
 	'bg-panel': string;
+	'bg-overlay': string;
 	'bg-button': string;
 	'bg-button-hover': string;
 	'bg-button-active': string;
@@ -131,6 +132,31 @@ export interface FractalstylerTokens {
 	'shadow-xl': string;
 	'shadow-2xl': string;
 	'shadow-3xl': string;
+	'success-00': string;
+	'success-25': string;
+	'success-50': string;
+	'success-75': string;
+	'success-100': string;
+	'warning-00': string;
+	'warning-25': string;
+	'warning-50': string;
+	'warning-75': string;
+	'warning-100': string;
+	'danger-00': string;
+	'danger-25': string;
+	'danger-50': string;
+	'danger-75': string;
+	'danger-100': string;
+	'info-00': string;
+	'info-25': string;
+	'info-50': string;
+	'info-75': string;
+	'info-100': string;
+	'neutral-00': string;
+	'neutral-25': string;
+	'neutral-50': string;
+	'neutral-75': string;
+	'neutral-100': string;
 
 	// ── motion-animation.css ────────────────────────────────────────
 	'transin1': string;
@@ -416,6 +442,26 @@ export interface FractalstylerTokens {
 	'fs-surface-blackh7': string;
 	'fs-surface-blackh8': string;
 	'fs-surface-blackh9': string;
+	'fs-success-00': string;
+	'fs-success-25': string;
+	'fs-success-50': string;
+	'fs-success-75': string;
+	'fs-success-100': string;
+	'fs-warning-00': string;
+	'fs-warning-25': string;
+	'fs-warning-50': string;
+	'fs-warning-75': string;
+	'fs-warning-100': string;
+	'fs-danger-00': string;
+	'fs-danger-25': string;
+	'fs-danger-50': string;
+	'fs-danger-75': string;
+	'fs-danger-100': string;
+	'fs-info-00': string;
+	'fs-info-25': string;
+	'fs-info-50': string;
+	'fs-info-75': string;
+	'fs-info-100': string;
 }
 
 export type FractalstylerToken = keyof FractalstylerTokens;

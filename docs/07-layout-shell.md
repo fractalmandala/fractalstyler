@@ -38,15 +38,19 @@ Lists inside sidebars get their left margin/padding zeroed.
 
 ## Content widths
 
-`.content-section` wraps page content. `.narrow-full`, `.narrow-half` and `.narrow-wide` are centered reading-width presets that grow with breakpoints:
+`.content-section` wraps page content and is a column flex container. `.narrow-full`, `.narrow-half` and `.narrow-wide` are centered reading-width presets that grow with breakpoints:
 
 | Breakpoint | narrow-full | narrow-half | narrow-wide |
 |:--|:--|:--|:--|
 | 769px+ | - | 640px | 720px |
 | 1025px+ | 640px | 750px | 750px |
-| 1281px+ | 680px | 800px | 1024px |
+| 1281px+ | 720px | 800px | 1024px |
 | 1441px+ | - | 1024px | 1280px |
 
 `narrow-half` gets increasing right padding at larger sizes to leave room for a right sidebar. `.content-section.null` and `.solo`-less main sections handle the un-padded edge cases.
+
+`.page-header` is a column flex container for a page's title block (see [Typography](./05-typography.md) for `.page-title` and `.page-desc`).
+
+The left sidebar draws a thin scrollbar: 2px wide, transparent track and a pill thumb in WebKit, and a light thumb on `--bg` through `scrollbar-color` elsewhere.
 
 For the vertical fitment alternative (a central area filling the viewport minus header/footer), see the `hfull-fitted` class in [Shapes and Sizes](./03-shapes-sizes.md).

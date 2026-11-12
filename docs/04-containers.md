@@ -15,15 +15,17 @@ For `.box` / `.column`:
 - `.xcenter`, `.xleft`, `.xright` - align-items + matching text-align
 - `.ycenter`, `.ytop`, `.ybot` - justify-content
 - `.ybetween`, `.yevenly`, `.yaround` - space-between / space-evenly / space-around
+- `.xinherit`, `.yinherit` - take the parent's alignment on that axis
 
 For `.row`:
 
 - `.xleft`, `.xcenter`, `.xright`, `.xbetween`, `.xevenly`, `.xaround` - justify-content
 - `.ycenter`, `.ytop`, `.ybot` - align-items
+- `.xinherit`, `.yinherit` - take the parent's alignment on that axis
 
 Example: `<div class="row xbetween ycenter">`.
 
-Flex helpers: `.wrap` (flex-wrap), `.grow` (flex: 1 1 0%), `.shrink-0`.
+Flex helpers: `.wrap` (flex-wrap), `.grow` (flex: 1 1 0%), `.shrink-0`, `.flex-shrink` (flex-shrink: 1, to undo a `.shrink-0`).
 
 ## Grid
 
@@ -44,11 +46,13 @@ All accept the same alignment companions, mapping to grid tracks: `.xcenter/.xle
 
 - `.relative`, `.absolute`, `.fixed`, `.sticky`
 - `.z-sticky`, `.z-raised`, `.z-modal`, `.z-toast` - consume the z-index tokens
+- `.pin-tl`, `.pin-tr`, `.pin-bl`, `.pin-br` - absolutely positioned at `--z-raised`, `--space-sm` in from that corner of the nearest positioned parent (corner badges, ribbons, stamps)
 
 ## Scrolling
 
 - `.scroll-y` / `.scroll-x` - one-axis auto scroll with `overscroll-behavior: contain`
 - `.reel` - horizontal scroll-snap carousel; children snap to start and never shrink
+- `.scroll-menu` - a list that scrolls past `16rem` (dropdown and combobox option lists)
 
 ## Prose containers
 
@@ -61,6 +65,8 @@ Both zero the top margin of a first heading. Text styling inside prose is [Typog
 
 `.frame-16-9`, `.frame-9-16`, `.frame-4-3`, `.frame-3-4`, `.frame-3-2`, `.frame-2-3`, `.frame-1-1` - each sets the aspect-ratio, hides overflow, and stretches any contained img/video/iframe/svg to cover.
 
+For media sized some other way, `.fit-cover`, `.fit-contain`, `.fit-fill` and `.fit-scale-down` set `object-fit` on the element itself.
+
 ## Display utilities
 
 `.inline`, `.block`, `.inline-block`, `.inline-flex`, `.contents`, `.inline-grid`, `.table`, `.display-none`.
@@ -69,3 +75,9 @@ Overflow and stacking:
 
 - `.overflow-hidden` / `.overflow-visible` - plain overflow control (for one-axis scrolling see `.scroll-y`/`.scroll-x` above)
 - `.isolate` - `isolation: isolate`, creates a new stacking context without a z-index; pairs with the z-classes when nested stacking leaks
+
+Interaction and accessibility:
+
+- `.pointer` - `cursor: pointer`, for clickable rows and labels that are not buttons
+- `.touch-none` - `touch-action: none`, for drag surfaces (sliders, pads) so a touch drag does not scroll the page
+- `.sr-only` - visually hidden but still focusable and read by screen readers (a file input behind its styled label, say)

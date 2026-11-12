@@ -50,7 +50,7 @@ Examples: `gap-bs`, `rgap-lg`, `rgap-bs cgap-sm`
 Padding classes are `pad-*`, `px-*`, `py-*`, `pl-*`, `pt-*`, `pr-*`, `pb-*`, with the step affixes.
 `pad-*` sets padding, `px-*` sets padding-inline, `py-*` sets padding-block, `pl-*` sets padding-left, `pt-*` sets padding-top, `pr-*` sets padding-right, `pb-*` sets padding-bottom.
 
-7 class groups x 8 size steps = 56 classes.
+7 class groups x 8 size steps = 56 classes, plus `.pad-none` (`padding: 0`) to clear padding a component or element brings with it.
 
 ## Margin
 

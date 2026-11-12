@@ -77,14 +77,19 @@ node scripts/update-registry.ts --report
 ```
 
 ```
-✔ Extracted 482 classes and 137 tokens.
+✔ Extracted 532 classes and 442 tokens.
   configurations.css             1
-  gaps-pads-margins.css          136
+  gaps-pads-margins.css          137
   ...
-  ⚠ component-props.css: Sass nesting in a plain CSS file — "&.variant-info"
 ```
 
-The warning line matters: `&` is Sass nesting, and in a plain `.css` file the
+A clean run prints only the counts. When something is wrong it adds a warning line, for example:
+
+```
+  ⚠ components.css: Sass nesting in a plain CSS file — "&.selected"
+```
+
+That warning matters: `&` is Sass nesting, and in a plain `.css` file the
 browser drops the whole rule, so any class in that list is dead.
 
 ## Documentation - `scripts/validate-deck.ts`

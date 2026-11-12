@@ -9,7 +9,7 @@
 .primary {
   background-color: var(--bg-button);
   border: 1px solid var(--bg-button);
-  color: var(--on-button, var(--white-fixed));
+  color: var(--on-button, var(--text-inverse));
 }
 .primary:hover {
   background-color: var(--bg-button-hover);
@@ -23,7 +23,7 @@
 .secondary {
   background-color: var(--bg-button-secondary);
   border: 1px solid var(--bg-button-secondary);
-  color: var(--on-button-secondary, var(--white-fixed));
+  color: var(--on-button-secondary, var(--text-primary));
 }
 .secondary:hover {
   background-color: var(--bg-button-secondary-hover);
@@ -88,42 +88,48 @@
 }
 
 
-.info, .variant-info {
+.info {
   background-color: var(--info);
   border: 1px solid var(--info);
   color: var(--on-info, var(--white-fixed));
 }
 
-.success, .variant-success {
+.success {
   background-color: var(--success);
   border: 1px solid var(--success);
   color: var(--on-success, var(--white-fixed));
 }
 
-.warning, .variant-warning {
+.warning {
   background-color: var(--warning);
   border: 1px solid var(--warning);
   color: var(--on-warning, var(--white-fixed));
 }
 
-.danger, .variant-danger {
+.danger {
   background-color: var(--danger);
   border: 1px solid var(--danger);
   color: var(--on-danger, var(--white-fixed));
 }
-.danger:hover, .variant-danger:hover {
+.danger:hover {
   background-color: var(--danger-hover);
   border: 1px solid var(--danger-hover);
 }
+
+.msg.info { background-color: var(--info-00); border: 1px solid var(--info-25); color: var(--info-100); }
+.msg.success { background-color: var(--success-00); border: 1px solid var(--success-25); color: var(--success-100); }
+.msg.warning { background-color: var(--warning-00); border: 1px solid var(--warning-25); color: var(--warning-100); }
+.msg.danger { background-color: var(--danger-00); border: 1px solid var(--danger-25); color: var(--danger-100); }
+.msg.neutral { background-color: var(--neutral-00); border: 1px solid var(--neutral-25); color: var(--neutral-100); }
 
 @supports (color: oklch(from red l c h)) {
   .primary { color: var(--on-button, oklch(from var(--bg-button) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
   .secondary { color: var(--on-button-secondary, oklch(from var(--bg-button-secondary) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
   .themed { color: var(--on-theme, oklch(from var(--theme-color) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
-  .info, .variant-info { color: var(--on-info, oklch(from var(--info) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
-  .success, .variant-success { color: var(--on-success, oklch(from var(--success) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
-  .warning, .variant-warning { color: var(--on-warning, oklch(from var(--warning) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
-  .danger, .variant-danger { color: var(--on-danger, oklch(from var(--danger) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .info { color: var(--on-info, oklch(from var(--info) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .success { color: var(--on-success, oklch(from var(--success) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .warning { color: var(--on-warning, oklch(from var(--warning) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  .danger { color: var(--on-danger, oklch(from var(--danger) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
 }
 
 .rect {
@@ -144,37 +150,6 @@
 
 .round {
   border-radius: var(--radius-full, 9999px);
-}
-.h-xs {
-  height: var(--h-xs);
-  min-block-size: var(--h-xs);
-}
-
-.h-sm {
-  height: var(--h-sm);
-  min-block-size: var(--h-sm);
-}
-
-.h-md {
-  height: var(--h-md);
-  min-block-size: var(--h-md);
-}
-
-.h-bs {
-  height: var(--h-bs);
-  min-block-size: var(--h-bs);
-}
-
-.h-lg {
-  height: var(--h-lg);
-  min-block-size: var(--h-lg);
-  padding-inline: var(--space-bs);
-}
-
-.h-xl {
-  height: var(--h-xl);
-  min-block-size: var(--h-xl);
-  padding-inline: var(--space-lg);
 }
 
 /* With a size, the control keeps that size as its minimum height and grows with its content. */

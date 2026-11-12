@@ -3,7 +3,7 @@
 > GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts` from the
 > stylesheets in `src/lib/styles`.
 
-**486 classes** across **14 stylesheets**, riding **396 tokens**.
+**532 classes** across **14 stylesheets**, riding **442 tokens**.
 
 These classes are the entire public API. There is no authoring mixin and no
 styling function — `+stack`, `+surface`, `space()` and their friends do not
@@ -66,6 +66,7 @@ The space ladder. Every family runs the eight steps xs sm md bs lg xl 2xl 3xl an
 | `.pad-xl` | `padding: var(--space-xl)` | Padding on all four sides at the xl step — rides --space-xl |
 | `.pad-2xl` | `padding: var(--space-2xl)` | Padding on all four sides at the 2xl step — rides --space-2xl |
 | `.pad-3xl` | `padding: var(--space-3xl)` | Padding on all four sides at the 3xl step — rides --space-3xl |
+| `.pad-none` | `padding: 0` | No padding — clears what an element brings with it |
 | `.px-xs` | `padding-inline: var(--space-xs)` | Inline (horizontal) padding at the xs step — rides --space-xs |
 | `.px-sm` | `padding-inline: var(--space-sm)` | Inline (horizontal) padding at the sm step — rides --space-sm |
 | `.px-md` | `padding-inline: var(--space-md)` | Inline (horizontal) padding at the md step — rides --space-md |
@@ -228,6 +229,8 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.ybetween` | `justify-content: space-between` | justify-content: space-between — modifier of .box |
 | `.yevenly` | `justify-content: space-evenly` | justify-content: space-evenly — modifier of .box |
 | `.yaround` | `justify-content: space-around` | justify-content: space-around — modifier of .box |
+| `.yinherit` | `justify-content: inherit` | Take the parent container's alignment on the y axis |
+| `.xinherit` | `align-items: inherit` | Take the parent container's alignment on the x axis |
 | `.row` | `display: flex; flex-direction: row` | Flex row container — the horizontal structural foundation |
 | `.xbetween` | `justify-content: space-between` | justify-content: space-between — modifier of .row |
 | `.xevenly` | `justify-content: space-evenly` | justify-content: space-evenly — modifier of .row |
@@ -264,6 +267,18 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.z-toast` | `z-index: var(--z-toast)` | z-index: var(--z-toast) |
 | `.scroll-y` | `overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain` | Scroll vertically |
 | `.scroll-x` | `overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain` | Scroll horizontally |
+| `.scroll-menu` | `max-height: 16rem; overflow-y: auto; overscroll-behavior: contain` | A list that scrolls past 16rem — dropdown and option lists |
+| `.pointer` | `cursor: pointer` | Pointer cursor for clickable rows and labels that are not buttons |
+| `.touch-none` | `touch-action: none` | No touch scrolling — for drag surfaces like sliders and pads |
+| `.fit-cover` | `object-fit: cover` | object-fit: cover — media fills and crops |
+| `.fit-contain` | `object-fit: contain` | object-fit: contain — media fits whole, letterboxed |
+| `.fit-fill` | `object-fit: fill` | object-fit: fill — media stretches to the box |
+| `.fit-scale-down` | `object-fit: scale-down` | object-fit: scale-down — never larger than its natural size |
+| `.pin-tl` | `position: absolute; z-index: var(--z-raised)` | Pinned to the top-left corner of the nearest positioned parent |
+| `.pin-tr` | `position: absolute; z-index: var(--z-raised)` | Pinned to the top-right corner of the nearest positioned parent |
+| `.pin-bl` | `position: absolute; z-index: var(--z-raised)` | Pinned to the bottom-left corner of the nearest positioned parent |
+| `.pin-br` | `position: absolute; z-index: var(--z-raised)` | Pinned to the bottom-right corner of the nearest positioned parent |
+| `.sr-only` | `position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0` | Visually hidden, still focusable and read by screen readers |
 | `.prose` | `max-width: var(--prose-clamp); margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-sm)` | Reading measure — a clamped content width |
 | `.prose-left` | `max-width: var(--prose-clamp); margin-right: auto; display: flex; flex-direction: column; gap: var(--space-sm)` | Reading measure, aligned to the start edge |
 | `.frame-16-9` | `aspect-ratio: 16 / 9; overflow: hidden; position: relative` | aspect-ratio: 16 / 9 |
@@ -285,6 +300,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.overflow-hidden` | `overflow: hidden` | Clip the overflow |
 | `.overflow-visible` | `overflow: visible` | Let the overflow show |
 | `.isolate` | `isolation: isolate` | Create a stacking context |
+| `.flex-shrink` | `flex-shrink: 1` | Allow shrinking again — undoes .shrink-0 |
 
 ---
 
@@ -304,14 +320,14 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.text-3xl` | `font-size: var(--text-3xl)` | Text size at the 3xl step — rides --text-3xl |
 | `.text-4xl` | `font-size: var(--text-4xl)` | Text size at the 4xl step — rides --text-4xl |
 | `.text-5xl` | `font-size: var(--text-5xl)` | Text size at the 5xl step — rides --text-5xl |
-| `.text-body` | `font-size: var(--text-bs); line-height: 1.5` | Body copy at the base size |
+| `.text-body` | `font-size: var(--text-bs); line-height: 1.55` | Body copy at the base size |
 | `.text-body-lg` | `font-size: var(--text-lg); line-height: 1.5` | Body copy at the large size |
 | `.text-body-sm` | `font-size: var(--text-sm); line-height: 1.5` | Body copy at the small size |
-| `.page-title` | `font-size: var(--text-3xl); line-height: 1.1; font-weight: 700; letter-spacing: -0.02rem` | Page title — the largest type on the page |
-| `.page-desc` | `font-size: var(--text-md)` | Page description — large and airy |
-| `.page-heading-xl` | `font-size: var(--text-xl); line-height: 1.1; font-weight: 600; letter-spacing: -0.03rem` | Page heading, xl rung |
-| `.page-heading-lg` | `font-size: var(--text-lg); line-height: 1.1; font-weight: 600; letter-spacing: -0.03rem` | Page heading, lg rung |
-| `.page-heading-bs` | `font-size: var(--text-bs); line-height: 1.1; font-weight: 600; letter-spacing: -0.02rem` | Page heading, base rung |
+| `.page-title` | `font-size: var(--text-3xl); line-height: 1.1; font-weight: 600; letter-spacing: -0.02rem` | Page title — the largest type on the page |
+| `.page-desc` | `font-size: var(--text-bs)` | Page description — large and airy |
+| `.page-heading-xl` | `font-size: var(--text-xl); line-height: 1.1; font-weight: 600; letter-spacing: -0.01rem` | Page heading, xl rung |
+| `.page-heading-lg` | `font-size: var(--text-lg); line-height: 1.1; font-weight: 600; letter-spacing: -0.01rem` | Page heading, lg rung |
+| `.page-heading-bs` | `font-size: var(--text-bs); line-height: 1.1; font-weight: 600; letter-spacing: -0.01rem` | Page heading, base rung |
 | `.card-title` | `font-size: var(--text-lg); font-weight: 600; line-height: 1.2` | Card title |
 | `.card-desc` | `font-size: var(--text-md); line-height: 1.2` | Card description |
 | `.nav-link` | `font-size: var(--text-md); line-height: 1.2; letter-spacing: 0.01rem` | Nav link — padded, curved, filled on hover |
@@ -346,7 +362,9 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.font-mono` | `font-family: var(--font-mono)` | The monospace font stack |
 | `.doc-element` | `margin-bottom: 1.5rem` | An element inside prose content |
 | `.prose-content` | — | Prose content — the reading measure of a long text |
+| `.tabular-nums` | `font-variant-numeric: tabular-nums` | font-variant-numeric: tabular-nums |
 | `.header-nav` | — | .header-nav rule |
+| `.page-header` | — | A page's title block — flex column for the breadcrumb, title and description |
 
 ---
 
@@ -359,6 +377,8 @@ The partition-law border set (per side, three weights), elevation steps and the 
 | `.border` | `border: 1px solid var(--border)` | Full border at the standard weight |
 | `.border-subtle` | `border: 1px solid var(--border-subtle)` | Full border at the subtle weight |
 | `.border-strong` | `border: 1px solid var(--border-strong)` | Full border at the strong weight |
+| `.border-dashed` | `border: 1px dashed var(--border)` | border: 1px dashed var(--border) |
+| `.border-none` | `border: none` | border: none |
 | `.bt` | `border-top: 1px solid var(--border)` | border-top: 1px solid var(--border) |
 | `.br` | `border-right: 1px solid var(--border)` | border-right: 1px solid var(--border) |
 | `.bb` | `border-bottom: 1px solid var(--border)` | border-bottom: 1px solid var(--border) |
@@ -371,6 +391,11 @@ The partition-law border set (per side, three weights), elevation steps and the 
 | `.br-sub` | `border-right: 1px solid var(--border-subtle)` | border-right: 1px solid var(--border-subtle) |
 | `.bb-sub` | `border-bottom: 1px solid var(--border-subtle)` | border-bottom: 1px solid var(--border-subtle) |
 | `.bl-sub` | `border-left: 1px solid var(--border-subtle)` | border-left: 1px solid var(--border-subtle) |
+| `.bt-dash` | `border-top: 1px dashed var(--border)` | border-top: 1px dashed var(--border) |
+| `.br-dash` | `border-right: 1px dashed var(--border)` | border-right: 1px dashed var(--border) |
+| `.bb-dash` | `border-bottom: 1px dashed var(--border)` | border-bottom: 1px dashed var(--border) |
+| `.bl-dash` | `border-left: 1px dashed var(--border)` | border-left: 1px dashed var(--border) |
+| `.shad-none` | `box-shadow: none` | box-shadow: none |
 | `.shad-xs` | `box-shadow: var(--shadow-xs)` | Elevation at the xs step — rides --shadow-xs |
 | `.shad-sm` | `box-shadow: var(--shadow-sm)` | Elevation at the sm step — rides --shadow-sm |
 | `.shad-md` | `box-shadow: var(--shadow-md)` | Elevation at the md step — rides --shadow-md |
@@ -402,14 +427,14 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.app-shell` | `display: flex; flex-direction: column; position: relative; min-height: 100vh` | Application shell root — flex column, full height, hosts the header, main and footer |
 | `.app-header` | `display: flex; flex-direction: row; align-items: center; position: sticky; top: 0; z-index: var(--z-sticky); height: var(--header-height); padding-inline: var(--app-…` | Sticky application header |
 | `.clamped` | `width: var(--content-clamp); margin-inline: auto` | Clamp to the content width and centre |
-| `.app-main` | `flex: 1 1 0%; min-width: 0; min-height: calc(100dvh var(--fit-height)); display: flex; flex-direction: row` | Main region between header and footer — flex row, fitted to the viewport |
+| `.app-main` | `flex: 1 1 0%; min-width: 0; min-height: calc(100dvh - var(--fit-height)); display: flex; flex-direction: row` | Main region between header and footer — flex row, fitted to the viewport |
 | `.main-section` | `flex: 1 1 0%; min-width: 0` | Primary content column inside .app-main |
 | `.solo` | `padding-inline: var(--app-inline)` | The main section is the only column |
-| `.sidebar-left` | `display: none; flex-shrink: 0; position: sticky; top: var(--header-height); height: calc(100dvh var(--fit-height)); overflow-y: auto` | Left rail — nav role; off-canvas drawer on narrow screens |
-| `.sidebar-right` | `display: none; flex-shrink: 0; position: sticky; top: var(--header-height); height: calc(100dvh var(--fit-height)); overflow-y: auto` | Right rail — table of contents |
-| `.open` | — | .open rule |
+| `.sidebar-left` | `display: none; position: sticky; top: var(--header-height); height: calc(100dvh - var(--fit-height)); overflow-y: auto; scrollbar-color: oklch(0.95 0.001 50) var(--bg)` | Left rail — nav role; off-canvas drawer on narrow screens |
+| `.sidebar-right` | `display: none; position: sticky; top: var(--header-height); height: calc(100dvh - var(--fit-height)); overflow-y: auto; scrollbar-color: oklch(0.95 0.001 50) var(--bg)` | Right rail — table of contents |
+| `.open` | — | Open state |
 | `.app-footer` | `display: flex; flex-direction: row; align-items: center; padding-inline: var(--app-inline); min-height: var(--footer-height)` | Application footer |
-| `.content-section` | `width: 100%` | Page content block — responsive padding and narrow width modes |
+| `.content-section` | `width: 100%; display: flex; flex-direction: column` | Page content block — responsive padding and narrow width modes |
 | `.null` | `padding-inline: 0 var(--space-bs)` | No width constraint |
 | `.narrow-half` | `width: 640px; margin-inline: auto` | Half the content width |
 | `.narrow-wide` | `width: 720px; margin-inline: auto` | Wide content width |
@@ -431,6 +456,9 @@ Colour roles. Name the role, never the value; the theme remaps the token.
 | `.bg` | `background-color: var(--bg)` | The page background |
 | `.bg-surface` | `background-color: var(--bg-surface)` | Surface fill — cards, panels, inputs |
 | `.bg-panel` | `background-color: var(--bg-panel)` | Panel fill — one step below the surface |
+| `.bg-overlay` | `background-color: var(--bg-overlay)` | Overlay fill — opaque, for menus, popovers, dialogs and drawers |
+| `.bg-none` | `background: transparent` | No background |
+| `.bg-black` | `background-color: var(--black-fixed)` | Fixed black fill |
 | `.state-hover` | `background-color: var(--state-hover)` | The hover fill |
 | `.state-selected` | `background-color: var(--state-selected)` | The selected fill |
 | `.bg-input` | `background-color: var(--bg-input)` | Input fill |
@@ -483,7 +511,7 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.gap-overlap` | — | Overlap the avatars in the group |
 | `.badge` | `padding-inline: var(--space-sm); font-weight: 500; white-space: nowrap` | Count badge |
 | `.tag` | `padding-inline: var(--space-sm); font-weight: 500; white-space: nowrap; background-color: var(--tag-color)` | Small inline label |
-| `.ink-auto` | `color: var(--text-primary)` | Let the tag pick its ink from its own background |
+| `.ink-auto` | `color: var(--text-primary)` | Pick white or near-black ink from the fill behind it (--tag-color on a tag, --ink-bg elsewhere) |
 | `.text-only` | `background-color: transparent; color: var(--tag-color)` | A tag with no fill — text only |
 | `.tag-remove` | `height: 1.5em; width: 1.5em; margin-inline-end: calc(var(--space-xs) * -1); color: inherit` | The remove control inside a tag |
 | `.switch-box` | `display: inline-flex; flex-shrink: 0` | The switch track and thumb |
@@ -492,7 +520,6 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.card-clickable` | `cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s` | A card that responds to clicks |
 | `.disabled` | `cursor: not-allowed; opacity: 0.6` | Disabled state |
 | `.is-invalid` | `border-color: var(--danger)` | Invalid state — the field failed validation |
-| `.variant` | `border-color: var(--danger)` | Variant marker |
 | `.select` | `background-image: none; padding-right: calc(var(--space-sm) + 1.25em)` | Select dropdown — themed field with a chevron |
 | `.select-wrap` | — | The frame around a select and its chevron |
 | `.select-chevron` | `position: absolute; right: var(--space-sm); pointer-events: none` | The chevron inside a select frame |
@@ -502,13 +529,38 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.link-plain` | `color: var(--text-primary); text-decoration: none; transition: color var(--motionin1)` | Plain link — inherits the ink, theme colour on hover |
 | `.link-parent` | `color: var(--text-primary); text-decoration: none` | Link block — hovers the colour of its .link-title child |
 | `.link-title` | `transition: color var(--motionin1); text-decoration: none` | The title inside a .link-parent |
-| `.button` | `display: flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer; user-select: none; transition: background var(--motionin1), bord…` | The button — variant, shape and size come from the prop classes |
+| `.button` | `display: flex; align-items: center; justify-content: center; text-decoration: none; white-space: nowrap; cursor: pointer; user-select: none; transition: background v…` | The button — variant, shape and size come from the prop classes |
+| `.no-scaling` | `transform: scale(0.98)` | Opt a button out of the press scale |
+| `.btn-icon` | `padding-inline: var(--space-sm)` | Square icon button — no padding, never shrinks, sized by its .h-* class |
 | `.button-group` | `display: inline-flex; align-items: stretch; vertical-align: middle` | Buttons joined into one control |
 | `.split-button` | `display: inline-flex; align-items: stretch; vertical-align: middle` | A button with a separate action area |
 | `.vertical` | `flex-direction: column` | Stack the group vertically |
 | `.btn` | `display: flex; align-items: center; justify-content: center; font-size: var(--text-md); text-decoration: none; cursor: pointer; user-select: none; transition: backgr…` | Call-to-action button |
+| `.fit-icon` | `padding: 0; border-width: 0; height: auto; min-block-size: 0` | Icon button that is exactly its icon — no padding or border, sized by the icon |
+| `.card` | `height: auto; min-block-size: 0` | A card — its size class sets the text scale, never the height |
+| `.card-sized` | `font-size: var(--text-bs)` | Scale a card's title, description, label and sub text with its size |
+| `.card-label` | `font-size: 1em` | font-size: 1em — child of .card-sized |
+| `.card-sub` | `font-size: 0.95em` | font-size: 0.95em — child of .card-sized |
+| `.banner` | `height: auto` | A banner — its size class sets padding and text size, height follows content |
+| `.tint` | `background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--info) 35%, transparent); color: var(--text-primary)` | Soft status fill — the status colour mixed into the panel fill |
+| `.info` | `background-color: color-mix(in srgb, var(--info) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--info) 35%, transparent); color: var(--text-primary)` | Status variant — the info colour |
+| `.success` | `background-color: color-mix(in srgb, var(--success) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--success) 35%, transparent); color: var(--text-primary)` | Status variant — the success colour |
+| `.warning` | `background-color: color-mix(in srgb, var(--warning) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--warning) 35%, transparent); color: var(--text-primary)` | Status variant — the warning colour |
+| `.danger` | `background-color: color-mix(in srgb, var(--danger) 10%, var(--bg-panel)); border-color: color-mix(in srgb, var(--danger) 35%, transparent); color: var(--text-primary)` | Status variant — the danger colour |
+| `.field` | `transition: border-color var(--motionin1), box-shadow var(--motionin1)` | A framed control — the frame shows focus for the input inside it |
+| `.collapse` | `display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--motionout3)` | Opens and closes by height — add .open to open |
+| `.data-table` | `width: 100%; border-collapse: collapse; font-size: var(--text-md); color: var(--text-primary)` | A table of records — collapsed borders, quiet header row, row hover |
+| `.data-table-select` | `width: 2.75rem; padding-right: 0` | The narrow checkbox column of a data table |
+| `.data-table-empty` | `padding-block: var(--space-2xl); text-align: center` | The centred cell shown when a data table has no rows |
+| `.ribbon-bookmark` | `clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%); padding-bottom: var(--space-sm)` | The notched bottom edge of a bookmark ribbon |
+| `.carousel-track` | `scrollbar-width: none; touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-select: none` | Drag-to-scroll on top of .reel — no scrollbar, grab cursors |
+| `.is-draggable` | `cursor: grab` | Shows the grab cursor on a draggable track |
+| `.is-dragging` | `cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto` | A drag in progress — no snapping, no pointer events inside |
+| `.track-min` | `min-width: 14em` | Minimum width of a horizontal slider track |
+| `.track-v` | `height: 10em` | An upright slider track — its .h-* class sets the thickness |
 | `.radio` | — | .radio rule |
-| `.min` | — | Shape prop — the smallest radius |
+| `.striped` | — | Shade every other row |
+| `.selected` | — | Selected state — the current item in a set |
 
 ---
 
@@ -518,20 +570,14 @@ Component props — the variant, shape and height classes Fractalsvelte UI consu
 
 | Class | Property | Description |
 |:---|:---|:---|
-| `.primary` | `background-color: var(--bg-button); border: 1px solid var(--bg-button); color: var(--white-fixed)` | Primary variant — the default fill |
-| `.selected` | `background-color: var(--bg-button-active); border: 1px solid var(--bg-button-active)` | Selected state — the current item in a set |
-| `.secondary` | `background-color: var(--bg-button-secondary); border: 1px solid var(--bg-button-secondary); color: var(--white-fixed)` | Secondary variant — a quieter fill |
-| `.themed` | `background-color: var(--theme-color); border: 1px solid var(--theme-color); color: var(--white-fixed)` | Themed variant — filled with the theme colour |
+| `.primary` | `background-color: var(--bg-button); border: 1px solid var(--bg-button); color: var(--on-button, var(--text-inverse))` | Primary variant — the default fill |
+| `.secondary` | `background-color: var(--bg-button-secondary); border: 1px solid var(--bg-button-secondary); color: var(--on-button-secondary, var(--text-primary))` | Secondary variant — a quieter fill |
+| `.themed` | `background-color: var(--theme-color); border: 1px solid var(--theme-color); color: var(--on-theme, var(--white-fixed))` | Themed variant — filled with the theme colour |
 | `.outline` | `background-color: transparent; color: var(--text-primary); border: 1px solid var(--border-strong)` | Outline variant — border only |
-| `.ghost` | `background-color: transparent; border: none; color: var(--text-primary)` | Ghost variant — no fill until hover |
-| `.info` | `background-color: var(--info); border: 1px solid var(--info); color: var(--white-fixed)` | Status variant — the info colour |
-| `.variant-info` | `background-color: var(--info); border: 1px solid var(--info); color: var(--white-fixed)` | background-color: var(--info) |
-| `.success` | `background-color: var(--success); border: 1px solid var(--success); color: var(--white-fixed)` | Status variant — the success colour |
-| `.variant-success` | `background-color: var(--success); border: 1px solid var(--success); color: var(--white-fixed)` | background-color: var(--success) |
-| `.warning` | `background-color: var(--warning); border: 1px solid var(--warning); color: var(--white-fixed)` | Status variant — the warning colour |
-| `.variant-warning` | `background-color: var(--warning); border: 1px solid var(--warning); color: var(--white-fixed)` | background-color: var(--warning) |
-| `.danger` | `background-color: var(--danger); border: 1px solid var(--danger); color: var(--white-fixed)` | Status variant — the danger colour |
-| `.variant-danger` | `background-color: var(--danger); border: 1px solid var(--danger); color: var(--white-fixed)` | background-color: var(--danger) |
+| `.ghost` | `background-color: transparent; border: 1px solid transparent; color: var(--text-primary)` | Ghost variant — no fill until hover |
+| `.msg` | `background-color: var(--info-00); border: 1px solid var(--info-25); color: var(--info-100)` | Message fill — the status scale's soft fill, border and ink (with .info, .success, .warning, .danger or .neutral) |
+| `.neutral` | `background-color: var(--neutral-00); border: 1px solid var(--neutral-25); color: var(--neutral-100)` | Status — the neutral tone |
+| `.hgrow` | `height: auto; min-height: var(--h-xs)` | The size class becomes a minimum height; the control grows with its content |
 
 ---
 
@@ -557,7 +603,7 @@ The sanctioned extension layer — branding, the mascot, and anything a project 
 | Class | Property | Description |
 |:---|:---|:---|
 | `.site-logomotif` | `height: 48px; transform-origin: center center; transition: transform 210ms var(--transin2)` | Site logo motif — scales on hover |
-| `.logotype` | `height: 28px` | Logotype — the wordmark |
+| `.logotype` | `height: 20px` | Logotype — the wordmark |
 | `.project-circle` | `border-radius: 24px; width: 16px; height: 16px` | Project dot |
 | `.mascot` | `display: inline-block; position: relative; flex: none; line-height: 0; perspective: var(--mascot-persp, 400px)` | The mascot — the site character |
 | `.mascot-bob` | `display: block` | The mascot bobs |

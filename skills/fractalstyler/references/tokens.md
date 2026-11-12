@@ -82,7 +82,7 @@ Heights for inputs, selects and buttons.
 | `--h-xs` | `12px` |
 | `--h-sm` | `16px` |
 | `--h-md` | `20px` |
-| `--h-bs` | `24px` |
+| `--h-bs` | `27px` |
 | `--h-lg` | `32px` |
 | `--h-xl` | `40px` |
 | `--h-2xl` | `48px` |
@@ -122,6 +122,7 @@ Name the role, never the value. Values shown are the light default; `[data-mode=
 | `--bg` | `oklch(1.00 0.000 148)` |
 | `--bg-surface` | `oklch(0.96 0.000 148)` |
 | `--bg-panel` | `oklch(0.94 0.000 148)` |
+| `--bg-overlay` | `oklch(1.00 0.000 148)` |
 | `--bg-button` | `oklch(0.20 0.002 148)` |
 | `--bg-button-hover` | `oklch(0.28 0.002 148)` |
 | `--bg-button-active` | `oklch(0.15 0.002 148)` |
@@ -146,6 +147,26 @@ Name the role, never the value. Values shown are the light default; `[data-mode=
 | `--info` | `oklch(0.50 0.220 260)` |
 | `--info-hover` | `oklch(0.40 0.220 260)` |
 | `--ring` | `rgba(255, 208, 0, 0.4)` |
+| `--success-00` | `oklch(0.98 0.070 138)` |
+| `--success-25` | `oklch(0.82 0.150 138)` |
+| `--success-50` | `oklch(0.65 0.200 138)` |
+| `--success-75` | `oklch(0.45 0.200 138)` |
+| `--success-100` | `oklch(0.25 0.200 138)` |
+| `--warning-00` | `oklch(0.95 0.100 92)` |
+| `--warning-25` | `oklch(0.90 0.140 92)` |
+| `--warning-50` | `oklch(0.85 0.180 92)` |
+| `--warning-75` | `oklch(0.70 0.180 92)` |
+| `--warning-100` | `oklch(0.55 0.180 92)` |
+| `--danger-00` | `oklch(0.95 0.150 25)` |
+| `--danger-25` | `oklch(0.76 0.150 25)` |
+| `--danger-50` | `oklch(0.60 0.250 25)` |
+| `--danger-75` | `oklch(0.40 0.250 25)` |
+| `--danger-100` | `oklch(0.20 0.250 25)` |
+| `--info-00` | `oklch(0.95 0.050 260)` |
+| `--info-25` | `oklch(0.70 0.150 260)` |
+| `--info-50` | `oklch(0.50 0.220 260)` |
+| `--info-75` | `oklch(0.35 0.220 260)` |
+| `--info-100` | `oklch(0.20 0.120 260)` |
 
 ## Elevation
 

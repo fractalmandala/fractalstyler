@@ -10,12 +10,15 @@ The core theme color tokens are:
 
 - bg: the background token for the app/site as a whole.
 - bg-surface: background intended for sidebars/headers/footers.
-- bg-panel: background intended for popovers, dialogs, etc.
+- bg-panel: a layer up from bg-surface, for cards and panels.
+- bg-overlay: the opaque fill for anything that floats above the page: menus, popovers, dialogs, drawers, toasts.
 
-These 3 variables are intended to be the background surface, a soft whites/blacks set is recommended. To manage state changes:
+These variables are the background surfaces; a soft whites/blacks set is recommended. To manage state changes:
 
 - state-hover
 - state-selected
+
+Both are translucent tints (black in light mode, white in dark), so they work on top of any surface.
 
 Interactions:
 
@@ -62,6 +65,16 @@ Alerts and Info:
 - info
 - info-hover
 
+Each status, plus a `neutral` one, also has a five-step scale for softer surfaces: `--{status}-00` (the faint fill), `-25` (border), `-50` (base), `-75`, and `-100` (text that reads on the `-00` fill). In dark mode the scale reads the other way up, so `-00` is a deep tint and `-100` a light ink. The `.msg` classes in [Component Props](./11-component-props.md) are built from it:
+
+```css
+--info-00 --info-25 --info-50 --info-75 --info-100
+--success-00 … --success-100
+--warning-00 … --warning-100
+--danger-00 … --danger-100
+--neutral-00 … --neutral-100
+```
+
 Two more tokens live here: `--ring` (focus ring color, consumed by the focus-visible outlines in [Borders, Elevation and Focus](./06-border-elevation-focus.md)) and the `--shadow-*` elevation tokens, including `--shadow-rim`. See that doc for the class-level usage.
 
 As with other variables, the backgrounds and text colors ship as classes using their own variables:
@@ -70,6 +83,9 @@ As with other variables, the backgrounds and text colors ship as classes using t
 .bg-main, .bg { background-color: var(--bg); }
 .bg-surface { background-color: var(--bg-surface); }
 .bg-panel { background-color: var(--bg-panel); }
+.bg-overlay { background-color: var(--bg-overlay); }
+.bg-none { background: transparent; }
+.bg-black { background-color: var(--black-fixed); }
 .state-hover { background-color: var(--state-hover); }
 .state-selected { background-color: var(--state-selected); }
 .bg-input { background-color: var(--bg-input); }
@@ -100,6 +116,19 @@ As with other variables, the backgrounds and text colors ship as classes using t
 .bg-info:hover { background-color: var(--info-hover); }
 ```
 
+## Text on filled variants
+
+The filled variants in [Component Props](./11-component-props.md) (`.primary`, `.secondary`, `.themed`, `.info`, `.success`, `.warning`, `.danger`) do not fix their text colour. Each computes it from its fill with relative colour syntax: white on a dark fill, near-black on a light one, so a theme only sets the fill. To force a colour instead, set the matching override token in the theme:
+
+```css
+[data-mode='light'] {
+	--on-button: var(--white-fixed);
+	--on-theme: var(--black-fixed);
+}
+```
+
+The override tokens are `--on-button`, `--on-button-secondary`, `--on-theme`, `--on-info`, `--on-success`, `--on-warning` and `--on-danger`. None is set by default. `.ink-auto` (in [Components](./10-components.md)) does the same for any element, reading the fill from `--ink-bg`.
+
 Components that use Fractalstyler do not ship colors for their text content, letting users use the text classes they want. And all components use these background variables.
 
 ## Colorpacks
@@ -107,8 +136,9 @@ Components that use Fractalstyler do not ship colors for their text content, let
 `colorpacks.css` is the palette library: it ships no classes, only the raw
 values a theme is built from. Six colour families with numeric steps —
 `--fs-green20…90`, `--fs-blue10…95`, `--fs-orange30…85`, `--fs-red*`,
-`--fs-teal*` — plus a neutral ramp (`--fs-neutral1…`) and two surface ramps,
-`--fs-surface-whitea…h` and `--fs-surface-blacka…h`.
+`--fs-teal*` — plus a neutral ramp (`--fs-neutral1…`), two surface ramps,
+`--fs-surface-whitea…h` and `--fs-surface-blacka…h`, and status scales
+`--fs-{success,warning,danger,info}-00…100` matching the theme's status scale.
 
 Every token is a plain `oklch()` value in `:root`, so a theme picks from them
 by name:

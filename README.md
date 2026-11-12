@@ -88,7 +88,7 @@ npx @fractaldesign/fractalstyler init --docs
 | Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate` |
 | Colour | `.bg`, `.bg-surface`, `.text-primary`, `.text-muted`, `.border` — roles, never values |
 | Variants | `.primary`, `.secondary`, `.themed`, `.outline`, `.ghost`, `.link` |
-| Shape & height | `.rect`, `.min`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` |
+| Shape & height | `.rect`, `.mincurved`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` |
 
 The full list is in [`registry.md`](./registry.md); the reasoning behind it is
 in [the documentation](./docs/introduction.md).

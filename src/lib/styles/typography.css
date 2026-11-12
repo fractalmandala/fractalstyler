@@ -65,7 +65,7 @@
 
 .text-body { 
 	font-size: var(--text-bs);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .text-body-lg { 
 	font-size: var(--text-lg);
@@ -78,29 +78,29 @@
 .page-title { 
 	font-size: var(--text-3xl);
   line-height: 1.1;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02rem;
 }
 .page-desc { 
-	font-size: var(--text-md);
+	font-size: var(--text-bs);
 }
 .page-heading-xl { 
 	font-size: var(--text-xl);
   line-height: 1.1;
   font-weight: 600;
-  letter-spacing: -0.03rem;
+  letter-spacing: -0.01rem;
 }
 .page-heading-lg { 
 	font-size: var(--text-lg);
   line-height: 1.1;
   font-weight: 600;
-  letter-spacing: -0.03rem;
+  letter-spacing: -0.01rem;
 }
 .page-heading-bs { 
 	font-size: var(--text-bs);
   line-height: 1.1;
   font-weight: 600;
-  letter-spacing: -0.02rem;
+  letter-spacing: -0.01rem;
 }
 .card-title { font-size: var(--text-lg);
   font-weight: 600;
@@ -234,3 +234,5 @@
 }
 
 .tabular-nums { font-variant-numeric: tabular-nums; }
+
+.page-header p em { font-style: normal; font-size: var(--text-md); background-color: var(--neutral-00); padding: 2px 4px; border: 1px solid var(--neutral-25); color: var(--neutral-100); border-radius: var(--radius-xs) }

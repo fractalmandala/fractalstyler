@@ -6,9 +6,9 @@ id: 6
 
 This documentation details the border, shadow and focus classes defined in `border-elevation-focus.css`. The `--border-*` color tokens and the `--shadow-*` values they consume are defined per color mode in [Colors and Themes](./08-colors-themes.md).
 
-For borders, a 3 x 5 class system with the axes:
+For borders, a 4 x 5 class system with the axes:
 
-1. border, border-strong, border-subtle - color tokens from `colors-themes.css`
+1. border, border-strong, border-subtle - color tokens from `colors-themes.css` - plus a dashed set
 2. 5 classes each, to set either a complete border, or 1 of the 4 sides.
 
 The scheme is:
@@ -16,14 +16,16 @@ The scheme is:
 - `.border`, `.bl`, `.bt`, `.br`, `.bb`
 - `.border-subtle`, `.bl-sub`, `.bt-sub`, `.br-sub`, `.bb-sub`
 - `.border-strong`, `.bl-str`, `.bt-str`, `.br-str`, `.bb-str`
+- `.border-dashed`, `.bl-dash`, `.bt-dash`, `.br-dash`, `.bb-dash`
 
-All sides are always `1px solid` — the classes only vary the color token. To control width or style, set the border properties directly in your own CSS.
+All are 1px. The solid sets vary only the color token; the dashed set is `1px dashed var(--border)`. `.border-none` removes a border.
 
 ## Elevation
 
 Box-shadow is defined by the `--shadow-*` variables with steps from `xs` to `3xl`, in light and dark pairs. For use in classes, shadow is shortened to make the classes `.shad-*` from `xs` to `3xl`:
 
 ```css
+.shad-none { box-shadow: none; }
 .shad-xs { box-shadow: var(--shadow-xs); }
 /* ... */
 .shad-3xl { box-shadow: var(--shadow-3xl); }

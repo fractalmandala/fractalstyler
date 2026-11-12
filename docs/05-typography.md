@@ -55,7 +55,7 @@ You will notice that text-xs and text-sm are set the same in all cases - 10.72px
 For consistent typography, use these classes - defined once in `typography.css` and used repeatedly to control drift.
 
 `page-title` for page titles. Works on any element but better put on an `<h1>` element.
-`page-desc` for page description text.
+`page-desc` for page description text. Inside a `.page-header`, an `<em>` in a paragraph renders as a small neutral chip, for naming a type or value in a page description.
 `page-heading-xl`, `page-heading-lg`, and `page-heading-bs` for headers hierarchy on pages.
 `text-body` for a default body text size, and `text-body-lg` and `text-body-sm` for variation in that if needed.
 Inside cards, `card-title` and `card-desc` for titles and descriptions respectively.
@@ -66,10 +66,10 @@ For fixing consistent app/site header links and navigation links, and text in si
 
 1. Use class `header-nav` on the element inside headers that contains `<a>` links. `header-nav a` (uppercase, text-sm, weight 500) and `header-nav a:hover` (theme color) are styled.
 2. In left sidebars (documentation), use `nav-header` for section/group label text, which isn't a link.
-	- use `nav-link` for linking text, and `nav-link-sm` if nesting is needed. Note `nav-link` applies `letter-spacing: 1rem` — override it if that's not what you want.
+	- use `nav-link` for linking text, and `nav-link-sm` if nesting is needed. `nav-link` sets text-md with a slight `0.01rem` letter-spacing.
 	- `a.nav-link` also gets padding and rounded corners via `components.css`, see [Components](./10-components.md).
 
-Note: `components.css` adds `a.nav-link:hover { background-color: var(--bg-raised); }` for the same nav-link elements.
+Note: `components.css` adds `a.nav-link:hover { background-color: var(--state-selected); }` for the same nav-link elements.
 
 ### Prose Content
 
@@ -79,6 +79,8 @@ Set class `prose-content` on containers for prose text/documentation text in app
 - p em, li em (rendered as inline code-style chips)
 - h2, h3
 - a, figure, .doc-element, div.scroll-x
+
+`.tabular-nums` gives digits a fixed width, so numbers that change (counters, timers, prices in a column) do not shift the layout.
 
 For the centered/left prose *containers* (max-width clamp, gap), see the `prose` and `prose-left` classes in [Containers](./04-containers.md).
 

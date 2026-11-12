@@ -11,11 +11,11 @@ This document explains the `shapes-sizes.css` file, where Fractalstyler activate
 
 | Token | Value | Token | Value |
 |:--|:--|:--|:--|
-| `--radius-xs` | 3px | `--h-xs` | 12px |
-| `--radius-sm` | 5px | `--h-sm` | 16px |
-| `--radius-md` | 12px | `--h-md` | 20px |
-| `--radius-bs` | 16px | `--h-bs` | 24px |
-| `--radius-lg` | 24px | `--h-lg` | 32px |
+| `--radius-xs` | 2px | `--h-xs` | 12px |
+| `--radius-sm` | 3px | `--h-sm` | 16px |
+| `--radius-md` | 6px | `--h-md` | 20px |
+| `--radius-bs` | 12px | `--h-bs` | 27px |
+| `--radius-lg` | 16px | `--h-lg` | 32px |
 | `--radius-full` | 999px | `--h-xl` | 40px |
 | | | `--h-2xl` | 48px |
 | | | `--h-3xl` | 64px |
@@ -31,13 +31,15 @@ In both cases, the token scales to a class of the same name, styling only that p
 
 ```css
 .rect { border-radius: 0 }
-.mincurved { border-radius: var(--radius-xs); }
-.modern { border-radius: var(--radius-sm); }
-.curved { border-radius: var(--radius-md); }
+.mincurved { border-radius: var(--radius-sm); }
+.modern { border-radius: var(--radius-md); }
+.curved { border-radius: var(--radius-bs); }
 .round { border-radius: var(--radius-full); }
 ```
 
-Note that `component-props.css` ships a parallel set with the shorter name `.min` instead of `.mincurved` — check [Component Props](./11-component-props.md) when working inside components.
+`component-props.css` defines the same five names again, with fallback values for when the radius tokens are missing — see [Component Props](./11-component-props.md). Both sets resolve to the same radii.
+
+The `.h-*` classes set `height` only. A control that should grow past its size class with its content (a field of wrapping tags, say) adds `.hgrow`, which turns the size into a minimum height — see [Component Props](./11-component-props.md).
 
 For granular tuning of border-radius beyond these steps, set the property directly in your own CSS rather than looking for per-pixel classes.
 

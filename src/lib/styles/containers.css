@@ -5,9 +5,11 @@
 .box.ycenter, .column.ycenter { justify-content: center; }
 .box.ytop, .column.ytop { justify-content: flex-start; }
 .box.ybot, .column.ybot { justify-content: flex-end; }
-.box.ybetween, column.ybetween { justify-content: space-between; }
-.box.yevenly, column.yevenly { justify-content: space-evenly; }
+.box.ybetween, .column.ybetween { justify-content: space-between; }
+.box.yevenly, .column.yevenly { justify-content: space-evenly; }
 .box.yaround, .column.yaround { justify-content: space-around; }
+.box.yinherit, .column.yinherit { justify-content: inherit; }
+.box.xinherit, .column.xinherit { align-items: inherit; }
 
 .row { display: flex; flex-direction: row; }
 .row.xleft { justify-content: flex-start; }
@@ -19,6 +21,8 @@
 .row.ycenter { align-items: center; }
 .row.ytop { align-items: flex-start; }
 .row.ybot { align-items: flex-end; }
+.row.xinherit { justify-content: inherit; }
+.row.yinherit { align-items: inherit; }
 
 .grid, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6 { display: grid; }
 .grid.center, .grid-2.center, .grid-3.center, .grid-4.center, .grid-5.center, .grid-6.center { place-items: center; }
@@ -131,3 +135,5 @@
 .overflow-hidden { overflow: hidden; }
 .overflow-visible { overflow: visible; }
 .isolate { isolation: isolate; }
+
+.flex-shrink { flex-shrink: 1 }

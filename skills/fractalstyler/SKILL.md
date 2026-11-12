@@ -24,7 +24,7 @@ Operate within the `fractalstyler` registry as a **closed world**. Never invent 
    | What | Classes |
    |:---|:---|
    | Variant | `.primary` `.secondary` `.themed` `.outline` `.ghost` `.link` `.info` `.success` `.warning` `.danger` |
-   | Shape | `.rect` `.min` `.modern` `.curved` `.round` |
+   | Shape | `.rect` `.mincurved` `.modern` `.curved` `.round` |
    | Height | `.h-xs` `.h-sm` `.h-md` `.h-bs` `.h-lg` `.h-xl` |
    - The same classes work on a button, an input, a select, a card or a div: `<button class="button primary h-md">`.
 4. **Hard Boundaries**:

@@ -9,24 +9,40 @@ This document explains `component-props.css`, which holds the variant/prop class
 ## Button variants
 
 ```css
-.primary   /* bg-button + matching border, white text; hover/selected use bg-button-hover/active */
-.secondary /* same pattern with bg-button-secondary-* */
-themed    /* theme-color background; hover and selected use --theme-color-down */
+.primary   /* bg-button fill and border; hover/selected use bg-button-hover/active */
+.secondary /* the same pattern with bg-button-secondary-* */
+.themed    /* theme-color fill; hover and selected use --theme-color-down */
 .outline   /* transparent, text-primary, border-strong; hover goes theme colored */
-.ghost      /* transparent, borderless; hover/selected use state-hover/state-selected */
-.link       /* looks like a theme-colored text link, underline on hover */
+.ghost     /* transparent with a transparent 1px border; hover/selected use state-hover/state-selected */
+.link      /* a theme-colored text link, underlined on hover */
 ```
 
-Status variants, each a solid fill of its status color with white text:
+Status variants, each a solid fill of its status color:
 
 ```css
-.info, .variant-info
-.success, .variant-success
-.warning, .variant-warning
-.danger, .variant-danger  /* hover darkens to danger-hover */
+.info
+.success
+.warning
+.danger  /* hover darkens to danger-hover */
 ```
 
-The `.variant-*` spellings exist for scoped use inside component variant wrappers (`&.variant-*` in the source).
+### Text on the fill
+
+The filled variants pick their text colour from their fill: white on a dark fill, near-black on a light one, using relative colour syntax. A theme that wants a fixed colour sets the variant's override token: `--on-button`, `--on-button-secondary`, `--on-theme`, `--on-info`, `--on-success`, `--on-warning` or `--on-danger` (see [Colors and Themes](./08-colors-themes.md)). Browsers without relative colour syntax use a fixed fallback.
+
+## Message fills
+
+`.msg` with a status gives the soft, token-based message look used by alerts and badges: the status's `-00` step as the fill, `-25` as the border and `-100` as the text.
+
+```css
+.msg.info
+.msg.success
+.msg.warning
+.msg.danger
+.msg.neutral
+```
+
+The scale tokens are defined per mode in [Colors and Themes](./08-colors-themes.md).
 
 ## Shape props
 
@@ -34,19 +50,18 @@ The radius prop names for components:
 
 ```css
 .rect { border-radius: 0 }
-.min { border-radius: var(--radius-xs, 2px) }
-.modern { border-radius: var(--radius-sm, 4px) }
+.mincurved { border-radius: var(--radius-sm, 3px) }
+.modern { border-radius: var(--radius-md, 6px) }
 .curved { border-radius: var(--radius-bs, 12px) }
 .round { border-radius: var(--radius-full, 9999px) }
 ```
 
-Same scheme as `shapes-sizes.css` (`.mincurved` there is `.min` here), but with fallback values so components render sensibly even without the full token set.
+The same names as in [Shapes and Sizes](./03-shapes-sizes.md), with fallback values so components render sensibly even without the full token set.
 
 ## Height props
 
-`.h-xs` through `.h-xl` set fixed control heights from the `--h-*` tokens defined in [Shapes and Sizes](./03-shapes-sizes.md) (note: this file caps at `xl`, while the token scale continues to `3xl`), plus `min-block-size` so content can't stretch them. The two largest add sensible horizontal padding:
+The `.h-xs` to `.h-xl` classes from [Shapes and Sizes](./03-shapes-sizes.md) set a control's height. For a control that should grow with its content, add `.hgrow`: the size class then sets a minimum height instead.
 
 ```css
-.h-lg { height: var(--height-lg); min-block-size: var(--height-lg); padding-inline: var(--space-bs); }
-.h-xl { height: var(--height-xl); min-block-size: var(--height-xl); padding-inline: var(--space-lg); }
+.hgrow.h-lg { height: auto; min-height: var(--h-lg); }
 ```

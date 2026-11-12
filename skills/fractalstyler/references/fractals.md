@@ -1,7 +1,7 @@
 # Fractalstyler — Class Reference
 
 GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts` from the
-stylesheets in `src/lib/styles`. 486 classes across 396 tokens.
+stylesheets in `src/lib/styles`. 532 classes across 442 tokens.
 
 **The classes below are the entire public API.** The system defines no
 authoring mixins and no styling functions — `+stack`, `+surface`, `space()` and
@@ -64,6 +64,7 @@ The space ladder. Every family runs the eight steps xs sm md bs lg xl 2xl 3xl an
 | `.pad-xl` | Padding on all four sides at the xl step — rides --space-xl | `gaps-pads-margins.css` |
 | `.pad-2xl` | Padding on all four sides at the 2xl step — rides --space-2xl | `gaps-pads-margins.css` |
 | `.pad-3xl` | Padding on all four sides at the 3xl step — rides --space-3xl | `gaps-pads-margins.css` |
+| `.pad-none` | No padding — clears what an element brings with it | `gaps-pads-margins.css` |
 | `.px-xs` | Inline (horizontal) padding at the xs step — rides --space-xs | `gaps-pads-margins.css` |
 | `.px-sm` | Inline (horizontal) padding at the sm step — rides --space-sm | `gaps-pads-margins.css` |
 | `.px-md` | Inline (horizontal) padding at the md step — rides --space-md | `gaps-pads-margins.css` |
@@ -226,6 +227,8 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.ybetween` | justify-content: space-between — modifier of .box | `containers.css` |
 | `.yevenly` | justify-content: space-evenly — modifier of .box | `containers.css` |
 | `.yaround` | justify-content: space-around — modifier of .box | `containers.css` |
+| `.yinherit` | Take the parent container's alignment on the y axis | `containers.css` |
+| `.xinherit` | Take the parent container's alignment on the x axis | `containers.css` |
 | `.row` | Flex row container — the horizontal structural foundation | `containers.css` |
 | `.xbetween` | justify-content: space-between — modifier of .row | `containers.css` |
 | `.xevenly` | justify-content: space-evenly — modifier of .row | `containers.css` |
@@ -262,6 +265,18 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.z-toast` | z-index: var(--z-toast) | `containers.css` |
 | `.scroll-y` | Scroll vertically | `containers.css` |
 | `.scroll-x` | Scroll horizontally | `containers.css` |
+| `.scroll-menu` | A list that scrolls past 16rem — dropdown and option lists | `containers.css` |
+| `.pointer` | Pointer cursor for clickable rows and labels that are not buttons | `containers.css` |
+| `.touch-none` | No touch scrolling — for drag surfaces like sliders and pads | `containers.css` |
+| `.fit-cover` | object-fit: cover — media fills and crops | `containers.css` |
+| `.fit-contain` | object-fit: contain — media fits whole, letterboxed | `containers.css` |
+| `.fit-fill` | object-fit: fill — media stretches to the box | `containers.css` |
+| `.fit-scale-down` | object-fit: scale-down — never larger than its natural size | `containers.css` |
+| `.pin-tl` | Pinned to the top-left corner of the nearest positioned parent | `containers.css` |
+| `.pin-tr` | Pinned to the top-right corner of the nearest positioned parent | `containers.css` |
+| `.pin-bl` | Pinned to the bottom-left corner of the nearest positioned parent | `containers.css` |
+| `.pin-br` | Pinned to the bottom-right corner of the nearest positioned parent | `containers.css` |
+| `.sr-only` | Visually hidden, still focusable and read by screen readers | `containers.css` |
 | `.prose` | Reading measure — a clamped content width | `containers.css` |
 | `.prose-left` | Reading measure, aligned to the start edge | `containers.css` |
 | `.frame-16-9` | aspect-ratio: 16 / 9 | `containers.css` |
@@ -283,6 +298,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.overflow-hidden` | Clip the overflow | `containers.css` |
 | `.overflow-visible` | Let the overflow show | `containers.css` |
 | `.isolate` | Create a stacking context | `containers.css` |
+| `.flex-shrink` | Allow shrinking again — undoes .shrink-0 | `containers.css` |
 
 ---
 
@@ -344,7 +360,9 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.font-mono` | The monospace font stack | `typography.css` |
 | `.doc-element` | An element inside prose content | `typography.css` |
 | `.prose-content` | Prose content — the reading measure of a long text | `typography.css` |
+| `.tabular-nums` | font-variant-numeric: tabular-nums | `typography.css` |
 | `.header-nav` | .header-nav rule | `typography.css` |
+| `.page-header` | A page's title block — flex column for the breadcrumb, title and description | `typography.css` |
 
 ---
 
@@ -357,6 +375,8 @@ The partition-law border set (per side, three weights), elevation steps and the 
 | `.border` | Full border at the standard weight | `border-elevation-focus.css` |
 | `.border-subtle` | Full border at the subtle weight | `border-elevation-focus.css` |
 | `.border-strong` | Full border at the strong weight | `border-elevation-focus.css` |
+| `.border-dashed` | border: 1px dashed var(--border) | `border-elevation-focus.css` |
+| `.border-none` | border: none | `border-elevation-focus.css` |
 | `.bt` | border-top: 1px solid var(--border) | `border-elevation-focus.css` |
 | `.br` | border-right: 1px solid var(--border) | `border-elevation-focus.css` |
 | `.bb` | border-bottom: 1px solid var(--border) | `border-elevation-focus.css` |
@@ -369,6 +389,11 @@ The partition-law border set (per side, three weights), elevation steps and the 
 | `.br-sub` | border-right: 1px solid var(--border-subtle) | `border-elevation-focus.css` |
 | `.bb-sub` | border-bottom: 1px solid var(--border-subtle) | `border-elevation-focus.css` |
 | `.bl-sub` | border-left: 1px solid var(--border-subtle) | `border-elevation-focus.css` |
+| `.bt-dash` | border-top: 1px dashed var(--border) | `border-elevation-focus.css` |
+| `.br-dash` | border-right: 1px dashed var(--border) | `border-elevation-focus.css` |
+| `.bb-dash` | border-bottom: 1px dashed var(--border) | `border-elevation-focus.css` |
+| `.bl-dash` | border-left: 1px dashed var(--border) | `border-elevation-focus.css` |
+| `.shad-none` | box-shadow: none | `border-elevation-focus.css` |
 | `.shad-xs` | Elevation at the xs step — rides --shadow-xs | `border-elevation-focus.css` |
 | `.shad-sm` | Elevation at the sm step — rides --shadow-sm | `border-elevation-focus.css` |
 | `.shad-md` | Elevation at the md step — rides --shadow-md | `border-elevation-focus.css` |
@@ -405,7 +430,7 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.solo` | The main section is the only column | `layout-shell.css` |
 | `.sidebar-left` | Left rail — nav role; off-canvas drawer on narrow screens | `layout-shell.css` |
 | `.sidebar-right` | Right rail — table of contents | `layout-shell.css` |
-| `.open` | .open rule | `layout-shell.css` |
+| `.open` | Open state | `layout-shell.css` |
 | `.app-footer` | Application footer | `layout-shell.css` |
 | `.content-section` | Page content block — responsive padding and narrow width modes | `layout-shell.css` |
 | `.null` | No width constraint | `layout-shell.css` |
@@ -429,6 +454,9 @@ Colour roles. Name the role, never the value; the theme remaps the token.
 | `.bg` | The page background | `colors-themes.css` |
 | `.bg-surface` | Surface fill — cards, panels, inputs | `colors-themes.css` |
 | `.bg-panel` | Panel fill — one step below the surface | `colors-themes.css` |
+| `.bg-overlay` | Overlay fill — opaque, for menus, popovers, dialogs and drawers | `colors-themes.css` |
+| `.bg-none` | No background | `colors-themes.css` |
+| `.bg-black` | Fixed black fill | `colors-themes.css` |
 | `.state-hover` | The hover fill | `colors-themes.css` |
 | `.state-selected` | The selected fill | `colors-themes.css` |
 | `.bg-input` | Input fill | `colors-themes.css` |
@@ -481,7 +509,7 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.gap-overlap` | Overlap the avatars in the group | `components.css` |
 | `.badge` | Count badge | `components.css` |
 | `.tag` | Small inline label | `components.css` |
-| `.ink-auto` | Let the tag pick its ink from its own background | `components.css` |
+| `.ink-auto` | Pick white or near-black ink from the fill behind it (--tag-color on a tag, --ink-bg elsewhere) | `components.css` |
 | `.text-only` | A tag with no fill — text only | `components.css` |
 | `.tag-remove` | The remove control inside a tag | `components.css` |
 | `.switch-box` | The switch track and thumb | `components.css` |
@@ -490,7 +518,6 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.card-clickable` | A card that responds to clicks | `components.css` |
 | `.disabled` | Disabled state | `components.css` |
 | `.is-invalid` | Invalid state — the field failed validation | `components.css` |
-| `.variant` | Variant marker | `components.css` |
 | `.select` | Select dropdown — themed field with a chevron | `components.css` |
 | `.select-wrap` | The frame around a select and its chevron | `components.css` |
 | `.select-chevron` | The chevron inside a select frame | `components.css` |
@@ -501,12 +528,37 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.link-parent` | Link block — hovers the colour of its .link-title child | `components.css` |
 | `.link-title` | The title inside a .link-parent | `components.css` |
 | `.button` | The button — variant, shape and size come from the prop classes | `components.css` |
+| `.no-scaling` | Opt a button out of the press scale | `components.css` |
+| `.btn-icon` | Square icon button — no padding, never shrinks, sized by its .h-* class | `components.css` |
 | `.button-group` | Buttons joined into one control | `components.css` |
 | `.split-button` | A button with a separate action area | `components.css` |
 | `.vertical` | Stack the group vertically | `components.css` |
 | `.btn` | Call-to-action button | `components.css` |
+| `.fit-icon` | Icon button that is exactly its icon — no padding or border, sized by the icon | `components.css` |
+| `.card` | A card — its size class sets the text scale, never the height | `components.css` |
+| `.card-sized` | Scale a card's title, description, label and sub text with its size | `components.css` |
+| `.card-label` | font-size: 1em — child of .card-sized | `components.css` |
+| `.card-sub` | font-size: 0.95em — child of .card-sized | `components.css` |
+| `.banner` | A banner — its size class sets padding and text size, height follows content | `components.css` |
+| `.tint` | Soft status fill — the status colour mixed into the panel fill | `components.css` |
+| `.info` | Status variant — the info colour | `components.css` |
+| `.success` | Status variant — the success colour | `components.css` |
+| `.warning` | Status variant — the warning colour | `components.css` |
+| `.danger` | Status variant — the danger colour | `components.css` |
+| `.field` | A framed control — the frame shows focus for the input inside it | `components.css` |
+| `.collapse` | Opens and closes by height — add .open to open | `components.css` |
+| `.data-table` | A table of records — collapsed borders, quiet header row, row hover | `components.css` |
+| `.data-table-select` | The narrow checkbox column of a data table | `components.css` |
+| `.data-table-empty` | The centred cell shown when a data table has no rows | `components.css` |
+| `.ribbon-bookmark` | The notched bottom edge of a bookmark ribbon | `components.css` |
+| `.carousel-track` | Drag-to-scroll on top of .reel — no scrollbar, grab cursors | `components.css` |
+| `.is-draggable` | Shows the grab cursor on a draggable track | `components.css` |
+| `.is-dragging` | A drag in progress — no snapping, no pointer events inside | `components.css` |
+| `.track-min` | Minimum width of a horizontal slider track | `components.css` |
+| `.track-v` | An upright slider track — its .h-* class sets the thickness | `components.css` |
 | `.radio` | .radio rule | `components.css` |
-| `.min` | Shape prop — the smallest radius | `components.css` |
+| `.striped` | Shade every other row | `components.css` |
+| `.selected` | Selected state — the current item in a set | `components.css` |
 
 ---
 
@@ -517,19 +569,13 @@ Component props — the variant, shape and height classes Fractalsvelte UI consu
 | Class | Applies | Source |
 |:---|:---|:---|
 | `.primary` | Primary variant — the default fill | `component-props.css` |
-| `.selected` | Selected state — the current item in a set | `component-props.css` |
 | `.secondary` | Secondary variant — a quieter fill | `component-props.css` |
 | `.themed` | Themed variant — filled with the theme colour | `component-props.css` |
 | `.outline` | Outline variant — border only | `component-props.css` |
 | `.ghost` | Ghost variant — no fill until hover | `component-props.css` |
-| `.info` | Status variant — the info colour | `component-props.css` |
-| `.variant-info` | background-color: var(--info) | `component-props.css` |
-| `.success` | Status variant — the success colour | `component-props.css` |
-| `.variant-success` | background-color: var(--success) | `component-props.css` |
-| `.warning` | Status variant — the warning colour | `component-props.css` |
-| `.variant-warning` | background-color: var(--warning) | `component-props.css` |
-| `.danger` | Status variant — the danger colour | `component-props.css` |
-| `.variant-danger` | background-color: var(--danger) | `component-props.css` |
+| `.msg` | Message fill — the status scale's soft fill, border and ink (with .info, .success, .warning, .danger or .neutral) | `component-props.css` |
+| `.neutral` | Status — the neutral tone | `component-props.css` |
+| `.hgrow` | The size class becomes a minimum height; the control grows with its content | `component-props.css` |
 
 ---
 
@@ -671,7 +717,7 @@ The sveltemodular workspace chrome.
   --h-xs: 12px;
   --h-sm: 16px;
   --h-md: 20px;
-  --h-bs: 24px;
+  --h-bs: 27px;
   --h-lg: 32px;
   --h-xl: 40px;
   --h-2xl: 48px;
@@ -710,6 +756,7 @@ The sveltemodular workspace chrome.
   --bg: oklch(1.00 0.000 148);
   --bg-surface: oklch(0.96 0.000 148);
   --bg-panel: oklch(0.94 0.000 148);
+  --bg-overlay: oklch(1.00 0.000 148);
   --bg-button: oklch(0.20 0.002 148);
   --bg-button-hover: oklch(0.28 0.002 148);
   --bg-button-active: oklch(0.15 0.002 148);
@@ -748,6 +795,31 @@ The sveltemodular workspace chrome.
   --shadow-xl: 0 8px 16px rgb(var(--shadow-color) / 0.1), 0 20px 36px rgb(var(--shadow-color) / 0.2);
   --shadow-2xl: 0 12px 24px rgb(var(--shadow-color) / 0.1), 0 28px 48px rgb(var(--shadow-color) / 0.2);
   --shadow-3xl: 0 16px 32px rgb(var(--shadow-color) / 0.1), 0 36px 64px rgb(var(--shadow-color) / 0.2);
+  --success-00: oklch(0.98 0.070 138);
+  --success-25: oklch(0.82 0.150 138);
+  --success-50: oklch(0.65 0.200 138);
+  --success-75: oklch(0.45 0.200 138);
+  --success-100: oklch(0.25 0.200 138);
+  --warning-00: oklch(0.95 0.100 92);
+  --warning-25: oklch(0.90 0.140 92);
+  --warning-50: oklch(0.85 0.180 92);
+  --warning-75: oklch(0.70 0.180 92);
+  --warning-100: oklch(0.55 0.180 92);
+  --danger-00: oklch(0.95 0.150 25);
+  --danger-25: oklch(0.76 0.150 25);
+  --danger-50: oklch(0.60 0.250 25);
+  --danger-75: oklch(0.40 0.250 25);
+  --danger-100: oklch(0.20 0.250 25);
+  --info-00: oklch(0.95 0.050 260);
+  --info-25: oklch(0.70 0.150 260);
+  --info-50: oklch(0.50 0.220 260);
+  --info-75: oklch(0.35 0.220 260);
+  --info-100: oklch(0.20 0.120 260);
+  --neutral-00: oklch(0.92 0.002 210);
+  --neutral-25: oklch(0.80 0.002 140);
+  --neutral-50: oklch(0.60 0.010 140);
+  --neutral-75: oklch(0.40 0.010 140);
+  --neutral-100: oklch(0.30 0.010 140);
   --transin1: cubic-bezier(0.470, 0.000, 0.745, 0.715);
   --transin2: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   --transin3: cubic-bezier(0.755, 0.050, 0.855, 0.060);
@@ -1027,4 +1099,24 @@ The sveltemodular workspace chrome.
   --fs-surface-blackh7: oklch(0.739 0.130 264.63);
   --fs-surface-blackh8: oklch(0.869 0.125 265.21);
   --fs-surface-blackh9: oklch(0.953 0.009 264.05);
+  --fs-success-00: oklch(0.98 0.100 138);
+  --fs-success-25: oklch(0.82 0.150 138);
+  --fs-success-50: oklch(0.65 0.200 138);
+  --fs-success-75: oklch(0.45 0.200 138);
+  --fs-success-100: oklch(0.25 0.200 138);
+  --fs-warning-00: oklch(0.95 0.100 92);
+  --fs-warning-25: oklch(0.90 0.140 92);
+  --fs-warning-50: oklch(0.85 0.180 92);
+  --fs-warning-75: oklch(0.70 0.180 92);
+  --fs-warning-100: oklch(0.55 0.180 92);
+  --fs-danger-00: oklch(0.95 0.150 25);
+  --fs-danger-25: oklch(0.76 0.150 25);
+  --fs-danger-50: oklch(0.60 0.250 25);
+  --fs-danger-75: oklch(0.40 0.250 25);
+  --fs-danger-100: oklch(0.20 0.250 25);
+  --fs-info-00: oklch(0.90 0.100 260);
+  --fs-info-25: oklch(0.70 0.150 260);
+  --fs-info-50: oklch(0.50 0.220 260);
+  --fs-info-75: oklch(0.35 0.220 260);
+  --fs-info-100: oklch(0.20 0.220 260);
 ```
