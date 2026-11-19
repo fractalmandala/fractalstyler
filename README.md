@@ -13,7 +13,7 @@ You can install and use Fractalstyler in the following ways:
 	- 2.3 - install registry, docs, css files
 	- 2.4 - full install - registry, docs, css files, lint, mcp, scripts
 3. Use Agent
-	- Point your agent to the [Fractalstyler skill](./skills/fractalstyler/SKILL.md) and instruct 'use fractalstyler skill, setup the system and guide in my project.'
+	- Point your agent to the [Fractalstyler skill](./skills/fractalstyler-master/SKILL.md) and instruct 'use fractalstyler skill, setup the system and guide in my project.'
 
 Read [documentation](./docs/introduction.md).
 Read [developer's guide](./docs/14-development.md)
@@ -41,7 +41,7 @@ Or a single layer, when you only want part of the system:
 import '@fractaldesign/fractalstyler/styles/typography.css';
 ```
 
-**Theming.** Light and dark use `data-mode` on `<html>`. A named palette is `data-theme` — a preset of `--hue`, `--chroma`, and `--tint`. The default recipe, and `data-theme="fractalsvelte"`, is hue 38 / chroma 0.2 / tint 0.012; the other named presets (`aurora`, `ocean`, `ember`, `rose`, `lime`, `amber`, `mono`) keep their own hues. `data-radius`, `data-density`, and `data-motion` are optional axes that rewrite those token ladders. Don't invent further theme attributes.
+**Theming.** Light and dark use `data-mode` on `<html>`. A named palette is `data-theme` — a preset of `--hue`, `--chroma`, and `--tint`. The default recipe, and `data-theme="fractalsvelte"`, is hue 40 / chroma 0.2 / tint 0.012; the other named presets (`aurora`, `ocean`, `ember`, `rose`, `lime`, `amber`, `mono`) keep their own hues. `themes/fsui-themes.css` ships 24 complete themes as literal light and dark token sets. `data-density` is the only implemented ladder axis — `data-radius` and `data-motion` have no rules in the current layers. Don't invent further theme attributes.
 
 The styles stay in `node_modules`; upgrades come from npm.
 
@@ -87,36 +87,26 @@ npx @fractaldesign/fractalstyler init --docs
 |:---|:---|
 | Containers | `.box` (column), `.row` (horizontal), `.grid` — and their modifiers `.xcenter`, `.ycenter`, `.xbetween` |
 | Spacing | `.gap-*`, `.pad-*`, `.px-*`, `.py-*`, `.mar-*` — eight steps: `xs sm md bs lg xl 2xl 3xl` |
-| Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate`, `.clamp-2` / `.clamp-3` |
+| Type | `.text-xs` … `.text-5xl`, `.weight-*`, `.lh*`, `.ls-*`, `.truncate` |
 | Colour | `.bg`, `.bg-surface`, `.text-primary`, `.text-muted`, `.border` — roles, never values |
 | Variants | `.primary`, `.secondary`, `.themed`, `.outline`, `.ghost`, `.link` |
 | Shape & height | `.rect`, `.mincurved`, `.modern`, `.curved`, `.round` · `.h-xs` … `.h-xl` · `.measure-*` / `.max-h-*` |
-| Motion | `.spring`, `.spring-*`, `.enter-*`, `.pop`, `.lift`, `.press` |
+| Motion | `.spring`, `.spring-*`, `.lift`, `.press` |
+| Themes | eight `data-theme` palettes in `colors-themes.css`; 24 full light + dark themes in `themes/fsui-themes.css` |
 
 The full list is in [`registry.md`](./registry.md); the reasoning behind it is
 in [the documentation](./docs/introduction.md).
 
-### The shell components
+### The shell
 
-The application shell — header, main, sidebars, footer — is published as
-Svelte components, so you do not have to remember the markup:
+`layout-shell.css` is the skeleton: `.app-shell` → `.app-header` / `.app-main`
+(with `.sidebar-left`, `.main-section`, `.sidebar-right`) / `.app-footer`, plus
+the page wrappers and the overlay primitives. It is classes, not components —
+the markup is the canonical markup.
 
-```svelte
-<script>
-	import { AppShell } from '@fractaldesign/fractalstyler/layout';
-</script>
-
-<AppShell clamped>
-	{#snippet header()}
-		<strong>My app</strong>
-	{/snippet}
-
-	<h1>Hello</h1>
-</AppShell>
-```
-
-See [Layout](./docs/16-layout.md) for every component and the layout state
-that fills them.
+See [Layout Shell](./docs/07-layout-shell.md) for the anatomy and
+[Canonical Markups](./docs/fractalstyler-master/references/canonical-markups.md)
+for the contracts.
 
 ## CLI reference
 
@@ -226,29 +216,28 @@ last — because the version is what the generated files get stamped with.
 | You are changing | Where |
 |:---|:---|
 | a class or a token | `src/lib/styles/*.css` |
-| a whole new layer | a new file in `src/lib/styles/` — and two more places, below |
+| a whole new layer | a new file in `src/lib/styles/` — and one more place, below |
 | the documentation | `docs/*.md` |
-| the agent skill | `skills/fractalstyler/SKILL.md` |
+| the agent skill | `docs/fractalstyler-master/` — the source; `skills/fractalstyler-master/` is generated |
 
-A new stylesheet has to be registered in two places, and they must agree:
+A new stylesheet has to be registered in one place:
 
-1. `src/lib/styles/index.css` — the cascade: the order the layers are
-   concatenated in, and the order a consumer inherits;
-2. `FILE_ORDER` in `scripts/update-registry.ts` — the order the registry reads
-   them, so the class table and the cascade tell the same story.
-
-A layer that is in one and not the other still works, but the registry and the
-cascade disagree about what comes first.
+1. `src/lib/styles/index.css` — the cascade. `styleFiles()` resolves it from
+   the `@import` list, so the registry cannot disagree with what a browser
+   loads. A layer that ships but stays out of the aggregate goes in
+   `DETACHED_ORDER` in `scripts/update-registry.ts` instead — `custom.css` and
+   `modular.css` live there today.
 
 ### 2. Regenerate the derived files
 
 ```bash
-npm run registry   # registry.json, registry.md, skills/fractalstyler/references/{fractals,tokens}.md
-npm run tokens     # gen:springs, then src/lib/tokensRegistry.ts
+npm run registry   # registry.json, registry.md, then skills/fractalstyler-master/
+npm run tokens     # src/lib/tokensRegistry.ts
 ```
 
 Never edit those by hand — each carries a "Generated" banner, and the next run
-overwrites it.
+overwrites it. The skill is generated too: edit `docs/fractalstyler-master/`,
+never `skills/fractalstyler-master/`.
 
 ### 3. Check
 
@@ -308,5 +297,5 @@ is aborted before anything leaves the machine.
 | `src/lib/index.ts` — the version constant | your hand |
 | `registry.json`, `registry.md`, `skills/…/fractals.md`, `skills/…/tokens.md` | `npm run registry` |
 | `src/lib/tokensRegistry.ts` | `npm run tokens` |
-| `src/lib/styles/index.css` and `FILE_ORDER` | your hand — both, together |
+| `src/lib/styles/index.css` and `DETACHED_ORDER` | your hand — both, together |
 | `docs/*.md` | your hand — checked by `npm run validate:deck` |

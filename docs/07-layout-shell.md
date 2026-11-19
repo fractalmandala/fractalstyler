@@ -65,12 +65,12 @@ Native `<dialog>` and the Popover API do the stacking, focus and dismissal; CSS 
 - `.match-anchor` — the floating box is at least as wide as its anchor
 - `.at-pointer` — a zero-size anchor fixed at `--px` / `--py` (unitless CSS pixels), for context menus
 
-A modal surface: `<dialog class="dialog pop">`. `.dialog` centres itself and caps to the viewport minus `--space-xl`; its `::backdrop` uses `--scrim` and fades in with the motion tokens. `.dialog.sheet` docks to an edge — add `.at-right`, `.at-left`, `.at-top` or `.at-bottom`. `.dialog.fullscreen` fills the viewport.
+A modal surface: `<dialog class="dialog">`. `.dialog` centres itself and caps to the viewport minus `--space-xl`; its `::backdrop` uses `--scrim` and fades in with the motion tokens. `.dialog.sheet` docks to an edge — add `.at-right`, `.at-left`, `.at-top` or `.at-bottom`. `.dialog.fullscreen` fills the viewport. Entrance and exit come from `data-starting-style` / `data-ending-style`, which the primitive sets — see [Motion and Animation](./09-motion-animation.md).
 
 - `.open-column` — lays out as a column only while `[open]` or `:popover-open`
 - `.sized` — width from `--size` (or, on a top/bottom sheet, height)
 - `.layer` — a free top-layer region (toasts): `<div popover="manual" class="layer …">`, placed with the same `.at-*` modifiers against the viewport edges
 
-Pair overlays with `.pop` and `.enter-*` from [Motion and Animation](./09-motion-animation.md).
+The primitive toggles `data-starting-style` / `data-ending-style` and `data-side`; `types.css` turns those into the entrance and exit, so an overlay needs no motion class of its own. See [Motion and Animation](./09-motion-animation.md).
 
 For the vertical fitment alternative (a central area filling the viewport minus header/footer), see the `hfull-fitted` class in [Shapes and Sizes](./03-shapes-sizes.md).

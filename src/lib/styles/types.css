@@ -1,0 +1,189 @@
+[data-size="h-xs"] { height: var(--h-xs); }
+[data-size="h-sm"] { height: var(--h-sm); }
+[data-size="h-md"] { height: var(--h-md); }
+[data-size="h-bs"] { height: var(--h-bs); }
+[data-size="h-lg"] { height: var(--h-lg); }
+[data-size="h-xl"] { height: var(--h-xl); }
+[data-size="h-2xl"] { height: var(--h-2xl); }
+[data-size="h-3xl"] { height: var(--h-3xl); }
+
+[data-variant="primary"] {
+  background-color: var(--bg-button);
+  border: 1px solid var(--bg-button);
+}
+[data-variant="primary"]:hover {
+  background-color: var(--bg-button-hover);
+  border: 1px solid var(--bg-button-hover);
+}
+[data-variant="primary"].selected,
+[data-variant="primary"][data-selected="true"] {
+  background-color: var(--bg-button-active);
+  border: 1px solid var(--bg-button-active);
+}
+
+[data-variant="secondary"] {
+  background-color: var(--bg-button-secondary);
+  border: 1px solid var(--bg-button-secondary);
+}
+[data-variant="secondary"]:hover {
+  background-color: var(--bg-button-secondary-hover);
+  border: 1px solid var(--bg-button-secondary-hover);
+}
+[data-variant="secondary"].selected,
+[data-variant="secondary"][data-selected="true"] {
+  background-color: var(--bg-button-secondary-active);
+  border: 1px solid var(--bg-button-secondary-active);
+}
+
+[data-variant="themed"] {
+  background-color: var(--theme-color);
+  border: 1px solid var(--theme-color);
+}
+[data-variant="themed"]:hover {
+  background-color: var(--theme-color-down);
+  border: 1px solid var(--theme-color-down);
+}
+[data-variant="themed"].selected,
+[data-variant="themed"][data-selected="true"] {
+  background-color: var(--theme-color-down);
+  border: 1px solid var(--theme-color-down);
+}
+
+[data-variant="outline"] {
+  background-color: transparent;
+  border: 1px solid var(--border-strong);
+}
+[data-variant="outline"]:hover {
+  border: 1px solid var(--theme-color);
+}
+[data-variant="outline"].selected,
+[data-variant="outline"][data-selected="true"] {
+  background-color: var(--state-selected);
+  border: 1px solid var(--border-strong);
+}
+
+[data-variant="ghost"] {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+[data-variant="ghost"]:hover {
+  background-color: var(--state-hover);
+}
+[data-variant="ghost"].selected,
+[data-variant="ghost"][data-selected="true"] {
+  background-color: var(--state-selected);
+}
+
+[data-variant="link"] {
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-decoration: none;
+  text-decoration-color: var(--theme-color);
+}
+[data-variant="link"]:hover {
+  text-decoration: underline;
+}
+
+[data-variant="info"] {
+  background-color: var(--info);
+  border: 1px solid var(--info);
+}
+
+[data-variant="success"] {
+  background-color: var(--success);
+  border: 1px solid var(--success);
+}
+
+[data-variant="warning"] {
+  background-color: var(--warning);
+  border: 1px solid var(--warning);
+}
+
+[data-variant="danger"] {
+  background-color: var(--danger);
+  border: 1px solid var(--danger);
+}
+[data-variant="danger"]:hover {
+  background-color: var(--danger-hover);
+  border: 1px solid var(--danger-hover);
+}
+
+[data-shape="rect"] { border-radius: 0; }
+[data-shape="mincurved"] { border-radius: var(--radius-sm); }
+[data-shape="modern"] { border-radius: var(--radius-md); }
+[data-shape="curved"] { border-radius: var(--radius-bs); }
+[data-shape="round"] { border-radius: var(--radius-full); }
+
+/* Tones */
+[data-tone="info"] { background-color: var(--info-00); border: 1px solid var(--info-25); color: var(--info-100); }
+[data-tone="success"] { background-color: var(--success-00); border: 1px solid var(--success-25); color: var(--success-100); }
+[data-tone="warning"] { background-color: var(--warning-00); border: 1px solid var(--warning-25); color: var(--warning-100); }
+[data-tone="danger"] { background-color: var(--danger-00); border: 1px solid var(--danger-25); color: var(--danger-100); }
+[data-tone="neutral"] { background-color: var(--neutral-00); border: 1px solid var(--neutral-25); color: var(--neutral-100); }
+
+/* Text Sizes */
+[data-text-size="text-xs"] { font-size: var(--text-xs); }
+[data-text-size="text-sm"] { font-size: var(--text-sm); }
+[data-text-size="text-md"] { font-size: var(--text-md); }
+[data-text-size="text-bs"] { font-size: var(--text-bs); }
+[data-text-size="text-lg"] { font-size: var(--text-lg); }
+[data-text-size="text-xl"] { font-size: var(--text-xl); }
+[data-text-size="text-2xl"] { font-size: var(--text-2xl); }
+[data-text-size="text-3xl"] { font-size: var(--text-3xl); }
+[data-text-size="text-4xl"] { font-size: var(--text-4xl); }
+[data-text-size="text-5xl"] { font-size: var(--text-5xl); }
+
+/* Orientations */
+[data-orientation="horizontal"] { flex-direction: row; }
+[data-orientation="vertical"] { flex-direction: column; }
+
+/* Placement — the primitive emits data-side and data-align, so the popup's
+ * position-area and transform-origin come from what it already writes. */
+.floating[data-side="top"] { position-area: top; margin-bottom: var(--offset); transform-origin: bottom; }
+.floating[data-side="top"][data-align="start"] { position-area: top span-right; transform-origin: bottom left; }
+.floating[data-side="top"][data-align="end"] { position-area: top span-left; transform-origin: bottom right; }
+.floating[data-side="bottom"] { position-area: bottom; margin-top: var(--offset); transform-origin: top; }
+.floating[data-side="bottom"][data-align="start"] { position-area: bottom span-right; transform-origin: top left; }
+.floating[data-side="bottom"][data-align="end"] { position-area: bottom span-left; transform-origin: top right; }
+.floating[data-side="left"] { position-area: left; margin-right: var(--offset); transform-origin: right; }
+.floating[data-side="left"][data-align="start"] { position-area: left span-bottom; transform-origin: top right; }
+.floating[data-side="left"][data-align="end"] { position-area: left span-top; transform-origin: bottom right; }
+.floating[data-side="right"] { position-area: right; margin-left: var(--offset); transform-origin: left; }
+.floating[data-side="right"][data-align="start"] { position-area: right span-bottom; transform-origin: top left; }
+.floating[data-side="right"][data-align="end"] { position-area: right span-top; transform-origin: bottom left; }
+
+/* States. The attribute is present when the state is on — Base UI omits it
+ * rather than writing "false", so presence is the test. The aria twin is kept
+ * alongside because that is what an assistive technology reads. */
+[data-disabled], [aria-disabled="true"] { opacity: 0.5; pointer-events: none; cursor: not-allowed; }
+[data-pending], [aria-busy="true"] { opacity: 0.5; pointer-events: none; cursor: progress; }
+[data-readonly], [readonly] { color: var(--text-muted); cursor: default; }
+[data-invalid], [aria-invalid="true"] { border-color: var(--danger); }
+[data-selected], [aria-selected="true"], [aria-current="page"], [aria-current="true"] { background-color: var(--state-selected); }
+[data-highlighted] { background-color: var(--state-hover); }
+[data-pressed], [aria-pressed="true"] { background-color: var(--state-selected); }
+[data-current] { color: var(--theme-color); }
+[data-checked], [data-indeterminate] { background-color: var(--theme-color); color: var(--on-theme, var(--white-fixed)); }
+
+/* Open and expanded carry no paint of their own — the component decides. The
+ * one exception is the chevron, which mirrors .caret.open. */
+.caret[data-open], .caret[data-expanded="true"] { rotate: 180deg; }
+.caret.quarter[data-open], .caret.quarter[data-expanded="true"] { rotate: 90deg; }
+
+/* Entering and exiting. The primitive sets data-starting-style on the first
+ * frame and data-ending-style for the exit, so both carry only the collapsed
+ * values; the timing sits on the overlay base, where it is present for the
+ * element's whole life. data-side comes from the same primitive, so the
+ * direction needs neither a class nor a prop. */
+.floating, .dialog {
+  transition:
+    opacity calc(var(--speed3) * var(--motion-scale)) var(--transout2),
+    scale calc(var(--spring-ms) * var(--motion-scale)) var(--spring),
+    translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring);
+}
+[data-starting-style], [data-ending-style] { opacity: 0; scale: var(--enter-scale, 0.96); translate: var(--enter-x, 0) var(--enter-y, 0); }
+[data-side="top"] { --enter-y: var(--space-md); }
+[data-side="bottom"] { --enter-y: calc(var(--space-md) * -1); }
+[data-side="left"] { --enter-x: var(--space-md); }
+[data-side="right"] { --enter-x: calc(var(--space-md) * -1); }
+

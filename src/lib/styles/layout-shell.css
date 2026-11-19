@@ -1,10 +1,47 @@
-.app-shell { display: flex; flex-direction: column; position: relative; min-height: 100vh; }
-.app-header { display: flex; flex-direction: row; align-items: center; position: sticky; top: 0; z-index: var(--z-sticky); height: var(--header-height); padding-inline: var(--app-inline); }
-.app-header.clamped { width: var(--content-clamp); margin-inline: auto; }
-.app-main { flex: 1 1 0%; min-width: 0; min-height: calc(100dvh - var(--fit-height)); display: flex; flex-direction: row; }
-.app-main.clamped { width: var(--content-clamp); margin-inline: auto; }
-.main-section { flex: 1 1 0%; min-width: 0; }
-.main-section.solo { padding-inline: var(--app-inline); }
+.app-shell { 
+	display: flex; 
+	flex-direction: column; 
+	position: relative; 
+}
+
+.app-header { 
+	display: flex; 
+	flex-direction: row; 
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-bs);
+	position: sticky; 
+	top: 0; 
+	z-index: var(--z-sticky); 
+	height: var(--header-height); 
+	padding-inline: var(--app-inline); 
+}
+
+.app-header.clamped { 
+	width: var(--content-clamp); 
+	margin-inline: auto; 
+}
+
+.app-main { 
+	flex: 1 1 0%; 
+	min-width: 0; 
+	min-height: calc(100dvh - var(--fit-height)); display: flex; 
+	flex-direction: row; 
+}
+
+.app-main.clamped { 
+	width: var(--content-clamp); 
+	margin-inline: auto; 
+}
+
+.main-section { 
+	flex: 1 1 0%; 
+	min-width: 0; 
+}
+
+.main-section.solo { 
+	padding-inline: var(--app-inline); 
+}
 
 .sidebar-left, .sidebar-right { 
 	display: none; 
@@ -16,36 +53,67 @@
 }
 
 .sidebar-left::-webkit-scrollbar { width: 2px; }
+.sidebar-right::-webkit-scrollbar { width: 2px; }
 
-.sidebar-left ul, .sidebar-left ol, .sidebar-right ul, .sidebar-right ol { margin-left: 0; padding-left: 0; }
+.sidebar-left ul, .sidebar-left ol, .sidebar-right ul, .sidebar-right ol { 
+	margin-left: 0; 
+	padding-left: 0; 
+}
 
-.sidebar-left { width: var(--sidebar-width-left); }
-.sidebar-right { width: var(--sidebar-width-right); }
+.sidebar-left { 
+	width: var(--sidebar-width-left); 
+}
+.sidebar-right { 
+	width: var(--sidebar-width-right); 
+}
 
 @media (max-width: 1024px) {
 	.app-shell.open .sidebar-left {
 		display: block;
 		position: fixed;
-		left: 0;
+		right: 0;
 		top: var(--header-height);
 		z-index: var(--z-modal);
 		height: calc(100dvh - var(--header-height));
 		background-color: var(--bg);
-		border-right: 1px solid var(--border);
 	}
 }
 
-@media (min-width: 1025px) { .sidebar-left { display: block; } }
+@media (min-width: 1025px) { 
+	.sidebar-left { display: block; } 
+}
 
-@media (min-width: 1281px) { .sidebar-right { display: block; } }
+@media (min-width: 1281px) { 
+	.sidebar-right { display: block; } 
+}
 
-.app-footer { display: flex; flex-direction: row; align-items: center; padding-inline: var(--app-inline); min-height: var(--footer-height); }
-.content-section { width: 100%; display: flex; flex-direction: column; }
-.content-section.null { padding-inline: 0 var(--space-bs); }
-.page-header { display: flex; flex-direction: column; }
+.app-footer { 
+	display: flex; 
+	flex-direction: row; 
+	align-items: center; 
+	padding-inline: var(--app-inline); 
+	min-height: var(--footer-height);
+	justify-content: space-between;
+	gap: var(--space-bs);
+}
 
-/* B08: widths ride the measure ladder; padding-right on narrow-half
- * reserves space for a right aside (space-xl, then --content-aside). */
+.content-section { 
+	width: 100%; 
+	display: flex; 
+	flex-direction: column;
+	gap: var(--space-bs);
+}
+
+.content-section.null { 
+	padding-inline: 0 var(--space-bs); 
+}
+
+.page-header { 
+	display: flex; 
+	flex-direction: column; 
+	gap: var(--space-sm);
+}
+
 @media (min-width: 769px) {
 	.content-section { padding-inline: var(--space-bs); }
 	.content-section.narrow-half { width: var(--measure-lg); margin-inline: auto; }
@@ -72,8 +140,6 @@
 .nav-section { display: flex; flex-direction: column; }
 .logo-link { display: inline-flex; align-items: center; text-decoration: none; color: inherit; }
 .toc-section { display: flex; flex-direction: column; }
-.toc-link { display: block; font-size: var(--text-sm); color: var(--text-secondary); text-decoration: none; }
-.toc-link:hover { color: var(--theme-color); }
 
 
 .sidebar-left::-webkit-scrollbar-track { background-color: transparent }
@@ -81,16 +147,20 @@
   background-color: rgba(255, 255, 255, 0.22);
   border-radius: 999px;
 }
+.sidebar-right::-webkit-scrollbar-track { background-color: transparent }
+.sidebar-right::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+}
 
-/* fsui-unify: C20 */
-/* Overlays: the top layer, anchored. Native <dialog> and the Popover API do
- * the stacking, focus and dismissal; CSS anchor positioning does the placement. */
-:where(.floating, .dialog, .layer) { border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible; }
+
 
 /* The anchor names itself through --anchor; the floating element points at it. */
 .anchor { anchor-name: var(--anchor); }
 [data-anchor] { anchor-name: var(--anchor); }
-.floating { position: fixed; position-anchor: var(--anchor); inset: auto; max-height: calc(100dvh - var(--space-lg)); position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline; }
+.floating { 
+	position: fixed; position-anchor: var(--anchor); inset: auto; max-height: calc(100dvh - var(--space-lg)); position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline; 
+}
 .floating.at-top { position-area: top; margin-bottom: var(--offset); transform-origin: bottom; }
 .floating.at-top-start { position-area: top span-right; margin-bottom: var(--offset); transform-origin: bottom left; }
 .floating.at-top-end { position-area: top span-left; margin-bottom: var(--offset); transform-origin: bottom right; }
@@ -101,6 +171,8 @@
 .floating.at-right { position-area: right; margin-left: var(--offset); transform-origin: left; }
 .floating.at-right-start { position-area: right span-bottom; margin-left: var(--offset); transform-origin: top left; }
 .floating.at-left-start { position-area: left span-bottom; margin-right: var(--offset); transform-origin: top right; }
+.floating.at-left-end { position-area: left span-top; margin-right: var(--offset); transform-origin: bottom right; }
+.floating.at-right-end { position-area: right span-top; margin-left: var(--offset); transform-origin: bottom left; }
 .floating.match-anchor { min-width: anchor-size(width); }
 
 /* A zero-size anchor fixed at the pointer (--px / --py, unitless px): context menus. */
@@ -135,3 +207,8 @@
 .layer.at-bottom { bottom: var(--space-bs); left: 50%; translate: -50% 0; }
 .layer.at-bottom-start { bottom: var(--space-bs); left: var(--space-bs); }
 .layer.at-bottom-end { bottom: var(--space-bs); right: var(--space-bs); }
+
+.page-section { display: flex; flex-direction: column; padding-bottom: var(--space-2xl); padding-top: var(--space-xs); }
+@media (min-width: 1025px) { .page-section { min-height: calc(100vh - var(--header-height) - var(--footer-height)); } }
+
+.page-content { display: flex; flex-direction: column; gap: var(--space-bs); }

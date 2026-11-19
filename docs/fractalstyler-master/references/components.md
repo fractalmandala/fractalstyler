@@ -1,0 +1,226 @@
+# Components
+
+Composition recipes - which classes go together, in which nesting. The state semantics behind them are in `./interactions.md`; the shells these sit inside are in `./canonical-markups.md`. Verify every name against the resolved `registry.json` first.
+
+## The Rule Behind Every Recipe
+
+**Most component classes carry no visual default.** `.elevated` / `.paneled` / `.outlined` / `.vacant` are the surface recipes; `.card-clickable` is the only `card-*` behaviour class. `.button` sets layout and transitions but no background, border, radius or height. `.input` sets `display` and padding but no border or background. `.field` sets only a focus transition. `.tag` reads a `--tag-color` that nothing sets by default.
+
+So a component is **base + variant + shape + size + surface**, and the recipe that looks broken is nearly always missing one axis:
+
+| Axis | Supplies | Example classes |
+|:---|:---|:---|
+| Base | structure and behavior | `.button` `.input` `.field` `.item` `.tag` |
+| Variant | fill, border, ink | `.primary` `.secondary` `.outline` `.ghost` `.soft` `.danger` |
+| Shape | radius | `.rect` `.mincurved` `.modern` `.curved` `.round` |
+| Size | height and text rung | `.h-sm` … `.h-xl`, `.hgrow` |
+| Surface | background, border, elevation | `.bg-surface` `.bg-panel` `.border` `.shad-sm` `.rim`, or `.elevated` for a card surface |
+| Spacing | internal and between | `.pad-lg` `.gap-bs` `.box` `.row` |
+
+Read the Property column of the registry entry for a base class. If it does not mention background, border or radius, you must supply them.
+
+## Buttons And Links
+
+```svelte
+<button class="primary h-bs mincurved">Save</button>
+<button class="button ghost h-sm round">Cancel</button>
+<a class="btn secondary h-bs mincurved" href="/docs">Read the docs</a>
+<button class="btn-icon ghost h-sm" aria-label="Close"><Icon name="x" /></button>
+<div class="button-group mincurved">
+	<button class="outline h-sm">List</button>
+	<button class="outline h-sm selected">Grid</button>
+</div>
+<div class="split-button h-sm mincurved">
+	<button class="primary">Deploy</button>
+	<button class="primary btn-icon" aria-label="More"><Icon name="chevron-down" /></button>
+</div>
+```
+
+- A `<button>` needs no `.button` class; the element selector carries it. Use `.button` on an `<a>` or a `<div>` styled as one, or `a.btn`.
+- A button with no variant has no fill and no border - it reads as plain text until hovered.
+- `.selected` is the on-state for a toggle button and is styled by the variant. Keep `aria-pressed` (or `aria-current` for navigation) in sync with it.
+- `.btn-icon` is square and never shrinks; its size comes from its `.h-*` class. `.fit-icon` makes it exactly its icon, with no padding or border. `.no-scaling` opts out of the built-in `:active` scale - it is a hook with no declaration of its own, reachable only through `:is(button, .button):not(.no-scaling):active` (`components.css:245`).
+- Inside `.button-group` / `.split-button`, member radii are managed by the group. Do not add a shape class to a member - only to the wrapper - and never add `-1px` margins to join them by hand.
+- Icons come from `fractalicons`; do not inline SVG or paste a unicode glyph.
+
+## Inputs, Selects, Toggles
+
+```svelte
+<!-- A labelled text field: the frame owns focus, so the input draws none. -->
+<label class="box gap-sm">
+	<span class="text-sm weight-500">Email</span>
+	<span class="field border mincurved bg-input h-bs px-xs">
+		<input class="input wfull hfull" type="email" autocomplete="email" />
+	</span>
+</label>
+
+<!-- Invalid: attribute for assistive tech, class for the eye, message for everyone. -->
+<label class="box gap-sm">
+	<span class="text-sm weight-500">Email</span>
+	<span class="field border mincurved bg-input h-bs px-xs is-invalid">
+		<input class="input wfull hfull" type="email" aria-invalid="true" aria-describedby="email-err" />
+	</span>
+	<span id="email-err" class="text-sm text-danger">That address is not valid.</span>
+</label>
+
+<!-- Select: the wrapper is the positioning context for the chevron. -->
+<label class="box gap-sm">
+	<span class="text-sm weight-500">Region</span>
+	<span class="select-wrap relative h-bs mincurved border bg-input">
+		<select class="select wfull hfull"><option>AP</option><option>EU</option></select>
+		<span class="select-chevron"><Icon name="chevron-down" /></span>
+	</span>
+</label>
+
+<!-- Checkbox and radio: the tick is a sibling of the input, stacked by grid-area. -->
+<label class="row ycenter gap-sm">
+	<span class="checkbox-box">
+		<input type="checkbox" />
+		<Icon name="check" />
+	</span>
+	<span class="text-body-sm">Remember me</span>
+</label>
+
+<label class="row ycenter gap-sm">
+	<span class="checkbox-box radio"><input type="radio" name="plan" /></span>
+	<span class="text-body-sm">Annual</span>
+</label>
+
+<label class="row ycenter gap-sm">
+	<span class="switch-box"><input type="checkbox" role="switch" /></span>
+	<span class="text-body-sm">Beta features</span>
+</label>
+```
+
+- Wrap the control in the `<label>` (or pair `for` / `id`). A placeholder is not a label.
+- `.field`, `.select-wrap`, `.checkbox-box` and `.switch-box` are the sized, bordered parts - put the visible border, background, radius and height on the wrapper, not on the input.
+- A bare `<input>` with only `.input` is invisible: no border, no background, no height.
+- `.input.fitted` / `.select.fitted` hug their content width instead of filling - for a filter box in a toolbar.
+- Disabled: use the `disabled` attribute, not the `.disabled` class.
+
+## Cards, Banners, Messages
+
+```svelte
+<div class="elevated box gap-sm pad-lg mincurved">
+	<span class="text-sm text-secondary weight-500">Deployment</span>
+	<h3 class="card-title">Live</h3>
+	<p class="card-desc text-secondary">Serving 3 regions.</p>
+</div>
+
+<a class="elevated card-clickable box gap-sm pad-lg modern lift" href="/p/1">…</a>
+
+<div class="banner msg warning box gap-xs h-bs pad-md">
+	<strong class="text-primary">Trial ends in 3 days</strong>
+	<span class="text-body-sm">Add a payment method to keep the project.</span>
+</div>
+```
+
+- `.elevated` supplies padding, background, border and shadow - do not stack `.bg-surface` or `.shad-*` on it. `.card-clickable` styles hover and focus, but only a real `<a href>` or `<button>` is clickable and focusable. A `<div>` with `.card-clickable` is a trap.
+- `.msg` is a fill and needs a status partner: `.info` `.success` `.warning` `.danger` `.neutral`.
+- Per house rules, a card takes elevation **or** a border, not both.
+
+## Tags, Badges, Avatars
+
+```svelte
+<span class="tag mincurved pad-xs text-only">v2.4</span>
+<span class="tag round ink-auto">
+	Status
+	<button class="tag-remove btn-icon" aria-label="Remove"><Icon name="x" /></button>
+</span>
+
+<div class="badge h-sm round bg-danger ink-auto">12</div>
+
+<!-- There is no `.avatar` class: the group carries the shape, the images carry size. -->
+<div class="avatar-group row ycenter circle gap-overlap">
+	<img class="h-md square fit-cover" src="…" alt="" />
+	<img class="h-md square fit-cover" src="…" alt="" />
+	<span class="avatar-more">+3</span>
+</div>
+```
+
+`.tag`'s fill is `var(--tag-color)`, and `.avatar-more` is sized from `var(--avatar-size)` - and in this snapshot **neither token has a default anywhere in the stylesheets**. Both are component channels: give them a documented home in the theme file (scoped to the wrapper the component owns), never an inline `style`. If you need per-tag colours and the project has no tone hook for them, that is a gap-ladder case - ask rather than reach for `style=`. `.circle` / `.rounded` go on the **group**, never on an individual avatar.
+
+One more specific: `.tag` and `.badge` set no `display`, so a tag that contains a remove button takes `.inline-flex ycenter gap-xs` as well.
+
+## Lists, Menus, Tables
+
+```svelte
+<!-- Menu / command list: role on the container, item per row, ring per item. -->
+<div class="box gap-xs" role="menu">
+	<button class="item focus-ring" role="menuitem">
+		<Icon name="copy" /><span>Duplicate</span><span class="grow"></span><kbd class="kbd">⌘D</kbd>
+	</button>
+	<button class="item focus-ring selected" role="menuitem" aria-current="true">…</button>
+</div>
+
+<!-- Records: wrap for narrow screens; the wrapper is the scroll owner. -->
+<div class="scroll-x border mincurved">
+	<table class="data-table striped">
+		<thead><tr><th class="data-table-select"></th><th>Name</th><th class="ta-r">Users</th></tr></thead>
+		<tbody>
+			<tr class="selected"><td class="data-table-select">…</td><td>Web</td><td class="ta-r tabular-nums">1,204</td></tr>
+			<tr><td colspan="3" class="data-table-empty">Nothing here yet.</td></tr>
+		</tbody>
+	</table>
+</div>
+```
+
+`.item` sets `outline: none` and signals keyboard focus with a background tint only - pair each item with `.focus-ring` or `.focus-theme`. Cell alignment rides `ta-c` / `ta-r` on the cell, which the table deliberately leaves unwon.
+
+## Overlays
+
+```svelte
+<!-- Modal: the element owns focus trap, dismissal and stacking. -->
+<dialog class="dialog measure-md box gap-lg pad-xl bg-overlay modern shad-xl" data-starting-style>…</dialog>
+
+<!-- Edge sheet -->
+<dialog class="dialog sheet at-right sized measure-sm" data-ending-style>…</dialog>
+
+<!-- Anchored popover: the trigger names itself, the popover points at it. -->
+<button class="outline h-sm" popovertarget="menu" id="menu-btn">Actions</button>
+<div id="menu" popover class="floating at-bottom-start bg-overlay border-subtle mincurved scroll-menu" data-side="bottom">…</div>
+
+<!-- Toast layer -->
+<div popover="manual" class="layer at-bottom box gap-sm">…</div>
+```
+
+- `.floating`, `.dialog`, `.layer` reset the native surface to nothing; background, border, radius, padding and elevation are yours to add from the same ladder as everything else.
+- `--anchor` links a floating element to an `.anchor` (or `[data-anchor]`) trigger, `--offset` sets the gap, `--size` sizes a `.sized` surface. All three are component channels - set them in the theme file per documented pair.
+- CSS anchor positioning and `@starting-style` need current browsers. On a target without them, an anchored `.floating` element positions itself at its static position. Check the target before relying on it, and say what you could not verify.
+
+## Value-Bearing Parts
+
+```svelte
+<div class="track h-sm" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+	<div class="fill"></div><div class="thumb"></div>
+</div>
+
+<div class="ring h-xl" role="progressbar" aria-label="Upload"><span class="text-sm tabular-nums">60%</span></div>
+
+<div class="relative row">
+	<span class="indicator bg-panel modern"></span>
+	<button class="item selected" role="tab" aria-selected="true">Overview</button>
+	<button class="item" role="tab" aria-selected="false">Activity</button>
+</div>
+```
+
+`.fill`, `.thumb` and `.ring` read `--value` (and `--from` for a range) as 0-1 fractions, and `.indicator` reads `--ix --iy --iw --ih` in unitless pixels. JavaScript writes all of them, in the theme file or in the component's own style-free logic - and the ARIA values must be written in the same update, because CSS cannot expose them.
+
+## Rails And Media
+
+```svelte
+<div class="reel gap-bs">{#each items as item}<a class="elevated measure-sm" href="…">…</a>{/each}</div>
+<div class="reel carousel-track gap-bs is-draggable">{#each items as item}<div class="elevated measure-sm">…</div>{/each}</div>
+<figure class="frame-16-9 mincurved"><img class="fit-cover" src="…" alt="" /></figure>
+<div class="card-grid gap-bs">{#each cards as card}<svelte:component this={card.component} /></div>
+```
+
+`.reel > *` is sized and snapped by the rail; children need no `flex` or snap classes. `.frame-*` sets its media children's fit, so a fit class inside a frame is dead markup.
+
+## Recipe Checks
+
+1. Does every base class in your markup have its variant, shape, size and surface axes resolved, or a reason not to?
+2. Is any state class present without the attribute or behavior that creates it (`.selected`, `.open`, `.is-invalid`, `.disabled`, `.in`)?
+3. Is anything clickable that is not a `<button>` or `<a href>`?
+4. Can you tab to every control and see where you are?
+5. Does every channel you rely on (`--value`, `--tag-color`, `--avatar-size`, `--anchor`, `--size`) have a documented owner, or is it an inline style in disguise?

@@ -25,7 +25,7 @@ importers:
         specifier: ^7.1.2
         version: 7.3.0(svelte@5.56.9)(vite@8.2.1(@types/node@26.2.0)(sass@1.102.0))
       '@types/node':
-        specifier: ^26.2.0
+        specifier: ^26.0.0
         version: 26.2.0
       publint:
         specifier: ^0.3.21

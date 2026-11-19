@@ -1,0 +1,557 @@
+{
+	"schema": "fractalstyler colors-themes.css roles",
+	"themes": [
+		{
+			"name": "fractal-gold",
+			"title": "Fractal Gold",
+			"desc": "The canonical warm gold — paper-light, gold accent.",
+			"hue": 40,
+			"chroma": 0.2,
+			"tint": 0.012,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 40)",
+					"oklch(0.975 0.006 40)",
+					"oklch(0.47 0.2 40)",
+					"oklch(0.18 0.012 40)"
+				],
+				"dark": [
+					"oklch(0.145 0.012 40)",
+					"oklch(0.175 0.012 40)",
+					"oklch(0.78 0.2 40)",
+					"oklch(0.98 0.012 40)"
+				]
+			}
+		},
+		{
+			"name": "ember",
+			"title": "Ember",
+			"desc": "Candlelit warm neutrals, burnt-orange accent.",
+			"hue": 42,
+			"chroma": 0.19,
+			"tint": 0.01,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.003 42)",
+					"oklch(0.975 0.005 42)",
+					"oklch(0.47 0.19 42)",
+					"oklch(0.18 0.01 42)"
+				],
+				"dark": [
+					"oklch(0.145 0.01 42)",
+					"oklch(0.175 0.01 42)",
+					"oklch(0.78 0.19 42)",
+					"oklch(0.98 0.01 42)"
+				]
+			}
+		},
+		{
+			"name": "rose",
+			"title": "Rose",
+			"desc": "Crisp rose-red accent on clean neutrals.",
+			"hue": 8,
+			"chroma": 0.2,
+			"tint": 0.01,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.003 8)",
+					"oklch(0.975 0.005 8)",
+					"oklch(0.47 0.2 8)",
+					"oklch(0.18 0.01 8)"
+				],
+				"dark": [
+					"oklch(0.145 0.01 8)",
+					"oklch(0.175 0.01 8)",
+					"oklch(0.78 0.2 8)",
+					"oklch(0.98 0.01 8)"
+				]
+			}
+		},
+		{
+			"name": "aurora",
+			"title": "Aurora",
+			"desc": "Sea-green aurora, cool and calm.",
+			"hue": 168,
+			"chroma": 0.15,
+			"tint": 0.01,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.003 168)",
+					"oklch(0.975 0.005 168)",
+					"oklch(0.47 0.15 168)",
+					"oklch(0.18 0.01 168)"
+				],
+				"dark": [
+					"oklch(0.145 0.01 168)",
+					"oklch(0.175 0.01 168)",
+					"oklch(0.78 0.15 168)",
+					"oklch(0.98 0.01 168)"
+				]
+			}
+		},
+		{
+			"name": "ocean",
+			"title": "Ocean",
+			"desc": "Deep blue accent, faintly blue ink.",
+			"hue": 238,
+			"chroma": 0.17,
+			"tint": 0.014,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 250)",
+					"oklch(0.975 0.007 250)",
+					"oklch(0.47 0.17 238)",
+					"oklch(0.18 0.014 250)"
+				],
+				"dark": [
+					"oklch(0.145 0.014 250)",
+					"oklch(0.175 0.014 250)",
+					"oklch(0.78 0.17 238)",
+					"oklch(0.98 0.014 250)"
+				]
+			}
+		},
+		{
+			"name": "lime",
+			"title": "Lime",
+			"desc": "Fresh green, almost-neutral surfaces.",
+			"hue": 128,
+			"chroma": 0.2,
+			"tint": 0.008,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.002 128)",
+					"oklch(0.975 0.004 128)",
+					"oklch(0.47 0.2 128)",
+					"oklch(0.18 0.008 128)"
+				],
+				"dark": [
+					"oklch(0.145 0.008 128)",
+					"oklch(0.175 0.008 128)",
+					"oklch(0.78 0.2 128)",
+					"oklch(0.98 0.008 128)"
+				]
+			}
+		},
+		{
+			"name": "amber",
+			"title": "Amber",
+			"desc": "Honeyed amber, warm but restrained.",
+			"hue": 78,
+			"chroma": 0.17,
+			"tint": 0.01,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.003 78)",
+					"oklch(0.975 0.005 78)",
+					"oklch(0.47 0.17 78)",
+					"oklch(0.18 0.01 78)"
+				],
+				"dark": [
+					"oklch(0.145 0.01 78)",
+					"oklch(0.175 0.01 78)",
+					"oklch(0.78 0.17 78)",
+					"oklch(0.98 0.01 78)"
+				]
+			}
+		},
+		{
+			"name": "mono",
+			"title": "Mono",
+			"desc": "Pure grayscale, maximum neutrality.",
+			"hue": 268,
+			"chroma": 0,
+			"tint": 0,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0 268)",
+					"oklch(0.975 0 268)",
+					"oklch(0.47 0 268)",
+					"oklch(0.13 0 268)"
+				],
+				"dark": [
+					"oklch(0.145 0 268)",
+					"oklch(0.175 0 268)",
+					"oklch(0.78 0 268)",
+					"oklch(0.99 0 268)"
+				]
+			}
+		},
+		{
+			"name": "midnight",
+			"title": "Midnight",
+			"desc": "Deep dark-first navy; light side stays airy.",
+			"hue": 250,
+			"chroma": 0.12,
+			"tint": 0.02,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.006 260)",
+					"oklch(0.975 0.01 260)",
+					"oklch(0.47 0.12 250)",
+					"oklch(0.18 0.02 260)"
+				],
+				"dark": [
+					"oklch(0.108 0.02 260)",
+					"oklch(0.138 0.02 260)",
+					"oklch(0.78 0.12 250)",
+					"oklch(0.98 0.02 260)"
+				]
+			}
+		},
+		{
+			"name": "forest",
+			"title": "Forest",
+			"desc": "Evergreen accent over mossy tinted neutrals.",
+			"hue": 155,
+			"chroma": 0.18,
+			"tint": 0.015,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 160)",
+					"oklch(0.975 0.007 160)",
+					"oklch(0.47 0.18 155)",
+					"oklch(0.18 0.015 160)"
+				],
+				"dark": [
+					"oklch(0.13 0.015 160)",
+					"oklch(0.16 0.015 160)",
+					"oklch(0.78 0.18 155)",
+					"oklch(0.98 0.015 160)"
+				]
+			}
+		},
+		{
+			"name": "terracotta",
+			"title": "Terracotta",
+			"desc": "Heavily warm-tinted clay surfaces.",
+			"hue": 35,
+			"chroma": 0.16,
+			"tint": 0.03,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.009 60)",
+					"oklch(0.975 0.015 60)",
+					"oklch(0.47 0.16 35)",
+					"oklch(0.18 0.03 60)"
+				],
+				"dark": [
+					"oklch(0.15 0.03 60)",
+					"oklch(0.18 0.03 60)",
+					"oklch(0.78 0.16 35)",
+					"oklch(0.98 0.03 60)"
+				]
+			}
+		},
+		{
+			"name": "lavender",
+			"title": "Lavender",
+			"desc": "Soft violet accent, gently violet neutrals.",
+			"hue": 295,
+			"chroma": 0.14,
+			"tint": 0.012,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 300)",
+					"oklch(0.975 0.006 300)",
+					"oklch(0.47 0.14 295)",
+					"oklch(0.18 0.012 300)"
+				],
+				"dark": [
+					"oklch(0.145 0.012 300)",
+					"oklch(0.175 0.012 300)",
+					"oklch(0.78 0.14 295)",
+					"oklch(0.98 0.012 300)"
+				]
+			}
+		},
+		{
+			"name": "teal-deep",
+			"title": "Teal Deep",
+			"desc": "Petrol teal, cool cyan-tinted ink.",
+			"hue": 200,
+			"chroma": 0.13,
+			"tint": 0.012,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 210)",
+					"oklch(0.975 0.006 210)",
+					"oklch(0.47 0.13 200)",
+					"oklch(0.18 0.012 210)"
+				],
+				"dark": [
+					"oklch(0.125 0.012 210)",
+					"oklch(0.155 0.012 210)",
+					"oklch(0.78 0.13 200)",
+					"oklch(0.98 0.012 210)"
+				]
+			}
+		},
+		{
+			"name": "crimson",
+			"title": "Crimson",
+			"desc": "High-chroma crimson accent, warm ink.",
+			"hue": 15,
+			"chroma": 0.22,
+			"tint": 0.012,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 25)",
+					"oklch(0.975 0.006 25)",
+					"oklch(0.47 0.22 15)",
+					"oklch(0.18 0.012 25)"
+				],
+				"dark": [
+					"oklch(0.145 0.012 25)",
+					"oklch(0.175 0.012 25)",
+					"oklch(0.78 0.22 15)",
+					"oklch(0.98 0.012 25)"
+				]
+			}
+		},
+		{
+			"name": "slate-cool",
+			"title": "Slate",
+			"desc": "Desaturated blue-grey slate, engineering feel.",
+			"hue": 230,
+			"chroma": 0.05,
+			"tint": 0.02,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.006 240)",
+					"oklch(0.975 0.01 240)",
+					"oklch(0.47 0.05 230)",
+					"oklch(0.18 0.02 240)"
+				],
+				"dark": [
+					"oklch(0.145 0.02 240)",
+					"oklch(0.175 0.02 240)",
+					"oklch(0.78 0.05 230)",
+					"oklch(0.98 0.02 240)"
+				]
+			}
+		},
+		{
+			"name": "sand",
+			"title": "Sand",
+			"desc": "Warm paper in both modes; low-chroma olive-gold accent.",
+			"hue": 85,
+			"chroma": 0.1,
+			"tint": 0.04,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.985 0.012 85)",
+					"oklch(0.965 0.02 85)",
+					"oklch(0.47 0.1 85)",
+					"oklch(0.18 0.04 85)"
+				],
+				"dark": [
+					"oklch(0.155 0.04 85)",
+					"oklch(0.185 0.04 85)",
+					"oklch(0.78 0.1 85)",
+					"oklch(0.98 0.04 85)"
+				]
+			}
+		},
+		{
+			"name": "pastel-mint",
+			"title": "Pastel Mint",
+			"desc": "Gentle mint, soft contrast, airy.",
+			"hue": 165,
+			"chroma": 0.1,
+			"tint": 0.02,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.006 170)",
+					"oklch(0.975 0.01 170)",
+					"oklch(0.47 0.1 165)",
+					"oklch(0.22 0.02 170)"
+				],
+				"dark": [
+					"oklch(0.145 0.02 170)",
+					"oklch(0.175 0.02 170)",
+					"oklch(0.78 0.1 165)",
+					"oklch(0.97 0.02 170)"
+				]
+			}
+		},
+		{
+			"name": "high-contrast",
+			"title": "High Contrast",
+			"desc": "Accessible: pure-tone neutrals, strong borders and text.",
+			"hue": 250,
+			"chroma": 0.16,
+			"tint": 0,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0 250)",
+					"oklch(0.975 0 250)",
+					"oklch(0.47 0.16 250)",
+					"oklch(0.13 0 250)"
+				],
+				"dark": [
+					"oklch(0.145 0 250)",
+					"oklch(0.175 0 250)",
+					"oklch(0.78 0.16 250)",
+					"oklch(0.99 0 250)"
+				]
+			}
+		},
+		{
+			"name": "plum",
+			"title": "Plum",
+			"desc": "Magenta-plum accent on ink-tinted surfaces.",
+			"hue": 320,
+			"chroma": 0.15,
+			"tint": 0.015,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 330)",
+					"oklch(0.975 0.007 330)",
+					"oklch(0.47 0.15 320)",
+					"oklch(0.18 0.015 330)"
+				],
+				"dark": [
+					"oklch(0.12 0.015 330)",
+					"oklch(0.15 0.015 330)",
+					"oklch(0.78 0.15 320)",
+					"oklch(0.98 0.015 330)"
+				]
+			}
+		},
+		{
+			"name": "copper",
+			"title": "Copper",
+			"desc": "Metallic copper on bronze-tinted neutrals.",
+			"hue": 50,
+			"chroma": 0.17,
+			"tint": 0.025,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.007 65)",
+					"oklch(0.975 0.013 65)",
+					"oklch(0.47 0.17 50)",
+					"oklch(0.18 0.025 65)"
+				],
+				"dark": [
+					"oklch(0.14 0.025 65)",
+					"oklch(0.17 0.025 65)",
+					"oklch(0.78 0.17 50)",
+					"oklch(0.98 0.025 65)"
+				]
+			}
+		},
+		{
+			"name": "arctic",
+			"title": "Arctic",
+			"desc": "Pale, near-white cool surfaces; icy blue accent.",
+			"hue": 210,
+			"chroma": 0.08,
+			"tint": 0.008,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.998 0.002 220)",
+					"oklch(0.978 0.004 220)",
+					"oklch(0.47 0.08 210)",
+					"oklch(0.18 0.008 220)"
+				],
+				"dark": [
+					"oklch(0.115 0.008 220)",
+					"oklch(0.145 0.008 220)",
+					"oklch(0.78 0.08 210)",
+					"oklch(0.98 0.008 220)"
+				]
+			}
+		},
+		{
+			"name": "indigo",
+			"title": "Indigo",
+			"desc": "Vivid indigo, deeply tinted dark mode.",
+			"hue": 275,
+			"chroma": 0.18,
+			"tint": 0.012,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.004 285)",
+					"oklch(0.975 0.006 285)",
+					"oklch(0.47 0.18 275)",
+					"oklch(0.18 0.012 285)"
+				],
+				"dark": [
+					"oklch(0.118 0.012 285)",
+					"oklch(0.148 0.012 285)",
+					"oklch(0.78 0.18 275)",
+					"oklch(0.98 0.012 285)"
+				]
+			}
+		},
+		{
+			"name": "olive",
+			"title": "Olive",
+			"desc": "Muted sage/olive, earthy and quiet.",
+			"hue": 120,
+			"chroma": 0.1,
+			"tint": 0.03,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.009 130)",
+					"oklch(0.975 0.015 130)",
+					"oklch(0.47 0.1 120)",
+					"oklch(0.18 0.03 130)"
+				],
+				"dark": [
+					"oklch(0.145 0.03 130)",
+					"oklch(0.175 0.03 130)",
+					"oklch(0.78 0.1 120)",
+					"oklch(0.98 0.03 130)"
+				]
+			}
+		},
+		{
+			"name": "neon-rose",
+			"title": "Neon Rose",
+			"desc": "Dark-forward neon magenta; maximal accent energy.",
+			"hue": 335,
+			"chroma": 0.25,
+			"tint": 0.01,
+			"tokensPerMode": 70,
+			"preview": {
+				"light": [
+					"oklch(0.995 0.003 335)",
+					"oklch(0.975 0.005 335)",
+					"oklch(0.49 0.25 335)",
+					"oklch(0.18 0.01 335)"
+				],
+				"dark": [
+					"oklch(0.1 0.01 335)",
+					"oklch(0.13 0.01 335)",
+					"oklch(0.95 0.25 335)",
+					"oklch(0.98 0.01 335)"
+				]
+			}
+		}
+	]
+}

@@ -25,7 +25,7 @@ package:
   "mcpServers": {
     "fractalstyler": {
       "command": "node",
-      "args": ["/absolute/path/to/packages/fractalstyler/mcp/server.ts"]
+      "args": ["/Users/amrit/fractaldesign/packages/fractalstyler/mcp/server.ts"]
     }
   }
 }

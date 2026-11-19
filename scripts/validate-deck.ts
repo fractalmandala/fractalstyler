@@ -65,17 +65,22 @@ const componentClasses = new Set<string>()
 const inRegistry = (c: string) => exact.has(c) || MODIFIERS.has(c) || componentClasses.has(c)
 
 const files: string[] = []
+
+/** `scripts/untailwind/vendor` is a vendored compiler, not our prose. */
+const SKIP = new Set(['node_modules', 'vendor'])
+
 const walk = (d: string, exts: RegExp) => {
 	if (!existsSync(d)) return
 	for (const e of readdirSync(d, { withFileTypes: true })) {
+		if (SKIP.has(e.name)) continue
 		const p = join(d, e.name)
 		if (e.isDirectory()) walk(p, exts)
 		else if (exts.test(e.name)) files.push(p)
 	}
 }
-walk(join(root, 'skills', 'fractalstyler'), /\.md$/)
-// The shell components emit canonical markup, so every class in them must
-// resolve — they are the one place a wrong class ships as code, not prose.
+// The generated skill: every class it names must resolve, in the source and in
+// the emitted copy alike, because an agent trusts it without checking.
+walk(join(root, 'skills', 'fractalstyler-master'), /\.md$/)
 walk(join(root, 'docs'), /\.md$/)
 files.push(join(root, 'README.md'))
 files.push(join(root, 'AGENTS.md'))
@@ -89,7 +94,7 @@ files.push(join(root, 'AGENTS.md'))
  * deliberately short. Anything else is a regression.
  */
 const PHANTOM_API =
-	/(?<![\w\d.])\+(box|row|stack|cluster|surface|gap|pad|px|py|cols|at|frame|reel|cover|with-sidebar|auto-grid|bg|ink|type|weight)\b|(?<![\w.])space\((?:sm?|md?|lg?|xl|[0-9]+)\)|@use\s+['"][^'"]*fractals['"]/
+	/(?<![\w\d.\]])\+(box|row|stack|cluster|surface|gap|pad|px|py|cols|at|frame|reel|cover|with-sidebar|auto-grid|bg|ink|type|weight)\b|(?<![\w.])space\((?:sm?|md?|lg?|xl|[0-9]+)\)|@use\s+['"][^'"]*fractals['"]/
 const PHANTOM_OK =
 	/do not exist|does not exist|inventing an API|never shipped|earlier versions|without requiring|there is no/
 
@@ -254,7 +259,13 @@ const lightBlock = themeFile.split("[data-mode='light']")[1]?.split("[data-mode=
 const colourCount = [...lightBlock.matchAll(/^\s*(--[\w-]+)\s*:/gm)].filter(
 	(m) => !m[1].startsWith('--shadow')
 ).length
-const themeCount = new Set([...themeFile.matchAll(/\[data-mode=['"]([a-z]+)['"]\]/g)].map((m) => m[1])).size
+const themeCount = (() => {
+	const manifest = join(root, 'themes', 'themes.json')
+	if (existsSync(manifest)) {
+		return (JSON.parse(readFileSync(manifest, 'utf8')).themes ?? []).length
+	}
+	return new Set([...themeFile.matchAll(/\[data-theme=['"]([\w-]+)['"]\]/g)].map((m) => m[1])).size
+})()
 
 // Only phrases that mean the CONTRACT. "22 colour tokens" in the generated
 // reference is the per-theme count — a different, correct fact.

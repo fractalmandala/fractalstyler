@@ -72,7 +72,7 @@
   line-height: 1.5;
 }
 .text-body-sm { 
-	font-size: var(--text-sm);
+	font-size: var(--text-md);
   line-height: 1.5;
 }
 .page-title { 
@@ -82,7 +82,8 @@
   letter-spacing: -0.02rem;
 }
 .page-desc { 
-	font-size: var(--text-bs);
+	font-size: var(--text-md);
+	line-height: 1.5;
 }
 .page-heading-xl { 
 	font-size: var(--text-xl);
@@ -96,13 +97,14 @@
   font-weight: 600;
   letter-spacing: -0.01rem;
 }
-.page-heading-bs { 
+.page-heading-bs, .page-heading { 
 	font-size: var(--text-bs);
   line-height: 1.1;
   font-weight: 600;
   letter-spacing: -0.01rem;
 }
-.card-title { font-size: var(--text-lg);
+.card-title { 
+	font-size: var(--text-bs);
   font-weight: 600;
   line-height: 1.2;
 }
@@ -110,16 +112,16 @@
 	font-size: var(--text-md);
   line-height: 1.2;
 }
-.nav-link { 
+.nav-link, .toc-link { 
 	font-size: var(--text-md);
   line-height: 1.2;
   letter-spacing: 0.01rem;
 }
-.nav-link-sm { 
+.nav-link-sm, .toc-link-sm { 
 	font-size: var(--text-sm);
   line-height: 1.2;
 }
-.nav-header { 
+.nav-header, .toc-header { 
 	font-size: var(--text-sm);
   line-height: 1.1;
   font-weight: 500;
@@ -128,7 +130,6 @@
 .header-nav a { 
 	text-transform: uppercase;
   font-size: var(--text-sm);
-  font-weight: 500;
 }
 .header-nav a:hover { 
 	color: var(--theme-color);
@@ -175,10 +176,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
-/* fsui-unify: C13 */
-.clamp-2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
-.clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
 
 .font-sans { font-family: var(--font-sans); }
 .font-mono { font-family: var(--font-mono); }
@@ -240,3 +237,5 @@
 .tabular-nums { font-variant-numeric: tabular-nums; }
 
 .page-header p em { font-style: normal; font-size: var(--text-md); background-color: var(--neutral-00); padding: 2px 4px; border: 1px solid var(--neutral-25); color: var(--neutral-100); border-radius: var(--radius-xs) }
+
+p.code-in-p em { background-color: var(--neutral-00); font-size: var(--text-bs); padding: 3px 8px; color: var(--text-primary); font-style: normal; }

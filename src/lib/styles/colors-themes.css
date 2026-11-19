@@ -1,19 +1,10 @@
 @layer tokens {
-  /* The parametric theme. One recipe, three numbers:
-   *   --hue     the accent hue (and the faint tint of the neutrals)
-   *   --chroma  how vivid the accent is
-   *   --tint    how much of the hue the neutrals carry
-   * A named theme is just those numbers. Set data-theme on <html> (with
-   * data-mode="light|dark"); override the numbers anywhere to re-theme a subtree.
-   * Light/dark stays on data-mode; the recipe lives inside this layer so a
-   * consumer's custom.css can still override it.
-   */
   :root {
-    --hue: 38;
+    --hue: 40;
     --chroma: 0.2;
     --tint: 0.012;
   }
-  [data-theme='fractalsvelte'] { --hue: 38; --chroma: 0.2; --tint: 0.012; }
+  [data-theme='fractalsvelte'] { --hue: 40; --chroma: 0.2; --tint: 0.012; }
   [data-theme='aurora'] { --hue: 168; --chroma: 0.15; --tint: 0.01; }
   [data-theme='ocean'] { --hue: 238; --chroma: 0.17; --tint: 0.014; }
   [data-theme='ember'] { --hue: 42; --chroma: 0.19; --tint: 0.01; }
@@ -23,7 +14,7 @@
   [data-theme='mono'] { --hue: 268; --chroma: 0; --tint: 0; }
 
   [data-mode='light'],
-  [data-mode='light'] [data-theme] {
+  [data-mode='light'] [data-theme='fractalsvelte'] {
     color-scheme: light;
     --white-fixed: oklch(1 0 0);
     --black-fixed: oklch(0.210 0.006 285.9);
@@ -47,7 +38,7 @@
     --text-secondary: oklch(0.42 var(--tint) var(--hue));
     --text-muted: oklch(0.58 var(--tint) var(--hue));
     --text-inverse: oklch(0.99 0 0);
-    --theme-color: oklch(0.34 var(--chroma) var(--hue));
+    --theme-color: oklch(0.60 var(--chroma) var(--hue));
     --theme-color-up: oklch(0.66 var(--chroma) var(--hue));
     --theme-color-down: oklch(0.47 var(--chroma) var(--hue));
     --success: oklch(0.65 0.200 138);
@@ -103,7 +94,7 @@
   }
 
   [data-mode='dark'],
-  [data-mode='dark'] [data-theme] {
+  [data-mode='dark'] [data-theme='fractalsvelte'] {
     color-scheme: dark;
     --white-fixed: oklch(1 0 0);
     --black-fixed: oklch(0.210 0.006 285.9);
@@ -203,6 +194,7 @@
 .bg-overlay { background-color: var(--bg-overlay); }
 .bg-none { background: transparent; }
 .bg-black { background-color: var(--black-fixed); }
+.bg-white { background-color: var(--white-fixed); }
 .state-hover { background-color: var(--state-hover); }
 .state-selected { background-color: var(--state-selected); }
 .bg-input { background-color: var(--bg-input); }
@@ -222,12 +214,15 @@
 .text-warning { color: var(--warning); }
 .text-danger { color: var(--danger); }
 .text-info { color: var(--info); }
+.text-neutral { color: var(--neutral); }
 
-.bg-success { background-color: var(--success); transition: background var(--motionout2); }
+.bg-success { background-color: var(--success); transition: background-color var(--motionout2); }
 .bg-success:hover { background-color: var(--success-hover); }
-.bg-warning { background-color: var(--warning); transition: background var(--motionout2); }
+.bg-warning { background-color: var(--warning); transition: background-color var(--motionout2); }
 .bg-warning:hover { background-color: var(--warning-hover); }
-.bg-danger { background-color: var(--danger); transition: background var(--motionout2); }
+.bg-danger { background-color: var(--danger); transition: background-color var(--motionout2); }
 .bg-danger:hover { background-color: var(--danger-hover); }
-.bg-info { background-color: var(--info); transition: background var(--motionout2); }
+.bg-info { background-color: var(--info); transition: background-color var(--motionout2); }
 .bg-info:hover { background-color: var(--info-hover); }
+.bg-neutral { background-color: var(--neutral); transition: background-color var(--motionout2); }
+.bg-neutral:hover { background-color: var(--neutral-hover); }

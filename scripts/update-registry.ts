@@ -13,8 +13,11 @@
 // It reads the stylesheets in src/lib/styles and writes:
 //   registry.json                                    (the machine API)
 //   registry.md                                      (the human index, at the root)
-//   skills/fractalstyler/references/fractals.md      (the agent class list)
-//   skills/fractalstyler/references/tokens.md        (the agent token list)
+//
+// The agent skill is a second pass over the same facts — scripts/build-skill.ts
+// fills the class lists, the CSS excerpts and the token tables inside
+// docs/fractalstyler-master and emits skills/fractalstyler-master. `npm run
+// registry` runs both, in that order.
 //
 // Three parts, in order:
 //   1. the extractor — the facts: which classes exist, what declares them
@@ -31,6 +34,7 @@ import {
 	classesIn,
 	collectGlobalTokens,
 	parseCss,
+	resolveCssLayers,
 	splitSelectorList,
 	type CssNode,
 	type Token
@@ -210,37 +214,44 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
 	return rows;
 }
 
+/** The entry stylesheet — the cascade is whatever it imports, in its order. */
+export const CASCADE_ENTRY = 'index.css';
+
+/**
+ * Layers that ship but are deliberately not in the aggregate — they are opt-in,
+ * so they cannot be read from index.css. They follow the cascade in the docs.
+ */
+export const DETACHED_ORDER = ['custom.css', 'modular.css'];
+
+/**
+ * The cascade — exactly what `index.css` imports, in its order.
+ */
+export function cascadeFiles(): string[] {
+	const entry = path.join(STYLES_DIR, CASCADE_ENTRY);
+	if (!fs.existsSync(entry)) return [];
+	const present = new Set(fs.readdirSync(STYLES_DIR).filter((file) => file.endsWith('.css')));
+	return resolveCssLayers(entry)
+		.map((file) => path.basename(file))
+		.filter((file) => present.has(file));
+}
+
 /**
  * The stylesheet order — the cascade, and the order the documentation reads in.
- * A file that is not listed lands at the end, alphabetically.
+ * Resolved from `@import` in index.css, so the registry can never disagree with
+ * what a browser loads. Detached layers follow it; anything unaccounted for
+ * lands at the end, alphabetically.
  */
-export const FILE_ORDER = [
-	'configurations.css',
-	'springs.css',
-	'gaps-pads-margins.css',
-	'shapes-sizes.css',
-	'containers.css',
-	'typography.css',
-	'border-elevation-focus.css',
-	'layout-shell.css',
-	'colors-themes.css',
-	'motion-animation.css',
-	'components.css',
-	'component-props.css',
-	'responsive.css',
-	'custom.css',
-	'modular.css'
-];
-
-/** Every stylesheet in the styles folder, in cascade order. */
 export function styleFiles(): string[] {
 	if (!fs.existsSync(STYLES_DIR)) return [];
-	const present = fs
-		.readdirSync(STYLES_DIR)
-		.filter((file) => file.endsWith('.css'));
-	const ordered = FILE_ORDER.filter((file) => present.includes(file));
-	const extra = present.filter((file) => !FILE_ORDER.includes(file)).sort();
-	return [...ordered, ...extra];
+	const present = fs.readdirSync(STYLES_DIR).filter((file) => file.endsWith('.css'));
+	const ordered = cascadeFiles();
+	const detached = DETACHED_ORDER.filter(
+		(file) => present.includes(file) && !ordered.includes(file)
+	);
+	const extra = present
+		.filter((file) => file !== CASCADE_ENTRY && !ordered.includes(file) && !detached.includes(file))
+		.sort();
+	return [...ordered, ...detached, ...extra];
 }
 
 export interface Extracted {
@@ -280,11 +291,10 @@ export function extractRegistry(): Extracted {
 // The vocabulary
 // -----------------------------------------------------------------------------
 
-const FILE_INTROS: Record<string, string> = {
+/** One line per layer: what it owns, for the registry and the skill. */
+export const FILE_INTROS: Record<string, string> = {
 	'configurations.css':
-		'Global tokens and base resets — layout dimensions, z-index bands, font stacks, and the element resets every page starts from.',
-	'springs.css':
-		'Spring easing tokens — a linear() curve and settle time for each of gentle, snappy, bouncy, stiff and slow.',
+		'Global tokens and base resets — layout dimensions, z-index bands, font stacks, breakpoint bands, the band-based visibility classes and the element resets every page starts from.',
 	'gaps-pads-margins.css':
 		'The space ladder. Every family runs the eight steps xs sm md bs lg xl 2xl 3xl and rides var(--space-*).',
 	'shapes-sizes.css':
@@ -294,22 +304,24 @@ const FILE_INTROS: Record<string, string> = {
 	'typography.css':
 		'Type scale, semantic text roles, weight, line height, letter spacing and alignment.',
 	'border-elevation-focus.css':
-		'The partition-law border set (per side, three weights), elevation steps and the focus rings.',
+		'The partition-law border set (per side, three weights), elevation steps, the glass surface and the focus rings.',
 	'layout-shell.css':
 		'Application chrome — header, main, sidebars, footer and the content widths.',
 	'colors-themes.css':
-		'Colour roles. Name the role, never the value; the theme remaps the token.',
+		'Colour roles. Name the role, never the value; the theme remaps the token. The parametric --hue / --chroma / --tint recipe and the named data-theme palettes live here.',
 	'motion-animation.css':
-		'Motion language — easings, durations and the keyframe animations.',
+		'Motion language — easings, durations, the spring tokens, the keyframe animations and the view transitions.',
 	'components.css':
 		'Components — buttons, inputs, links, tags, avatars, switches, checkboxes.',
 	'component-props.css':
-		'Component props — the variant, shape and height classes Fractalsvelte UI consumes.',
-	'responsive.css':
-		'Visibility by breakpoint band. The bands are 769px, 1025px, 1281px, 1441px.',
+		'Component props — the variant, shape, tone and height classes Fractalsvelte UI consumes.',
+	'types.css':
+		'The same axes as data attributes, for components that own their own markup: data-variant, data-shape, data-size, data-gap, data-pad, data-tone, data-text-size, data-measure, data-align, data-surface, data-orientation, data-placement, plus the state twins (data-selected, data-disabled, data-checked, data-highlighted, data-pressed, data-current, data-invalid, data-readonly, data-pending, data-open). Carries no classes.',
+	'colorpacks.css':
+		'Raw brand ramps (--fs-green50, --fs-blue40, …) — ingredients for authoring a palette, not roles. Ships no classes.',
 	'custom.css':
-		'The sanctioned extension layer — branding, the mascot, and anything a project owns.',
-	'modular.css': 'The sveltemodular workspace chrome.'
+		'The sanctioned extension layer — branding, the mascot, and anything a project owns. Shipped, but not part of index.css: import it on purpose.',
+	'modular.css': 'The sveltemodular workspace chrome. Shipped, but not part of index.css: import it on purpose.'
 };
 
 /** The steps a family ladder runs. */
@@ -693,8 +705,8 @@ export function exampleFor(row: RegistryRow): string {
 
 function orderedFiles(rows: VocabEntry[]): string[] {
 	const present = new Set(rows.map((row) => row.file));
-	const ordered = FILE_ORDER.filter((file) => present.has(file));
-	const extra = [...present].filter((file) => !FILE_ORDER.includes(file)).sort();
+	const ordered = styleFiles().filter((file) => present.has(file));
+	const extra = [...present].filter((file) => !ordered.includes(file)).sort();
 	return [...ordered, ...extra];
 }
 
@@ -737,123 +749,11 @@ function renderRegistryMarkdown(rows: VocabEntry[], tokenCount: number): string 
 	return lines.join('\n');
 }
 
-function renderSkillReference(rows: VocabEntry[], tokenCount: number): string {
-	let md = `# Fractalstyler — Class Reference\n\n`;
-	md += `GENERATED FILE — do not edit. Emitted by \`scripts/update-registry.ts\` from the\n`;
-	md += `stylesheets in \`src/lib/styles\`. ${rows.length} classes across ${tokenCount} tokens.\n\n`;
-	md += `**The classes below are the entire public API.** The system defines no\n`;
-	md += `authoring mixins and no styling functions — \`+stack\`, \`+surface\`, \`space()\` and\n`;
-	md += `friends do not exist. Compose in markup.\n\n`;
-	md += `Every class is concrete. Space families (\`.gap\` \`.rgap\` \`.cgap\` \`.pad\` \`.px\` \`.py\`\n`;
-	md += `\`.pt\` \`.pr\` \`.pb\` \`.pl\` \`.mar\` \`.mx\` \`.my\` \`.mt\` \`.mr\` \`.mb\` \`.ml\`) each ride the\n`;
-	md += `eight steps: \`xs sm md bs lg xl 2xl 3xl\`, token-routed through \`var(--space-*)\`.\n`;
-	md += `Modifiers nest under their base (\`.box\` \`.xcenter\`), children carry their own\n`;
-	md += `name (\`.avatar-more\`).\n\n`;
-
-	for (const file of orderedFiles(rows)) {
-		const items = rows.filter((row) => row.file === file);
-		if (items.length === 0) continue;
-		md += `\n---\n\n## ${file}\n\n`;
-		if (FILE_INTROS[file]) md += `${FILE_INTROS[file]}\n\n`;
-		md += `| Class | Applies | Source |\n|:---|:---|:---|\n`;
-		for (const item of items) {
-			const applies = (item.description || item.property).replace(/\|/g, '\\|');
-			md += `| \`${item.class}\` | ${applies} | \`${item.file}\` |\n`;
-		}
-	}
-
-	md += `\n---\n\n## Semantic Tokens\n\n\`\`\`css\n`;
-	for (const token of TOKEN_REFERENCE.tokens) md += `  ${token.name}: ${token.value};\n`;
-	md += `\`\`\`\n`;
-	return md;
-}
-
-const TOKEN_GROUPS: { title: string; blurb: string; match: (name: string) => boolean }[] = [
-	{
-		title: 'Space Scale',
-		blurb: 'Every step feeds the gap, pad and margin families.',
-		match: (name) => name.startsWith('--space-')
-	},
-	{
-		title: 'Type Scale',
-		blurb: 'Fixed sizes up to base, then fluid (clamped) sizes above it.',
-		match: (name) => name.startsWith('--text-')
-	},
-	{
-		title: 'Radius',
-		blurb: 'Six channels. Compositions read the tokens, never a literal radius.',
-		match: (name) => name.startsWith('--radius-')
-	},
-	{
-		title: 'Control Heights',
-		blurb: 'Heights for inputs, selects and buttons.',
-		match: (name) => name.startsWith('--h-')
-	},
-	{
-		title: 'Motion Language',
-		blurb: 'Durations, easings and the composed channels every transition reads.',
-		match: (name) => /^--(speed|trans|motion|ease)/.test(name)
-	},
-	{
-		title: 'Colour Roles',
-		blurb: 'Name the role, never the value. Values shown are the light default; `[data-mode=\'dark\']` remaps them.',
-		match: (name) =>
-			/^--(white-fixed|black-fixed|bg|state|border|theme|success|warning|danger|info|ring)/.test(name)
-	},
-	{
-		title: 'Elevation',
-		blurb: 'The shadow channels the `.shad-*` classes read.',
-		match: (name) => name.startsWith('--shadow-')
-	},
-	{
-		title: 'Breakpoints',
-		blurb: 'Reference values — CSS media queries cannot consume custom properties, so the bands are written as literals to match.',
-		match: (name) => name.startsWith('--bp-')
-	},
-	{
-		title: 'Measure',
-		blurb: 'The width (and max-height) ladder for panels, dialogs, popovers and the shell.',
-		match: (name) => name.startsWith('--measure-')
-	},
-	{
-		title: 'Layout & Chrome',
-		blurb: 'Font stacks plus the page geometry the shells read.',
-		match: (name) =>
-			/^--(font|header-height|footer-height|fit-height|prose-clamp|content-clamp|content-aside|app-inline|card-min|sidebar-width|z-|avatar|switch)/.test(
-				name
-			)
-	}
-];
-
-function renderTokenReference(
-	tokens: { name: string; value: string }[]
-): string {
-	let md = `# Fractalstyler — Token Reference\n\n`;
-	md += `GENERATED FILE — do not edit. Emitted by \`scripts/update-registry.ts\` from the\n`;
-	md += `custom properties declared in a global scope in \`src/lib/styles/*.css\`.\n\n`;
-	md += `Every \`--space-*\` step is a class family: if \`--space-md\` exists, so do\n`;
-	md += `\`.gap-md\`, \`.pad-md\` and \`.mar-md\` (plus the \`.px\`/\`.py\`/\`.pt\` sides).\n`;
-	md += `There is no second vocabulary to learn.\n\n`;
-
-	for (const group of TOKEN_GROUPS) {
-		const items = tokens.filter((token) => group.match(token.name));
-		if (items.length === 0) continue;
-		md += `\n## ${group.title}\n\n${group.blurb}\n\n`;
-		md += `| Token | Value |\n|:---|:---|\n`;
-		for (const token of items) md += `| \`${token.name}\` | \`${token.value.replace(/\|/g, '\\|')}\` |\n`;
-	}
-
-	return md;
-}
-
 // -----------------------------------------------------------------------------
 // Run
 // -----------------------------------------------------------------------------
 
-/** The tokens of the stylesheet, in the order the registry records them. */
-const TOKEN_REFERENCE = { tokens: [] as { name: string; value: string }[] };
-
-export function buildRegistry(): { rows: VocabEntry[]; tokens: { name: string; value: string }[] } {
+export function buildRegistry(): { rows: VocabEntry[]; tokens: Token[] } {
 	const { rows, tokens, warnings } = extractRegistry();
 	const entries: VocabEntry[] = rows.map((row) => ({
 		class: row.class,
@@ -865,21 +765,15 @@ export function buildRegistry(): { rows: VocabEntry[]; tokens: { name: string; v
 		example: exampleFor(row),
 		media: row.media
 	}));
-	TOKEN_REFERENCE.tokens = tokens.map((token) => ({ name: token.name, value: token.value }));
 	for (const warning of warnings) console.warn(`  ⚠ ${warning}`);
-	return { rows: entries, tokens: TOKEN_REFERENCE.tokens };
+	return { rows: entries, tokens };
 }
 
-export function writeRegistry(): { rows: VocabEntry[]; tokens: { name: string; value: string }[] } {
+export function writeRegistry(): { rows: VocabEntry[]; tokens: Token[] } {
 	const { rows, tokens } = buildRegistry();
 
 	fs.writeFileSync(path.join(PKG_ROOT, 'registry.json'), `${JSON.stringify(rows, null, 2)}\n`, 'utf8');
 	fs.writeFileSync(path.join(PKG_ROOT, 'registry.md'), renderRegistryMarkdown(rows, tokens.length), 'utf8');
-
-	const references = path.join(PKG_ROOT, 'skills', 'fractalstyler', 'references');
-	fs.mkdirSync(references, { recursive: true });
-	fs.writeFileSync(path.join(references, 'fractals.md'), renderSkillReference(rows, tokens.length), 'utf8');
-	fs.writeFileSync(path.join(references, 'tokens.md'), renderTokenReference(tokens), 'utf8');
 
 	return { rows, tokens };
 }
@@ -896,6 +790,6 @@ if (process.argv[1] && /update-registry\.(ts|js|mjs)$/.test(process.argv[1])) {
 	} else {
 		const { rows, tokens } = writeRegistry();
 		console.log(`✔ Registry written: ${rows.length} classes, ${tokens.length} tokens.`);
-		console.log('  Emit: registry.json, registry.md, skills/fractalstyler/references/{fractals,tokens}.md');
+		console.log('  Emit: registry.json, registry.md');
 	}
 }

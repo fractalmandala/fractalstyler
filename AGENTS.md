@@ -49,9 +49,9 @@ licence to invent one. See *When the system cannot express it* below.
 | [`registry.json`](./registry.json) | the same thing for machines; the linter and the MCP validate against it |
 | [`docs/`](./docs/README.md) | one page per stylesheet — the reasoning, not just the list |
 | [`docs/introduction.md`](./docs/introduction.md) | the mental model: containers, modifiers, the ladders, the vocabulary |
-| [`skills/fractalstyler/SKILL.md`](./skills/fractalstyler/SKILL.md) | the agent skill — the rules in the form an agent should follow |
+| [`skills/fractalstyler-master/SKILL.md`](./skills/fractalstyler-master/SKILL.md) | the agent skill — the rules in the form an agent should follow (generated from `docs/fractalstyler-master/`) |
 | [`docs/14-development.md`](./docs/14-development.md) | how the package itself is built, and how to publish an update |
-| [`docs/16-layout.md`](./docs/16-layout.md) | the shell components (`AppShell`, `NavSection`, …) and the layout state |
+| [`docs/07-layout-shell.md`](./docs/07-layout-shell.md) | the shell skeleton (`.app-shell`, `.app-header`, `.sidebar-left`, …) and the overlay primitives |
 
 The vocabulary, in one screen:
 

@@ -1,4 +1,4 @@
-:root {
+:root, [data-density='cozy'] {
 	--radius-xs: 2px;
 	--radius-sm: 3px;
 	--radius-md: 6px;
@@ -15,9 +15,15 @@
 	--h-2xl: 48px;
 	--h-3xl: 64px;
 
-	--header-height: 4rem;
-	--footer-height: 2rem;
-	--fit-height: calc(var(--header-height) + var(--footer-height));
+	--measure-xs: 14rem;
+	--measure-sm: 20rem;
+	--measure-md: 28rem;
+	--measure-bs: 32rem;
+	--measure-lg: 36rem;
+	--measure-xl: 48rem;
+	--measure-2xl: 64rem;
+	--measure-3xl: 80rem;
+	--measure-4xl: 100rem;
 }
 
 .rect { border-radius: 0 }
@@ -53,23 +59,32 @@
 .hfull-dvh { min-height: 100dvh; }
 .hfull-fitted { min-height: calc(100dvh - var(--header-height) - var(--footer-height)); }
 
-/* fsui-unify: C24 */
-/* The measure ladder: a width that fills up to a readable limit. */
 .measure-xs { width: 100%; max-width: var(--measure-xs); }
 .measure-sm { width: 100%; max-width: var(--measure-sm); }
 .measure-md { width: 100%; max-width: var(--measure-md); }
+.measure-bs { width: 100%; max-width: var(--measure-bs); }
 .measure-lg { width: 100%; max-width: var(--measure-lg); }
 .measure-xl { width: 100%; max-width: var(--measure-xl); }
 .measure-2xl { width: 100%; max-width: var(--measure-2xl); }
 .measure-3xl { width: 100%; max-width: var(--measure-3xl); }
 .measure-4xl { width: 100%; max-width: var(--measure-4xl); }
 
-/* The same tokens as a max-height cap, for scrolling regions. */
 .max-h-xs { max-height: var(--measure-xs); }
 .max-h-sm { max-height: var(--measure-sm); }
 .max-h-md { max-height: var(--measure-md); }
+.max-h-bs { max-height: var(--measure-bs); }
 .max-h-lg { max-height: var(--measure-lg); }
 .max-h-xl { max-height: var(--measure-xl); }
 .max-h-2xl { max-height: var(--measure-2xl); }
 .max-h-3xl { max-height: var(--measure-3xl); }
 .max-h-4xl { max-height: var(--measure-4xl); }
+
+.clamp-xs { max-width: var(--measure-xs); margin-inline: auto; }
+.clamp-sm { max-width: var(--measure-sm); margin-inline: auto; }
+.clamp-md { max-width: var(--measure-md); margin-inline: auto; }
+.clamp-bs { max-width: var(--measure-bs); margin-inline: auto; }
+.clamp-lg { max-width: var(--measure-lg); margin-inline: auto; }
+.clamp-xl { max-width: var(--measure-xl); margin-inline: auto; }
+.clamp-2xl { max-width: var(--measure-2xl); margin-inline: auto; }
+.clamp-3xl { max-width: var(--measure-3xl); margin-inline: auto; }
+.clamp-4xl { max-width: var(--measure-4xl); margin-inline: auto; }

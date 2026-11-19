@@ -3,7 +3,7 @@
 > GENERATED FILE — do not edit. Emitted by `scripts/update-registry.ts` from the
 > stylesheets in `src/lib/styles`.
 
-**637 classes** across **14 stylesheets**, riding **487 tokens**.
+**652 classes** across **13 stylesheets**, riding **473 tokens**.
 
 These classes are the entire public API. There is no authoring mixin and no
 styling function — `+stack`, `+surface`, `space()` and their friends do not
@@ -20,11 +20,17 @@ its own name and names its parent (`.avatar-more` inside `.avatar-group`).
 
 ## configurations.css
 
-Global tokens and base resets — layout dimensions, z-index bands, font stacks, and the element resets every page starts from.
+Global tokens and base resets — layout dimensions, z-index bands, font stacks, breakpoint bands, the band-based visibility classes and the element resets every page starts from.
 
 | Class | Property | Description |
 |:---|:---|:---|
 | `.bdr` | `border: 1px solid red` | Debug outline — flags an element on screen with a border |
+| `.md-only` | `display: none` | Visible from the md band up (1025px) |
+| `.lg-only` | `display: none` | Visible from the lg band up (1281px) |
+| `.xl-only` | `display: none` | Visible from the xl band up (1441px) |
+| `.md-hide` | `display: none` | Hidden from the md band up (1025px) |
+| `.lg-hide` | `display: none` | Hidden from the lg band up (1281px) |
+| `.xl-hide` | `display: none` | Hidden from the xl band up (1441px) |
 
 ---
 
@@ -212,6 +218,7 @@ Radius and control-height ladders, plus the sizing utilities (full, min0, fitted
 | `.measure-xs` | `width: 100%; max-width: var(--measure-xs)` | width: 100% |
 | `.measure-sm` | `width: 100%; max-width: var(--measure-sm)` | width: 100% |
 | `.measure-md` | `width: 100%; max-width: var(--measure-md)` | width: 100% |
+| `.measure-bs` | `width: 100%; max-width: var(--measure-bs)` | width: 100% |
 | `.measure-lg` | `width: 100%; max-width: var(--measure-lg)` | width: 100% |
 | `.measure-xl` | `width: 100%; max-width: var(--measure-xl)` | width: 100% |
 | `.measure-2xl` | `width: 100%; max-width: var(--measure-2xl)` | width: 100% |
@@ -220,11 +227,21 @@ Radius and control-height ladders, plus the sizing utilities (full, min0, fitted
 | `.max-h-xs` | `max-height: var(--measure-xs)` | max-height: var(--measure-xs) |
 | `.max-h-sm` | `max-height: var(--measure-sm)` | max-height: var(--measure-sm) |
 | `.max-h-md` | `max-height: var(--measure-md)` | max-height: var(--measure-md) |
+| `.max-h-bs` | `max-height: var(--measure-bs)` | max-height: var(--measure-bs) |
 | `.max-h-lg` | `max-height: var(--measure-lg)` | max-height: var(--measure-lg) |
 | `.max-h-xl` | `max-height: var(--measure-xl)` | max-height: var(--measure-xl) |
 | `.max-h-2xl` | `max-height: var(--measure-2xl)` | max-height: var(--measure-2xl) |
 | `.max-h-3xl` | `max-height: var(--measure-3xl)` | max-height: var(--measure-3xl) |
 | `.max-h-4xl` | `max-height: var(--measure-4xl)` | max-height: var(--measure-4xl) |
+| `.clamp-xs` | `max-width: var(--measure-xs); margin-inline: auto` | max-width: var(--measure-xs) |
+| `.clamp-sm` | `max-width: var(--measure-sm); margin-inline: auto` | max-width: var(--measure-sm) |
+| `.clamp-md` | `max-width: var(--measure-md); margin-inline: auto` | max-width: var(--measure-md) |
+| `.clamp-bs` | `max-width: var(--measure-bs); margin-inline: auto` | max-width: var(--measure-bs) |
+| `.clamp-lg` | `max-width: var(--measure-lg); margin-inline: auto` | max-width: var(--measure-lg) |
+| `.clamp-xl` | `max-width: var(--measure-xl); margin-inline: auto` | max-width: var(--measure-xl) |
+| `.clamp-2xl` | `max-width: var(--measure-2xl); margin-inline: auto` | max-width: var(--measure-2xl) |
+| `.clamp-3xl` | `max-width: var(--measure-3xl); margin-inline: auto` | max-width: var(--measure-3xl) |
+| `.clamp-4xl` | `max-width: var(--measure-4xl); margin-inline: auto` | max-width: var(--measure-4xl) |
 
 ---
 
@@ -252,6 +269,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.xevenly` | `justify-content: space-evenly` | justify-content: space-evenly — modifier of .row |
 | `.xaround` | `justify-content: space-around` | justify-content: space-around — modifier of .row |
 | `.grid` | `display: grid` | CSS grid container — the third structural foundation |
+| `.grid-1` | `display: grid` | Grid with 1 columns |
 | `.grid-2` | `display: grid` | Grid with 2 columns |
 | `.grid-3` | `display: grid` | Grid with 3 columns |
 | `.grid-4` | `display: grid` | Grid with 4 columns |
@@ -261,7 +279,11 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.center` | `place-items: center` | place-items: center — modifier of .grid |
 | `.xstretch` | `justify-items: stretch` | justify-items: stretch — modifier of .grid |
 | `.ystretch` | `align-items: stretch` | align-items: stretch — modifier of .grid |
-| `.grid-1` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Grid with 1 columns |
+| `.grid-8` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Grid with 8 columns |
+| `.grid-9` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Grid with 9 columns |
+| `.grid-10` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Grid with 10 columns |
+| `.grid-11` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Grid with 11 columns |
+| `.grid-12` | `display: grid; grid-template-columns: repeat(1, minmax(0, 1fr))` | Grid with 12 columns |
 | `.cspan-1` | `grid-column: span 1` | Span 1 grid columns |
 | `.cspan-2` | `grid-column: span 2` | Span 2 grid columns |
 | `.cspan-3` | `grid-column: span 3` | Span 3 grid columns |
@@ -270,6 +292,10 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.cspan-6` | `grid-column: span 6` | Span 6 grid columns |
 | `.cspan-7` | `grid-column: span 7` | Span 7 grid columns |
 | `.cspan-8` | `grid-column: span 8` | Span 8 grid columns |
+| `.cspan-9` | `grid-column: span 9` | Span 9 grid columns |
+| `.cspan-10` | `grid-column: span 10` | Span 10 grid columns |
+| `.cspan-11` | `grid-column: span 11` | Span 11 grid columns |
+| `.cspan-12` | `grid-column: span 12` | Span 12 grid columns |
 | `.card-grid` | `display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--card-min), 100%), 1fr))` | Auto-fit card grid — the column count negotiates the width |
 | `.wrap` | `flex-wrap: wrap` | Allow flex wrapping |
 | `.grow` | `flex: 1 1 0%` | Flex grow — take the remaining space (flex: 1 1 0%) |
@@ -304,7 +330,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.pin-bl` | `position: absolute; z-index: var(--z-raised)` | Pinned to the bottom-left corner of the nearest positioned parent |
 | `.pin-br` | `position: absolute; z-index: var(--z-raised)` | Pinned to the bottom-right corner of the nearest positioned parent |
 | `.sr-only` | `position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0` | Visually hidden, still focusable and read by screen readers |
-| `.prose` | `max-width: var(--prose-clamp); margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-sm)` | Reading measure — a clamped content width |
+| `.prose` | `max-width: var(--prose-clamp); margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-bs)` | Reading measure — a clamped content width |
 | `.prose-left` | `max-width: var(--prose-clamp); margin-right: auto; display: flex; flex-direction: column; gap: var(--space-sm)` | Reading measure, aligned to the start edge |
 | `.frame-16-9` | `aspect-ratio: 16 / 9; overflow: hidden; position: relative` | aspect-ratio: 16 / 9 |
 | `.frame-9-16` | `aspect-ratio: 9 / 16; overflow: hidden; position: relative` | aspect-ratio: 9 / 16 |
@@ -326,6 +352,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.overflow-visible` | `overflow: visible` | Let the overflow show |
 | `.isolate` | `isolation: isolate` | Create a stacking context |
 | `.flex-shrink` | `flex-shrink: 1` | Allow shrinking again — undoes .shrink-0 |
+| `.shrink` | `flex-shrink: 1` | flex-shrink: 1 |
 
 ---
 
@@ -347,17 +374,21 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.text-5xl` | `font-size: var(--text-5xl)` | Text size at the 5xl step — rides --text-5xl |
 | `.text-body` | `font-size: var(--text-bs); line-height: 1.55` | Body copy at the base size |
 | `.text-body-lg` | `font-size: var(--text-lg); line-height: 1.5` | Body copy at the large size |
-| `.text-body-sm` | `font-size: var(--text-sm); line-height: 1.5` | Body copy at the small size |
+| `.text-body-sm` | `font-size: var(--text-md); line-height: 1.5` | Body copy at the small size |
 | `.page-title` | `font-size: var(--text-3xl); line-height: 1.1; font-weight: 600; letter-spacing: -0.02rem` | Page title — the largest type on the page |
-| `.page-desc` | `font-size: var(--text-bs)` | Page description — large and airy |
+| `.page-desc` | `font-size: var(--text-md); line-height: 1.5` | Page description — large and airy |
 | `.page-heading-xl` | `font-size: var(--text-xl); line-height: 1.1; font-weight: 600; letter-spacing: -0.01rem` | Page heading, xl rung |
 | `.page-heading-lg` | `font-size: var(--text-lg); line-height: 1.1; font-weight: 600; letter-spacing: -0.01rem` | Page heading, lg rung |
 | `.page-heading-bs` | `font-size: var(--text-bs); line-height: 1.1; font-weight: 600; letter-spacing: -0.01rem` | Page heading, base rung |
-| `.card-title` | `font-size: var(--text-lg); font-weight: 600; line-height: 1.2` | Card title |
+| `.page-heading` | `font-size: var(--text-bs); line-height: 1.1; font-weight: 600; letter-spacing: -0.01rem` | font-size: var(--text-bs) |
+| `.card-title` | `font-size: var(--text-bs); font-weight: 600; line-height: 1.2` | Card title |
 | `.card-desc` | `font-size: var(--text-md); line-height: 1.2` | Card description |
 | `.nav-link` | `font-size: var(--text-md); line-height: 1.2; letter-spacing: 0.01rem` | Nav link — padded, curved, filled on hover |
+| `.toc-link` | `font-size: var(--text-md); line-height: 1.2; letter-spacing: 0.01rem` | font-size: var(--text-md) |
 | `.nav-link-sm` | `font-size: var(--text-sm); line-height: 1.2` | font-size: var(--text-sm) |
+| `.toc-link-sm` | `font-size: var(--text-sm); line-height: 1.2` | font-size: var(--text-sm) |
 | `.nav-header` | `font-size: var(--text-sm); line-height: 1.1; font-weight: 500; padding: var(--space-sm)` | Nav group header |
+| `.toc-header` | `font-size: var(--text-sm); line-height: 1.1; font-weight: 500; padding: var(--space-sm)` | font-size: var(--text-sm) |
 | `.lh11` | `line-height: 1.1` | Line height 1.1 |
 | `.lh12` | `line-height: 1.2` | Line height 1.2 |
 | `.lh13` | `line-height: 1.3` | Line height 1.3 |
@@ -383,8 +414,6 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.ta-r` | `text-align: right` | Text align — right |
 | `.mleft` | `text-align: left` | Keep the reading measure on the left when the text is centred |
 | `.truncate` | `overflow: hidden; white-space: nowrap; text-overflow: ellipsis` | One-line ellipsis truncation |
-| `.clamp-2` | `display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden` | display: -webkit-box |
-| `.clamp-3` | `display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden` | display: -webkit-box |
 | `.font-sans` | `font-family: var(--font-sans)` | The sans font stack |
 | `.font-mono` | `font-family: var(--font-mono)` | The monospace font stack |
 | `.doc-element` | `margin-bottom: 1.5rem` | An element inside prose content |
@@ -392,12 +421,13 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 | `.tabular-nums` | `font-variant-numeric: tabular-nums` | font-variant-numeric: tabular-nums |
 | `.header-nav` | — | .header-nav rule |
 | `.page-header` | — | A page's title block — flex column for the breadcrumb, title and description |
+| `.code-in-p` | — | .code-in-p rule |
 
 ---
 
 ## border-elevation-focus.css
 
-The partition-law border set (per side, three weights), elevation steps and the focus rings.
+The partition-law border set (per side, three weights), elevation steps, the glass surface and the focus rings.
 
 | Class | Property | Description |
 |:---|:---|:---|
@@ -454,8 +484,8 @@ Application chrome — header, main, sidebars, footer and the content widths.
 
 | Class | Property | Description |
 |:---|:---|:---|
-| `.app-shell` | `display: flex; flex-direction: column; position: relative; min-height: 100vh` | Application shell root — flex column, full height, hosts the header, main and footer |
-| `.app-header` | `display: flex; flex-direction: row; align-items: center; position: sticky; top: 0; z-index: var(--z-sticky); height: var(--header-height); padding-inline: var(--app-…` | Sticky application header |
+| `.app-shell` | `display: flex; flex-direction: column; position: relative` | Application shell root — flex column, full height, hosts the header, main and footer |
+| `.app-header` | `display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-bs); position: sticky; top: 0; z-index: var(--z-sticky); he…` | Sticky application header |
 | `.clamped` | `width: var(--content-clamp); margin-inline: auto` | Clamp to the content width and centre |
 | `.app-main` | `flex: 1 1 0%; min-width: 0; min-height: calc(100dvh - var(--fit-height)); display: flex; flex-direction: row` | Main region between header and footer — flex row, fitted to the viewport |
 | `.main-section` | `flex: 1 1 0%; min-width: 0` | Primary content column inside .app-main |
@@ -463,8 +493,8 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.sidebar-left` | `display: none; position: sticky; top: var(--header-height); height: calc(100dvh - var(--fit-height)); overflow-y: auto; scrollbar-color: oklch(0.95 0.001 50) var(--bg)` | Left rail — nav role; off-canvas drawer on narrow screens |
 | `.sidebar-right` | `display: none; position: sticky; top: var(--header-height); height: calc(100dvh - var(--fit-height)); overflow-y: auto; scrollbar-color: oklch(0.95 0.001 50) var(--bg)` | Right rail — table of contents |
 | `.open` | — | Open state |
-| `.app-footer` | `display: flex; flex-direction: row; align-items: center; padding-inline: var(--app-inline); min-height: var(--footer-height)` | Application footer |
-| `.content-section` | `width: 100%; display: flex; flex-direction: column` | Page content block — responsive padding and narrow width modes |
+| `.app-footer` | `display: flex; flex-direction: row; align-items: center; padding-inline: var(--app-inline); min-height: var(--footer-height); justify-content: space-between; gap: va…` | Application footer |
+| `.content-section` | `width: 100%; display: flex; flex-direction: column; gap: var(--space-bs)` | Page content block — responsive padding and narrow width modes |
 | `.null` | `padding-inline: 0 var(--space-bs)` | No width constraint |
 | `.narrow-half` | `width: var(--measure-lg); margin-inline: auto` | Half the content width |
 | `.narrow-wide` | `width: var(--measure-xl); margin-inline: auto` | Wide content width |
@@ -472,11 +502,8 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.nav-section` | `display: flex; flex-direction: column` | display: flex |
 | `.logo-link` | `display: inline-flex; align-items: center; text-decoration: none; color: inherit` | display: inline-flex |
 | `.toc-section` | `display: flex; flex-direction: column` | display: flex |
-| `.toc-link` | `display: block; font-size: var(--text-sm); color: var(--text-secondary); text-decoration: none` | display: block |
-| `.floating` | `border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible` | border: none |
-| `.dialog` | `border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible` | border: none — modifier of .floating |
-| `.layer` | `border: none; padding: 0; margin: 0; background: transparent; color: inherit; overflow: visible` | border: none — modifier of .floating |
 | `.anchor` | `anchor-name: var(--anchor)` | anchor-name: var(--anchor) |
+| `.floating` | `position: fixed; position-anchor: var(--anchor); inset: auto; max-height: calc(100dvh - var(--space-lg)); position-try-fallbacks: flip-block, flip-inline, flip-block…` | position: fixed |
 | `.at-top` | `position-area: top; margin-bottom: var(--offset); transform-origin: bottom` | position-area: top — modifier of .floating |
 | `.at-top-start` | `position-area: top span-right; margin-bottom: var(--offset); transform-origin: bottom left` | position-area: top span-right — modifier of .floating |
 | `.at-top-end` | `position-area: top span-left; margin-bottom: var(--offset); transform-origin: bottom right` | position-area: top span-left — modifier of .floating |
@@ -487,18 +514,24 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.at-right` | `position-area: right; margin-left: var(--offset); transform-origin: left` | position-area: right — modifier of .floating |
 | `.at-right-start` | `position-area: right span-bottom; margin-left: var(--offset); transform-origin: top left` | position-area: right span-bottom — modifier of .floating |
 | `.at-left-start` | `position-area: left span-bottom; margin-right: var(--offset); transform-origin: top right` | position-area: left span-bottom — modifier of .floating |
+| `.at-left-end` | `position-area: left span-top; margin-right: var(--offset); transform-origin: bottom right` | position-area: left span-top — modifier of .floating |
+| `.at-right-end` | `position-area: right span-top; margin-left: var(--offset); transform-origin: bottom left` | position-area: right span-top — modifier of .floating |
 | `.match-anchor` | `min-width: anchor-size(width)` | min-width: anchor-size(width) — modifier of .floating |
 | `.at-pointer` | `position: fixed; left: calc(var(--px, 0) * 1px); top: calc(var(--py, 0) * 1px); width: 0; height: 0; pointer-events: none; anchor-name: var(--anchor)` | position: fixed |
+| `.dialog` | `margin: auto; max-width: calc(100vw - var(--space-xl)); max-height: calc(100dvh - var(--space-xl))` | margin: auto |
 | `.sheet` | `margin: 0; max-width: 100vw; max-height: 100dvh` | margin: 0 — modifier of .dialog |
 | `.fullscreen` | `width: 100%; height: 100%; max-width: none; max-height: none` | width: 100% — modifier of .dialog |
 | `.open-column` | `display: flex; flex-direction: column` | display: flex — attribute variant |
 | `.sized` | `width: var(--size, auto)` | width: var(--size, auto) |
+| `.layer` | `position: fixed; inset: auto` | position: fixed |
+| `.page-section` | `display: flex; flex-direction: column; padding-bottom: var(--space-2xl); padding-top: var(--space-xs)` | display: flex |
+| `.page-content` | `display: flex; flex-direction: column; gap: var(--space-bs)` | display: flex |
 
 ---
 
 ## colors-themes.css
 
-Colour roles. Name the role, never the value; the theme remaps the token.
+Colour roles. Name the role, never the value; the theme remaps the token. The parametric --hue / --chroma / --tint recipe and the named data-theme palettes live here.
 
 | Class | Property | Description |
 |:---|:---|:---|
@@ -509,6 +542,7 @@ Colour roles. Name the role, never the value; the theme remaps the token.
 | `.bg-overlay` | `background-color: var(--bg-overlay)` | Overlay fill — opaque, for menus, popovers, dialogs and drawers |
 | `.bg-none` | `background: transparent` | No background |
 | `.bg-black` | `background-color: var(--black-fixed)` | Fixed black fill |
+| `.bg-white` | `background-color: var(--white-fixed)` | background-color: var(--white-fixed) |
 | `.state-hover` | `background-color: var(--state-hover)` | The hover fill |
 | `.state-selected` | `background-color: var(--state-selected)` | The selected fill |
 | `.bg-input` | `background-color: var(--bg-input)` | Input fill |
@@ -527,16 +561,18 @@ Colour roles. Name the role, never the value; the theme remaps the token.
 | `.text-warning` | `color: var(--warning)` | Warning ink |
 | `.text-danger` | `color: var(--danger)` | Danger ink |
 | `.text-info` | `color: var(--info)` | Info ink |
-| `.bg-success` | `background-color: var(--success); transition: background var(--motionout2)` | Success fill |
-| `.bg-warning` | `background-color: var(--warning); transition: background var(--motionout2)` | Warning fill |
-| `.bg-danger` | `background-color: var(--danger); transition: background var(--motionout2)` | Danger fill |
-| `.bg-info` | `background-color: var(--info); transition: background var(--motionout2)` | Info fill |
+| `.text-neutral` | `color: var(--neutral)` | color: var(--neutral) |
+| `.bg-success` | `background-color: var(--success); transition: background-color var(--motionout2)` | Success fill |
+| `.bg-warning` | `background-color: var(--warning); transition: background-color var(--motionout2)` | Warning fill |
+| `.bg-danger` | `background-color: var(--danger); transition: background-color var(--motionout2)` | Danger fill |
+| `.bg-info` | `background-color: var(--info); transition: background-color var(--motionout2)` | Info fill |
+| `.bg-neutral` | `background-color: var(--neutral); transition: background-color var(--motionout2)` | background-color: var(--neutral) |
 
 ---
 
 ## motion-animation.css
 
-Motion language — easings, durations and the keyframe animations.
+Motion language — easings, durations, the spring tokens, the keyframe animations and the view transitions.
 
 | Class | Property | Description |
 |:---|:---|:---|
@@ -560,20 +596,6 @@ Motion language — easings, durations and the keyframe animations.
 | `.spring-slow` | — | .spring-slow rule |
 | `.motion` | `translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px); scale: var(--ms, 1); rotate: calc(var(--mr, 0) * 1deg); opacity: var(--mo, 1)` | translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px) |
 | `.tilt` | `transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)); transform-style: preserve-3d` | transform: perspective(50rem) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)) |
-| `.pop` | `opacity: 0; scale: var(--enter-scale, 0.96); translate: var(--enter-x, 0) var(--enter-y, 0); filter: blur(var(--enter-blur, 0)); transition: opacity calc(var(--speed…` | opacity: 0 |
-| `.enter-scale` | — | .enter-scale rule |
-| `.enter-fade` | — | .enter-fade rule |
-| `.enter-up` | — | .enter-up rule |
-| `.enter-down` | — | .enter-down rule |
-| `.enter-left` | — | .enter-left rule |
-| `.enter-right` | — | .enter-right rule |
-| `.enter-blur` | — | .enter-blur rule |
-| `.enter-edge-top` | — | .enter-edge-top rule |
-| `.enter-edge-right` | — | .enter-edge-right rule |
-| `.enter-edge-bottom` | — | .enter-edge-bottom rule |
-| `.enter-edge-left` | — | .enter-edge-left rule |
-| `.reveal` | `opacity: 0; translate: var(--enter-x, 0) var(--enter-y, var(--space-bs)); scale: var(--enter-scale, 1); transition: opacity calc(var(--speed3) * 2 * var(--motion-sca…` | opacity: 0 |
-| `.in` | `opacity: 1; translate: 0 0; scale: 1` | opacity: 1 — modifier of .reveal |
 | `.lift` | `transition: translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring), box-shadow var(--motionout3)` | Hover lifts the surface a hair and raises its shadow |
 | `.press` | `transition: scale calc(var(--spring-ms) * var(--motion-scale)) var(--spring)` | Active press scales the surface in, spring-timed |
 | `.vt-name` | `view-transition-name: var(--vt-name)` | view-transition-name: var(--vt-name) |
@@ -624,10 +646,6 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 | `.vertical` | `flex-direction: column` | Stack the group vertically |
 | `.btn` | `display: flex; align-items: center; justify-content: center; font-size: var(--text-md); text-decoration: none; cursor: pointer; user-select: none; transition: backgr…` | Call-to-action button |
 | `.fit-icon` | `padding: 0; border-width: 0; height: auto; min-block-size: 0` | Icon button that is exactly its icon — no padding or border, sized by the icon |
-| `.card` | `height: auto; min-block-size: 0` | A card — its size class sets the text scale, never the height |
-| `.card-sized` | `font-size: var(--text-bs)` | Scale a card's title, description, label and sub text with its size |
-| `.card-label` | `font-size: 1em` | font-size: 1em — child of .card-sized |
-| `.card-sub` | `font-size: 0.95em` | font-size: 0.95em — child of .card-sized |
 | `.banner` | `height: auto` | A banner — its size class sets padding and text size, height follows content |
 | `.field` | `transition: border-color var(--motionin1), box-shadow var(--motionin1)` | A framed control — the frame shows focus for the input inside it |
 | `.collapse` | `display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--motionout3)` | Opens and closes by height — add .open to open |
@@ -649,7 +667,7 @@ Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
 
 ## component-props.css
 
-Component props — the variant, shape and height classes Fractalsvelte UI consumes.
+Component props — the variant, shape, tone and height classes Fractalsvelte UI consumes.
 
 | Class | Property | Description |
 |:---|:---|:---|
@@ -680,35 +698,23 @@ Component props — the variant, shape and height classes Fractalsvelte UI consu
 | `.tone-success` | — | .tone-success rule |
 | `.tone-warning` | — | .tone-warning rule |
 | `.tone-danger` | — | .tone-danger rule |
-| `.soft` | `background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent); border: 1px solid transparent; color: color-mix(in oklab, var(--soft-ink) 72%, var(--text-pr…` | background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent) |
-| `.tint` | `background-color: color-mix(in oklab, var(--soft-ink) 14%, transparent); border: 1px solid transparent; color: color-mix(in oklab, var(--soft-ink) 72%, var(--text-pr…` | Soft status fill — the status colour mixed into the panel fill |
 | `.dot` | `flex: none; width: 0.5em; height: 0.5em; border-radius: var(--radius-full); background-color: currentColor` | A current-colour status dot |
-
----
-
-## responsive.css
-
-Visibility by breakpoint band. The bands are 769px, 1025px, 1281px, 1441px.
-
-| Class | Property | Description |
-|:---|:---|:---|
-| `.md-only` | `display: none` | Visible from the md band up (1025px) |
-| `.lg-only` | `display: none` | Visible from the lg band up (1281px) |
-| `.xl-only` | `display: none` | Visible from the xl band up (1441px) |
-| `.md-hide` | `display: none` | Hidden from the md band up (1025px) |
-| `.lg-hide` | `display: none` | Hidden from the lg band up (1281px) |
-| `.xl-hide` | `display: none` | Hidden from the xl band up (1441px) |
+| `.elevated` | `background-color: var(--bg-surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md); padding: var(--space-bs)` | background-color: var(--bg-surface) |
+| `.outlined` | `border: 1px solid var(--border); padding: var(--space-bs)` | border: 1px solid var(--border) |
+| `.vacant` | `padding: var(--space-bs)` | padding: var(--space-bs) |
+| `.paneled` | `background-color: var(--bg-panel); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md); padding: var(--space-bs)` | background-color: var(--bg-panel) |
+| `.overlayed` | `background-color: var(--bg-overlayed); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md); padding: var(--space-bs)` | background-color: var(--bg-overlayed) |
 
 ---
 
 ## custom.css
 
-The sanctioned extension layer — branding, the mascot, and anything a project owns.
+The sanctioned extension layer — branding, the mascot, and anything a project owns. Shipped, but not part of index.css: import it on purpose.
 
 | Class | Property | Description |
 |:---|:---|:---|
 | `.site-logomotif` | `height: 48px; transform-origin: center center; transition: transform 210ms var(--transin2)` | Site logo motif — scales on hover |
-| `.logotype` | `height: 20px` | Logotype — the wordmark |
+| `.logotype` | `height: 16px` | Logotype — the wordmark |
 | `.project-circle` | `border-radius: 24px; width: 16px; height: 16px` | Project dot |
 | `.mascot` | `display: inline-block; position: relative; flex: none; line-height: 0; perspective: var(--mascot-persp, 400px)` | The mascot — the site character |
 | `.mascot-bob` | `display: block` | The mascot bobs |
@@ -733,7 +739,7 @@ The sanctioned extension layer — branding, the mascot, and anything a project 
 
 ## modular.css
 
-The sveltemodular workspace chrome.
+The sveltemodular workspace chrome. Shipped, but not part of index.css: import it on purpose.
 
 | Class | Property | Description |
 |:---|:---|:---|

@@ -1,0 +1,315 @@
+# Colors and Themes
+
+Two independent axes, and keeping them apart is the whole model:
+
+- **`data-mode`** - light or dark. Chooses which recipe of colour *roles* applies.
+- **`data-theme`** - a named palette.
+
+> IMP - by default, fractalstyler uses the OKLCH notation, but you can use any notation - hex, rgb, hsla, etc. - if user requires.
+
+The CSS below is the definition layer - read it, do not paste it. A consuming project imports the package and writes only its own values, in its own theme file.
+
+## Setting Up A Page
+
+Put both attributes on the root element, and let the theme toggle rewrite `data-mode` there. `fractalsvelte` is the default theme. 
+
+```svelte
+<html data-mode="light" data-theme="fractalsvelte">
+```
+
+- `color-scheme` follows `data-mode`, so native scrollbars, form controls and `Canvas` backgrounds come out right. Do not set it again in the project.
+- If you must run with no `data-mode` at all, the role tokens are simply undefined and every surface renders transparent. Set it, always.
+- Pick a palette from the registry's `[data-theme='…']` list (this snapshot ships `fractalsvelte`, `aurora`, `ocean`, `ember`, `rose`, `lime`, `amber`, `mono`).
+
+## Where Values Go
+
+> Overriding `--hue` on a plain descendant does not re-derive that subtree's `--bg`, `--text-primary` or `--theme-color`. Those were already computed on the root and are inherited as finished colours.
+
+So a value you want the palette to react to belongs on an element that also carries a recipe - i.e. one matching `[data-mode]` or `[data-mode] [data-theme]`:
+
+```svelte
+<!-- Palette swap inside the same mode: works. The subtree root matches
+     [data-mode='light'] [data-theme], so the recipe re-runs with aurora's --hue. -->
+<section data-theme="aurora" class="box gap-bs">…</section>
+
+<!-- Custom accent inside the mode: declare it with a data-theme on the same element,
+     or in the theme file keyed to a documented class. -->
+```
+
+Do not mix modes in one document in this snapshot. Under a light root, an element carrying `data-mode="dark" data-theme="x"` matches `[data-mode='light'] [data-theme]` (two attribute selectors) which outranks `[data-mode='dark']` (one) - so the light recipe wins and the element renders light-on-light. `data-mode` is a document-level switch. If a project genuinely needs an inverted region, that is a gap-ladder case: report the selector collision and ask before adding a scoped override.
+
+## Choosing A Colour For Something
+
+Name the role, never the value. The helper classes exist so markup stays declarative:
+
+| Need | Use |
+|:---|:---|
+| Page / surface / panel / overlay background | `.bg` (`.bg-main`) `.bg-surface` `.bg-panel` `.bg-overlay` |
+| Control background | `.bg-input` `.bg-button` `.bg-button-secondary` |
+| Text in a role | `.text-primary` `.text-secondary` `.text-muted` `.text-inverse` |
+| Accent text or fill | `.text-theme` `.text-theme-up` `.text-theme-down` |
+| Status | `.text-success` / `.bg-success` and the `-warning` `-danger` `-info` `-neutral` partners |
+| Status block with a legible fill | `.info` / `.success` / `.warning` / `.danger` / `.neutral` |
+| Fixed extremes | `.text-white` `.text-black` `.bg-black` `.bg-white` - the rare, deliberate exceptions |
+
+The `-00 / -25 / -50 / -75 / -100` ramps (`--info-25`, `--danger-100`, …) are lightness steps of a status colour, dark-to-light within one mode. Use the ramp for a tinted background with a matching dark ink.
+
+**Ink on a fill:** let the system compute it. Filled variants derive their text from the fill via `oklch(from …)`, behind an `@supports` fallback, and `.ink-auto` does the same for a background you set yourself (reading `--ink-bg`). To force a colour, set the override token in the theme file (`--on-button`, `--on-theme`, `--on-danger`, …), never a colour class on the element.
+
+Automatic ink is a starting point, not a pass. Check the rendered contrast of every text-on-fill pair in both modes and across every palette the project ships, including hover and selected states - the fills move further apart in dark than they look on screen, and this is where pairs fail.
+
+## Drift Checks
+
+- A raw hex, `rgb()` or `oklch()` literal anywhere outside the theme file.
+- A colour, radius, or size token read via `var(…)` in markup that the resolved registry does not define.
+- `data-theme` used as if it were a mode switch, or `data-mode` set on anything other than the root.
+- A palette override that works in light and silently fails in dark: re-check both modes after any colour change (unless user is in dev mode).
+
+## Snapshot Caveats
+
+Beyond the mode-nesting collision above, three to verify against the resolved package before relying on them:
+
+- `.bg-success`, `.bg-warning`, `.bg-danger`, `.bg-info` each install their own `transition` shorthand, so a status background on a `.spring` element stops spring-transitioning everything else on it.
+- `-up` is always the lighter rung and `-down` the darker one in both modes.
+- The generated `tokens.md` in the package can lag the stylesheet it claims to describe. When a generated surface and the layer CSS disagree, the **layer CSS wins**, and `pnpm registry` regenerates the surfaces.
+- `colorpacks.css` ships raw brand ramps (`--fs-green50`, `--fs-blue40`, …) after every other layer. They are ingredients for authoring a palette.
+
+<!-- gen:begin css:colors-themes.css -->
+```css
+@layer tokens {
+  /* The parametric theme. One recipe, three numbers:
+   *   --hue     the accent hue (and the faint tint of the neutrals)
+   *   --chroma  how vivid the accent is
+   *   --tint    how much of the hue the neutrals carry
+   * A named theme is just those numbers. Set data-theme on <html> (with
+   * data-mode="light|dark"); override the numbers anywhere to re-theme a subtree.
+   * Light/dark stays on data-mode; the recipe lives inside this layer so a
+   * consumer's custom.css can still override it.
+   */
+  :root {
+    --hue: 40;
+    --chroma: 0.2;
+    --tint: 0.012;
+  }
+  [data-theme='fractalsvelte'] { --hue: 40; --chroma: 0.2; --tint: 0.012; }
+  [data-theme='aurora'] { --hue: 168; --chroma: 0.15; --tint: 0.01; }
+  [data-theme='ocean'] { --hue: 238; --chroma: 0.17; --tint: 0.014; }
+  [data-theme='ember'] { --hue: 42; --chroma: 0.19; --tint: 0.01; }
+  [data-theme='rose'] { --hue: 8; --chroma: 0.2; --tint: 0.01; }
+  [data-theme='lime'] { --hue: 128; --chroma: 0.2; --tint: 0.008; }
+  [data-theme='amber'] { --hue: 78; --chroma: 0.17; --tint: 0.01; }
+  [data-theme='mono'] { --hue: 268; --chroma: 0; --tint: 0; }
+
+  [data-mode='light'],
+  [data-mode='light'] [data-theme] {
+    color-scheme: light;
+    --white-fixed: oklch(1 0 0);
+    --black-fixed: oklch(0.210 0.006 285.9);
+    --bg: oklch(0.995 calc(var(--tint) * 0.3) var(--hue));
+    --bg-surface: oklch(0.975 calc(var(--tint) * 0.5) var(--hue));
+    --bg-panel: oklch(0.96 calc(var(--tint) * 0.6) var(--hue));
+    --bg-overlay: oklch(1 0 0);
+    --bg-button: oklch(0.2 var(--tint) var(--hue));
+    --bg-button-hover: oklch(0.29 var(--tint) var(--hue));
+    --bg-button-active: oklch(0.14 var(--tint) var(--hue));
+    --bg-button-secondary: oklch(0.93 calc(var(--tint) * 0.6) var(--hue));
+    --bg-button-secondary-hover: oklch(0.9 calc(var(--tint) * 0.6) var(--hue));
+    --bg-button-secondary-active: oklch(0.87 calc(var(--tint) * 0.6) var(--hue));
+    --bg-input: oklch(0.985 calc(var(--tint) * 0.4) var(--hue));
+    --state-hover: oklch(0 0 0 / 0.045);
+    --state-selected: oklch(0 0 0 / 0.08);
+    --border: oklch(0.91 calc(var(--tint) * 0.6) var(--hue));
+    --border-strong: oklch(0.82 calc(var(--tint) * 0.8) var(--hue));
+    --border-subtle: oklch(0.945 calc(var(--tint) * 0.5) var(--hue));
+    --text-primary: oklch(0.18 var(--tint) var(--hue));
+    --text-secondary: oklch(0.42 var(--tint) var(--hue));
+    --text-muted: oklch(0.58 var(--tint) var(--hue));
+    --text-inverse: oklch(0.99 0 0);
+    --theme-color: oklch(0.60 var(--chroma) var(--hue));
+    --theme-color-up: oklch(0.66 var(--chroma) var(--hue));
+    --theme-color-down: oklch(0.47 var(--chroma) var(--hue));
+    --success: oklch(0.65 0.200 138);
+    --success-hover: oklch(0.55 0.200 138);
+    --warning: oklch(0.85 0.180 92);
+    --warning-hover: oklch(0.80 0.180 92);
+    --danger: oklch(0.60 0.250 25);
+    --danger-hover: oklch(0.50 0.250 25);
+    --info: oklch(0.50 0.220 260);
+    --info-hover: oklch(0.40 0.220 260);
+    --ring: oklch(0.55 var(--chroma) var(--hue) / 0.4);
+    --scrim: oklch(0.2 var(--tint) var(--hue) / 0.35);
+    --shadow-color: 0 0 0;
+    --shadow-rim: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.05);
+    --shadow-sm: 0 1px 2px rgb(var(--shadow-color) / 0.1), 0 2px 4px rgb(var(--shadow-color) / 0.05);
+    --shadow-md: 0 2px 4px rgb(var(--shadow-color) / 0.1), 0 8px 16px rgb(var(--shadow-color) / 0.2);
+    --shadow-bs: 0 2px 4px rgb(var(--shadow-color) / 0.1), 0 6px 14px rgb(var(--shadow-color) / 0.2);
+    --shadow-lg: 0 4px 8px rgb(var(--shadow-color) / 0.1), 0 12px 24px rgb(var(--shadow-color) / 0.2);
+    --shadow-xl: 0 8px 16px rgb(var(--shadow-color) / 0.1), 0 20px 36px rgb(var(--shadow-color) / 0.2);
+    --shadow-2xl: 0 12px 24px rgb(var(--shadow-color) / 0.1), 0 28px 48px rgb(var(--shadow-color) / 0.2);
+    --shadow-3xl: 0 16px 32px rgb(var(--shadow-color) / 0.1), 0 36px 64px rgb(var(--shadow-color) / 0.2);
+
+		--success-00: oklch(0.98 0.070 138);
+		--success-25: oklch(0.82 0.150 138);
+		--success-50: oklch(0.65 0.200 138);
+		--success-75:  oklch(0.45 0.200 138);
+		--success-100:  oklch(0.25 0.200 138);
+
+		--warning-00: oklch(0.95 0.100 92);
+		--warning-25: oklch(0.90 0.140 92);
+		--warning-50: oklch(0.85 0.180 92);
+		--warning-75: oklch(0.70 0.180 92);
+		--warning-100: oklch(0.55 0.180 92);
+
+		--danger-00: oklch(0.95 0.150 25);
+		--danger-25: oklch(0.76 0.150 25);
+		--danger-50: oklch(0.60 0.250 25);
+		--danger-75: oklch(0.40 0.250 25);
+		--danger-100: oklch(0.20 0.250 25);
+
+		--info-00: oklch(0.95 0.050 260);
+		--info-25: oklch(0.70 0.150 260);
+		--info-50: oklch(0.50 0.220 260);
+		--info-75: oklch(0.35 0.220 260);
+		--info-100: oklch(0.20 0.120 260);
+
+		--neutral-00: oklch(0.92 0.002 210);
+		--neutral-25: oklch(0.80 0.002 140);
+		--neutral-50: oklch(0.60 0.010 140);
+		--neutral-75: oklch(0.40 0.010 140);
+		--neutral-100: oklch(0.30 0.010 140);
+  }
+
+  [data-mode='dark'],
+  [data-mode='dark'] [data-theme] {
+    color-scheme: dark;
+    --white-fixed: oklch(1 0 0);
+    --black-fixed: oklch(0.210 0.006 285.9);
+    --bg: oklch(0.145 var(--tint) var(--hue));
+    --bg-surface: oklch(0.175 var(--tint) var(--hue));
+    --bg-panel: oklch(0.2 var(--tint) var(--hue));
+    --bg-overlay: oklch(0.225 var(--tint) var(--hue));
+    --bg-input: oklch(0.185 var(--tint) var(--hue));
+    --bg-button: oklch(0.96 var(--tint) var(--hue));
+    --bg-button-hover: oklch(0.88 var(--tint) var(--hue));
+    --bg-button-active: oklch(0.8 var(--tint) var(--hue));
+    --bg-button-secondary: oklch(0.27 var(--tint) var(--hue));
+    --bg-button-secondary-hover: oklch(0.31 var(--tint) var(--hue));
+    --bg-button-secondary-active: oklch(0.24 var(--tint) var(--hue));
+    --state-hover: oklch(1 0 0 / 0.06);
+    --state-selected: oklch(1 0 0 / 0.1);
+    --border: oklch(0.27 var(--tint) var(--hue));
+    --border-strong: oklch(0.35 var(--tint) var(--hue));
+    --border-subtle: oklch(0.225 var(--tint) var(--hue));
+    --text-primary: oklch(0.97 var(--tint) var(--hue));
+    --text-secondary: oklch(0.74 var(--tint) var(--hue));
+    --text-muted: oklch(0.56 var(--tint) var(--hue));
+    --text-inverse: oklch(0.145 var(--tint) var(--hue));
+    --theme-color: oklch(0.38 var(--chroma) var(--hue));
+    --theme-color-up: oklch(0.78 var(--chroma) var(--hue));
+    --theme-color-down: oklch(0.6 var(--chroma) var(--hue));
+    --success: oklch(0.723 0.192 149.6);
+    --success-hover: oklch(0.773 0.153 163.2);
+    --warning: oklch(0.873 0.179 92.2);
+    --warning-hover: oklch(0.879 0.153 91.6);
+    --danger: oklch(0.637 0.208 25.3);
+    --danger-hover: oklch(0.711 0.166 22.2);
+    --info: oklch(0.714 0.143 254.6);
+    --info-hover: oklch(0.809 0.096 251.8);
+    --ring: oklch(0.68 var(--chroma) var(--hue) / 0.5);
+    --scrim: oklch(0 0 0 / 0.6);
+    --shadow-color: 0 0 0;
+    --shadow-rim: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.3);
+    --shadow-sm: 0 1px 2px rgb(var(--shadow-color) / 0.25), 0 2px 4px rgb(var(--shadow-color) / 0.2);
+    --shadow-md: 0 2px 4px rgb(var(--shadow-color) / 0.2), 0 8px 16px rgb(var(--shadow-color) / 0.25);
+    --shadow-bs: 0 2px 4px rgb(var(--shadow-color) / 0.2), 0 6px 14px rgb(var(--shadow-color) / 0.25);
+    --shadow-lg: 0 4px 8px rgb(var(--shadow-color) / 0.25), 0 12px 24px rgb(var(--shadow-color) / 0.3);
+    --shadow-xl: 0 8px 16px rgb(var(--shadow-color) / 0.3), 0 20px 36px rgb(var(--shadow-color) / 0.35);
+    --shadow-2xl: 0 12px 24px rgb(var(--shadow-color) / 0.35), 0 28px 48px rgb(var(--shadow-color) / 0.4);
+    --shadow-3xl: 0 16px 32px rgb(var(--shadow-color) / 0.4), 0 36px 64px rgb(var(--shadow-color) / 0.45);
+
+		--success-00: oklch(0.27 0.070 138);
+		--success-25: oklch(0.42 0.120 138);
+		--success-50: oklch(0.65 0.200 138);
+		--success-75: oklch(0.80 0.160 138);
+		--success-100: oklch(0.93 0.080 138);
+
+		--warning-00: oklch(0.27 0.059 92);
+		--warning-25: oklch(0.42 0.102 92);
+		--warning-50: oklch(0.65 0.170 92);
+		--warning-75: oklch(0.80 0.136 92);
+		--warning-100: oklch(0.93 0.068 92);
+
+		--danger-00: oklch(0.27 0.077 25);
+		--danger-25: oklch(0.42 0.132 25);
+		--danger-50: oklch(0.65 0.220 25);
+		--danger-75: oklch(0.80 0.176 25);
+		--danger-100: oklch(0.93 0.088 25);
+
+		--info-00: oklch(0.27 0.063 260);
+		--info-25: oklch(0.42 0.108 260);
+		--info-50: oklch(0.65 0.180 260);
+		--info-75: oklch(0.80 0.144 260);
+		--info-100: oklch(0.93 0.072 260);
+
+		--neutral-00: oklch(0.26 0.004 140);
+		--neutral-25: oklch(0.40 0.004 140);
+		--neutral-50: oklch(0.60 0.006 140);
+		--neutral-75: oklch(0.78 0.006 140);
+		--neutral-100: oklch(0.92 0.004 140);
+  }
+}
+
+/* A named theme paints the element with the recipe. */
+[data-theme='fractalsvelte'],
+[data-theme='aurora'],
+[data-theme='ocean'],
+[data-theme='ember'],
+[data-theme='rose'],
+[data-theme='lime'],
+[data-theme='amber'],
+[data-theme='mono'] {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  accent-color: var(--theme-color);
+}
+
+.bg-main, .bg { background-color: var(--bg); }
+.bg-surface { background-color: var(--bg-surface); }
+.bg-panel { background-color: var(--bg-panel); }
+.bg-overlay { background-color: var(--bg-overlay); }
+.bg-none { background: transparent; }
+.bg-black { background-color: var(--black-fixed); }
+.state-hover { background-color: var(--state-hover); }
+.state-selected { background-color: var(--state-selected); }
+.bg-input { background-color: var(--bg-input); }
+.bg-button { background-color: var(--bg-button) ; }
+.bg-button-secondary { background-color: var(--bg-button-secondary) ; }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-inverse { color: var(--text-inverse); }
+.text-white { color: var(--white-fixed); }
+.text-black { color: var(--black-fixed); }
+.text-theme { color: var(--theme-color); }
+.text-theme-up { color: var(--theme-color-up); }
+.text-theme-down { color: var(--theme-color-down); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-danger { color: var(--danger); }
+.text-info { color: var(--info); }
+
+.bg-success { background-color: var(--success); transition: background-color var(--motionout2); }
+.bg-success:hover { background-color: var(--success-hover); }
+.bg-warning { background-color: var(--warning); transition: background-color var(--motionout2); }
+.bg-warning:hover { background-color: var(--warning-hover); }
+.bg-danger { background-color: var(--danger); transition: background-color var(--motionout2); }
+.bg-danger:hover { background-color: var(--danger-hover); }
+.bg-info { background-color: var(--info); transition: background-color var(--motionout2); }
+.bg-info:hover { background-color: var(--info-hover); }
+.bg-info { background-color: var(--info); transition: background-color var(--motionout2); }
+.bg-info:hover { background-color: var(--info-hover); }
+```
+<!-- gen:end css:colors-themes.css -->

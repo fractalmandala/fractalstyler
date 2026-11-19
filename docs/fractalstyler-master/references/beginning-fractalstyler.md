@@ -1,0 +1,36 @@
+# Fractalstyler Begin Steps
+
+A. Fresh - no styling, no legacy, clean install and use Fractalstyler
+B. Conversion - project has existing styling (like Tailwind, or others), that has to be converted to Fractalstyler.
+C. Modified - installation/setup of a project, which has other styling built in, but installation has to be done without it, and with Fractalstyler.
+
+## A. Fresh Fractalstyler
+
+In a fresh installation:
+
+- follow the user instructions on whether to install via NPM/local version, and on variable default values yes/no;
+- depending on the answers, define the variables in one stylesheet in this project - see `./variables.md`;
+- then follow this sequence:
+
+1. Begin usage by first establishing the basic shell and layout, using the canonical layouts:
+   - canonical app-shell
+   - canonical header and/or footer
+   - canonical sidebars
+   - canonical central content section
+   - canonical page header
+   - canonical article, prose content etc.
+
+   Sidebars and the documentation frame are independent choices - pick the rail set the page needs, and the width rung by how the content reads. `./canonical-markups.md` has the variants.
+2. typography - establish canonical header-nav links, sidebar nav links and sections, page title and desc, page headings, text body classes, card title and desc.
+3. Interactions - use the components and component props fractalstyler gives for buttons, inputs, and more. Start from a recipe in `./components.md` rather than assembling base classes and hoping the states land.
+4. For styling from here onwards, refer to the section `## Progressive Discovery` in `../SKILL.md`.
+
+## B. Conversion Project
+
+If the project has existing styling (usually Tailwind, sometimes CSS modules etc.), convert **incrementally**: baseline and inventory first, then map tokens without deleting them, then the shell, containers, components, typography and motion, and only then remove the old system once nothing references it. The phases, the token mapping table and the removal gates are in `./migration.md`.
+
+Do not start by removing the project's current variables. Every screen still using them loses its styling at once, you lose the reference you are converting against, and there is no safe intermediate state to verify from.
+
+## C. Modified Project
+
+In a modified project, first install and set it up, then treat it like a conversion project, but do not confirm any done or completion to user before the conversion is complete - deliver the full modified project to user before anything else.

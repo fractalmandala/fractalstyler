@@ -18,8 +18,10 @@
 		"fractalstyler-mcp": "mcp/server.mjs"
 	},
 	"scripts": {
-		"registry": "node scripts/update-registry.ts",
-		"tokens": "node scripts/gen-springs.ts && node scripts/build-tokens-registry.ts",
+		"registry": "node scripts/update-registry.ts && node scripts/build-skill.ts",
+		"skill": "node scripts/build-skill.ts",
+		"skill:check": "node scripts/build-skill.ts --check",
+		"tokens": "node scripts/build-tokens-registry.ts",
 		"lint": "node lint/cli.ts",
 		"browser": "node lint/browser.ts",
 		"mcp": "node mcp/server.ts",
@@ -28,11 +30,10 @@
 		"build": "npm run registry && npm run tokens && npm run prepack",
 		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && svelte-package && publint",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && node scripts/validate-deck.ts && node lint/cli.ts",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && node scripts/validate-deck.ts && node lint/cli.ts && node scripts/build-skill.ts --check",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"validate:deck": "node scripts/validate-deck.ts",
-		"version": "npm run registry && npm run tokens && git add -A",
-		"gen:springs": "node scripts/gen-springs.ts"
+		"version": "npm run registry && npm run tokens && git add -A"
 	},
 	"files": [
 		"dist",
@@ -40,6 +41,7 @@
 		"!dist/**/*.spec.*",
 		"registry.json",
 		"registry.md",
+		"themes",
 		"skills",
 		"lint",
 		"mcp",
@@ -63,11 +65,6 @@
 		"./types": {
 			"types": "./dist/types.d.ts",
 			"default": "./dist/types.js"
-		},
-		"./layout": {
-			"types": "./dist/layout/index.d.ts",
-			"svelte": "./dist/layout/index.js",
-			"default": "./dist/layout/index.js"
 		},
 		"./styles": {
 			"types": "./dist/asset.d.ts",
