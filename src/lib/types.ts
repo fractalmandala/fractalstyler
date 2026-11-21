@@ -33,6 +33,9 @@ export type Tone = (typeof TONES)[number];
 export const MEASURES = ['measure-xs', 'measure-sm', 'measure-md', 'measure-bs', 'measure-lg', 'measure-xl', 'measure-2xl', 'measure-3xl', 'measure-4xl', 'measure-full'] as const;
 export type Measure = (typeof MEASURES)[number];
 
+export const WIDTHS = ['width-xs', 'width-sm', 'width-md', 'width-bs', 'width-lg', 'width-xl', 'width-2xl', 'width-3xl', 'width-4xl', 'width-full'] as const;
+export type Width = (typeof WIDTHS)[number];
+
 export const ALIGNS = ['left', 'center', 'right', 'between'] as const;
 export type Align = (typeof ALIGNS)[number];
 

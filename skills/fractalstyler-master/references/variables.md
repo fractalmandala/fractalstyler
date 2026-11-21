@@ -27,7 +27,7 @@ One file per project - the theme stylesheet, imported once from the app entry, a
 }
 ```
 
-The order is the cascade, and the cascade is whatever `index.css` imports, in this order: `configurations` → `gaps-pads-margins` → `shapes-sizes` → `containers` → `typography` → `border-elevation-focus` → `layout-shell` → `colors-themes` → `motion-animation` → `components` → `component-props` → `types` → `colorpacks`. Your file goes last, so your `:root` values win by source order. If you import only a subset of layers, keep that order - it is the order that works.
+The order is the cascade, and the cascade is whatever `index.css` imports, in this order: `configurations` → `gaps-pads-margins` → `shapes-sizes` → `containers` → `typography` → `border-elevation-focus` → `layout-shell` → `colors-themes` → `motion-animation` → `types` → `colorpacks`. Your file goes last, so your `:root` values win by source order. If you import only a subset of layers, keep that order - it is the order that works. That import order decides custom properties and utility-vs-utility ties only: which class wins on one element is decided by the CSS cascade layers, `@layer base, tokens, components, types;` with every utility unlayered, so a utility always beats a reset, recipe or data-* type, whatever loaded first.
 
 `custom.css` and `modular.css` ship beside that cascade and are **not** imported by it: they are opt-in layers, so import them explicitly, after the aggregate, when the project wants the extension point or the workspace chrome.
 

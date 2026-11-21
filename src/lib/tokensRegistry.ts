@@ -208,6 +208,8 @@ export interface FractalstylerTokens {
 	'spring-stiff-ms': string;
 	'spring-slow': string;
 	'spring-slow-ms': string;
+	'spring': string;
+	'spring-ms': string;
 	'vt-name': string;
 	'vt-x': string;
 	'vt-y': string;

@@ -9,7 +9,7 @@
 Fractalstyler has a lean set of classes to use.
 Do not create new classes. Styling is done by combining classes in the markup.
 
-The current stylesheet is 652 classes, 473 tokens, 15 layers. The class index is generated whole in `./classes-index.md`; the CSS below is the definition layer for each family, quoted from `src/lib/styles` on every regeneration.
+The current stylesheet is 596 classes, 475 tokens, 13 layers. The class index is generated whole in `./classes-index.md`; the CSS below is the definition layer for each family, quoted from `src/lib/styles` on every regeneration.
 
 ## Choosing Classes In Order
 
@@ -48,6 +48,9 @@ Read this section as: pick a separation method (space, background step, border, 
 The `.shad-hover-*` family is a reduction ladder: the base shadow shows at rest and shrinks on hover (`.shad-hover-xs` removes it entirely). It is not a lift - for that use `.lift`, or pair `.rim` with `.shad-sm`, `-md`, `-lg`, `-xl` or `-2xl`, which are the only rungs `.rim` composes with.
 
 ```css
+/* Layer order restated, so this file imported on its own still cascades right. */
+@layer base, tokens, components, types;
+
 :root {
 	--glass-blur: 1rem;
   --glass-alpha: 72%;
@@ -106,7 +109,24 @@ The `.shad-hover-*` family is a reduction ladder: the base shadow shows at rest 
 .focus-theme:focus-visible { outline: 2px solid var(--theme-color); outline-offset: 2px; }
 .focus-none:focus, .focus-none:focus-visible { outline: none; }	
 
-.glass { background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6); }
+/* Surfaces — each bundles fill, border and shadow into one decision, so they
+ * are recipes in the components layer: a utility on the same element wins
+ * (elevated bg-panel, paneled shad-lg, glass border-none). */
+@layer components {
+	.elevated { background-color: var(--bg-surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md);}
+	.glass { border: 1px solid var(--border); box-shadow: var(--shadow-rim), var(--shadow-md); background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);}
+	.paneled { background-color: var(--bg-panel); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md); }
+	.overlayed { background-color: var(--bg-overlay); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md);}
+}
+
+/* Single-concern surface utilities: they win over the recipes above. */
+.outlined { border: 1px solid var(--border)}
+.vacant { background-color: transparent; }
+.backdrop-blur { backdrop-filter: blur(0.25rem); -webkit-backdrop-filter: blur(0.25rem); }
+.field { transition: border-color var(--motionin1), box-shadow var(--motionin1); }
+.field:focus-within { border-color: var(--theme-color); box-shadow: 0 0 0 2px var(--ring); }
+.field[data-invalid]:focus-within, .field:has([aria-invalid='true']):focus-within { border-color: var(--danger); }
+.field > input:focus-visible, .field > textarea:focus-visible, .field > [role='combobox']:focus-visible { outline: none; box-shadow: none; }
 
 /* The lit top edge of a raised surface. Combines with the elevation ladder. */
 .rim { box-shadow: var(--shadow-rim); }
@@ -127,6 +147,9 @@ The `.shad-hover-*` family is a reduction ladder: the base shadow shows at rest 
 5. `.reel > *` is styled by the reel, so its children need no `flex` or `scroll-snap` classes.
 
 ```css
+/* Layer order restated, so this file imported on its own still cascades right. */
+@layer base, tokens, components, types;
+
 .box, .column { display: flex; flex-direction: column; }
 .box.xcenter, .column.xcenter { align-items: center; text-align: center;}
 .box.xleft, .column.xleft { align-items: flex-start; text-align: left; }
@@ -238,6 +261,7 @@ The `.shad-hover-*` family is a reduction ladder: the base shadow shows at rest 
 .scroll-y { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
 .scroll-x { overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain; }
 .scroll-menu { max-height: 16rem; overflow-y: auto; overscroll-behavior: contain; }
+.scroll-pad { scroll-padding-block: var(--space-xl); }
 .scroll-thin { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
 .scroll-hidden { scrollbar-width: none; }
 .pointer { cursor: pointer; }
@@ -260,35 +284,40 @@ The `.shad-hover-*` family is a reduction ladder: the base shadow shows at rest 
 /* hidden from sight, still focusable and read by screen readers */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
-.prose { max-width: var(--prose-clamp); margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-bs); }
-.prose h1:first-child, .prose h2:first-child, .prose h3:first-child, .prose h4:first-child { margin-top: 0; }
+/* Recipes — prose columns, media frames and the reel style their children,
+ * so they sit in the components layer: a utility on the element or on a child
+ * (mt-lg on a heading, fit-contain on the img) wins. */
+@layer components {
+	.prose { max-width: var(--prose-clamp); margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-bs); }
+	.prose h1:first-child, .prose h2:first-child, .prose h3:first-child, .prose h4:first-child { margin-top: 0; }
 
-.prose-left { max-width: var(--prose-clamp); margin-right: auto; display: flex; flex-direction: column; gap: var(--space-sm); }
-.prose-left h1:first-child, .prose-left h2:first-child, .prose-left h3:first-child, .prose-left h4:first-child { margin-top: 0; }
+	.prose-left { max-width: var(--prose-clamp); margin-right: auto; display: flex; flex-direction: column; gap: var(--space-sm); }
+	.prose-left h1:first-child, .prose-left h2:first-child, .prose-left h3:first-child, .prose-left h4:first-child { margin-top: 0; }
 
-.frame-16-9 { aspect-ratio: 16 / 9; overflow: hidden; position: relative; }
-.frame-16-9 img, .frame-16-9 video, .frame-16-9 iframe, .frame-16-9 svg { width: 100%; height: 100%; object-fit: cover; }
+	.frame-16-9 { aspect-ratio: 16 / 9; overflow: hidden; position: relative; }
+	.frame-16-9 img, .frame-16-9 video, .frame-16-9 iframe, .frame-16-9 svg { width: 100%; height: 100%; object-fit: cover; }
 
-.frame-9-16 { aspect-ratio: 9 / 16; overflow: hidden; position: relative; }
-.frame-9-16 img, .frame-9-16 video, .frame-9-16 iframe, .frame-9-16 svg { width: 100%; height: 100%; object-fit: cover; }
+	.frame-9-16 { aspect-ratio: 9 / 16; overflow: hidden; position: relative; }
+	.frame-9-16 img, .frame-9-16 video, .frame-9-16 iframe, .frame-9-16 svg { width: 100%; height: 100%; object-fit: cover; }
 
-.frame-4-3 { aspect-ratio: 4 / 3; overflow: hidden; position: relative; }
-.frame-4-3 img, .frame-4-3 video, .frame-4-3 iframe, .frame-4-3 svg { width: 100%; height: 100%; object-fit: cover; }
+	.frame-4-3 { aspect-ratio: 4 / 3; overflow: hidden; position: relative; }
+	.frame-4-3 img, .frame-4-3 video, .frame-4-3 iframe, .frame-4-3 svg { width: 100%; height: 100%; object-fit: cover; }
 
-.frame-3-4 { aspect-ratio: 3 / 4; overflow: hidden; position: relative; }
-.frame-3-4 img, .frame-3-4 video, .frame-3-4 iframe, .frame-3-4 svg { width: 100%; height: 100%; object-fit: cover; }
+	.frame-3-4 { aspect-ratio: 3 / 4; overflow: hidden; position: relative; }
+	.frame-3-4 img, .frame-3-4 video, .frame-3-4 iframe, .frame-3-4 svg { width: 100%; height: 100%; object-fit: cover; }
 
-.frame-3-2 { aspect-ratio: 3 / 2; overflow: hidden; position: relative; }
-.frame-3-2 img, .frame-3-2 video, .frame-3-2 iframe, .frame-3-2 svg { width: 100%; height: 100%; object-fit: cover; }
+	.frame-3-2 { aspect-ratio: 3 / 2; overflow: hidden; position: relative; }
+	.frame-3-2 img, .frame-3-2 video, .frame-3-2 iframe, .frame-3-2 svg { width: 100%; height: 100%; object-fit: cover; }
 
-.frame-2-3 { aspect-ratio: 2 / 3; overflow: hidden; position: relative; }
-.frame-2-3 img, .frame-2-3 video, .frame-2-3 iframe, .frame-2-3 svg { width: 100%; height: 100%; object-fit: cover; }
+	.frame-2-3 { aspect-ratio: 2 / 3; overflow: hidden; position: relative; }
+	.frame-2-3 img, .frame-2-3 video, .frame-2-3 iframe, .frame-2-3 svg { width: 100%; height: 100%; object-fit: cover; }
 
-.frame-1-1 { aspect-ratio: 1 / 1; overflow: hidden; position: relative; }
-.frame-1-1 img, .frame-1-1 video, .frame-1-1 iframe, .frame-1-1 svg { width: 100%; height: 100%; object-fit: cover; }
+	.frame-1-1 { aspect-ratio: 1 / 1; overflow: hidden; position: relative; }
+	.frame-1-1 img, .frame-1-1 video, .frame-1-1 iframe, .frame-1-1 svg { width: 100%; height: 100%; object-fit: cover; }
 
-.reel { display: flex; flex-direction: row; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline mandatory; }
-.reel > * { flex: 0 0 auto; scroll-snap-align: start; }
+	.reel { display: flex; flex-direction: row; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline mandatory; }
+	.reel > * { flex: 0 0 auto; scroll-snap-align: start; }
+}
 
 .inline { display: inline; }
 .block { display: block; }
@@ -540,17 +569,9 @@ Two shape vocabularies, one per element: the named shapes (`.rect` `.mincurved` 
 .h-2xl { height: var(--h-2xl);}
 .h-3xl { height: var(--h-3xl);}
 
-.wfull { width: 100%; }
-.hfull { height: 100%; }
-.wmax { width: max-content; }
-.hmax { height: max-content; }
-.full { width: 100%; height: 100%; }
-.wmin0 { min-width: 0; }
-.hmin0 { min-height: 0; }
-.min0 { min-width: 0; min-height: 0; }
-.hfull-dvh { min-height: 100dvh; }
-.hfull-fitted { min-height: calc(100dvh - var(--header-height) - var(--footer-height)); }
-
+/* Measures and clamps first: each sets a width AND a cap (or a centring
+ * margin). The single-property sizing utilities follow, so .measure-lg.wmax or
+ * .width-md.wfull resolves to the single property. */
 .measure-xs { width: 100%; max-width: var(--measure-xs); }
 .measure-sm { width: 100%; max-width: var(--measure-sm); }
 .measure-md { width: 100%; max-width: var(--measure-md); }
@@ -560,6 +581,16 @@ Two shape vocabularies, one per element: the named shapes (`.rect` `.mincurved` 
 .measure-2xl { width: 100%; max-width: var(--measure-2xl); }
 .measure-3xl { width: 100%; max-width: var(--measure-3xl); }
 .measure-4xl { width: 100%; max-width: var(--measure-4xl); }
+
+.width-xs { width: 100%; max-width: var(--measure-xs); }
+.width-sm { width: 100%; max-width: var(--measure-sm); }
+.width-md { width: 100%; max-width: var(--measure-md); }
+.width-bs { width: 100%; max-width: var(--measure-bs); }
+.width-lg { width: 100%; max-width: var(--measure-lg); }
+.width-xl { width: 100%; max-width: var(--measure-xl); }
+.width-2xl { width: 100%; max-width: var(--measure-2xl); }
+.width-3xl { width: 100%; max-width: var(--measure-3xl); }
+.width-4xl { width: 100%; max-width: var(--measure-4xl); }
 
 .max-h-xs { max-height: var(--measure-xs); }
 .max-h-sm { max-height: var(--measure-sm); }
@@ -580,4 +611,15 @@ Two shape vocabularies, one per element: the named shapes (`.rect` `.mincurved` 
 .clamp-2xl { max-width: var(--measure-2xl); margin-inline: auto; }
 .clamp-3xl { max-width: var(--measure-3xl); margin-inline: auto; }
 .clamp-4xl { max-width: var(--measure-4xl); margin-inline: auto; }
+
+.wfull { width: 100%; }
+.hfull { height: 100%; }
+.wmax { width: max-content; }
+.hmax { height: max-content; }
+.full { width: 100%; height: 100%; }
+.wmin0 { min-width: 0; }
+.hmin0 { min-height: 0; }
+.min0 { min-width: 0; min-height: 0; }
+.hfull-dvh { min-height: 100dvh; }
+.hfull-fitted { min-height: calc(100dvh - var(--header-height) - var(--footer-height)); }
 ```

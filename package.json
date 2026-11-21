@@ -1,6 +1,6 @@
 {
 	"name": "@fractaldesign/fractalstyler",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"license": "MIT",
 	"description": "A lean CSS composition, styling, and design system designed for minimal classes, maximal customizability.",
 	"homepage": "https://fractalsvelte.dev/fractalstyler",

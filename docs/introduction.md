@@ -98,8 +98,9 @@ Prefer `page-title`, `card-desc`, `text-body-sm`, `nav-link` over assembling `te
 3. Classes consume tokens, tokens only. A utility class should be one line: `property: var(--token)`. The moment a class grows logic, it belongs in `components.css` or your `custom.css`.
 4. Keep `custom.css` as the pressure valve. All site-specific styling goes there, never into the system files. That quarantines your branding from system upgrades.
 5. Light and dark stay on `data-mode`. Toggle it on `<html>` (add `.mode-wipe` while switching to kill the cross-fade flash). Named palettes use `data-theme` — a preset of `--hue`, `--chroma`, and `--tint`. `data-radius`, `data-density`, and `data-motion` are optional axes that rewrite those token ladders. Don't invent further theme attributes.
-6. Respect the breakpoints. The bands 769/1025/1281/1441 are shared by grids, shell, typography and [responsive](./12-responsive.md) classes. New responsive rules use the same bands — never a fifth, private breakpoint.
-7. Motion comes from tokens. `transition: color var(--motionin1)` — not hand-written `0.2s ease`. Spring-timed motion uses `var(--spring)` and `calc(var(--spring-ms) * var(--motion-scale))`, so reduced motion can silence it.
+6. Utilities win. Resets, recipes (shells, text roles, surfaces, dialogs) and data-* types sit in CSS cascade layers (`@layer base, tokens, components, types;`); utilities are unlayered and beat them all, whatever the load order. `page-title text-2xl` is a 2xl title; `bare px-md` keeps its padding. See the cascade rule in [Configurations](./01-configurations.md).
+7. Respect the breakpoints. The bands 769/1025/1281/1441 are shared by grids, shell, typography and [responsive](./12-responsive.md) classes. New responsive rules use the same bands — never a fifth, private breakpoint.
+8. Motion comes from tokens. `transition: color var(--motionin1)` — not hand-written `0.2s ease`. Spring-timed motion uses `var(--spring)` and `calc(var(--spring-ms) * var(--motion-scale))`, so reduced motion can silence it.
 
 ## Dos and Don'ts
 

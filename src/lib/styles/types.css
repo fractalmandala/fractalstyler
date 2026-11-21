@@ -1,3 +1,7 @@
+/* Layer order restated, so this file imported on its own still cascades right. */
+@layer base, tokens, components, types;
+
+@layer types {
 [data-size="h-xs"] { height: var(--h-xs); }
 [data-size="h-sm"] { height: var(--h-sm); }
 [data-size="h-md"] { height: var(--h-md); }
@@ -10,13 +14,17 @@
 [data-variant="primary"] {
   background-color: var(--bg-button);
   border: 1px solid var(--bg-button);
+  color: var(--on-button, var(--text-inverse));
 }
 [data-variant="primary"]:hover {
   background-color: var(--bg-button-hover);
   border: 1px solid var(--bg-button-hover);
 }
 [data-variant="primary"].selected,
-[data-variant="primary"][data-selected="true"] {
+[data-variant="primary"][data-selected],
+[data-variant="primary"][data-selected="true"],
+[data-variant="primary"][data-state="on"],
+[data-variant="primary"][data-state="active"] {
   background-color: var(--bg-button-active);
   border: 1px solid var(--bg-button-active);
 }
@@ -24,13 +32,17 @@
 [data-variant="secondary"] {
   background-color: var(--bg-button-secondary);
   border: 1px solid var(--bg-button-secondary);
+  color: var(--on-button-secondary, var(--text-primary));
 }
 [data-variant="secondary"]:hover {
   background-color: var(--bg-button-secondary-hover);
   border: 1px solid var(--bg-button-secondary-hover);
 }
 [data-variant="secondary"].selected,
-[data-variant="secondary"][data-selected="true"] {
+[data-variant="secondary"][data-selected],
+[data-variant="secondary"][data-selected="true"],
+[data-variant="secondary"][data-state="on"],
+[data-variant="secondary"][data-state="active"] {
   background-color: var(--bg-button-secondary-active);
   border: 1px solid var(--bg-button-secondary-active);
 }
@@ -38,13 +50,17 @@
 [data-variant="themed"] {
   background-color: var(--theme-color);
   border: 1px solid var(--theme-color);
+  color: var(--on-theme, var(--white-fixed));
 }
 [data-variant="themed"]:hover {
   background-color: var(--theme-color-down);
   border: 1px solid var(--theme-color-down);
 }
 [data-variant="themed"].selected,
-[data-variant="themed"][data-selected="true"] {
+[data-variant="themed"][data-selected],
+[data-variant="themed"][data-selected="true"],
+[data-variant="themed"][data-state="on"],
+[data-variant="themed"][data-state="active"] {
   background-color: var(--theme-color-down);
   border: 1px solid var(--theme-color-down);
 }
@@ -52,60 +68,103 @@
 [data-variant="outline"] {
   background-color: transparent;
   border: 1px solid var(--border-strong);
+  color: var(--text-primary);
 }
 [data-variant="outline"]:hover {
+  color: var(--theme-color);
   border: 1px solid var(--theme-color);
 }
+[data-mode='dark'] [data-variant="outline"]:hover {
+  color: var(--theme-color-up);
+  border: 1px solid var(--theme-color-up);
+}
 [data-variant="outline"].selected,
-[data-variant="outline"][data-selected="true"] {
+[data-variant="outline"][data-selected],
+[data-variant="outline"][data-selected="true"],
+[data-variant="outline"][data-state="on"],
+[data-variant="outline"][data-state="active"] {
   background-color: var(--state-selected);
   border: 1px solid var(--border-strong);
+  color: var(--text-primary);
 }
 
 [data-variant="ghost"] {
   background-color: transparent;
   border: 1px solid transparent;
+  color: var(--text-primary);
 }
 [data-variant="ghost"]:hover {
   background-color: var(--state-hover);
 }
 [data-variant="ghost"].selected,
-[data-variant="ghost"][data-selected="true"] {
+[data-variant="ghost"][data-selected],
+[data-variant="ghost"][data-selected="true"],
+[data-variant="ghost"][data-state="on"],
+[data-variant="ghost"][data-state="active"] {
   background-color: var(--state-selected);
 }
 
 [data-variant="link"] {
   background-color: transparent;
   border: 1px solid transparent;
+  color: var(--theme-color);
   text-decoration: none;
   text-decoration-color: var(--theme-color);
+  text-underline-offset: 0.2em;
+}
+[data-mode='dark'] [data-variant="link"] {
+  color: var(--theme-color-up);
+  text-decoration-color: var(--theme-color-up);
 }
 [data-variant="link"]:hover {
   text-decoration: underline;
 }
 
+[data-variant="neutral"] {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+[data-variant="neutral"]:hover {
+  background-color: var(--state-hover);
+}
+
 [data-variant="info"] {
   background-color: var(--info);
   border: 1px solid var(--info);
+  color: var(--on-info, var(--white-fixed));
 }
 
 [data-variant="success"] {
   background-color: var(--success);
   border: 1px solid var(--success);
+  color: var(--on-success, var(--white-fixed));
 }
 
 [data-variant="warning"] {
   background-color: var(--warning);
   border: 1px solid var(--warning);
+  color: var(--on-warning, var(--white-fixed));
 }
 
 [data-variant="danger"] {
   background-color: var(--danger);
   border: 1px solid var(--danger);
+  color: var(--on-danger, var(--white-fixed));
 }
 [data-variant="danger"]:hover {
   background-color: var(--danger-hover);
   border: 1px solid var(--danger-hover);
+}
+
+@supports (color: oklch(from red l c h)) {
+  [data-variant="primary"] { color: var(--on-button, oklch(from var(--bg-button) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  [data-variant="secondary"] { color: var(--on-button-secondary, oklch(from var(--bg-button-secondary) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  [data-variant="themed"] { color: var(--on-theme, oklch(from var(--theme-color) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  [data-variant="info"] { color: var(--on-info, oklch(from var(--info) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  [data-variant="success"] { color: var(--on-success, oklch(from var(--success) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  [data-variant="warning"] { color: var(--on-warning, oklch(from var(--warning) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
+  [data-variant="danger"] { color: var(--on-danger, oklch(from var(--danger) clamp(0.2, (0.62 - l) * 1000, 1) 0 0)); }
 }
 
 [data-shape="rect"] { border-radius: 0; }
@@ -154,21 +213,23 @@
 
 /* States. The attribute is present when the state is on — Base UI omits it
  * rather than writing "false", so presence is the test. The aria twin is kept
- * alongside because that is what an assistive technology reads. */
-[data-disabled], [aria-disabled="true"] { opacity: 0.5; pointer-events: none; cursor: not-allowed; }
+ * alongside because that is what an assistive technology reads. Bits UI twins
+ * like data-state="checked" / "open" are matched alongside. */
+:disabled, [data-disabled], [aria-disabled="true"] { opacity: 0.5; pointer-events: none; cursor: not-allowed; }
 [data-pending], [aria-busy="true"] { opacity: 0.5; pointer-events: none; cursor: progress; }
 [data-readonly], [readonly] { color: var(--text-muted); cursor: default; }
 [data-invalid], [aria-invalid="true"] { border-color: var(--danger); }
+[data-placeholder] { color: var(--text-muted); }
 [data-selected], [aria-selected="true"], [aria-current="page"], [aria-current="true"] { background-color: var(--state-selected); }
 [data-highlighted] { background-color: var(--state-hover); }
 [data-pressed], [aria-pressed="true"] { background-color: var(--state-selected); }
 [data-current] { color: var(--theme-color); }
-[data-checked], [data-indeterminate] { background-color: var(--theme-color); color: var(--on-theme, var(--white-fixed)); }
+[data-mode='dark'] [data-current] { color: var(--theme-color-up); }
 
 /* Open and expanded carry no paint of their own — the component decides. The
  * one exception is the chevron, which mirrors .caret.open. */
-.caret[data-open], .caret[data-expanded="true"] { rotate: 180deg; }
-.caret.quarter[data-open], .caret.quarter[data-expanded="true"] { rotate: 90deg; }
+.caret[data-open], .caret[data-state="open"], .caret[data-expanded="true"], .caret[aria-expanded="true"] { rotate: 180deg; }
+.caret.quarter[data-open], .caret.quarter[data-state="open"], .caret.quarter[data-expanded="true"], .caret.quarter[aria-expanded="true"] { rotate: 90deg; }
 
 /* Entering and exiting. The primitive sets data-starting-style on the first
  * frame and data-ending-style for the exit, so both carry only the collapsed
@@ -182,8 +243,11 @@
     translate calc(var(--spring-ms) * var(--motion-scale)) var(--spring);
 }
 [data-starting-style], [data-ending-style] { opacity: 0; scale: var(--enter-scale, 0.96); translate: var(--enter-x, 0) var(--enter-y, 0); }
+[data-dialog-overlay], [data-alert-dialog-overlay], .bg-scrim { --enter-scale: 1; }
+[data-ending-style] { pointer-events: none; }
+[data-dialog-content][data-nested-open], [data-alert-dialog-content][data-nested-open] { translate: 0 calc(var(--space-md) * -1); scale: 0.97; }
 [data-side="top"] { --enter-y: var(--space-md); }
 [data-side="bottom"] { --enter-y: calc(var(--space-md) * -1); }
 [data-side="left"] { --enter-x: var(--space-md); }
 [data-side="right"] { --enter-x: calc(var(--space-md) * -1); }
-
+}

@@ -6,7 +6,7 @@
 
 # Class Index
 
-**652 classes** across **15 layers**, read from the
+**596 classes** across **13 layers**, read from the
 
 These classes are the entire public API. There is no authoring mixin and no
 styling function — `+stack`, `+surface`, `space()` and their friends do not
@@ -25,10 +25,11 @@ classes — they are opt-in, not imaginary.
 
 ## configurations.css
 
-Global tokens and base resets — layout dimensions, z-index bands, font stacks, breakpoint bands, the band-based visibility classes and the element resets every page starts from.
+Global tokens and base resets — layout dimensions, z-index bands, font stacks, breakpoint bands, the band-based visibility classes and the element resets every page starts from. Declares the cascade: `@layer base, tokens, components, types;`, then utilities unlayered. The resets, `.bare` and `[hidden]` sit in `base`, so any utility on the same element wins.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
+| `.bare` | class | — | appearance: none |
 | `.bdr` | class | — | Debug outline — flags an element on screen with a border |
 | `.md-only` | class | — | Visible from the md band up (1025px) |
 | `.lg-only` | class | — | Visible from the lg band up (1281px) |
@@ -187,7 +188,7 @@ The space ladder. Every family runs the eight steps xs sm md bs lg xl 2xl 3xl an
 
 ## shapes-sizes.css
 
-Radius and control-height ladders, plus the sizing utilities (full, min0, fitted).
+Radius and control-height ladders, the measures and clamps, plus the sizing utilities (full, min0, fitted). All utilities; the single-property sizing classes come last, so `.measure-lg.wmax` resolves to `wmax`.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
@@ -210,16 +211,6 @@ Radius and control-height ladders, plus the sizing utilities (full, min0, fitted
 | `.h-xl` | class | — | Control height at the xl step — rides --h-xl |
 | `.h-2xl` | class | — | Control height at the 2xl step — rides --h-2xl |
 | `.h-3xl` | class | — | Control height at the 3xl step — rides --h-3xl |
-| `.wfull` | class | — | Full width |
-| `.hfull` | class | — | Full height |
-| `.wmax` | class | — | Max width |
-| `.hmax` | class | — | Max height |
-| `.full` | class | — | Full width and height |
-| `.wmin0` | class | — | Zero min-width |
-| `.hmin0` | class | — | Zero min-height |
-| `.min0` | class | — | Zero min-width and min-height |
-| `.hfull-dvh` | class | — | Full viewport height |
-| `.hfull-fitted` | class | — | Full viewport height, fitted between the header and the footer |
 | `.measure-xs` | class | — | width: 100% |
 | `.measure-sm` | class | — | width: 100% |
 | `.measure-md` | class | — | width: 100% |
@@ -229,6 +220,15 @@ Radius and control-height ladders, plus the sizing utilities (full, min0, fitted
 | `.measure-2xl` | class | — | width: 100% |
 | `.measure-3xl` | class | — | width: 100% |
 | `.measure-4xl` | class | — | width: 100% |
+| `.width-xs` | class | — | width: 100% |
+| `.width-sm` | class | — | width: 100% |
+| `.width-md` | class | — | width: 100% |
+| `.width-bs` | class | — | width: 100% |
+| `.width-lg` | class | — | width: 100% |
+| `.width-xl` | class | — | width: 100% |
+| `.width-2xl` | class | — | width: 100% |
+| `.width-3xl` | class | — | width: 100% |
+| `.width-4xl` | class | — | width: 100% |
 | `.max-h-xs` | class | — | max-height: var(--measure-xs) |
 | `.max-h-sm` | class | — | max-height: var(--measure-sm) |
 | `.max-h-md` | class | — | max-height: var(--measure-md) |
@@ -247,12 +247,22 @@ Radius and control-height ladders, plus the sizing utilities (full, min0, fitted
 | `.clamp-2xl` | class | — | max-width: var(--measure-2xl) |
 | `.clamp-3xl` | class | — | max-width: var(--measure-3xl) |
 | `.clamp-4xl` | class | — | max-width: var(--measure-4xl) |
+| `.wfull` | class | — | Full width |
+| `.hfull` | class | — | Full height |
+| `.wmax` | class | — | Max width |
+| `.hmax` | class | — | Max height |
+| `.full` | class | — | Full width and height |
+| `.wmin0` | class | — | Zero min-width |
+| `.hmin0` | class | — | Zero min-height |
+| `.min0` | class | — | Zero min-width and min-height |
+| `.hfull-dvh` | class | — | Full viewport height |
+| `.hfull-fitted` | class | — | Full viewport height, fitted between the header and the footer |
 
 ---
 
 ## containers.css
 
-The structural foundations — .box, .row and .grid with their axis modifiers — plus positioning, scrolling, grid steps and frames.
+The structural foundations — .box, .row and .grid with their axis modifiers — plus positioning, scrolling, grid steps and frames. The prose columns, frames and the reel style their children and sit in the `components` layer; everything else is a utility.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
@@ -317,6 +327,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 | `.scroll-y` | class | — | Scroll vertically |
 | `.scroll-x` | class | — | Scroll horizontally |
 | `.scroll-menu` | class | — | A list that scrolls past 16rem — dropdown and option lists |
+| `.scroll-pad` | class | — | scroll-padding-block: var(--space-xl) |
 | `.scroll-thin` | class | — | A thin scrollbar in the border colour |
 | `.scroll-hidden` | class | — | Hide the scrollbar |
 | `.pointer` | class | — | Pointer cursor for clickable rows and labels that are not buttons |
@@ -363,7 +374,7 @@ The structural foundations — .box, .row and .grid with their axis modifiers �
 
 ## typography.css
 
-Type scale, semantic text roles, weight, line height, letter spacing and alignment.
+Type scale, semantic text roles, weight, line height, letter spacing and alignment. The text roles (`.page-title`, `.card-title`, `.nav-link` …) and the long-form descendant rules sit in the `components` layer, so `text-*`, `weight-*`, `lh*` and `ls-*` utilities override them.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
@@ -432,7 +443,7 @@ Type scale, semantic text roles, weight, line height, letter spacing and alignme
 
 ## border-elevation-focus.css
 
-The partition-law border set (per side, three weights), elevation steps, the glass surface and the focus rings.
+The partition-law border set (per side, three weights), elevation steps, the surfaces and the focus rings. The bundled surfaces (`.elevated`, `.glass`, `.paneled`, `.overlayed`) sit in the `components` layer; borders, shadows, `.outlined` and `.vacant` are utilities and win over them.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
@@ -477,7 +488,14 @@ The partition-law border set (per side, three weights), elevation steps, the gla
 | `.focus-ring` | class | — | The default focus ring |
 | `.focus-theme` | class | — | A focus ring in the theme colour |
 | `.focus-none` | class | — | No focus ring |
-| `.glass` | class | — | background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent) |
+| `.elevated` | class | — | background-color: var(--bg-surface) |
+| `.glass` | class | — | border: 1px solid var(--border) |
+| `.paneled` | class | — | background-color: var(--bg-panel) |
+| `.overlayed` | class | — | background-color: var(--bg-overlay) |
+| `.outlined` | class | — | border: 1px solid var(--border) |
+| `.vacant` | class | — | background-color: transparent |
+| `.backdrop-blur` | class | — | backdrop-filter: blur(0.25rem) |
+| `.field` | class | — | A framed control — the frame shows focus for the input inside it |
 | `.rim` | class | — | box-shadow: var(--shadow-rim) |
 | `.glow` | class | — | box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-color) 45%, transparent), 0 0 2rem -0.5rem var(--theme-color) |
 
@@ -485,7 +503,7 @@ The partition-law border set (per side, three weights), elevation steps, the gla
 
 ## layout-shell.css
 
-Application chrome — header, main, sidebars, footer and the content widths.
+Application chrome — header, main, sidebars, footer, the content widths and the floating / dialog / layer family. The whole file sits in the `components` layer: a utility on the same element always wins.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
@@ -524,6 +542,7 @@ Application chrome — header, main, sidebars, footer and the content widths.
 | `.match-anchor` | modifier | `.floating` | min-width: anchor-size(width) — modifier of .floating |
 | `.at-pointer` | class | — | position: fixed |
 | `.dialog` | class | — | margin: auto |
+| `.modal-pos` | class | — | position: fixed |
 | `.sheet` | modifier | `.dialog` | margin: 0 — modifier of .dialog |
 | `.fullscreen` | modifier | `.dialog` | width: 100% — modifier of .dialog |
 | `.open-column` | variant | — | display: flex — attribute variant |
@@ -536,7 +555,7 @@ Application chrome — header, main, sidebars, footer and the content widths.
 
 ## colors-themes.css
 
-Colour roles. Name the role, never the value; the theme remaps the token. The parametric --hue / --chroma / --tint recipe and the named data-theme palettes live here.
+Colour roles. Name the role, never the value; the theme remaps the token. The parametric --hue / --chroma / --tint recipe and the named data-theme palettes live here (tokens in the `tokens` layer, the data-theme painter in `base`). The `.state-*` fills come after every resting `bg-*`, so a state paints over it.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
@@ -545,11 +564,11 @@ Colour roles. Name the role, never the value; the theme remaps the token. The pa
 | `.bg-surface` | class | — | Surface fill — cards, panels, inputs |
 | `.bg-panel` | class | — | Panel fill — one step below the surface |
 | `.bg-overlay` | class | — | Overlay fill — opaque, for menus, popovers, dialogs and drawers |
+| `.bg-scrim` | class | — | background-color: var(--scrim) |
+| `.bg-theme` | class | — | background-color: var(--theme-color) |
 | `.bg-none` | class | — | No background |
 | `.bg-black` | class | — | Fixed black fill |
 | `.bg-white` | class | — | background-color: var(--white-fixed) |
-| `.state-hover` | class | — | The hover fill |
-| `.state-selected` | class | — | The selected fill |
 | `.bg-input` | class | — | Input fill |
 | `.bg-button` | class | — | Button fill |
 | `.bg-button-secondary` | class | — | Secondary button fill |
@@ -572,12 +591,14 @@ Colour roles. Name the role, never the value; the theme remaps the token. The pa
 | `.bg-danger` | class | — | Danger fill |
 | `.bg-info` | class | — | Info fill |
 | `.bg-neutral` | class | — | background-color: var(--neutral) |
+| `.state-hover` | class | — | The hover fill |
+| `.state-selected` | class | — | The selected fill |
 
 ---
 
 ## motion-animation.css
 
-Motion language — easings, durations, the spring tokens, the keyframe animations and the view transitions.
+Motion language — easings, durations, the spring tokens, the keyframe animations and the view transitions. `.caret` and `.collapse` are disclosure recipes in the `components` layer.
 
 | Class | Kind | Parent | Applies |
 |:---|:---|:---|:---|
@@ -609,106 +630,19 @@ Motion language — easings, durations, the spring tokens, the keyframe animatio
 | `.vt-slide-back` | class | — | animation: vt-out-right calc(var(--speed3) * var(--motion-scale)) var(--transin1) both |
 | `.vt-scale` | class | — | animation: vt-out-scale calc(var(--speed3) * var(--motion-scale)) var(--transin1) both |
 | `.vt-reveal` | class | — | animation: none |
-
----
-
-## components.css
-
-Components — buttons, inputs, links, tags, avatars, switches, checkboxes.
-
-| Class | Kind | Parent | Applies |
-|:---|:---|:---|:---|
-| `.avatar-more` | child | `.avatar-group.circle` | The overflow avatar in an avatar group |
-| `.avatar-group` | class | — | A group of avatars — stacked or in a row |
-| `.circle` | class | — | Round avatars |
-| `.rounded` | class | — | Rounded-square avatars |
-| `.gap-overlap` | modifier | `.avatar-group` | Overlap the avatars in the group |
-| `.badge` | class | — | Count badge |
-| `.tag` | class | — | Small inline label |
-| `.ink-auto` | class | — | Pick white or near-black ink from the fill behind it (--tag-color on a tag, --ink-bg elsewhere) |
-| `.text-only` | modifier | `.tag` | A tag with no fill — text only |
-| `.tag-remove` | child | `.tag` | The remove control inside a tag |
-| `.switch-box` | class | — | The switch track and thumb |
-| `.checkbox-box` | class | — | The checkbox box |
-| `.slide-unlock` | class | — | Slide-to-unlock control |
-| `.card-clickable` | class | — | A card that responds to clicks |
-| `.disabled` | modifier | `.card-clickable` | Disabled state |
-| `.is-invalid` | class | — | Invalid state — the field failed validation |
-| `.select` | child | `.select-wrap` | Select dropdown — themed field with a chevron |
-| `.select-wrap` | class | — | The frame around a select and its chevron |
-| `.select-chevron` | child | `.select-wrap` | The chevron inside a select frame |
-| `.input` | class | — | Text input — themed field with a focus ring |
-| `.fitted` | modifier | `.input` | The input is fitted to its container |
-| `.link` | class | — | Themed link — theme colour, alternative on hover |
-| `.link-plain` | class | — | Plain link — inherits the ink, theme colour on hover |
-| `.link-parent` | class | — | Link block — hovers the colour of its .link-title child |
-| `.link-title` | child | `.link-parent` | The title inside a .link-parent |
-| `.button` | class | — | The button — variant, shape and size come from the prop classes |
-| `.no-scaling` | modifier | `.button` | Opt a button out of the press scale |
-| `.btn-icon` | modifier | `.h-xs` | Square icon button — no padding, never shrinks, sized by its .h-* class |
-| `.button-group` | class | — | Buttons joined into one control |
-| `.split-button` | class | — | A button with a separate action area |
-| `.vertical` | modifier | `.button-group` | Stack the group vertically |
-| `.btn` | class | — | Call-to-action button |
-| `.fit-icon` | modifier | `.btn-icon` | Icon button that is exactly its icon — no padding or border, sized by the icon |
-| `.banner` | class | — | A banner — its size class sets padding and text size, height follows content |
-| `.field` | class | — | A framed control — the frame shows focus for the input inside it |
-| `.collapse` | class | — | Opens and closes by height — add .open to open |
-| `.data-table` | class | — | A table of records — collapsed borders, quiet header row, row hover |
-| `.data-table-select` | child | `.data-table` | The narrow checkbox column of a data table |
-| `.data-table-empty` | child | `.data-table` | The centred cell shown when a data table has no rows |
-| `.ribbon-bookmark` | class | — | The notched bottom edge of a bookmark ribbon |
-| `.carousel-track` | class | — | Drag-to-scroll on top of .reel — no scrollbar, grab cursors |
-| `.is-draggable` | modifier | `.carousel-track` | Shows the grab cursor on a draggable track |
-| `.is-dragging` | modifier | `.carousel-track` | A drag in progress — no snapping, no pointer events inside |
-| `.track-min` | class | — | Minimum width of a horizontal slider track |
-| `.track-v` | class | — | An upright slider track — its .h-* class sets the thickness |
-| `.kbd` | class | — | display: inline-flex |
-| `.radio` | class | — | .radio rule |
-| `.striped` | class | — | Shade every other row |
-| `.selected` | class | — | Selected state — the current item in a set |
-
----
-
-## component-props.css
-
-Component props — the variant, shape, tone and height classes Fractalsvelte UI consumes.
-
-| Class | Kind | Parent | Applies |
-|:---|:---|:---|:---|
-| `.primary` | class | — | Primary variant — the default fill |
-| `.secondary` | class | — | Secondary variant — a quieter fill |
-| `.themed` | class | — | Themed variant — filled with the theme colour |
-| `.outline` | class | — | Outline variant — border only |
-| `.ghost` | class | — | Ghost variant — no fill until hover |
-| `.info` | class | — | Status variant — the info colour |
-| `.success` | class | — | Status variant — the success colour |
-| `.warning` | class | — | Status variant — the warning colour |
-| `.danger` | class | — | Status variant — the danger colour |
-| `.msg` | class | — | Message fill — the status scale's soft fill, border and ink (with .info, .success, .warning, .danger or .neutral) |
-| `.neutral` | modifier | `.msg` | Status — the neutral tone |
-| `.hgrow` | class | — | The size class becomes a minimum height; the control grows with its content |
-| `.bare` | class | — | appearance: none |
-| `.item` | class | — | display: flex |
-| `.highlighted` | modifier | `.item` | background-color: var(--state-hover) — modifier of .item |
-| `.track` | class | — | position: relative |
-| `.fill` | class | — | position: absolute |
-| `.thumb` | class | — | position: absolute |
-| `.ring` | class | — | flex: none |
-| `.indicator` | class | — | position: absolute |
 | `.caret` | class | — | flex: none |
 | `.quarter` | modifier | `.caret` | rotate: 90deg — modifier of .caret |
-| `.tone-neutral` | class | — | .tone-neutral rule |
-| `.tone-info` | class | — | .tone-info rule |
-| `.tone-success` | class | — | .tone-success rule |
-| `.tone-warning` | class | — | .tone-warning rule |
-| `.tone-danger` | class | — | .tone-danger rule |
-| `.dot` | class | — | A current-colour status dot |
-| `.elevated` | class | — | background-color: var(--bg-surface) |
-| `.outlined` | class | — | border: 1px solid var(--border) |
-| `.vacant` | class | — | padding: var(--space-bs) |
-| `.paneled` | class | — | background-color: var(--bg-panel) |
-| `.overlayed` | class | — | background-color: var(--bg-overlayed) |
+| `.collapse` | class | — | Opens and closes by height — add .open to open |
+
+---
+
+## types.css
+
+The same axes as data attributes, for components that own their own markup: data-variant, data-shape, data-size, data-gap, data-pad, data-tone, data-text-size, data-measure, data-align, data-surface, data-orientation, data-placement, plus the state twins (data-selected, data-disabled, data-checked, data-highlighted, data-pressed, data-current, data-invalid, data-readonly, data-pending, data-open). Sits in the `types` layer: a data-* variant beats a recipe, a utility beats both. Carries no classes.
+
+| Class | Kind | Parent | Applies |
+|:---|:---|:---|:---|
+| `.selected` | variant | — | Selected state — the current item in a set |
 
 ---
 
@@ -786,6 +720,7 @@ The sveltemodular workspace chrome. Shipped, but not part of index.css: import i
 | `.modular-chrome` | class | — | position: absolute |
 | `.modular-menu` | class | — | position: fixed |
 | `.modular-menu-item` | child | `:where(dialog.modular-menu)` | display: flex — child of :where(dialog.modular-menu) |
+| `.danger` | modifier | `.modular-menu-item` | Status variant — the danger colour |
 | `.modular-menu-separator` | class | — | height: 1px |
 | `.modular-popout-body` | class | — | margin: 0 |
 | `.modular-popout-view` | class | — | width: 100% |

@@ -22,11 +22,12 @@ These are the same four bands used throughout the system (grids in [Containers](
 A small escape hatch for the one-off show/hide case — not a per-property responsive ladder:
 
 ```css
-.md-only, .lg-only, .xl-only { display: none; }
-
-@media (min-width: 1025px) { .md-only { display: revert; } .md-hide { display: none; } }
-@media (min-width: 1281px) { .lg-only { display: revert; } .lg-hide { display: none; } }
-@media (min-width: 1441px) { .xl-only { display: revert; } .xl-hide { display: none; } }
+@media (max-width: 1024.98px) { .md-only { display: none !important; } }
+@media (max-width: 1280.98px) { .lg-only { display: none !important; } }
+@media (max-width: 1440.98px) { .xl-only { display: none !important; } }
+@media (min-width: 1025px) { .md-hide { display: none !important; } }
+@media (min-width: 1281px) { .lg-hide { display: none !important; } }
+@media (min-width: 1441px) { .xl-hide { display: none !important; } }
 ```
 
 - `.md-only` / `.lg-only` / `.xl-only` - element is hidden below the band, shown at it and above
@@ -36,5 +37,6 @@ Example: `<aside class="md-only">` shows a sidebar only on desktop widths, the i
 
 Notes:
 
-- `display: revert` restores the element's UA default display — apply these to plain elements, not ones whose display you've overridden with classes like `.inline` or `.box`. Pair `.md-only` with `.inline.md-only` style overrides only if you know what the reverted value should be.
+- The classes only ever hide; they never restate a display. So they combine with any display class — `<nav class="row md-only">` is hidden below 1025px and a flex row from there up.
+- They are `!important`, so they win over the display utility on the same element (`.row`, `.grid`, `.block`) whatever the load order — see the cascade rule in [Configurations](./01-configurations.md).
 - Prefer the built-in responsive behaviors (grids, sidebars, `ta-*.mleft`) when they cover the case; these classes are for the gaps.

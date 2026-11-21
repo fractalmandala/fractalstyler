@@ -49,6 +49,9 @@ Inside `.prose-content`, adding a class to a paragraph or heading is drift - the
 - `.header-nav a` is styled by the parent; header nav links carry no class at all.
 
 ```css
+/* Layer order restated, so this file imported on its own still cascades right. */
+@layer base, tokens, components, types;
+
 :root { 
 	--text-static-md: 0.80rem;
   --text-static-bs: 0.95rem;
@@ -114,76 +117,81 @@ Inside `.prose-content`, adding a class to a paragraph or heading is drift - the
 .text-4xl { font-size: var(--text-4xl);}
 .text-5xl { font-size: var(--text-5xl);}
 
-.text-body { 
-	font-size: var(--text-bs);
-  line-height: 1.55;
-}
-.text-body-lg { 
-	font-size: var(--text-lg);
-  line-height: 1.5;
-}
-.text-body-sm { 
-	font-size: var(--text-md);
-  line-height: 1.5;
-}
-.page-title { 
-	font-size: var(--text-3xl);
-  line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.02rem;
-}
-.page-desc { 
-	font-size: var(--text-md);
-	line-height: 1.5;
-}
-.page-heading-xl { 
-	font-size: var(--text-xl);
-  line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.01rem;
-}
-.page-heading-lg { 
-	font-size: var(--text-lg);
-  line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.01rem;
-}
-.page-heading-bs, .page-heading { 
-	font-size: var(--text-bs);
-  line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.01rem;
-}
-.card-title { 
-	font-size: var(--text-bs);
-  font-weight: 600;
-  line-height: 1.2;
-}
-.card-desc { 
-	font-size: var(--text-md);
-  line-height: 1.2;
-}
-.nav-link, .toc-link { 
-	font-size: var(--text-md);
-  line-height: 1.2;
-  letter-spacing: 0.01rem;
-}
-.nav-link-sm, .toc-link-sm { 
-	font-size: var(--text-sm);
-  line-height: 1.2;
-}
-.nav-header, .toc-header { 
-	font-size: var(--text-sm);
-  line-height: 1.1;
-  font-weight: 500;
-  padding: var(--space-sm);
-}
-.header-nav a { 
-	text-transform: uppercase;
-  font-size: var(--text-sm);
-}
-.header-nav a:hover { 
-	color: var(--theme-color);
+/* Text roles — each bundles size, leading, weight and tracking into one
+ * decision. Recipes, so a text-, weight-, lh or ls- utility on the same
+ * element wins (page-title text-2xl is a 2xl page title). */
+@layer components {
+	.text-body { 
+		font-size: var(--text-bs);
+	  line-height: 1.55;
+	}
+	.text-body-lg { 
+		font-size: var(--text-lg);
+	  line-height: 1.5;
+	}
+	.text-body-sm { 
+		font-size: var(--text-md);
+	  line-height: 1.5;
+	}
+	.page-title { 
+		font-size: var(--text-3xl);
+	  line-height: 1.1;
+	  font-weight: 600;
+	  letter-spacing: -0.02rem;
+	}
+	.page-desc { 
+		font-size: var(--text-md);
+		line-height: 1.5;
+	}
+	.page-heading-xl { 
+		font-size: var(--text-xl);
+	  line-height: 1.1;
+	  font-weight: 600;
+	  letter-spacing: -0.01rem;
+	}
+	.page-heading-lg { 
+		font-size: var(--text-lg);
+	  line-height: 1.1;
+	  font-weight: 600;
+	  letter-spacing: -0.01rem;
+	}
+	.page-heading-bs, .page-heading { 
+		font-size: var(--text-bs);
+	  line-height: 1.1;
+	  font-weight: 600;
+	  letter-spacing: -0.01rem;
+	}
+	.card-title { 
+		font-size: var(--text-bs);
+	  font-weight: 600;
+	  line-height: 1.2;
+	}
+	.card-desc { 
+		font-size: var(--text-md);
+	  line-height: 1.2;
+	}
+	.nav-link, .toc-link { 
+		font-size: var(--text-md);
+	  line-height: 1.2;
+	  letter-spacing: 0.01rem;
+	}
+	.nav-link-sm, .toc-link-sm { 
+		font-size: var(--text-sm);
+	  line-height: 1.2;
+	}
+	.nav-header, .toc-header { 
+		font-size: var(--text-sm);
+	  line-height: 1.1;
+	  font-weight: 500;
+	  padding: var(--space-sm);
+	}
+	.header-nav a { 
+		text-transform: uppercase;
+	  font-size: var(--text-sm);
+	}
+	.header-nav a:hover { 
+		color: var(--theme-color);
+	}
 }
 
 .lh11 { line-height: 1.1; }
@@ -231,63 +239,65 @@ Inside `.prose-content`, adding a class to a paragraph or heading is drift - the
 .font-sans { font-family: var(--font-sans); }
 .font-mono { font-family: var(--font-mono); }
 
-.prose-content blockquote { 
-	border-left: 4px solid var(--theme-color);
-  padding-left: 1rem;
-  margin-bottom: 1.5rem;
-  margin-top: 1rem;
-}
-.prose-content blockquote p { 
-	margin-bottom: 0;
-}
-.prose-content p, 
-.prose-content ul, 
-.prose-content ol { 
-	margin-bottom: 1.5rem;
-  margin-top: 0;
-  line-height: 1.6;
-  font-weight: 400;
-  letter-spacing: 0;
-  font-size: clamp(1rem, 0.9489rem + 0.2273vw, 1.125rem);
-  color: var(--text-primary);
-}
-.prose-content li { 
-	margin-bottom: 0.5rem;
-}
-.prose-content h2 { 
-	margin-top: 2rem;
-  margin-bottom: 1rem;
-  text-transform: capitalize;
-  font-weight: 600;
-}
-.prose-content h3 { 
-	margin-top: 1rem;
-  margin-bottom: 1rem;
-  font-weight: 800;
-  text-transform: capitalize;
-  font-size: var(--text-bs);
-}
-.prose-content p em, 
-.prose-content li em { 
-	background-color: var(--bg-panel);
-  border: 1px solid var(--border-strong);
-  font-size: 1rem;
-  padding-inline: 4px;
-  border-radius: 2px;
-}
-.prose-content .doc-element, 
-.prose-content figure, 
-.prose-content div.scroll-x { 
-	margin-bottom: 1.5rem;
-}
-.prose-content a { 
-	text-decoration: underline;
-  text-decoration-color: var(--theme-color);
+/* Long-form descendant styling — recipes, so a utility on the child wins. */
+@layer components {
+	.prose-content blockquote { 
+		border-left: 4px solid var(--theme-color);
+	  padding-left: 1rem;
+	  margin-bottom: 1.5rem;
+	  margin-top: 1rem;
+	}
+	.prose-content blockquote p { 
+		margin-bottom: 0;
+	}
+	.prose-content p, 
+	.prose-content ul, 
+	.prose-content ol { 
+		margin-bottom: 1.5rem;
+	  margin-top: 0;
+	  line-height: 1.6;
+	  font-weight: 400;
+	  letter-spacing: 0;
+	  font-size: clamp(1rem, 0.9489rem + 0.2273vw, 1.125rem);
+	  color: var(--text-primary);
+	}
+	.prose-content li { 
+		margin-bottom: 0.5rem;
+	}
+	.prose-content h2 { 
+		margin-top: 2rem;
+	  margin-bottom: 1rem;
+	  text-transform: capitalize;
+	  font-weight: 600;
+	}
+	.prose-content h3 { 
+		margin-top: 1rem;
+	  margin-bottom: 1rem;
+	  font-weight: 800;
+	  text-transform: capitalize;
+	  font-size: var(--text-bs);
+	}
+	.prose-content p em, 
+	.prose-content li em { 
+		background-color: var(--bg-panel);
+	  border: 1px solid var(--border-strong);
+	  font-size: 1rem;
+	  padding-inline: 4px;
+	  border-radius: 2px;
+	}
+	.prose-content .doc-element, 
+	.prose-content figure, 
+	.prose-content div.scroll-x { 
+		margin-bottom: 1.5rem;
+	}
+	.prose-content a { 
+		text-decoration: underline;
+	  text-decoration-color: var(--theme-color);
+	}
+
+	.page-header p em { font-style: normal; font-size: var(--text-md); background-color: var(--neutral-00); padding: 2px 4px; border: 1px solid var(--neutral-25); color: var(--neutral-100); border-radius: var(--radius-xs) }
+	p.code-in-p em { background-color: var(--neutral-00); font-size: var(--text-bs); padding: 3px 8px; color: var(--text-primary); font-style: normal; }
 }
 
 .tabular-nums { font-variant-numeric: tabular-nums; }
-
-.page-header p em { font-style: normal; font-size: var(--text-md); background-color: var(--neutral-00); padding: 2px 4px; border: 1px solid var(--neutral-25); color: var(--neutral-100); border-radius: var(--radius-xs) }
-
-p.code-in-p em { background-color: var(--neutral-00); font-size: var(--text-bs); padding: 3px 8px; color: var(--text-primary); font-style: normal; }
 ```

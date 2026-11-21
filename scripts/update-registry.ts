@@ -45,6 +45,21 @@ const STYLES_DIR = path.join(PKG_ROOT, 'src', 'lib', 'styles');
 
 export type RegistryKind = 'class' | 'modifier' | 'child' | 'variant';
 
+/**
+ * Where a class sits in the CSS cascade — the one rule:
+ *   @layer base, tokens, components, types;   then utilities, unlayered.
+ * 'utility' means unlayered: it beats every layered rule, whatever the load order.
+ */
+export type CascadeLayer = 'base' | 'tokens' | 'components' | 'types' | 'utility';
+
+/** '@layer components' → 'components'; unlayered → 'utility'. */
+function cascadeLayerOf(params: string): CascadeLayer {
+	const name = params.replace(/^@layer\s*/, '').trim();
+	return name === 'base' || name === 'tokens' || name === 'components' || name === 'types'
+		? name
+		: 'utility';
+}
+
 export interface RegistryRow {
 	/** '.gap-xs' — the class as it appears in a class attribute. */
 	class: string;
@@ -61,6 +76,8 @@ export interface RegistryRow {
 	property: string;
 	/** The media query the rule sits in, if any. */
 	media: string | null;
+	/** The CSS cascade layer the rule sits in — 'utility' when unlayered. */
+	cascade: CascadeLayer;
 }
 
 /** Split a selector into its compounds on top-level combinators. */
@@ -121,11 +138,23 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
 	const walk = (
 		nodes: CssNode[],
 		media: string | null,
-		visit: (selector: string, compounds: string[], property: string, media: string | null) => void
+		visit: (
+			selector: string,
+			compounds: string[],
+			property: string,
+			media: string | null,
+			cascade: CascadeLayer
+		) => void,
+		cascade: CascadeLayer = 'utility'
 	): void => {
 		for (const node of nodes) {
 			if (node.type === 'at') {
-				walk(node.children, node.name === 'media' ? compactMedia(node.params) : media, visit);
+				walk(
+					node.children,
+					node.name === 'media' ? compactMedia(node.params) : media,
+					visit,
+					node.name === 'layer' ? cascadeLayerOf(node.params) : cascade
+				);
 				continue;
 			}
 			if (node.type !== 'rule') continue;
@@ -139,13 +168,13 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
 					warnings.push(`${file}: Sass nesting in a plain CSS file — "${selector}"`);
 					continue;
 				}
-				visit(selector, splitCompounds(selector), property, media);
+				visit(selector, splitCompounds(selector), property, media, cascade);
 			}
 		}
 	};
 
 	// Pass one — the subject carries a class.
-	walk(parseCss(css), null, (selector, compounds, property, media) => {
+	walk(parseCss(css), null, (selector, compounds, property, media, cascade) => {
 		const subject = compounds[compounds.length - 1] ?? '';
 		const subjectClasses = classesIn(subject);
 		if (subjectClasses.length === 0) return;
@@ -161,7 +190,8 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
 			file,
 			layer: file,
 			property,
-			media
+			media,
+			cascade
 		});
 		for (const extra of rest) {
 			add({
@@ -172,7 +202,8 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
 				file,
 				layer: file,
 				property,
-				media
+				media,
+				cascade
 			});
 		}
 		// The classes of the ancestor compound are classes too — `.avatar-group
@@ -187,14 +218,15 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
 					file,
 					layer: file,
 					property: '',
-					media
+					media,
+					cascade
 				});
 			}
 		}
 	});
 
 	// Pass two — the subject is an element; the ancestor class still counts.
-	walk(parseCss(css), null, (selector, compounds, property, media) => {
+	walk(parseCss(css), null, (selector, compounds, property, media, cascade) => {
 		const subject = compounds[compounds.length - 1] ?? '';
 		if (classesIn(subject).length > 0) return;
 		for (const name of classesIn(selector)) {
@@ -206,7 +238,8 @@ export function extractClasses(css: string, file: string, warnings: string[] = [
 				file,
 				layer: file,
 				property: '',
-				media
+				media,
+				cascade
 			});
 		}
 	});
@@ -294,29 +327,29 @@ export function extractRegistry(): Extracted {
 /** One line per layer: what it owns, for the registry and the skill. */
 export const FILE_INTROS: Record<string, string> = {
 	'configurations.css':
-		'Global tokens and base resets — layout dimensions, z-index bands, font stacks, breakpoint bands, the band-based visibility classes and the element resets every page starts from.',
+		'Global tokens and base resets — layout dimensions, z-index bands, font stacks, breakpoint bands, the band-based visibility classes and the element resets every page starts from. Declares the cascade: `@layer base, tokens, components, types;`, then utilities unlayered. The resets, `.bare` and `[hidden]` sit in `base`, so any utility on the same element wins.',
 	'gaps-pads-margins.css':
 		'The space ladder. Every family runs the eight steps xs sm md bs lg xl 2xl 3xl and rides var(--space-*).',
 	'shapes-sizes.css':
-		'Radius and control-height ladders, plus the sizing utilities (full, min0, fitted).',
+		'Radius and control-height ladders, the measures and clamps, plus the sizing utilities (full, min0, fitted). All utilities; the single-property sizing classes come last, so `.measure-lg.wmax` resolves to `wmax`.',
 	'containers.css':
-		'The structural foundations — .box, .row and .grid with their axis modifiers — plus positioning, scrolling, grid steps and frames.',
+		'The structural foundations — .box, .row and .grid with their axis modifiers — plus positioning, scrolling, grid steps and frames. The prose columns, frames and the reel style their children and sit in the `components` layer; everything else is a utility.',
 	'typography.css':
-		'Type scale, semantic text roles, weight, line height, letter spacing and alignment.',
+		'Type scale, semantic text roles, weight, line height, letter spacing and alignment. The text roles (`.page-title`, `.card-title`, `.nav-link` …) and the long-form descendant rules sit in the `components` layer, so `text-*`, `weight-*`, `lh*` and `ls-*` utilities override them.',
 	'border-elevation-focus.css':
-		'The partition-law border set (per side, three weights), elevation steps, the glass surface and the focus rings.',
+		'The partition-law border set (per side, three weights), elevation steps, the surfaces and the focus rings. The bundled surfaces (`.elevated`, `.glass`, `.paneled`, `.overlayed`) sit in the `components` layer; borders, shadows, `.outlined` and `.vacant` are utilities and win over them.',
 	'layout-shell.css':
-		'Application chrome — header, main, sidebars, footer and the content widths.',
+		'Application chrome — header, main, sidebars, footer, the content widths and the floating / dialog / layer family. The whole file sits in the `components` layer: a utility on the same element always wins.',
 	'colors-themes.css':
-		'Colour roles. Name the role, never the value; the theme remaps the token. The parametric --hue / --chroma / --tint recipe and the named data-theme palettes live here.',
+		'Colour roles. Name the role, never the value; the theme remaps the token. The parametric --hue / --chroma / --tint recipe and the named data-theme palettes live here (tokens in the `tokens` layer, the data-theme painter in `base`). The `.state-*` fills come after every resting `bg-*`, so a state paints over it.',
 	'motion-animation.css':
-		'Motion language — easings, durations, the spring tokens, the keyframe animations and the view transitions.',
+		'Motion language — easings, durations, the spring tokens, the keyframe animations and the view transitions. `.caret` and `.collapse` are disclosure recipes in the `components` layer.',
 	'components.css':
 		'Components — buttons, inputs, links, tags, avatars, switches, checkboxes.',
 	'component-props.css':
 		'Component props — the variant, shape, tone and height classes Fractalsvelte UI consumes.',
 	'types.css':
-		'The same axes as data attributes, for components that own their own markup: data-variant, data-shape, data-size, data-gap, data-pad, data-tone, data-text-size, data-measure, data-align, data-surface, data-orientation, data-placement, plus the state twins (data-selected, data-disabled, data-checked, data-highlighted, data-pressed, data-current, data-invalid, data-readonly, data-pending, data-open). Carries no classes.',
+		'The same axes as data attributes, for components that own their own markup: data-variant, data-shape, data-size, data-gap, data-pad, data-tone, data-text-size, data-measure, data-align, data-surface, data-orientation, data-placement, plus the state twins (data-selected, data-disabled, data-checked, data-highlighted, data-pressed, data-current, data-invalid, data-readonly, data-pending, data-open). Sits in the `types` layer: a data-* variant beats a recipe, a utility beats both. Carries no classes.',
 	'colorpacks.css':
 		'Raw brand ramps (--fs-green50, --fs-blue40, …) — ingredients for authoring a palette, not roles. Ships no classes.',
 	'custom.css':
@@ -652,6 +685,8 @@ export interface VocabEntry {
 	description: string;
 	example: string;
 	media: string | null;
+	/** The CSS cascade layer — base, components, types, or utility (unlayered). */
+	cascade: CascadeLayer;
 }
 
 /** The description of one class. */
@@ -728,6 +763,19 @@ function renderRegistryMarkdown(rows: VocabEntry[], tokenCount: number): string 
 		'each run the eight steps `xs sm md bs lg xl 2xl 3xl`, token-routed through',
 		'`var(--space-*)`. A modifier rides its base (`.box.xcenter`); a child carries',
 		'its own name and names its parent (`.avatar-more` inside `.avatar-group`).',
+		'',
+		'## The cascade rule',
+		'',
+		'`@layer base, tokens, components, types;` — then utilities, unlayered.',
+		'',
+		'The **Cascade** column says where each class sits. `base` holds resets and',
+		'element defaults, `components` holds recipes (shells, sections, text roles,',
+		'surfaces, prose, frames, floating/dialog/layer, caret, collapse), `types` holds',
+		'the data-* axes, and `utility` means unlayered. An unlayered rule beats every',
+		'layered one, so a utility always wins over a reset, recipe or type on the same',
+		'element, whatever the load order. Two utilities that set the same property are',
+		'a contradiction in markup — pick one; the later stylesheet wins, and within a',
+		'family a modifier (`.box.xcenter`) or a state (`:hover`) out-specifies its base.',
 		''
 	];
 
@@ -736,11 +784,11 @@ function renderRegistryMarkdown(rows: VocabEntry[], tokenCount: number): string 
 		if (items.length === 0) continue;
 		lines.push('', `---`, '', `## ${file}`, '');
 		if (FILE_INTROS[file]) lines.push(FILE_INTROS[file], '');
-		lines.push('| Class | Property | Description |', '|:---|:---|:---|');
+		lines.push('| Class | Cascade | Property | Description |', '|:---|:---|:---|:---|');
 		for (const item of items) {
 			const property = item.property ? `\`${item.property.replace(/\|/g, '\\|')}\`` : '—';
 			lines.push(
-				`| \`${item.class}\` | ${property} | ${item.description.replace(/\|/g, '\\|')} |`
+				`| \`${item.class}\` | ${item.cascade} | ${property} | ${item.description.replace(/\|/g, '\\|')} |`
 			);
 		}
 	}
@@ -763,7 +811,8 @@ export function buildRegistry(): { rows: VocabEntry[]; tokens: Token[] } {
 		property: row.property,
 		description: describe(row),
 		example: exampleFor(row),
-		media: row.media
+		media: row.media,
+		cascade: row.cascade
 	}));
 	for (const warning of warnings) console.warn(`  ⚠ ${warning}`);
 	return { rows: entries, tokens };

@@ -146,6 +146,8 @@ Durations, easings, the composed channels every transition reads, the spring cur
 | `--spring-stiff-ms` | `223ms` |
 | `--spring-slow` | `linear(0, 0.02 2.5%, 0.068 5%, 0.135 7.5%, 0.438 17.5%, 0.57 22.5%, 0.627 25%, 0.678 27.5%, 0.762 32.5%, 0.797 35%, 0.853 40%, 0.895 45%, 0.925 50%, 0.947 55%, 0.963 60%, 0.978 67.5%, 0.987 75%, 0.993 82.5%, 1)` |
 | `--spring-slow-ms` | `897ms` |
+| `--spring` | `var(--spring-snappy)` |
+| `--spring-ms` | `var(--spring-snappy-ms)` |
 | `--vt-name` | `none` |
 | `--vt-x` | `50vw` |
 | `--vt-y` | `50vh` |

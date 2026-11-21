@@ -1,3 +1,6 @@
+/* Layer order restated, so this file imported on its own still cascades right. */
+@layer base, tokens, components, types;
+
 :root {
 	--glass-blur: 1rem;
   --glass-alpha: 72%;
@@ -56,14 +59,24 @@
 .focus-theme:focus-visible { outline: 2px solid var(--theme-color); outline-offset: 2px; }
 .focus-none:focus, .focus-none:focus-visible { outline: none; }	
 
-.glass { background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6); }
+/* Surfaces — each bundles fill, border and shadow into one decision, so they
+ * are recipes in the components layer: a utility on the same element wins
+ * (elevated bg-panel, paneled shad-lg, glass border-none). */
+@layer components {
+	.elevated { background-color: var(--bg-surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md);}
+	.glass { border: 1px solid var(--border); box-shadow: var(--shadow-rim), var(--shadow-md); background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);}
+	.paneled { background-color: var(--bg-panel); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md); }
+	.overlayed { background-color: var(--bg-overlay); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md);}
+}
 
-/* Generic surface & reset primitives. */
-.elevated { background-color: var(--bg-surface); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md);}
+/* Single-concern surface utilities: they win over the recipes above. */
 .outlined { border: 1px solid var(--border)}
-.glass { border: 1px solid var(--border); box-shadow: var(--shadow-rim), var(--shadow-md); background-color: color-mix(in oklab, var(--bg-overlay) var(--glass-alpha), transparent); backdrop-filter: blur(var(--glass-blur)) saturate(1.6); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);}
-.paneled { background-color: var(--bg-panel); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md); }
-.overlayed { background-color: var(--bg-overlayed); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-rim), var(--shadow-md);}
+.vacant { background-color: transparent; }
+.backdrop-blur { backdrop-filter: blur(0.25rem); -webkit-backdrop-filter: blur(0.25rem); }
+.field { transition: border-color var(--motionin1), box-shadow var(--motionin1); }
+.field:focus-within { border-color: var(--theme-color); box-shadow: 0 0 0 2px var(--ring); }
+.field[data-invalid]:focus-within, .field:has([aria-invalid='true']):focus-within { border-color: var(--danger); }
+.field > input:focus-visible, .field > textarea:focus-visible, .field > [role='combobox']:focus-visible { outline: none; box-shadow: none; }
 
 /* The lit top edge of a raised surface. Combines with the elevation ladder. */
 .rim { box-shadow: var(--shadow-rim); }

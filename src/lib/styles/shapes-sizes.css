@@ -48,17 +48,9 @@
 .h-2xl { height: var(--h-2xl);}
 .h-3xl { height: var(--h-3xl);}
 
-.wfull { width: 100%; }
-.hfull { height: 100%; }
-.wmax { width: max-content; }
-.hmax { height: max-content; }
-.full { width: 100%; height: 100%; }
-.wmin0 { min-width: 0; }
-.hmin0 { min-height: 0; }
-.min0 { min-width: 0; min-height: 0; }
-.hfull-dvh { min-height: 100dvh; }
-.hfull-fitted { min-height: calc(100dvh - var(--header-height) - var(--footer-height)); }
-
+/* Measures and clamps first: each sets a width AND a cap (or a centring
+ * margin). The single-property sizing utilities follow, so .measure-lg.wmax or
+ * .width-md.wfull resolves to the single property. */
 .measure-xs { width: 100%; max-width: var(--measure-xs); }
 .measure-sm { width: 100%; max-width: var(--measure-sm); }
 .measure-md { width: 100%; max-width: var(--measure-md); }
@@ -68,6 +60,16 @@
 .measure-2xl { width: 100%; max-width: var(--measure-2xl); }
 .measure-3xl { width: 100%; max-width: var(--measure-3xl); }
 .measure-4xl { width: 100%; max-width: var(--measure-4xl); }
+
+.width-xs { width: 100%; max-width: var(--measure-xs); }
+.width-sm { width: 100%; max-width: var(--measure-sm); }
+.width-md { width: 100%; max-width: var(--measure-md); }
+.width-bs { width: 100%; max-width: var(--measure-bs); }
+.width-lg { width: 100%; max-width: var(--measure-lg); }
+.width-xl { width: 100%; max-width: var(--measure-xl); }
+.width-2xl { width: 100%; max-width: var(--measure-2xl); }
+.width-3xl { width: 100%; max-width: var(--measure-3xl); }
+.width-4xl { width: 100%; max-width: var(--measure-4xl); }
 
 .max-h-xs { max-height: var(--measure-xs); }
 .max-h-sm { max-height: var(--measure-sm); }
@@ -88,3 +90,14 @@
 .clamp-2xl { max-width: var(--measure-2xl); margin-inline: auto; }
 .clamp-3xl { max-width: var(--measure-3xl); margin-inline: auto; }
 .clamp-4xl { max-width: var(--measure-4xl); margin-inline: auto; }
+
+.wfull { width: 100%; }
+.hfull { height: 100%; }
+.wmax { width: max-content; }
+.hmax { height: max-content; }
+.full { width: 100%; height: 100%; }
+.wmin0 { min-width: 0; }
+.hmin0 { min-height: 0; }
+.min0 { min-width: 0; min-height: 0; }
+.hfull-dvh { min-height: 100dvh; }
+.hfull-fitted { min-height: calc(100dvh - var(--header-height) - var(--footer-height)); }

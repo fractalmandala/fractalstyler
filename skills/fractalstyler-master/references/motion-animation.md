@@ -43,6 +43,9 @@ Two limits of this snapshot to work around rather than rely on:
 4. Watch for two owners of the same property on one element: `.motion` writes `translate`, `scale`, `rotate` and `opacity`; `.tilt` writes `transform`; `.press` writes `scale`.
 
 ```css
+/* Layer order restated, so this file imported on its own still cascades right. */
+@layer base, tokens, components, types;
+
 :root {
 	--transin1: cubic-bezier(0.470, 0.000, 0.745, 0.715);
 	--transin2: cubic-bezier(0.550, 0.055, 0.675, 0.190);
@@ -70,6 +73,8 @@ Two limits of this snapshot to work around rather than rely on:
 	--spring-stiff-ms: 223ms;
 	--spring-slow: linear(0, 0.02 2.5%, 0.068 5%, 0.135 7.5%, 0.438 17.5%, 0.57 22.5%, 0.627 25%, 0.678 27.5%, 0.762 32.5%, 0.797 35%, 0.853 40%, 0.895 45%, 0.925 50%, 0.947 55%, 0.963 60%, 0.978 67.5%, 0.987 75%, 0.993 82.5%, 1);
 	--spring-slow-ms: 897ms;
+  --spring: var(--spring-snappy);
+  --spring-ms: var(--spring-snappy-ms);
   --vt-name: none;
   --vt-x: 50vw;
   --vt-y: 50vh;
@@ -140,4 +145,16 @@ html.vt-scale::view-transition-old(root) { animation: vt-out-scale calc(var(--sp
 html.vt-scale::view-transition-new(root) { animation: vt-in-scale calc(var(--spring-gentle-ms) * var(--motion-scale)) var(--spring-gentle) both; }
 html.vt-reveal::view-transition-old(root) { animation: none; z-index: 0; }
 html.vt-reveal::view-transition-new(root) { animation: vt-reveal calc(var(--speed3) * 3 * var(--motion-scale)) var(--transout2) both; z-index: 1; }
+
+/* Disclosure recipes — the caret and the collapse own their element (and the
+ * collapse its child), so they sit in the components layer. */
+@layer components {
+	.caret { flex: none; transition: rotate calc(var(--spring-ms) * var(--motion-scale)) var(--spring); }
+	.caret.open { rotate: 180deg; }
+	.caret.quarter.open { rotate: 90deg; }
+	.collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--motionout3); }
+	.collapse.open, .collapse[data-state="open"] { grid-template-rows: 1fr; }
+	.collapse > * { min-height: 0; overflow: hidden; }
+	@media (prefers-reduced-motion: reduce) { .collapse { transition: none; } }
+}
 ```

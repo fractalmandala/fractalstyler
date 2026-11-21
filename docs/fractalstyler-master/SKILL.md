@@ -49,6 +49,11 @@ As the fractalstyler master, you are keeper and steward of its golden rules - al
   - If the need is recurring and belongs to Fractalstyler: say so, name the class or token you would add, and ask before extending the system.
   - If it belongs only to a third party: `custom.css`, per the paragraph above.
 
+9. Utilities win - the cascade rule. `@layer base, tokens, components, types;`, then every utility unlayered. Resets and `.bare` (base), recipes such as the shell, text roles, surfaces, `.prose`, frames and the dialog family (components) and the data-* axes (types) all lose to a utility on the same element, whatever the load order. So override a recipe by adding a utility (`page-title text-2xl`, `dialog pad-lg`, `bare px-md`) - never with a new class or `!important`. Two utilities setting the same property on one element are a contradiction: pick one. `registry.json` carries a `cascade` field for every class.
+
+> Principle - the cascade is decided by the class's role, never by which file loaded first.
+> Check - if a utility is not taking effect, look for a second utility on the same property or a consumer stylesheet that is unlayered, not for a load-order hack.
+
 ## The 4 Questions
 
 When you begin in a project with fractalstyler, you must have a clear answer for 4 questions. If the user has not volunteered the information, ask these questions before proceeding. Do not assume, do not take any past history as convention, do not guess. Establish a clear line between user confirmation on each of these questions, and the answer you form. 

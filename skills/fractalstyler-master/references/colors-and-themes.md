@@ -81,6 +81,9 @@ Beyond the mode-nesting collision above, three to verify against the resolved pa
 - `colorpacks.css` ships raw brand ramps (`--fs-green50`, `--fs-blue40`, …) after every other layer. They are ingredients for authoring a palette.
 
 ```css
+/* Layer order restated, so this file imported on its own still cascades right. */
+@layer base, tokens, components, types;
+
 @layer tokens {
   :root {
     --hue: 40;
@@ -257,29 +260,32 @@ Beyond the mode-nesting collision above, three to verify against the resolved pa
   }
 }
 
-/* A named theme paints the element with the recipe. */
-[data-theme='fractalsvelte'],
-[data-theme='aurora'],
-[data-theme='ocean'],
-[data-theme='ember'],
-[data-theme='rose'],
-[data-theme='lime'],
-[data-theme='amber'],
-[data-theme='mono'] {
-  background-color: var(--bg);
-  color: var(--text-primary);
-  accent-color: var(--theme-color);
+/* A named theme paints the element with the recipe — a default, so it sits in
+ * base and a bg-* / text-* utility on the same element wins. */
+@layer base {
+  [data-theme='fractalsvelte'],
+  [data-theme='aurora'],
+  [data-theme='ocean'],
+  [data-theme='ember'],
+  [data-theme='rose'],
+  [data-theme='lime'],
+  [data-theme='amber'],
+  [data-theme='mono'] {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    accent-color: var(--theme-color);
+  }
 }
 
 .bg-main, .bg { background-color: var(--bg); }
 .bg-surface { background-color: var(--bg-surface); }
 .bg-panel { background-color: var(--bg-panel); }
 .bg-overlay { background-color: var(--bg-overlay); }
+.bg-scrim { background-color: var(--scrim); }
+.bg-theme { background-color: var(--theme-color); }
 .bg-none { background: transparent; }
 .bg-black { background-color: var(--black-fixed); }
 .bg-white { background-color: var(--white-fixed); }
-.state-hover { background-color: var(--state-hover); }
-.state-selected { background-color: var(--state-selected); }
 .bg-input { background-color: var(--bg-input); }
 .bg-button { background-color: var(--bg-button) ; }
 .bg-button-secondary { background-color: var(--bg-button-secondary) ; }
@@ -309,4 +315,8 @@ Beyond the mode-nesting collision above, three to verify against the resolved pa
 .bg-info:hover { background-color: var(--info-hover); }
 .bg-neutral { background-color: var(--neutral); transition: background-color var(--motionout2); }
 .bg-neutral:hover { background-color: var(--neutral-hover); }
+
+/* States last: a state paints over whichever resting bg-* the element has. */
+.state-hover { background-color: var(--state-hover); }
+.state-selected { background-color: var(--state-selected); }
 ```

@@ -58,6 +58,8 @@ live. The rules it follows:
 - a class is one class, however many stylesheets mention it — the first
   mention in cascade order wins;
 - a compound selector gives the extra class a parent (`.xcenter` → `.box`);
+- every row carries `cascade` — the CSS cascade layer its rule sits in
+  (`base`, `components`, `types`), or `utility` when it is unlayered;
 - a custom property is a system token only in a global scope.
 
 It gives each class a description. Using either a curated map set within the script, or the understanding of family ladders, and declarations describing simply what is set by a class. Outputs the following canonical files:
@@ -375,7 +377,7 @@ renders and how to use them.
 | a class and a token | `npm run registry && npm run tokens` |
 | the docs, the skill, the README | `npm run validate:deck` |
 | anything, before you commit | `npm run check` |
-| a new stylesheet | `npm run registry` — and add it to `src/lib/styles/index.css` **and** to `FILE_ORDER` in `update-registry.ts`; the two must agree on cascade order |
+| a new stylesheet | `npm run registry` — and add it to `src/lib/styles/index.css` (or, if it ships outside the aggregate, to `DETACHED_ORDER` in `scripts/update-registry.ts`). Restate `@layer base, tokens, components, types;` at its top if it uses a layer |
 | a token in `springs.css` | `npm run gen:springs` (already the first step of `npm run tokens`) |
 | nothing, publishing | `npm run build` — runs registry, tokens and the package build |
 
@@ -398,26 +400,59 @@ last — because the version is what the generated files get stamped with.
 | the documentation | `docs/*.md` |
 | the agent skill | `skills/fractalstyler/SKILL.md` |
 
-A new stylesheet has to be registered in two places, and they must agree:
+A new stylesheet is registered in `src/lib/styles/index.css` — the import
+order. `styleFiles()` resolves the registry's file order from that `@import`
+list, so the two cannot disagree. A stylesheet that ships outside the aggregate
+goes in `DETACHED_ORDER` in `scripts/update-registry.ts` instead (`custom.css`
+and `modular.css` today; see [Modular](./15-modular.md)).
 
-1. `src/lib/styles/index.css` — the cascade: the order the layers are
-   imported in, and the order a consumer inherits;
-2. `FILE_ORDER` in `scripts/update-registry.ts` — the order the registry reads
-   them, so the class table and the cascade tell the same story.
-
-The current cascade in `index.css` is: `configurations`, `springs`,
+The current import order in `index.css` is: `configurations`,
 `gaps-pads-margins`, `shapes-sizes`, `containers`, `typography`,
 `border-elevation-focus`, `layout-shell`, `colors-themes`, `motion-animation`,
-`components`, `component-props`, `responsive`, `custom`, `colorpacks`.
-`FILE_ORDER` lists the same files through `custom.css`, then `modular.css`
-instead of `colorpacks.css`. `styleFiles()` appends any stylesheet not in
-`FILE_ORDER` (today, `colorpacks.css`) after that list, so both still get
-read. `modular.css` is shipped and indexed, but is not in the aggregate —
-import it on purpose, see [Modular](./15-modular.md).
+`types`, `colorpacks`.
 
-A layer that is in one and not the other still works, but the registry and the
-cascade can disagree about what comes first. Put a class-bearing layer in both,
-in the same order.
+### The cascade rule
+
+`@layer base, tokens, components, types;` — then every utility, unlayered.
+
+| Cascade layer | What lives there |
+|:---|:---|
+| `base` | element resets, `.bare`, `[hidden]`, the `data-theme` painter |
+| `tokens` | custom properties only |
+| `components` | recipes — classes that bundle decisions across concerns or style their descendants: the shell and sections (`layout-shell.css`), the text roles (`.page-title`, `.card-title`, `.nav-link` …), the surfaces (`.elevated`, `.glass`, `.paneled`, `.overlayed`), `.prose`, `.prose-content`, the frames, `.reel`, the floating / dialog / layer family, `.caret`, `.collapse` |
+| `types` | the data-* axes (`data-variant`, `data-size`, `data-tone` …) |
+| *(unlayered)* | utilities — one decision on one concern: spacing, sizing, borders, shadows, colour, type steps, display, position |
+
+An unlayered rule beats every layered rule, whatever its specificity or the order
+the files load in. So **a utility on an element always wins** over a reset, a
+recipe or a data-* type on the same element — `bare px-md` has inline padding,
+`page-title text-2xl` is a 2xl title, `dialog pad-lg` has large padding,
+`paneled shad-lg` has the large shadow. Inside a layer, and between utilities,
+the usual cascade still applies: a modifier (`.box.xcenter`, `.rim.shad-lg`,
+`.caret.open`) or a state (`:hover`, `:focus-visible`, `.state-*`) out-specifies
+or outlasts its base. Two utilities that set the same property on one element
+(`mx-md clamp-lg`, `vacant bg-panel`) are a contradiction in markup — pick one.
+
+The `hidden` attribute and the band classes (`.md-only` … `.xl-hide`) are
+`!important`, so they hide whatever display utility the element carries.
+
+A consumer stylesheet loaded after fractalstyler: an unlayered class there sits
+at the same level as the utilities and wins over every recipe. To make your own
+component CSS lose to utilities the same way, put it in the layer:
+`@layer components { … }`, or `@import 'your.css' layer(components);`.
+
+Where a new class goes:
+
+- a single-concern utility — unlayered, in the file that owns its concern. If it
+  sets the same property as a utility in the same file, put the more specific
+  one later (the shapes file puts `.measure-*` / `.clamp-*` before `.wfull`);
+- a recipe — inside that file's `@layer components { … }` block;
+- a reset or element default — `@layer base` in `configurations.css`;
+- a data-* axis — `types.css`, inside `@layer types`.
+
+A stylesheet that uses a layer restates `@layer base, tokens, components, types;`
+at its top, so it still cascades right when imported on its own. Check a change
+with `registry.md`: its **Cascade** column shows where every class landed.
 
 ### 2. Regenerate the derived files
 
@@ -493,5 +528,6 @@ which strips the types and imports the real entry point.
 | `src/lib/index.ts` — the version constant | your hand |
 | `registry.json`, `registry.md`, `skills/…/fractals.md`, `skills/…/tokens.md` | `npm run registry` |
 | `src/lib/tokensRegistry.ts` | `npm run tokens` |
-| `src/lib/styles/index.css` and `FILE_ORDER` | your hand — both, together |
+| `src/lib/styles/index.css` and `DETACHED_ORDER` | your hand — both, together |
+| the `@layer base, tokens, components, types;` statement | your hand — the same line at the top of every stylesheet that uses a layer |
 | `docs/*.md` | your hand — checked by `npm run validate:deck` |

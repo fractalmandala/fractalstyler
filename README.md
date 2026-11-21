@@ -45,6 +45,34 @@ import '@fractaldesign/fractalstyler/styles/typography.css';
 
 The styles stay in `node_modules`; upgrades come from npm.
 
+**The cascade rule.** `@layer base, tokens, components, types;` — then every utility, unlayered.
+
+| Cascade layer | What lives there |
+|:---|:---|
+| `base` | element resets, `.bare`, `[hidden]`, the `data-theme` painter |
+| `tokens` | custom properties only |
+| `components` | recipes — classes that bundle decisions across concerns or style their descendants: the shell and sections (`layout-shell.css`), the text roles (`.page-title`, `.card-title`, `.nav-link` …), the surfaces (`.elevated`, `.glass`, `.paneled`, `.overlayed`), `.prose`, `.prose-content`, the frames, `.reel`, the floating / dialog / layer family, `.caret`, `.collapse` |
+| `types` | the data-* axes (`data-variant`, `data-size`, `data-tone` …) |
+| *(unlayered)* | utilities — one decision on one concern: spacing, sizing, borders, shadows, colour, type steps, display, position |
+
+An unlayered rule beats every layered rule, whatever its specificity or the order
+the files load in. So **a utility on an element always wins** over a reset, a
+recipe or a data-* type on the same element — `bare px-md` has inline padding,
+`page-title text-2xl` is a 2xl title, `dialog pad-lg` has large padding,
+`paneled shad-lg` has the large shadow. Inside a layer, and between utilities,
+the usual cascade still applies: a modifier (`.box.xcenter`, `.rim.shad-lg`,
+`.caret.open`) or a state (`:hover`, `:focus-visible`, `.state-*`) out-specifies
+or outlasts its base. Two utilities that set the same property on one element
+(`mx-md clamp-lg`, `vacant bg-panel`) are a contradiction in markup — pick one.
+
+The `hidden` attribute and the band classes (`.md-only` … `.xl-hide`) are
+`!important`, so they hide whatever display utility the element carries.
+
+A consumer stylesheet loaded after fractalstyler: an unlayered class there sits
+at the same level as the utilities and wins over every recipe. To make your own
+component CSS lose to utilities the same way, put it in the layer:
+`@layer components { … }`, or `@import 'your.css' layer(components);`.
+
 ### Eject — the files become yours
 
 ```sh
@@ -298,4 +326,5 @@ is aborted before anything leaves the machine.
 | `registry.json`, `registry.md`, `skills/…/fractals.md`, `skills/…/tokens.md` | `npm run registry` |
 | `src/lib/tokensRegistry.ts` | `npm run tokens` |
 | `src/lib/styles/index.css` and `DETACHED_ORDER` | your hand — both, together |
+| the `@layer base, tokens, components, types;` statement | your hand — the same line at the top of every stylesheet that uses a layer |
 | `docs/*.md` | your hand — checked by `npm run validate:deck` |

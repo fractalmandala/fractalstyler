@@ -83,9 +83,44 @@ Light and dark stay on `data-mode`; named palettes stay on `data-theme` — see 
 
 Do not invent further theme attributes.
 
+## The cascade rule
+
+`configurations.css` opens with the statement that orders the CSS cascade layers
+for the whole system (every other file that uses a layer restates it, so a file
+imported on its own still cascades right):
+
+`@layer base, tokens, components, types;` — then every utility, unlayered.
+
+| Cascade layer | What lives there |
+|:---|:---|
+| `base` | element resets, `.bare`, `[hidden]`, the `data-theme` painter |
+| `tokens` | custom properties only |
+| `components` | recipes — classes that bundle decisions across concerns or style their descendants: the shell and sections (`layout-shell.css`), the text roles (`.page-title`, `.card-title`, `.nav-link` …), the surfaces (`.elevated`, `.glass`, `.paneled`, `.overlayed`), `.prose`, `.prose-content`, the frames, `.reel`, the floating / dialog / layer family, `.caret`, `.collapse` |
+| `types` | the data-* axes (`data-variant`, `data-size`, `data-tone` …) |
+| *(unlayered)* | utilities — one decision on one concern: spacing, sizing, borders, shadows, colour, type steps, display, position |
+
+An unlayered rule beats every layered rule, whatever its specificity or the order
+the files load in. So **a utility on an element always wins** over a reset, a
+recipe or a data-* type on the same element — `bare px-md` has inline padding,
+`page-title text-2xl` is a 2xl title, `dialog pad-lg` has large padding,
+`paneled shad-lg` has the large shadow. Inside a layer, and between utilities,
+the usual cascade still applies: a modifier (`.box.xcenter`, `.rim.shad-lg`,
+`.caret.open`) or a state (`:hover`, `:focus-visible`, `.state-*`) out-specifies
+or outlasts its base. Two utilities that set the same property on one element
+(`mx-md clamp-lg`, `vacant bg-panel`) are a contradiction in markup — pick one.
+
+The `hidden` attribute and the band classes (`.md-only` … `.xl-hide`) are
+`!important`, so they hide whatever display utility the element carries.
+
+A consumer stylesheet loaded after fractalstyler: an unlayered class there sits
+at the same level as the utilities and wins over every recipe. To make your own
+component CSS lose to utilities the same way, put it in the layer:
+`@layer components { … }`, or `@import 'your.css' layer(components);`.
+
 ## Base Resets
 
-The file also sets the global baseline for pages:
+The file also sets the global baseline for pages. All of it sits in `@layer base`,
+so any utility on the same element wins:
 
 - `box-sizing: border-box` and `min-width: 0` on everything
 - `body, html` use `--font-sans` at `--text-bs`, zero margin/padding
@@ -95,5 +130,8 @@ The file also sets the global baseline for pages:
 - `img, video, svg` become block-level, `max-width: 100%`, height auto
 - form controls inherit font and color
 - same text resets as typography.css (zero margins, text-wrap rules, link inherit, list-style none)
+
+- `.bare` — an unstyled native control (see [Component Props](./11-component-props.md)); `bare px-md` keeps its padding
+- `[hidden]` hides with `display: none !important`, so `<div class="row" hidden>` stays hidden; `hidden="until-found"` keeps its browser behaviour
 
 There is one debug class, `.bdr { border: 1px solid red; }`, for outline-debugging elements.

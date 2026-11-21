@@ -1,3 +1,28 @@
+/* The cascade rule — one rule, no exceptions.
+ *
+ *   @layer base, tokens, components, types;   then utilities, unlayered.
+ *
+ * Every rule that is a default lives in a named cascade layer; every utility
+ * class is unlayered. An unlayered rule beats any layered one whatever its
+ * specificity or load order, so a utility on an element ALWAYS wins over a
+ * reset, an element default, a component recipe or a data-* type, and the
+ * import order of the stylesheets stops mattering for that question.
+ *
+ *   base        element resets, .bare, [hidden], the data-theme painter
+ *   tokens      custom properties only
+ *   components  recipes: classes that bundle decisions across concerns or
+ *               style their descendants — shells, sections, text roles,
+ *               surfaces, prose, frames, floating/dialog/layer, caret, collapse
+ *   types       the data-* axes (data-variant, data-size, data-tone …): a
+ *               variant beats the recipe it dresses
+ *   (unlayered) utilities — one decision on one concern
+ *
+ * Inside a layer, and among utilities, the usual cascade still applies: a
+ * modifier (.box.xcenter, .rim.shad-lg, .caret.open) or a state (:hover,
+ * :focus-visible) out-specifies its base.
+ */
+@layer base, tokens, components, types;
+
 :root {
 	--prose-clamp: 65ch;
 	--content-clamp: var(--measure-4xl);
@@ -35,36 +60,49 @@
 	--bp-xl: 1441px;
 }
 
-*, *::before, *::after { box-sizing: border-box; min-width: 0; }
-body, html { font-family: var(--font-sans); font-size: var(--text-bs); box-sizing: border-box; margin: 0; padding: 0; }
-:root { interpolate-size: allow-keywords; scrollbar-gutter: stable; overflow-wrap: break-word; }
-body { min-height: 100vh; }
-button, a, [role="button"] { touch-action: manipulation; }
-button, [role="button"] { user-select: none; -webkit-user-select: none; }
-img, video, svg { display: block; max-width: 100%; height: auto; }
-button, input, select, textarea { font-family: inherit; color: inherit; }
-p, li, h6, h5, h4, h3, h2, h1, figure, blockquote, dl, dd { margin: 0; }
-p, li { text-wrap: pretty; }
-h1, h2, h3, h4, h5 { text-wrap: balance; }
-a { color: inherit; text-decoration: none; }
-ul, ol { list-style-type: none; padding-inline-start: 0; }
+@layer base {
+	*, *::before, *::after { box-sizing: border-box; min-width: 0; }
+	body, html { font-family: var(--font-sans); font-size: var(--text-bs); box-sizing: border-box; margin: 0; padding: 0; }
+	:root { interpolate-size: allow-keywords; scrollbar-gutter: stable; overflow-wrap: break-word; }
+	body { min-height: 100vh; }
+	button, a, [role="button"] { touch-action: manipulation; }
+	button, [role="button"] { user-select: none; -webkit-user-select: none; }
+	img, video, svg { display: block; max-width: 100%; height: auto; }
+	button, input, select, textarea { font-family: inherit; color: inherit; }
+	p, li, h6, h5, h4, h3, h2, h1, figure, blockquote, dl, dd { margin: 0; }
+	p, li { text-wrap: pretty; }
+	h1, h2, h3, h4, h5 { text-wrap: balance; }
+	a { color: inherit; text-decoration: none; }
+	ul, ol { list-style-type: none; padding-inline-start: 0; }
+	/* An unstyled native control: the starting point for composed ones. Any
+	 * utility on the same element (px-md, bg-input, font-sans, border) wins. */
+	.bare { appearance: none; -webkit-appearance: none; background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; outline: none; min-width: 0; }
+	/* The hidden attribute hides, whatever display utility the element carries.
+	 * !important inside the lowest layer outranks every normal declaration. */
+	[hidden]:not([hidden="until-found"]) { display: none !important; }
+	[hidden="until-found"] { padding: 0; }
+	/* Overlays: drop the browser's border, padding and background. margin:auto
+	 * stays, since it centres modal dialogs and manual popovers. */
+	[popover], dialog { border: none; padding: 0; background: none; color: inherit; }
+	/* A closed overlay stays hidden whatever display utility it carries
+	 * (.column, .row …), the same way [hidden] does. */
+	dialog:not([open]), [popover]:not(:popover-open) { display: none !important; }
+	fieldset { border: none; padding: 0; margin: 0; min-inline-size: 0; }
+	legend { padding: 0; }
+}
 
 /* debugging class */
 .bdr { border: 1px solid red; }
 @media (prefers-reduced-motion: reduce) {
 	:root { --motion-scale: 0; }
 }
-.md-only, .lg-only, .xl-only { display: none; }
-
-@media (min-width: 1025px) {
-	.md-only { display: revert; }
-	.md-hide { display: none; }
-}
-@media (min-width: 1281px) {
-	.lg-only { display: revert; }
-	.lg-hide { display: none; }
-}
-@media (min-width: 1441px) {
-	.xl-only { display: revert; }
-	.xl-hide { display: none; }
-}
+/* Band visibility. -only hides below its band, -hide hides from its band up.
+ * Both are !important: they must beat whatever display utility the element
+ * also carries (.row, .grid, .block). -only never restates a display, so a
+ * .row.md-only stays a flex row once it shows. */
+@media (max-width: 1024.98px) { .md-only { display: none !important; } }
+@media (max-width: 1280.98px) { .lg-only { display: none !important; } }
+@media (max-width: 1440.98px) { .xl-only { display: none !important; } }
+@media (min-width: 1025px) { .md-hide { display: none !important; } }
+@media (min-width: 1281px) { .lg-hide { display: none !important; } }
+@media (min-width: 1441px) { .xl-hide { display: none !important; } }

@@ -1,4 +1,12 @@
-/* fractalstyler — the stylesheet, as one file. The layers are plain CSS and are concatenated in this order by scripts/build-css.ts. Importing this file is the same as importing them one by one, in this order. To use a subset, import the layers you need from '@fractaldesign/fractalstyler/styles/<layer>.css' — the cascade order above is the order that works.
+/* fractalstyler — the stylesheet, as one file. Importing this file is the same
+as importing the stylesheets one by one, in this order. To use a subset, import
+the files you need from '@fractaldesign/fractalstyler/styles/<file>.css'.
+
+Cascade: configurations.css declares @layer base, tokens, components, types;
+(every file that uses a layer restates it). Resets, tokens, recipes and data-*
+types live in those layers; every utility is unlayered, so a utility always
+wins over a reset, recipe or type no matter which file loaded first. Import
+order only matters between two utilities that set the same property.
 */
 @import './configurations.css';
 @import './gaps-pads-margins.css';

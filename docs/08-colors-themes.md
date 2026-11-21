@@ -152,7 +152,7 @@ The filled variants in [Component Props](./11-component-props.md) (`.primary`, `
 }
 ```
 
-The override tokens are `--on-button`, `--on-button-secondary`, `--on-theme`, `--on-info`, `--on-success`, `--on-warning` and `--on-danger`. None is set by default. `.ink-auto` (in [Components](./10-components.md)) does the same for any element, reading the fill from `--ink-bg`.
+The override tokens are `--on-button`, `--on-button-secondary`, `--on-theme`, `--on-info`, `--on-success`, `--on-warning` and `--on-danger`. None is set by default.
 
 Components that use Fractalstyler do not ship colors for their text content, letting users use the text classes they want. And all components use these background variables.
 

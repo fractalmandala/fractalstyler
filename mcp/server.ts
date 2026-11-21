@@ -715,6 +715,14 @@ const SYSTEM_RULES = `# Fractalstyler Closed-World Design Rules
    \`<button class="button primary h-md">\` — the same variant classes work on
    a button, an input, a select, a card or a div.
 
+2c. **Cascade layers — utilities win**:
+   \`@layer base, tokens, components, types;\` then every utility unlayered.
+   Resets and .bare (base), recipes — shell, sections, text roles, surfaces,
+   .prose, frames, floating/dialog/layer, caret, collapse (components) — and the
+   data-* axes (types) all lose to a utility on the same element, whatever the
+   load order. Override a recipe by adding a utility (page-title text-2xl,
+   dialog pad-lg, bare px-md). registry.json carries a cascade field per class.
+
 3. **Verification**:
    Always verify with:
    - pnpm registry # regenerates registry.json and registry.md — REQUIRED, this server validates against it

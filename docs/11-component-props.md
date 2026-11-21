@@ -58,7 +58,7 @@ The `.h-xs` to `.h-xl` classes from [Shapes and Sizes](./03-shapes-sizes.md) set
 
 ## Unstyled controls and parts
 
-`.bare` is an unstyled native control — appearance, background, border, padding and outline all none, font and colour inherited. It is the starting point for composed controls.
+`.bare` is an unstyled native control — appearance, background, border, padding and outline all none, font and colour inherited. It is the starting point for composed controls. It sits in `@layer base`, so every utility composed on top of it wins: `bare px-md py-sm bg-input radius-sm` has the padding, fill and radius.
 
 Control parts, composed in markup:
 
